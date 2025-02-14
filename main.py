@@ -1,8 +1,12 @@
 from S3 import fetch_from_es_drei
 from LaboratoriumDiscounter import fetch_from_lab_dis
 from Onyxmet import fetch_from_onyxmet
+from LabChem import fetch_from_lab_chem
 from rich.console import Console
 from rich.panel import Panel
+import requests
+import json
+import re
 from rich.progress import Progress
 
 def main():
@@ -13,7 +17,8 @@ def main():
     supplier_fetchers = {
         "es_drei": fetch_from_es_drei,
         "lab_dis": fetch_from_lab_dis,
-        "onyxmet": fetch_from_onyxmet
+        "onyxmet": fetch_from_onyxmet,
+        "labchem": fetch_from_lab_chem
     }
 
     combined_name_list = []
