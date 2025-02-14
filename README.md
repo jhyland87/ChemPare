@@ -22,8 +22,7 @@ git clone https://github.com/YourHeatingMantle/ChemPare.git
 
 2. Create pyenv environment
 
-Optional. [url=https://packaging.python.org/en/latest/tutorials/installing-packages/#optionally-create-a-virtual-environment]documentation[/url] here.
-
+Optional. ([documentation here](https://packaging.python.org/en/latest/tutorials/installing-packages/#optionally-create-a-virtual-environment)).
 ```bash
 python3 -m venv ./ChemPare
 ```
