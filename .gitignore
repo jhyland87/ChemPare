@@ -1,0 +1,8 @@
+# Ignoring some of the stuff created by pyenv
+bin
+include
+lib
+gitignore
+pyvenv.cfg
+__pycache__
+*.egg-info

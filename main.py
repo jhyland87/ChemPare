@@ -3,9 +3,6 @@ from LaboratoriumDiscounter import fetch_from_lab_dis
 from Onyxmet import fetch_from_onyxmet
 from rich.console import Console
 from rich.panel import Panel
-import requests
-import json
-import re
 from rich.progress import Progress
 
 def main():
