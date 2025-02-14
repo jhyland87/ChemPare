@@ -19,7 +19,7 @@ def fetch_from_lab_chem(chem):
         # Extract names and prices
         for i in range(min(len(names), len(prices))):
             name_list.append(names[i].text.strip())
-            plikrice_list.append(prices[i].text.strip())
+            price_list.append(prices[i].text.strip())
     except AttributeError:
         pass  # Handle cases where elements are not found
 
