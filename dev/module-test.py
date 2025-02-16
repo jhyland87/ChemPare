@@ -1,3 +1,8 @@
+import os, sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 from suppliers.supplier_3schem import Supplier3SChem
 from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
 from suppliers.supplier_onyxmet import SupplierOnyxmet
