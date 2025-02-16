@@ -3,12 +3,26 @@ from abcplus import ABCMeta, abstractmethod, finalmethod
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
+
+    # Supplier name
     _supplier = None
+
+    # Product name
     _name = None
+
+    # Product price
     _price = None
+
+    # Supplier website base URL
     _base_url = None
+
+    # Cookies to use for supplier
     _cookies = {}
+
+    # Location of cached query result (what other methods pull data from)
     _query_result = None
+
+    # Default headers to include in requests
     _headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'accept-language': 'en-US,en;q=0.7',
@@ -26,51 +40,76 @@ class SupplierBase(object, metaclass=ABCMeta):
         'upgrade-insecure-requests': '1',
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
     }
-    _search_cache = {}
 
     def __init__(self, query):
+        # Execute the basic product search (logic should be in inheriting class)
         self._query_result = self._query_product(query)
+
+        # Execute the method that parses self._query_result to define the product properties
         self._set_values()
 
-    # Product name
+    """ FINAL methods/properties """
+
     @property
     @finalmethod 
     def name(self):
+        """Product name getter"""
         return self._name
 
-    # Product price
     @property
     @finalmethod 
     def price(self):
+        """Product price getter"""
         return self._price
-
-    # Query the website for the product (name or CAS)
-    @abstractmethod
-    def _query_product(self, name):
-        pass
-
-    # Method to set the local properties for the queried product
-    @abstractmethod
-    def _set_values(self):
-        pass
-
-    # HTTP getter (not specific to data type)
+    
     @finalmethod 
-    def http_get(self, path, params):
+    def http_get(self, path, params=None):
+        """Base HTTP getter (not specific to data type).
+
+        Keyword arguments:
+        path -- URL Path to get (should not include the self._base_url value)
+        params -- Dictionary of params to use in request (optional)
+        """
         get_url = '{0}/{1}'.format(self._base_url, path)
         return requests.get(get_url, cookies=self._cookies, headers=self._headers, params=params)
 
-    # Get HTML
     @finalmethod
-    def http_get_html(self, path, params):
+    def http_get_html(self, path, params=None):
+        """HTTP getter (for HTML content).
+
+        Keyword arguments:
+        path -- URL Path to get (should not include the self._base_url value)
+        params -- Dictionary of params to use in request (optional)
+        """
         res = self.http_get(path, params)
         return res.content
     
-    # Get JSON data
     @finalmethod
-    def http_get_json(self, path, params):
+    def http_get_json(self, path, params=None):
+        """HTTP getter (for JSON content).
+
+        Keyword arguments:
+        path -- URL Path to get (should not include the self._base_url value)
+        params -- Dictionary of params to use in request (optional)
+        """
         res = self.http_get(path, params)
         return res.json()
+
+    """ ABSTRACT methods/properties """
+
+    @abstractmethod
+    def _query_product(self, query):
+        """Query the website for the product (name or CAS).
+
+        Keyword arguments:
+        query -- query string to use
+        """
+        pass
+
+    @abstractmethod
+    def _set_values(self):
+        """Method to set the local properties for the queried product."""
+        pass
 
 if __name__ == "__main__" and __package__ is None:
     __package__ = "suppliers.supplier_base.SupplierBase"
