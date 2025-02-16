@@ -2,7 +2,7 @@ from suppliers.supplier_base import SupplierBase
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
-    _name = '3S Chemicals LLC'
+    _supplier = '3S Chemicals LLC'
     _base_url = 'https://3schemicalsllc.com'
 
     def _query_product(self, query):

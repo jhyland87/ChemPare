@@ -2,7 +2,7 @@ from suppliers.supplier_base import SupplierBase
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):
-    _name = 'Laboratorium Discounter'
+    _supplier = 'Laboratorium Discounter'
     _base_url = 'https://www.laboratoriumdiscounter.nl'
 
     def _query_product(self, query):

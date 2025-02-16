@@ -3,6 +3,7 @@ from abcplus import ABCMeta, abstractmethod, finalmethod
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
+    _supplier = None
     _name = None
     _price = None
     _base_url = None
