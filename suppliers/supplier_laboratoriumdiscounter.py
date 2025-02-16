@@ -5,6 +5,11 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     _supplier = 'Laboratorium Discounter'
     _base_url = 'https://www.laboratoriumdiscounter.nl'
 
+    # If any extra init logic needs to be called... uncmment the below and add changes
+    # def __init__(self, query):
+    #     super().__init__(id, query)
+        # Do extra stuff here
+
     def _query_product(self, query):
         # Example request url for Laboratorium Discounter
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/page1.ajax?limit=100

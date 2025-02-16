@@ -5,6 +5,11 @@ class Supplier3SChem(SupplierBase):
     _supplier = '3S Chemicals LLC'
     _base_url = 'https://3schemicalsllc.com'
 
+    # If any extra init logic needs to be called... uncmment the below and add changes
+    # def __init__(self, query):
+    #     super().__init__(id, query)
+        # Do extra stuff here
+
     def _query_product(self, query):
         # Example request url for 3S Supplier
         # https://3schemicalsllc.com/search/suggest.json?q=clean&resources[type]=product&resources[limit]=6&resources[options][unavailable_products]=last
