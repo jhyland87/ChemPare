@@ -8,10 +8,10 @@ class SupplierBase(object, metaclass=ABCMeta):
     _supplier = None
 
     # Product name
-    _name = None
+    _product_name = None
 
     # Product price
-    _price = None
+    _product_price = None
 
     # Supplier website base URL
     _base_url = None
@@ -54,13 +54,13 @@ class SupplierBase(object, metaclass=ABCMeta):
     @finalmethod 
     def name(self):
         """Product name getter"""
-        return self._name
+        return self._product_name
 
     @property
     @finalmethod 
     def price(self):
         """Product price getter"""
-        return self._price
+        return self._product_price
     
     @finalmethod 
     def http_get(self, path, params=None):

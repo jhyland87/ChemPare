@@ -22,8 +22,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     
     def _set_values(self):
         selected_product = self._query_result[0]
-        self._price = selected_product['price']['price']
-        self._name = selected_product['fulltitle']
+        self._product_name = selected_product['fulltitle']
+        self._product_price = selected_product['price']['price']
 
 if __name__ == "__main__" and __package__ is None:
     __package__ = "suppliers.supplier_laboratoriumdiscounter.SupplierLaboratoriumDiscounter"

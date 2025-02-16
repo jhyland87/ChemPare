@@ -25,8 +25,8 @@ class Supplier3SChem(SupplierBase):
 
     def _set_values(self):
         selected_product = self._query_result[0]
-        self._price = selected_product['price']
-        self._name = selected_product['title']
+        self._product_name = selected_product['title']
+        self._product_price = selected_product['price']
 
 if __name__ == "__main__" and __package__ is None:
     __package__ = "suppliers.supplier_3schem.Supplier3SChem"
