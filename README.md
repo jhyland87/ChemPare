@@ -15,19 +15,21 @@ Magic.
 
 #### Python Enviroment Setup 
 
-1. Checkout this repo
+1. Install Python 3.9
+
+2. Checkout this repo
 ```bash
 git clone https://github.com/YourHeatingMantle/ChemPare.git
 ```
 
-2. Create pyenv environment
+3. Create pyenv environment
 
 Optional. ([documentation here](https://packaging.python.org/en/latest/tutorials/installing-packages/#optionally-create-a-virtual-environment)).
 ```bash
 python3 -m venv ./ChemPare
 ```
 
-3. Go to the folder and activate the python env
+4. Go to the folder and activate the python env
 
 <small>_On Linux/OSX:_</small>
 
@@ -42,12 +44,12 @@ source ./bin/activate
 # tbd...
 ```
 
-4. Install project packages
+5. Install project packages
 ```bash
 pip install -e .
 ```
 
-5. Run main script, and provide a chemical name or CAS.
+6. Run main script, and provide a chemical name or CAS.
 
 ```
 python3 main.py
