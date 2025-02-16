@@ -2,8 +2,13 @@ from suppliers.supplier_base import SupplierBase
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
-    __supplier__ = '3S Chemicals LLC'
-    _base_url = 'https://3schemicalsllc.com'
+    
+    # Supplier specific data
+    _supplier = dict(
+        name = '3S Chemicals LLC',
+        location = None,
+        base_url = 'https://3schemicalsllc.com'
+    )
 
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query):
@@ -25,8 +30,8 @@ class Supplier3SChem(SupplierBase):
 
     def _set_values(self):
         selected_product = self._query_result[0]
-        self._product_name = selected_product['title']
-        self._product_price = selected_product['price']
+        self._product['name'] = selected_product['title']
+        self._product['price'] = selected_product['price']
 
 if __name__ == '__main__' and __package__ is None:
     __package__ = 'suppliers.supplier_3schem.Supplier3SChem'

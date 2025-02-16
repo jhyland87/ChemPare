@@ -3,18 +3,23 @@ from abcplus import ABCMeta, abstractmethod, finalmethod
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
+    
+    # Supplier specific data
+    _supplier = dict(
+        name = 'Base Supplier',
+        location = None,
+        base_url = None
+    )
 
-    # Supplier name
-    __supplier__ = 'Base Supplier'
-
-    # Product name
-    _product_name = None
-
-    # Product price
-    _product_price = None
-
-    # Supplier website base URL
-    _base_url = None
+    # Product specific details
+    _product = dict(
+        title = None,
+        name = None,
+        price = None,
+        purity = None,
+        quantity = None,
+        uom = None
+    )
 
     # Cookies to use for supplier
     _cookies = {}
@@ -52,15 +57,39 @@ class SupplierBase(object, metaclass=ABCMeta):
 
     @property
     @finalmethod 
+    def title(self):
+        """Product title getter"""
+        return self._product.get('title')
+
+    @property
+    @finalmethod 
     def name(self):
         """Product name getter"""
-        return self._product_name
+        return self._product.get('name')
 
     @property
     @finalmethod 
     def price(self):
         """Product price getter"""
-        return self._product_price
+        return self._product.get('price')
+    
+    @property
+    @finalmethod 
+    def purity(self):
+        """Product purity getter"""
+        return self._product.get('purity')
+    
+    @property
+    @finalmethod 
+    def quantity(self):
+        """Product quantity getter"""
+        return self._product.get('quantity')
+    
+    @property
+    @finalmethod 
+    def uom(self):
+        """Product UOM (Unit Of Measure) getter"""
+        return self._product.get('uom')
     
     @finalmethod 
     def http_get(self, path, params=None):
@@ -70,8 +99,10 @@ class SupplierBase(object, metaclass=ABCMeta):
         path -- URL Path to get (should not include the self._base_url value)
         params -- Dictionary of params to use in request (optional)
         """
-        get_url = '{0}/{1}'.format(self._base_url, path)
-        return requests.get(get_url, cookies=self._cookies, headers=self._headers, params=params)
+        if self._supplier.get('base_url') not in path:
+            path = '{0}/{1}'.format(self._supplier.get('base_url'), path)
+            
+        return requests.get(path, cookies=self._cookies, headers=self._headers, params=params)
 
     @finalmethod
     def http_get_html(self, path, params=None):
@@ -82,6 +113,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         params -- Dictionary of params to use in request (optional)
         """
         res = self.http_get(path, params)
+
         return res.content
     
     @finalmethod
