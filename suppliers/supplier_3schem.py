@@ -2,7 +2,7 @@ from suppliers.supplier_base import SupplierBase
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
-    _supplier = '3S Chemicals LLC'
+    __supplier__ = '3S Chemicals LLC'
     _base_url = 'https://3schemicalsllc.com'
 
     # If any extra init logic needs to be called... uncmment the below and add changes
@@ -28,5 +28,5 @@ class Supplier3SChem(SupplierBase):
         self._product_name = selected_product['title']
         self._product_price = selected_product['price']
 
-if __name__ == "__main__" and __package__ is None:
-    __package__ = "suppliers.supplier_3schem.Supplier3SChem"
+if __name__ == '__main__' and __package__ is None:
+    __package__ = 'suppliers.supplier_3schem.Supplier3SChem'

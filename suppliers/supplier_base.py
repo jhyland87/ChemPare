@@ -5,7 +5,7 @@ from abcplus import ABCMeta, abstractmethod, finalmethod
 class SupplierBase(object, metaclass=ABCMeta):
 
     # Supplier name
-    _supplier = None
+    __supplier__ = 'Base Supplier'
 
     # Product name
     _product_name = None
@@ -111,5 +111,5 @@ class SupplierBase(object, metaclass=ABCMeta):
         """Method to set the local properties for the queried product."""
         pass
 
-if __name__ == "__main__" and __package__ is None:
-    __package__ = "suppliers.supplier_base.SupplierBase"
+if __name__ == '__main__' and __package__ is None:
+    __package__ = 'suppliers.supplier_base.SupplierBase'
