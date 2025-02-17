@@ -1,15 +1,29 @@
 import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
+from dataclasses import dataclass, astuple
+
+@dataclass
+class Product:
+    """Custom data class for products"""
+    title: str = None
+    name: str = None
+    cas: str = None
+    price: float = None
+    currency: str = None
+    quantity: float = None
+    uom: str = None
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
-    
+
     # Supplier specific data
     _supplier = dict(
         name = 'Base Supplier',
         location = None,
         base_url = None
     )
+
+    _products = list(Product)
 
     # Product specific details
     _product = dict(
@@ -46,9 +60,9 @@ class SupplierBase(object, metaclass=ABCMeta):
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
     }
 
-    def __init__(self, query):
+    def __init__(self, query, limit=3):
         # Execute the basic product search (logic should be in inheriting class)
-        self._query_result = self._query_product(query)
+        self._query_result = self._query_product(query, limit)
 
         # Execute the method that parses self._query_result to define the product properties
         self._set_values()
@@ -130,7 +144,7 @@ class SupplierBase(object, metaclass=ABCMeta):
     """ ABSTRACT methods/properties """
 
     @abstractmethod
-    def _query_product(self, query):
+    def _query_product(self, query, limit=3):
         """Query the website for the product (name or CAS).
 
         Keyword arguments:
