@@ -1,4 +1,5 @@
 from suppliers.supplier_base import SupplierBase, Product
+from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
 import re
 
@@ -6,7 +7,7 @@ import re
 class SupplierOnyxmet(SupplierBase):
 
     # Supplier specific data
-    _supplier = dict(
+    _supplier: Dict = dict(
         name = 'Onyxmet',
         location = 'Poland',
         base_url = 'https://onyxmet.com'
@@ -28,7 +29,12 @@ class SupplierOnyxmet(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query):
+    def _query_product(self, query: str):
+        """Query products from supplier
+
+        Args:
+            query (str): Query string to use
+        """
         # Example request url for Onyxmet Supplier
         # https://onyxmet.com/index.php?route=product/search/json&term={query}
         # 
@@ -40,7 +46,7 @@ class SupplierOnyxmet(SupplierBase):
         search_result = self.http_get_json('index.php', get_params)
 
         if not search_result: 
-            return False
+            return
         
         self._query_results = search_result[0:self._limit]
 
@@ -58,16 +64,16 @@ class SupplierOnyxmet(SupplierBase):
         for product in self._query_results:
             self._products.append(self._query_and_parse_product(product['href']))
 
-    def _query_and_parse_product(self, href):
+    def _query_and_parse_product(self, href:str) -> Product:
         """Query specific product page and parse results
 
-        Args: 
-            href: The path of the web page to query and parse using BeautifulSoup
+        Args:
+            href (str): The path of the web page to query and parse using BeautifulSoup
 
         Returns:
-            Single instance of Product
+            Product: Single instance of Product
         """
-
+       
         product_page_html = self.http_get_html(href)
 
         product_soup = BeautifulSoup(product_page_html, 'html.parser')
@@ -91,7 +97,8 @@ class SupplierOnyxmet(SupplierBase):
         product = Product(
             title = title_elem.contents[0],
             name = title_elem.contents[0],
-            price = price_elem.contents[0]
+            price = price_elem.contents[0],
+            supplier = self._supplier['name']
         )
 
         # Use the regex pattern to parse the name for some useful data. 
@@ -104,8 +111,7 @@ class SupplierOnyxmet(SupplierBase):
 
         return product
 
-
 if __name__ == '__main__' and __package__ is None:
-    __package__ = 'suppliers.supplier_3schem.Supplier3SChem'
-
-
+    __name__ = 'suppliers.supplier_onyxmet'
+    __package__ = 'suppliers'
+    __module__ = 'SupplierOnyxmet'
