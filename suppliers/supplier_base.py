@@ -1,48 +1,69 @@
 import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
+from typing import List, Set, Tuple, Dict, Any
+
 
 @dataclass
 class Product:
     """Custom data class for products"""
+
+    # Unique identifier used by supplier
+    uuid: str = None
+
+    # Title of the product
     title: str = None
+
+    # Product name (sometimes different than title)
     name: str = None
+
+    # Product description
+    description: str = None
+
+    # URL to direcet product (if availabe)
+    url: str = None
+
+    # CAS Number
     cas: str = None
+
+    # Price of product
     price: float = None
+
+    # Currency the price is in
     currency: str = None
+
+    # Quantity of listing
     quantity: float = None
+
+    # Unit of measurement for quantity
     uom: str = None
+
+    def update(self, data):
+        self.__dict__.update(data)
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
 
     # Supplier specific data
-    _supplier = dict(
+    _supplier: Dict = dict(
         name = 'Base Supplier',
         location = None,
         base_url = None
     )
 
-    _products = list(Product)
+    # List of Product elements
+    _products: List[Product] = []
 
-    # Product specific details
-    _product = dict(
-        title = None,
-        name = None,
-        price = None,
-        purity = None,
-        quantity = None,
-        uom = None
-    )
+    _limit: int = None
 
     # Cookies to use for supplier
-    _cookies = {}
+    _cookies: Dict = {}
 
     # Location of cached query result (what other methods pull data from)
-    _query_result = None
+    _query_results: Any = None
 
     # Default headers to include in requests
-    _headers = {
+    _headers: Dict = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'accept-language': 'en-US,en;q=0.7',
         # 'cookie': 'OCSESSID=e7d2642d83310cfc58135d2914; language=en-gb; currency=USD',
@@ -60,59 +81,36 @@ class SupplierBase(object, metaclass=ABCMeta):
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
     }
 
-    def __init__(self, query, limit=3):
-        # Execute the basic product search (logic should be in inheriting class)
-        self._query_result = self._query_product(query, limit)
+    def __init__(self, query, limit=None):
+        # Set the limit for how many results to iterate over
+        self._limit = limit
 
-        # Execute the method that parses self._query_result to define the product properties
-        self._set_values()
+        # Execute the basic product search (logic should be in inheriting class)
+        self._query_product(query)
+
+        # Execute the method that parses self._query_results to define the product properties
+        self._parse_products()
 
     """ FINAL methods/properties """
 
     @property
     @finalmethod 
-    def title(self):
+    def products(self):
         """Product title getter"""
-        return self._product.get('title')
+        return self._products
 
-    @property
-    @finalmethod 
-    def name(self):
-        """Product name getter"""
-        return self._product.get('name')
-
-    @property
-    @finalmethod 
-    def price(self):
-        """Product price getter"""
-        return self._product.get('price')
-    
-    @property
-    @finalmethod 
-    def purity(self):
-        """Product purity getter"""
-        return self._product.get('purity')
-    
-    @property
-    @finalmethod 
-    def quantity(self):
-        """Product quantity getter"""
-        return self._product.get('quantity')
-    
-    @property
-    @finalmethod 
-    def uom(self):
-        """Product UOM (Unit Of Measure) getter"""
-        return self._product.get('uom')
-    
     @finalmethod 
     def http_get(self, path, params=None):
         """Base HTTP getter (not specific to data type).
 
-        Keyword arguments:
-        path -- URL Path to get (should not include the self._base_url value)
-        params -- Dictionary of params to use in request (optional)
+       Args:
+            path: URL Path to get (should not include the self._base_url value)
+            params: Dictionary of params to use in request (optional)
+
+        Returns:
+            Result from requests.get()
         """
+
         if self._supplier.get('base_url') not in path:
             path = '{0}/{1}'.format(self._supplier.get('base_url'), path)
             
@@ -122,10 +120,14 @@ class SupplierBase(object, metaclass=ABCMeta):
     def http_get_html(self, path, params=None):
         """HTTP getter (for HTML content).
 
-        Keyword arguments:
-        path -- URL Path to get (should not include the self._base_url value)
-        params -- Dictionary of params to use in request (optional)
+        Args:
+            path: URL Path to get (should not include the self._base_url value)
+            params: Dictionary of params to use in request (optional)
+
+        Returns:
+            HTML content of response object
         """
+
         res = self.http_get(path, params)
 
         return res.content
@@ -134,28 +136,96 @@ class SupplierBase(object, metaclass=ABCMeta):
     def http_get_json(self, path, params=None):
         """HTTP getter (for JSON content).
 
-        Keyword arguments:
-        path -- URL Path to get (should not include the self._base_url value)
-        params -- Dictionary of params to use in request (optional)
+        Args:
+            path: URL Path to get (should not include the self._base_url value)
+            params: Dictionary of params to use in request (optional)
+
+        Returns:
+            JSON object from response body
         """
+
         res = self.http_get(path, params)
         return res.json()
 
     """ ABSTRACT methods/properties """
 
     @abstractmethod
-    def _query_product(self, query, limit=3):
+    def _query_product(self, query):
         """Query the website for the product (name or CAS).
 
-        Keyword arguments:
-        query -- query string to use
+        This should define the self._query_results property with the results
+
+        Args:
+            query: query string to use
+
+        Returns:
+            None
         """
+
         pass
 
     @abstractmethod
-    def _set_values(self):
-        """Method to set the local properties for the queried product."""
+    def _parse_products(self):
+        """Method to set the local properties for the queried product.
+        
+        The self._query_results (populated by calling self._query_product()) is iterated over
+        by this method, which in turn parses each property and creates a new Product object that
+        gets saved to this._products
+
+        Returns:
+            None
+        """
         pass
+
+    """ GENERAL USE UTILITY METHODS """
+
+    @finalmethod
+    def _split_array_into_groups(self, arr, size=2):
+        """Splits an array into sub-arrays of 2 elements each.
+
+        Args:
+            arr: The input array.
+            size: Size to group array elements by
+
+        Returns:
+            A list of sub-arrays, where each sub-array contains {size} elements, or an empty list if the input array is empty.
+
+        Example:
+            self._split_array_into_groups(['Variant', '500 g', 'CAS', '1762-95-4'])
+            [['Variant', '500 g'],['CAS', '1762-95-4']]
+        """
+
+        result = []
+        for i in range(0, len(arr), size):
+            result.append(arr[i:i + size])
+
+        return result
+    
+    @finalmethod
+    def _nested_arr_to_dict(self, arr):
+        """Splits an array into sub-arrays of 2 elements each.
+
+        Args:
+            arr: The input array.
+            size: Size to group array elements by
+
+        Returns:
+            A list of sub-arrays, where each sub-array contains {size} elements, or an empty list if the input array is empty.
+
+        Example:
+            self._split_array_into_groups(['Variant', '500 g', 'CAS', '1762-95-4'])
+            [['Variant', '500 g'],['CAS', '1762-95-4']]
+        """
+
+        # Only works if the array has even amount of elements
+        if len(arr) % 2 != 0: 
+            return None
+
+        grouped_elem = self._split_array_into_groups(arr, 2)
+
+        variant_dict = [dict(item) for item in [grouped_elem]]
+
+        return variant_dict[0] or None
 
 if __name__ == '__main__' and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'
