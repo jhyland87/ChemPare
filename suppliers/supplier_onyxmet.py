@@ -1,10 +1,10 @@
-from suppliers.supplier_base import SupplierBase
+from suppliers.supplier_base import SupplierBase, Product
 from bs4 import BeautifulSoup
 import re
 
 # File: /suppliers/supplier_onyxmet.py
 class SupplierOnyxmet(SupplierBase):
-    
+
     # Supplier specific data
     _supplier = dict(
         name = 'Onyxmet',
@@ -24,8 +24,8 @@ class SupplierOnyxmet(SupplierBase):
     _title_regex_pattern = r'^(?P<name>[a-zA-Z\s\-\(\)]+)[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?'
 
     # If any extra init logic needs to be called... uncmment the below and add changes
-    # def __init__(self, query):
-    #     super().__init__(id, query)
+    # def __init__(self, query, limit=123):
+    #     super().__init__(id, query, limit)
         # Do extra stuff here
 
     def _query_product(self, query):
@@ -37,12 +37,40 @@ class SupplierOnyxmet(SupplierBase):
             'term': query
         }    
 
-        query_result_list = self.http_get_json('index.php', get_params)
+        search_result = self.http_get_json('index.php', get_params)
 
-        return self.http_get_html(query_result_list[0]['href'])
+        if not search_result: 
+            return False
+        
+        self._query_results = search_result[0:self._limit]
 
-    def _set_values(self):
-        product_soup = BeautifulSoup(self._query_result, 'html.parser')
+    def _parse_products(self):
+        """Parse product query results.
+
+        Iterate over the products returned from self._query_product, creating new requests
+        for each to get the HTML content of the individual product page, and creating a 
+        new Product object for each to add to _products
+
+        Todo:
+            Have this execute in parallen using AsyncIO        
+        """
+
+        for product in self._query_results:
+            self._products.append(self._query_and_parse_product(product['href']))
+
+    def _query_and_parse_product(self, href):
+        """Query specific product page and parse results
+
+        Args: 
+            href: The path of the web page to query and parse using BeautifulSoup
+
+        Returns:
+            Single instance of Product
+        """
+
+        product_page_html = self.http_get_html(href)
+
+        product_soup = BeautifulSoup(product_page_html, 'html.parser')
 
         # Since we know the element is a <h3 class=product-price /> element, search for H3's
         h3_elems = product_soup.find_all('h3')  
@@ -59,18 +87,23 @@ class SupplierOnyxmet(SupplierBase):
             raise Exception("No price found")
         
         # Get the product name and price
-        # (Set the self._product_name here to default it, we ca re-set it to the parsed value down below)
-        self._product['title'] = title_elem.contents[0]
-        self._product['name'] = title_elem.contents[0]
-        self._product['price'] = price_elem.contents[0]
+        # (Set the product name here to default it, we ca re-set it to the parsed value down below)
+        product = Product(
+            title = title_elem.contents[0],
+            name = title_elem.contents[0],
+            price = price_elem.contents[0]
+        )
 
         # Use the regex pattern to parse the name for some useful data. 
         title_pattern = re.compile(self._title_regex_pattern)
-        title_matches = title_pattern.search(self._product['name'])
+        title_matches = title_pattern.search(product.name)
 
-        # If something is matched, then just merge the key/names into the self._product property
+         # If something is matched, then just merge the key/names into the self._product property
         if title_matches:
-            self._product.update(title_matches.groupdict())
+            product.update(title_matches.groupdict())
+
+        return product
+
 
 if __name__ == '__main__' and __package__ is None:
     __package__ = 'suppliers.supplier_3schem.Supplier3SChem'

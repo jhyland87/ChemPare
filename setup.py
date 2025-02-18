@@ -10,7 +10,9 @@ setup(
         "abcplus",
         "typing",
         "enum34",
-        "urllib3==1.26.6"
+        "urllib3==1.26.6",
+        "dataclasses",
+        "numpy"
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},

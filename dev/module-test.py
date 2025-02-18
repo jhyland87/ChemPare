@@ -7,25 +7,35 @@ from suppliers.supplier_3schem import Supplier3SChem
 from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
 from suppliers.supplier_onyxmet import SupplierOnyxmet
 
-test_labdiscounter = SupplierLaboratoriumDiscounter('acetone')
-print('LaboratoriumDiscounter')
-print('  Name:',test_labdiscounter.name)
-print('  Price:',test_labdiscounter.price)
-
-print('-------')
 
 test_3schem = Supplier3SChem('clean')
 print('3SChem')
-print('  Name:',test_3schem.name)
-print('  Price:',test_3schem.price)
+for product in test_3schem.products:
+    if product.name: print("    Name:", product.name) 
+    if product.price: print("    Price:", product.price)
+    if product.url: print("    URL:", product.url)
+    print("")
 
 print('-------')
 
-test_onyxmet = SupplierOnyxmet('mercury')
+test_laboratoriumdiscounter = SupplierLaboratoriumDiscounter('mercury')
+print('LaboratoriumDiscounter')
+for product in test_laboratoriumdiscounter.products:
+    if product.name: print("    Name:", product.name) 
+    if product.price: print("    Price:", product.price)
+    if product.url: print("    URL:", product.url)
+    if product.cas: print("    CAS:", product.cas)
+    print("")
+
+print('-------')
+
+test_onyxmet = SupplierOnyxmet('mercury', 5)
 print('Onyxmet')
-print('  Title:',test_onyxmet.title)
-print('  Name:',test_onyxmet.name)
-print('  Price:',test_onyxmet.price)
-print('  Purity:',test_onyxmet.purity)
-print('  Quantity:',test_onyxmet.quantity)
-print('  UOM:',test_onyxmet.uom)
+for product in test_onyxmet.products:
+    if product.name: print("    Name:", product.name) 
+    if product.price: print("    Price:", product.price)
+    if product.url: print("    URL:", product.url)
+    if product.cas: print("    CAS:", product.cas)
+    print("")
+
+print('-------')
