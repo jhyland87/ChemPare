@@ -1,10 +1,11 @@
 from suppliers.supplier_base import SupplierBase, Product
+from typing import List, Set, Tuple, Dict, Any
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):
 
      # Supplier specific data
-    _supplier = dict(
+    _supplier: Dict = dict(
         name = 'Laboratorium Discounter',
         location = None,
         base_url = 'https://www.laboratoriumdiscounter.nl'
@@ -15,7 +16,13 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query):
+    def _query_product(self, query: str):
+        """Query products from supplier
+
+        Args:
+            query (str): Query string to use
+        """
+
         # Example request url for Laboratorium Discounter
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/page1.ajax?limit=100
         # 
@@ -27,7 +34,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         search_result = self.http_get_json(f'en/search/{query}/page1.ajax?', get_params)
 
         if not search_result: 
-            return False
+            return
         
         self._query_results = search_result['products'][0:self._limit]
     
@@ -55,20 +62,19 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     
     """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """
     
-    def _get_cas_from_variant(self, variant):
+    def _get_cas_from_variant(self, variant: str):
         """Get the CAS number from the variant, if applicable
-        
-        
+
+        Args:
+            variant (str): Variant string
+
+        Returns:
+            str: CAS, if one was found
         """
         variant_dict = self._nested_arr_to_dict(variant.split(','))
 
         if variant_dict is not None and 'CAS' in variant_dict:
             return variant_dict['CAS']
-
-
-# print("SupplierLaboratoriumDiscounter")
-# print('   __name__:', __name__)
-# print('   __package__:', __package__)
 
 if __name__ == '__main__' and __package__ is None:
     __name__ = 'suppliers.supplier_laboratoriumdiscounter'

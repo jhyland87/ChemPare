@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
-from typing import List, Set, Tuple, Dict, Any
+from typing import List, Set, Tuple, Dict, Any, Union
 from datatypes.product import Product
 
 
@@ -50,7 +50,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
     }
 
-    def __init__(self, query, limit=None):
+    def __init__(self, query: str, limit: int=None):
         # Set the limit for how many results to iterate over
         self._limit = limit
 
@@ -69,7 +69,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         return self._products
 
     @finalmethod 
-    def http_get(self, path, params=None):
+    def http_get(self, path: str, params: Dict=None) -> requests:
         """Base HTTP getter (not specific to data type).
 
        Args:
@@ -86,7 +86,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         return requests.get(path, cookies=self._cookies, headers=self._headers, params=params)
 
     @finalmethod
-    def http_get_html(self, path, params=None):
+    def http_get_html(self, path: str, params: Dict=None) -> str:
         """HTTP getter (for HTML content).
 
         Args:
@@ -102,7 +102,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         return res.content
     
     @finalmethod
-    def http_get_json(self, path, params=None):
+    def http_get_json(self, path: str, params: Dict=None) -> Union[List,Dict]:
         """HTTP getter (for JSON content).
 
         Args:
@@ -119,7 +119,7 @@ class SupplierBase(object, metaclass=ABCMeta):
     """ ABSTRACT methods/properties """
 
     @abstractmethod
-    def _query_product(self, query):
+    def _query_product(self, query: str):
         """Query the website for the product (name or CAS).
 
         This should define the self._query_results property with the results
@@ -149,7 +149,7 @@ class SupplierBase(object, metaclass=ABCMeta):
     """ GENERAL USE UTILITY METHODS """
 
     @finalmethod
-    def _split_array_into_groups(self, arr, size=2):
+    def _split_array_into_groups(self, arr: list, size: int=2):
         """Splits an array into sub-arrays of 2 elements each.
 
         Args:
@@ -171,7 +171,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         return result
     
     @finalmethod
-    def _nested_arr_to_dict(self, arr):
+    def _nested_arr_to_dict(self, arr: list):
         """Splits an array into sub-arrays of 2 elements each.
 
         Args:

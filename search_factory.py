@@ -8,38 +8,32 @@ import suppliers
 
 class SearchFactory(object):
     # suppliers property lets scripts call 'SearchFactory.suppliers' to get a list of suppliers
-    suppliers = suppliers.__all__
+    suppliers: list = suppliers.__all__
 
     __results: list = []
 
-    def __init__(self, query, limit=3):
-        """Init for SearchFactory
-        
-        Args:
-            query: Search query
-            limit: Amount to limit the search by
-        """
+    def __init__(self, query: str, limit: int=3):
+        """Factory method for executing a search in all suppliers automatically
 
+        Args:
+            query (str): Search query
+            limit (int, optional): Limit results to this. Defaults to 3.
+        """
         self.__query(query, limit)
 
-    def __query(self, query, limit=None):
-        """Query function (private)
-        
-        Iterates over the suppliers, running the query, then returning the results.
+    def __query(self, query: str, limit:int =None):
+        """Iterates over the suppliers, running the query, then returning the results.
 
         Args:
-            query: Search query
-            limit: Amount to limit the search by
-
-        Returns:
-            List of Product elements
+            query (str): Search query
+            limit (int, optional): Amount to limit the search by. Defaults to None.
         """
 
         # Iterate over the modules in the suppliers package
         for supplier in suppliers.__all__:
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
-            
+
             if __debug__:
                 print(f'Searching for {query} from {supplier_module.__name__}...')
             
