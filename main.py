@@ -34,8 +34,8 @@ def main():
 
     # Display results
     for supplier in supplier_list:
-        for name, price in zip(supplier['name'], supplier['price']):
-            panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nSupplier: {supplier['supplier']}\nLocation: {supplier['location']}\nURL: {supplier['url']}", expand=True)
+        for name, price, quantity in zip(supplier['name'], supplier['price'], supplier['quantity']):
+            panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity}\nSupplier: {supplier['supplier']}\nLocation: {supplier['location']}\nURL: {supplier['url']}", expand=True)
             console.print(panel)
 
 
@@ -54,14 +54,15 @@ def get_supplier_results(supplier, fetch_command, search_mode, chem):
     else:
         search_query = chem
 
-    name_list, price_list, supplier_name, location, url = fetch_command(search_query)
+    name_list, price_list, supplier_name, location, url, quantity_list = fetch_command(search_query)
 
     results = {
         "name": name_list,
         "price": price_list,
         "supplier": supplier_name,
         "location": location,
-        "url": url
+        "url": url,
+        "quantity": quantity_list
     }
 
     return(results)
