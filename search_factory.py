@@ -19,7 +19,7 @@ class SearchFactory(object):
             query: Search query
             limit: Amount to limit the search by
         """
-        
+
         self.__query(query, limit)
 
     def __query(self, query, limit=None):
@@ -35,10 +35,16 @@ class SearchFactory(object):
             List of Product elements
         """
 
+        # Iterate over the modules in the suppliers package
         for supplier in suppliers.__all__:
+            # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
+            
             if __debug__:
                 print(f'Searching for {query} from {supplier_module.__name__}...')
+            
+            # Execute a search by initializing an instance of the supplier class with
+            # the product query term as the first param
             res = supplier_module(query, limit)
             if not res:
                 if __debug__:
@@ -47,9 +53,9 @@ class SearchFactory(object):
             
             if __debug__:
                 print(f'  found {len(res.products)} products\n')
-            self.__results.extend(res.products)
 
-        return self.__results
+            # If there were some results found, then extend the self.__results list with those products
+            self.__results.extend(res.products)
     
     @property
     @finalmethod 
