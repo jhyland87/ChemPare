@@ -9,6 +9,10 @@ def get_cas(chem):
     
     # Check if the request was successful
     if response.status_code == 200:
-        return response.content
+        decoded_data = response.content.decode('utf-8')  # Decode the bytes to a string
+        split_data = decoded_data.split('\n')  # Split by newline
+        last_value = split_data[len(split_data) - 1]  # Get the first value
+        cas_number = last_value
+        return cas_number
     else:
         return f"Error: {response.status_code}"

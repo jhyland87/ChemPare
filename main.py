@@ -28,9 +28,14 @@ def main():
             ('onxymet', fetch_from_onyxmet, "CAS"),
             ('labchem', fetch_from_lab_chem, "iupac"),
         ]:
-            result = get_supplier_results(supplier_name, fetch_function, identifier_type, chem)
-            supplier_list.append(result)
-            progress.update(task, advance=1)
+            try:
+                result = get_supplier_results(supplier_name, fetch_function, identifier_type, chem)
+                if result is not None:
+                    supplier_list.append(result)
+                    progress.update(task, advance=1)
+            except:
+                pass
+                
 
     # Display results
     for supplier in supplier_list:
@@ -50,15 +55,18 @@ def get_supplier_results(supplier, fetch_command, search_mode, chem):
     console = Console()
 
     if search_mode == "CAS":
-        cas_number = get_cas(chem)
-        decoded_data = cas_number.decode('utf-8')  # Decode the bytes to a string
-        split_data = decoded_data.split('\n')  # Split by newline
-        first_value = split_data[0]  # Get the first value
-        search_query = first_value
+        search_query = get_cas(chem)
+        if search_query == None:
+            search_query = chem
     else:
         search_query = chem
 
-    name_list, price_list, supplier_name, location, url, quantity_list = fetch_command(search_query)
+    result = fetch_command(search_query)
+
+    try:
+        name_list, price_list, supplier_name, location, url, quantity_list = result
+    except TypeError:
+        return None
 
     results = {
         "name": name_list,
