@@ -1,8 +1,14 @@
+import os, sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
 from typing import List, Set, Tuple, Dict, Any
 from datatypes.product import Product
+
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
@@ -190,5 +196,6 @@ class SupplierBase(object, metaclass=ABCMeta):
 
         return variant_dict[0] or None
 
-if __name__ == '__main__' and __package__ is None:
+if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'
+    __module__ = 'SupplierBase'

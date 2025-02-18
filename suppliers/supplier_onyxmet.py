@@ -91,7 +91,8 @@ class SupplierOnyxmet(SupplierBase):
         product = Product(
             title = title_elem.contents[0],
             name = title_elem.contents[0],
-            price = price_elem.contents[0]
+            price = price_elem.contents[0],
+            supplier = self._supplier['name']
         )
 
         # Use the regex pattern to parse the name for some useful data. 
@@ -105,7 +106,11 @@ class SupplierOnyxmet(SupplierBase):
         return product
 
 
+# print("SupplierOnyxmet")
+# print('   __name__:', __name__)
+# print('   __package__:', __package__)
+
 if __name__ == '__main__' and __package__ is None:
-    __package__ = 'suppliers.supplier_3schem.Supplier3SChem'
-
-
+    __name__ = 'suppliers.supplier_onyxmet'
+    __package__ = 'suppliers'
+    __module__ = 'SupplierOnyxmet'

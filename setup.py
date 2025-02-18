@@ -12,7 +12,8 @@ setup(
         "enum34",
         "urllib3==1.26.6",
         "dataclasses",
-        "numpy"
+        "numpy",
+        "pathlib"
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},

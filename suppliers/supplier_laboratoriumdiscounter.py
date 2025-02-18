@@ -49,7 +49,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 description = product['description'],
                 price = product['price']['price'],
                 currency = product['price']['currency'],
-                url = product['url']
+                url = product['url'],
+                supplier = self._supplier['name']
             ))
     
     """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """
@@ -65,6 +66,11 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             return variant_dict['CAS']
 
 
+# print("SupplierLaboratoriumDiscounter")
+# print('   __name__:', __name__)
+# print('   __package__:', __package__)
 
 if __name__ == '__main__' and __package__ is None:
-    __package__ = 'suppliers.supplier_laboratoriumdiscounter.SupplierLaboratoriumDiscounter'
+    __name__ = 'suppliers.supplier_laboratoriumdiscounter'
+    __package__ = 'suppliers'
+    __module__ = 'SupplierLaboratoriumDiscounter'

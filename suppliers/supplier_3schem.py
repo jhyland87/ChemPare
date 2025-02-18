@@ -1,5 +1,6 @@
 from suppliers.supplier_base import SupplierBase, Product
 
+
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
 
@@ -46,7 +47,15 @@ class Supplier3SChem(SupplierBase):
                 title = product['title'],
                 price = product['price'],
                 url = self._supplier['base_url'] + product['url'],
+                supplier = self._supplier['name']
             ))
 
+
+# print("Supplier3SChem")
+# print('   __name__:', __name__)
+# print('   __package__:', __package__)
+
 if __name__ == '__main__' and __package__ is None:
-    __package__ = 'suppliers.supplier_3schem.Supplier3SChem'
+    __name__ = 'suppliers.supplier_3schem'
+    __package__ = 'suppliers'
+    __module__ = 'Supplier3SChem'

@@ -36,5 +36,8 @@ class Product:
     # Unit of measurement for quantity
     uom: str = None
 
+    # Supplier the product is provided by
+    supplier: str = None
+
     def update(self, data):
         self.__dict__.update(data)
