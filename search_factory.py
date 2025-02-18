@@ -10,13 +10,16 @@ def product_search(query):
 
     for supplier in suppliers.__all__:
         supplier_module = getattr(suppliers, supplier)
-        print(f'Searching for {query} from {supplier_module.__name__}...')
+        if __debug__:
+            print(f'Searching for {query} from {supplier_module.__name__}...')
         res = supplier_module(query, 2)
         if not res:
-            print('  No results found\n')
+            if __debug__:
+                print('  No results found\n')
             next
         
-        print(f'  found {len(res.products)} products\n')
+        if __debug__:
+            print(f'  found {len(res.products)} products\n')
         all_results.extend(res.products)
 
     return all_results
