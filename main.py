@@ -49,8 +49,12 @@ def get_supplier_results(supplier, fetch_command, search_mode, chem):
 
     console = Console()
 
-    if search_mode == "cas":
-        search_query = get_cas(chem)
+    if search_mode == "CAS":
+        cas_numuber = get_cas(chem)
+        decoded_data = cas_numuber.decode('utf-8')  # Decode the bytes to a string
+        split_data = decoded_data.split('\n')  # Split by newline
+        first_value = split_data[0]  # Get the first value
+        search_query = first_value
     else:
         search_query = chem
 
