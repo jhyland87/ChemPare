@@ -1,6 +1,6 @@
 import requests
 
-def get_CAS(chem):
+def get_cas(chem):
     # URL encode the identifier and representation (for any special characters)
     url = f"https://cactus.nci.nih.gov/chemical/structure/{chem}/cas"
     
@@ -9,6 +9,6 @@ def get_CAS(chem):
     
     # Check if the request was successful
     if response.status_code == 200:
-        return response.json
+        return response.content
     else:
         return f"Error: {response.status_code}"

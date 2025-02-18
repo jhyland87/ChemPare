@@ -2,7 +2,7 @@ from S3 import fetch_from_es_drei
 from LaboratoriumDiscounter import fetch_from_lab_dis
 from Onyxmet import fetch_from_onyxmet
 from LabChem import fetch_from_lab_chem
-from get_CAS import get_CAS
+from get_cas import get_cas
 from rich.console import Console
 from rich.panel import Panel
 import requests
@@ -50,7 +50,7 @@ def get_supplier_results(supplier, fetch_command, search_mode, chem):
     console = Console()
 
     if search_mode == "cas":
-        search_query = get_CAS(chem)
+        search_query = get_cas(chem)
     else:
         search_query = chem
 
