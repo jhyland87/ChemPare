@@ -3,7 +3,8 @@ import os, sys
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-import requests
+#import requests
+from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
 from typing import List, Set, Tuple, Dict, Any, Union
@@ -83,7 +84,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         if self._supplier.get('base_url') not in path:
             path = '{0}/{1}'.format(self._supplier.get('base_url'), path)
             
-        return requests.get(path, cookies=self._cookies, headers=self._headers, params=params)
+        return requests.get(path, params=params, impersonate="chrome")
 
     @finalmethod
     def http_get_html(self, path: str, params: Dict=None) -> str:
