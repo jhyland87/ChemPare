@@ -13,17 +13,6 @@ class SupplierLabchem(SupplierBase):
         base_url = 'https://www.labchem.com/'
     )
 
-    # Regex tested at https://regex101.com/r/ddGVsT/1 (matches 66/80)
-    #_title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>k?g|[cmμ]m)'
-
-    # Regex tested at https://regex101.com/r/qL8u8s/1 67/80
-    #_title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg])'
-
-    # Regex tested at https://regex101.com/r/bLWC2b/2 (matches 80-ish/80)
-    # NOTE: The group names here should match keys in the self._product dictionary, as the 
-    #       regex results will be merged into it.
-    _title_regex_pattern = r'^(?P<name>[a-zA-Z\s\-\(\)]+)[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?'
-
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
