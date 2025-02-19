@@ -18,6 +18,12 @@ class Product:
     # Product description
     description: str = None
 
+    # Brand of the product
+    brand: str = None
+
+    # Grade of reagent (ACS, reagent, USP, technical, etc)
+    grade: str = None
+
     # URL to direcet product (if availabe)
     url: str = None
 

@@ -3,6 +3,13 @@ import os, sys
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
+# # Testing single supplier
+# from suppliers.supplier_labchem import SupplierLabchem
+# search = SupplierLabchem('mercury')
+# print('search:',search)
+# for p in search.products:
+#     print('p:', p)
+
 from search_factory import SearchFactory
 
 query = 'mercury'
