@@ -8,18 +8,17 @@ from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
 from typing import List, Set, Tuple, Dict, Any, Union
-from datatypes.product import Product
+from datatypes import Supplier, Product
 
+# Todo: this should be automatic
+#from datatypes.supplier import Supplier
+#from datatypes.product import Product
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
 
     # Supplier specific data
-    _supplier: Dict = dict(
-        name = 'Base Supplier',
-        location = None,
-        base_url = None
-    )
+    _supplier: Supplier = None
 
     # List of Product elements
     _products: List[Product] = []
