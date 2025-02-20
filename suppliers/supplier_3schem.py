@@ -1,4 +1,4 @@
-from suppliers.supplier_base import SupplierBase, Product
+from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 
 
@@ -6,7 +6,7 @@ from typing import List, Set, Tuple, Dict, Any
 class Supplier3SChem(SupplierBase):
 
     # Supplier specific data
-    _supplier: Dict = dict(
+    _supplier: TypeSupplier = dict(
         name = '3S Chemicals LLC',
         location = None,
         base_url = 'https://3schemicalsllc.com'
@@ -49,7 +49,7 @@ class Supplier3SChem(SupplierBase):
             if product['available'] is False:
                 next
                 
-            self._products.append(Product(
+            self._products.append(TypeProduct(
                 uuid = product['id'],
                 name = product['title'],
                 title = product['title'],

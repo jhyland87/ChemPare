@@ -1,11 +1,11 @@
-from suppliers.supplier_base import SupplierBase, Product
+from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):
 
      # Supplier specific data
-    _supplier: Dict = dict(
+    _supplier: TypeSupplier = dict(
         name = 'Laboratorium Discounter',
         location = None,
         base_url = 'https://www.laboratoriumdiscounter.nl'
@@ -39,16 +39,16 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         self._query_results = search_result['products'][0:self._limit]
     
     # Method iterates over the product query results stored at self._query_results and 
-    # returns a list of Product objects.
+    # returns a list of TypeProduct objects.
     def _parse_products(self):
         for product in self._query_results: 
             # Skip unavailable
             if product['available'] is False:
                 next
 
-            # Add each product to the self._products list in the form of a Product
+            # Add each product to the self._products list in the form of a TypeProduct
             # object.
-            self._products.append(Product(
+            self._products.append(TypeProduct(
                 uuid = product['id'],
                 name = product['title'],
                 title = product['fulltitle'],

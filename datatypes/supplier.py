@@ -3,7 +3,7 @@ from typing import List, Set, Tuple, Dict, Any
 
 
 @dataclass
-class Supplier:
+class TypeSupplier:
     """Custom data class for suppliers"""
 
     # Name of supplier

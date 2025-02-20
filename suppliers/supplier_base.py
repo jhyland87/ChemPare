@@ -8,20 +8,20 @@ from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from dataclasses import dataclass, astuple
 from typing import List, Set, Tuple, Dict, Any, Union
-#from datatypes import Supplier, Product
+#from datatypes import TypeSupplier, TypeProduct
 
 # Todo: this should be automatic
-from datatypes.supplier import Supplier
-from datatypes.product import Product
+from datatypes.supplier import TypeSupplier
+from datatypes.product import TypeProduct
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
 
     # Supplier specific data
-    _supplier: Supplier = None
+    _supplier: TypeSupplier = None
 
-    # List of Product elements
-    _products: List[Product] = []
+    # List of TypeProduct elements
+    _products: List[TypeProduct] = []
 
     _limit: int = None
 
@@ -138,7 +138,7 @@ class SupplierBase(object, metaclass=ABCMeta):
         """Method to set the local properties for the queried product.
         
         The self._query_results (populated by calling self._query_product()) is iterated over
-        by this method, which in turn parses each property and creates a new Product object that
+        by this method, which in turn parses each property and creates a new TypeProduct object that
         gets saved to this._products
 
         Returns:

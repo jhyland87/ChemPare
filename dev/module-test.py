@@ -4,11 +4,16 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 # # Testing single supplier
-# from suppliers.supplier_labchem import SupplierLabchem
-# search = SupplierLabchem('mercury')
-# print('search:',search)
+# from suppliers.supplier_esdrei import SupplierEsDrei
+# search = SupplierEsDrei('mercury')
+# #print('search:',search.products)
 # for p in search.products:
-#     print('p:', p)
+#     print('name:', p.name)
+#     print('price:', p.price)
+#     print('currency:', p.currency)
+#     print('quantity:', p.quantity)
+#     print('uom:', p.uom)
+#     print('\n')
 
 from search_factory import SearchFactory
 

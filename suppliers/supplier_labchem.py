@@ -1,4 +1,4 @@
-from suppliers.supplier_base import SupplierBase, Product
+from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
 import re
@@ -7,7 +7,7 @@ import re
 class SupplierLabchem(SupplierBase):
 
     # Supplier specific data
-    _supplier: Dict = dict(
+    _supplier: TypeSupplier = dict(
         name = 'Labchem',
         #location = 'Poland',
         base_url = 'https://www.labchem.com/'
@@ -47,7 +47,7 @@ class SupplierLabchem(SupplierBase):
 
         Iterate over the products returned from self._query_product, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
-        new Product object for each to add to _products
+        new TypeProduct object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO        
@@ -56,7 +56,7 @@ class SupplierLabchem(SupplierBase):
         for product in self._query_results:
             #self._products.append(self._query_and_parse_product(product['href']))
             price = self._query_product_price(product['partnumber'])
-            self._products.append(Product(
+            self._products.append(TypeProduct(
                 title = product['custom_CHEMICAL_NAME'],
                 name = product['custom_CHEMICAL_NAME'],
                 price = price,
@@ -71,7 +71,7 @@ class SupplierLabchem(SupplierBase):
             partnumber (str): partnumber of chem to query for
 
         Returns:
-            Product: Price of product
+            TypeProduct: Price of product
         """
 
         params = {

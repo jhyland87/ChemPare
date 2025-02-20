@@ -1,4 +1,4 @@
-from suppliers.supplier_base import SupplierBase, Product
+from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
 import re
@@ -7,7 +7,7 @@ import re
 class SupplierEsDrei(SupplierBase):
 
     # Supplier specific data
-    _supplier: Dict = dict(
+    _supplier: TypeSupplier = dict(
         name = 'EsDrei',
         #location = '',
         base_url = 'https://shop.es-drei.de' 
@@ -46,7 +46,7 @@ class SupplierEsDrei(SupplierBase):
 
         Iterate over the products returned from self._query_product, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
-        new Product object for each to add to _products
+        new TypeProduct object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO        
@@ -58,14 +58,14 @@ class SupplierEsDrei(SupplierBase):
         for product in product_containers[:self._limit]:
             self._products.append(self._parse_product(product))
 
-    def _parse_product(self, product_elem:BeautifulSoup) -> Product:
+    def _parse_product(self, product_elem:BeautifulSoup) -> TypeProduct:
         """Parse a single div.product--info element, creating a Partner object
 
         Args:
             product_elem (BeautifulSoup): One of the elements returned from the BS search
 
         Returns:
-            Product: Object of parsed product
+            TypeProduct: Object of parsed product
         """
 
         # Get some of the basic elements from this product_element object (which is just
@@ -90,7 +90,7 @@ class SupplierEsDrei(SupplierBase):
         quantity_pattern = re.compile(r'^(?P<quantity>[0-9,.]+)\s+(?P<uom>\w+)$')
         quantity_matches = quantity_pattern.search(price_units[1].string.strip())
 
-        product = Product(
+        product = TypeProduct(
             title = title_elem.attrs['title'],
             name = title_elem.attrs['title'],
             description = product_desc.string,

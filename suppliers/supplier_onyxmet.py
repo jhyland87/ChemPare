@@ -1,4 +1,4 @@
-from suppliers.supplier_base import SupplierBase, Product
+from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
 import re
@@ -7,7 +7,7 @@ import re
 class SupplierOnyxmet(SupplierBase):
 
     # Supplier specific data
-    _supplier: Dict = dict(
+    _supplier: TypeSupplier = dict(
         name = 'Onyxmet',
         location = 'Poland',
         base_url = 'https://onyxmet.com'
@@ -55,7 +55,7 @@ class SupplierOnyxmet(SupplierBase):
 
         Iterate over the products returned from self._query_product, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
-        new Product object for each to add to _products
+        new TypeProduct object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO        
@@ -64,14 +64,14 @@ class SupplierOnyxmet(SupplierBase):
         for product in self._query_results:
             self._products.append(self._query_and_parse_product(product['href']))
 
-    def _query_and_parse_product(self, href:str) -> Product:
+    def _query_and_parse_product(self, href:str) -> TypeProduct:
         """Query specific product page and parse results
 
         Args:
             href (str): The path of the web page to query and parse using BeautifulSoup
 
         Returns:
-            Product: Single instance of Product
+            TypeProduct: Single instance of TypeProduct
         """
        
         product_page_html = self.http_get_html(href)
@@ -94,7 +94,7 @@ class SupplierOnyxmet(SupplierBase):
         
         # Get the product name and price
         # (Set the product name here to default it, we ca re-set it to the parsed value down below)
-        product = Product(
+        product = TypeProduct(
             title = title_elem.contents[0],
             name = title_elem.contents[0],
             price = price_elem.contents[0],
