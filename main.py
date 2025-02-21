@@ -1,10 +1,8 @@
-from S3 import fetch_from_es_drei
-from LaboratoriumDiscounter import fetch_from_lab_dis
-from Onyxmet import fetch_from_onyxmet
-from LabChem import fetch_from_lab_chem
 from get_cas import get_cas
 from rich.console import Console
 from rich.panel import Panel
+from translate import Translator
+from search_factory import SearchFactory
 import requests
 import json
 import re
@@ -16,69 +14,47 @@ def main():
 
     console = Console()
 
-    with Progress(console=console) as progress:
-        task = progress.add_task("[cyan]Searching.. ", total=int(4))
+    cas_number = get_cas(chem)
 
-        supplier_list = []
+    product_search = SearchFactory(chem)
 
-        # Loop through each supplier and call get_supplier_results
-        for supplier_name, fetch_function, identifier_type in [
-            ('es_drei', fetch_from_es_drei, "iupac"),
-            ('lab_dis', fetch_from_lab_dis, "CAS"),
-            ('onxymet', fetch_from_onyxmet, "CAS"),
-            ('labchem', fetch_from_lab_chem, "iupac"),
-        ]:
-            try:
-                result = get_supplier_results(supplier_name, fetch_function, identifier_type, chem)
-                if result is not None:
-                    supplier_list.append(result)
-                    progress.update(task, advance=1)
-            except:
-                pass
-                
+    # Create a progress bar with the total number of suppliers
+    # with Progress(console=console) as progress:
+        # task = progress.add_task("[cyan]Searching..", total=len(product_search.results))
 
-    # Display results
-    for supplier in supplier_list:
-        for name, price, quantity in zip(supplier['name'], supplier['price'], supplier['quantity']):
-            panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity}\nSupplier: {supplier['supplier']}\nLocation: {supplier['location']}\nURL: {supplier['url']}", expand=True)
-            console.print(panel)
+    supplier_list = {}
 
+    # Loop over the products and create the panel for each
+    for product in product_search.results:
 
-def get_supplier_results(supplier, fetch_command, search_mode, chem):
+        if product.supplier in supplier_list:
+            if supplier_list[product.supplier] == 3:
+                continue
+            else:
+                supplier_list[product.supplier] += 1
+        else:
+            supplier_list[product.supplier] = 1
 
-    combined_name_list = []
-    combined_price_list = []
-    combined_supplier_name_list = []
-    combined_location_list = []
-    combined_url_list = []
-
-    console = Console()
-
-    if search_mode == "CAS":
-        search_query = get_cas(chem)
-        if search_query == None:
-            search_query = chem
-    else:
-        search_query = chem
-
-    result = fetch_command(search_query)
-
-    try:
-        name_list, price_list, supplier_name, location, url, quantity_list = result
-    except TypeError:
-        return None
-
-    results = {
-        "name": name_list,
-        "price": price_list,
-        "supplier": supplier_name,
-        "location": location,
-        "url": url,
-        "quantity": quantity_list
-    }
-
-    return(results)
+        name = product.name
+        price = product.price
+        quantity = product.quantity
+        # quantity = product['quantity']
+        url = product.url
+        supplier = product.supplier
+        
+        # Create the panel to print
+        panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}", expand=True)
+        console.print(panel)
 
 if __name__ == "__main__":
     main()
     input("")
+
+# If returns none okay, skip.
+# Quantities.
+# Translate for LabChem (and S3).
+# Onyxmet check if out of stock.
+# CAS
+# Progressbar.
+# URL ONYXMET
+# Labchem

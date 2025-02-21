@@ -1,5 +1,6 @@
 import os, sys
 from abcplus import finalmethod
+from get_quantity_from_title import get_quantity_from_title
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
@@ -34,23 +35,31 @@ class SearchFactory(object):
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
 
-            if __debug__:
-                print(f'Searching for {query} from {supplier_module.__name__}...')
+            # if __debug__:
+                # print(f'Searching for {query} from {supplier_module.__name__}...')
             
             # Execute a search by initializing an instance of the supplier class with
             # the product query term as the first param
             res = supplier_module(query, limit)
             if not res:
-                if __debug__:
-                    print('  No results found\n')
-                next
-            
-            if __debug__:
-                print(f'  found {len(res.products)} products\n')
+                # if __debug__:
+                    # print('  No results found\n')
+                continue
+            # if __debug__:
+                # print(f'  found {len(res.products)} products\n')
 
             # If there were some results found, then extend the self.__results list with those products
             self.__results.extend(res.products)
-    
+
+            for product in res.products:
+
+                if product.quantity == None:
+                    try:
+                        product.quantity = get_quantity_from_title(product.name)
+                    except:
+                        product.quantity = ""
+
+
     @property
     @finalmethod 
     def results(self):

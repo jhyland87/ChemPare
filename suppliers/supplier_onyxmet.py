@@ -22,7 +22,7 @@ class SupplierOnyxmet(SupplierBase):
     # Regex tested at https://regex101.com/r/bLWC2b/3 (matches 80-ish/80)
     # NOTE: The group names here should match keys in the self._product dictionary, as the 
     #       regex results will be merged into it.
-    _title_regex_pattern = r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
+    # _title_regex_pattern = r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
 
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
@@ -101,13 +101,13 @@ class SupplierOnyxmet(SupplierBase):
             supplier = self._supplier['name']
         )
 
-        # Use the regex pattern to parse the name for some useful data. 
-        title_pattern = re.compile(self._title_regex_pattern)
-        title_matches = title_pattern.search(product.name)
+        # # Use the regex pattern to parse the name for some useful data. 
+        # title_pattern = re.compile(self._title_regex_pattern)
+        # title_matches = title_pattern.search(product.name)
 
          # If something is matched, then just merge the key/names into the self._product property
-        if title_matches:
-            product.update(title_matches.groupdict())
+        # if title_matches:
+            # product.update(title_matches.groupdict())
 
         return product
 
