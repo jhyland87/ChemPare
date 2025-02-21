@@ -6,14 +6,20 @@ from typing import List, Set, Tuple, Dict, Any
 class TypeSupplier:
     """Custom data class for suppliers"""
 
-    # Name of supplier
     name: str = None
+    """Name of supplier"""
 
-    # Location of supplier
     location: str = None
+    """Location of supplier"""
 
-    # Base URL for supplier
     base_url: str = None
+    """Base URL for supplier"""
+
+    api_url: str = None
+    """URL for public facing API - may not be the same as base_url"""
+
+    api_key: str = None
+    """Key for API calls, if needed"""
 
     def update(self, data):
         self.__dict__.update(data)

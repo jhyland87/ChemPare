@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, time, math
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
@@ -17,38 +17,20 @@ from datatypes.product import TypeProduct
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
 
-    # Supplier specific data
     _supplier: TypeSupplier = None
+    """Supplier specific data"""
 
-    # List of TypeProduct elements
     _products: List[TypeProduct] = []
+    """List of TypeProduct elements"""
 
     _limit: int = None
+    """Max products to query/return"""
 
-    # Cookies to use for supplier
     _cookies: Dict = {}
+    """Cookies to use for supplier"""
 
-    # Location of cached query result (what other methods pull data from)
     _query_results: Any = None
-
-    # Default headers to include in requests
-    _headers: Dict = {
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'accept-language': 'en-US,en;q=0.7',
-        # 'cookie': 'OCSESSID=e7d2642d83310cfc58135d2914; language=en-gb; currency=USD',
-        'priority': 'u=0, i',
-        #'referer': 'https://onyxmet.com/',
-        'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132", "Brave";v="132"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"',
-        'sec-fetch-dest': 'document',
-        'sec-fetch-mode': 'navigate',
-        'sec-fetch-site': 'same-origin',
-        'sec-fetch-user': '?1',
-        'sec-gpc': '1',
-        'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
-    }
+    """Location of cached query result (what other methods pull data from)"""
 
     def __init__(self, query: str, limit: int=None):
         # Set the limit for how many results to iterate over
@@ -80,8 +62,11 @@ class SupplierBase(object, metaclass=ABCMeta):
             Result from requests.get()
         """
 
-        if self._supplier.get('base_url') not in path:
-            path = '{0}/{1}'.format(self._supplier.get('base_url'), path)
+        api_url = self._supplier.get('api_url', None)
+        base_url = self._supplier.get('base_url', None)
+
+        if base_url not in path and (api_url is None or api_url not in path):
+            path = f'{base_url}/{path}'
             
         return requests.get(path, params=params, impersonate="chrome")
 
@@ -112,6 +97,10 @@ class SupplierBase(object, metaclass=ABCMeta):
         Returns:
             JSON object from response body
         """
+
+        api_url = self._supplier.get('api_url', None)
+        if api_url is not None:
+            path = f'{api_url}/{path}'
 
         res = self.http_get(path, params)
         return res.json()
@@ -195,6 +184,12 @@ class SupplierBase(object, metaclass=ABCMeta):
         variant_dict = [dict(item) for item in [grouped_elem]]
 
         return variant_dict[0] or None
+    
+    @property
+    @finalmethod 
+    def _epoch(self) -> int:
+        """Get epoch string"""
+        return math.floor(time.time()*1000)
 
 if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'
