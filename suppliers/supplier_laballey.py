@@ -3,7 +3,7 @@ from typing import List, Set, Tuple, Dict, Any
 import re
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
-class SupplierLabaley(SupplierBase):
+class SupplierLaballey(SupplierBase):
 
      # Supplier specific data
     _supplier: TypeSupplier = dict(
@@ -107,4 +107,4 @@ class SupplierLabaley(SupplierBase):
 if __name__ == '__main__' and __package__ is None:
     __name__ = 'suppliers.supplier_laballey'
     __package__ = 'suppliers'
-    __module__ = 'SupplierLabaley'
+    __module__ = 'SupplierLaballey'
