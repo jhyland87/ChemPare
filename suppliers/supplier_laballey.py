@@ -5,7 +5,6 @@ import re
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaballey(SupplierBase):
 
-     # Supplier specific data
     _supplier: TypeSupplier = dict(
         name = 'Laballey',
         location = None,
@@ -13,13 +12,17 @@ class SupplierLaballey(SupplierBase):
         api_url = 'https://searchserverapi.com',
         api_key = '8B7o0X1o7c'
     )
+    """Supplier specific data"""
+
+    allow_cas_search: bool = True
+    """Determines if the supplier allows CAS searches in addition to name searches"""
 
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query: str):
+    def _query_products(self, query: str):
         """Query products from supplier
 
         Args:

@@ -53,7 +53,7 @@ class SupplierOnyxmet(SupplierBase):
     def _parse_products(self):
         """Parse product query results.
 
-        Iterate over the products returned from self._query_product, creating new requests
+        Iterate over the products returned from self._query_products, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
         new TypeProduct object for each to add to _products
 

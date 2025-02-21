@@ -5,7 +5,6 @@ from typing import List, Set, Tuple, Dict, Any
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
 
-    # Supplier specific data
     _supplier: TypeSupplier = dict(
         name = '3S Chemicals LLC',
         location = None,
@@ -17,7 +16,7 @@ class Supplier3SChem(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query):
+    def _query_products(self, query):
         """Query products from supplier
 
         Args:
