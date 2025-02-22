@@ -36,8 +36,6 @@ class SupplierChemsavers(SupplierBase):
         # https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd
         # 
         params = {
-            # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it. 
             'x-typesense-api-key': self._supplier['api_key'] 
         }
 
@@ -50,6 +48,10 @@ class SupplierChemsavers(SupplierBase):
                     'collection': 'products',
                     'q': query,
                     'facet_by': 'price',
+                    # Setting the limit here to 100, since the limit parameter should apply to
+                    # results returned from the supplier. Some products may be filtered out based
+                    # on no price listed or restrictions, hence requesting a large amount now and
+                    # limiting it later.
                     'max_facet_values': 100,
                     'page': 1,
                     'per_page': 100
