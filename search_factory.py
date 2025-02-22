@@ -7,10 +7,11 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 import suppliers
 
 class SearchFactory(object):
-    # suppliers property lets scripts call 'SearchFactory.suppliers' to get a list of suppliers
     suppliers: list = suppliers.__all__
+    """suppliers property lets scripts call 'SearchFactory.suppliers' to get a list of suppliers"""
 
     __results: list = []
+    """Contains a list of all the product results"""
 
     def __init__(self, query: str, limit: int=3):
         """Factory method for executing a search in all suppliers automatically
