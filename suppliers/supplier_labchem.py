@@ -120,10 +120,10 @@ class SupplierLabchem(SupplierBase):
         )
     
     def _query_products_prices(self, part_numbers:Tuple[str,list]) -> dict:
-        """Query specific product price
+        """Query specific product prices by their part numeber(s)
 
         Args:
-            partnumber (str): partnumber of chem to query for
+            part_numbers (str|list): partnumber(s) of chem(s) to query for.
 
         Returns:
             dict: lookup dictionary with the part number and list price values
