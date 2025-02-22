@@ -215,6 +215,9 @@ class SupplierBase(object, metaclass=ABCMeta):
                 cas_chars = [1, 2, 3, 4, 5, 6]
                 sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
 
+        See: 
+            https://www.cas.org/training/documentation/chemical-substances/checkdig
+
         Args:
             value (str): The value to determine if its a CAS # or not
 
