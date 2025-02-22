@@ -71,20 +71,20 @@ class SearchFactory(object):
         """
         
         # Send a GET request to the API
-        response = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas')
+        cas_request = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas')
         
         # Check if the request was successful
-        if response.status_code != 200:
-            return f"Error: {response.status_code}"
+        if cas_request.status_code != 200:
+            return f"Error: {cas_request.status_code}"
         
-        decoded_data = response.content.decode('utf-8')  # Decode the bytes to a string
-        split_data = decoded_data.split('\n')  # Split by newline
+        cas_response = cas_request.content.decode('utf-8')  # Decode the bytes to a string
+        cas_lines = cas_response.split('\n')  # Split by newline
             
         # Do we want the first value?
-        return split_data[0]
+        return cas_lines[0]
         
         # Or the last?
-        #return split_data[-1]
+        #return cas_lines[-1]
         
     @property
     @finalmethod 
