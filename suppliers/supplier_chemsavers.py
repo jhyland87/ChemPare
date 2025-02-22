@@ -42,7 +42,8 @@ class SupplierChemsavers(SupplierBase):
         body = {
             'searches': [
                 {
-                    'query_by': 'name, CAS, description, sku, meta_description, meta_keywords',
+                    #'query_by': 'name, CAS, description, sku, meta_description, meta_keywords',
+                    'query_by': 'name, CAS',
                     'sort_by': 'price:asc',
                     'highlight_full_fields': 'name, CAS, description, sku, meta_description, meta_keywords',
                     'collection': 'products',
