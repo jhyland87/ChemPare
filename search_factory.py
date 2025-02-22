@@ -41,7 +41,7 @@ class SearchFactory(object):
 
             # If the supplier allows a cas search, then do the cas lookup and try to use that
             if supplier_module.allow_cas_search is True:
-                supplier_query = self.get_cas(query) or query
+                supplier_query = self.__get_cas(query) or query
                
             if __debug__:
                 print(f'Searching for {supplier_query} from {supplier_module.__name__}...')
@@ -60,7 +60,7 @@ class SearchFactory(object):
             # If there were some results found, then extend the self.__results list with those products
             self.__results.extend(res.products)
     
-    def get_cas(self, chem_name:str) -> Optional[str]:
+    def __get_cas(self, chem_name:str) -> Optional[str]:
         """Search for the CAS value(s) given a chemical name
 
         Args:
