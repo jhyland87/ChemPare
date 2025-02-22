@@ -24,7 +24,7 @@ def main():
 
     supplier_list = {}
 
-    # Loop over the products and create the panel for each
+    # Loop over the products and create the panel for each.
     for product in product_search.results:
 
         if product.supplier in supplier_list:
