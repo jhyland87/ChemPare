@@ -1,4 +1,4 @@
-from get_cas import get_cas
+from get_CAS import get_cas
 from rich.console import Console
 from rich.panel import Panel
 from translate import Translator
