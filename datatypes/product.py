@@ -58,6 +58,18 @@ class TypeProduct:
     supplier: str = None
     """Supplier the product is provided by"""
 
+    is_restricted: bool = None
+    """If there are any restrictions for this product, this should be true"""
+
+    restriction: str = None
+    """String containing the value that the restriction was found in"""
+
+    residential: bool = None
+    """Does the supplier sell to residential addresses?"""
+
+    individual: bool = None
+    """Does the supplier sell to individual people? (as opposed to businesses only)"""
+
     def items(self):
         return self.__dict__.items()
     

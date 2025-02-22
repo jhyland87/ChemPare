@@ -1,5 +1,6 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
+from bs4 import BeautifulSoup
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
@@ -70,8 +71,8 @@ class SupplierChemsavers(SupplierBase):
     # returns a list of TypeProduct objects.
     def _parse_products(self):
         for product_obj in self._query_results: 
-            if len(self._products) == self._limit:
-                break
+            #if len(self._products) == self._limit:
+            #    break
 
             product = self._parse_product(product_obj['document'])
 
@@ -80,8 +81,8 @@ class SupplierChemsavers(SupplierBase):
                 continue
 
             # Ignore items that don't send to residences
-            if product.description is not None and 'Restricted to qualified labs and businesses only (no residences)' in product.description:
-                continue
+            if product.is_restricted is True:
+               continue
 
             self._products.append(product)
 
@@ -93,33 +94,45 @@ class SupplierChemsavers(SupplierBase):
 
         Returns:
             TypeProduct: Instance of TypeProduct
-
-        Todo:
-            The description will have a restriction, if there is one, found in the
-            <font size="+2"><strong style="color: red;"></strong></font> html element.
-            This should be parsed with BeautifulSoup and restricted
         """
+
         product = TypeProduct(
-            uuid = self._cast_type(product_obj['product_id']),
-            name = self._cast_type(product_obj['name']),
-            #title = product_obj['title'],
-            description = self._cast_type(product_obj['description']),
-            cas = self._cast_type(product_obj.get('CAS', None)),
-            price = product_obj.get('price', None),
-            url = '{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
-            sku = product_obj.get('sku', None),
-            upc = product_obj.get('upc', None),
-            supplier = self._supplier['name'],
-            currency = 'USD'
+            uuid=product_obj['product_id'],
+            name=product_obj['name'],
+            description=product_obj['description'],
+            cas=product_obj.get('CAS', None),
+            price=product_obj.get('price', None),
+            url='{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
+            sku=product_obj.get('sku', None),
+            upc=product_obj.get('upc', None),
+            supplier=self._supplier['name'],
+            currency='USD',
+            is_restricted=False
         )
 
-        if product.price is not None:
-            product.price = str(product.price).strip()
+        # Since the description contains HTML, and it may contain restrictions, use BS
+        description_soup = BeautifulSoup(product_obj['description'], 'html.parser')
+        
+        # The restrictions always seem to be shown in <strong style="color: red;"></strong> tags
+        restriction = description_soup.find('strong', {'style':'color: red;'})
 
-        if product.upc is not None and len(str(product.upc).strip()) != 0:
-            product.upc = str(product.upc).strip()
-        else:
-            product.upc = None
+        if restriction is not None and 'Restricted to qualified labs and businesses only (no residences)' in restriction.string:
+            product.restriction = restriction.string
+            product.is_restricted = True
+
+        # The whole desc is usually in <b></b> tags
+        desc = description_soup.find_all(['b','p','strong','font'])
+
+        if desc and desc is not None:
+            desc_parts = [d.string.strip() if d.string and d.string else None for d in desc]
+            desc_parts = list(set(desc_parts))
+            desc_parts = list(filter(None, desc_parts))
+
+            if product.restriction and product.restriction in desc_parts:
+                desc_parts.remove(product.restriction)
+        
+            if desc_parts:
+                product.description = '; '.join(desc_parts)
 
         return product.cast_properties()
     
