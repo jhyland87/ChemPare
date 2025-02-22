@@ -289,6 +289,8 @@ class SupplierBase(object, metaclass=ABCMeta):
 
         return int(checksum) == int(cas_dict['checksum'])
 
+    def _cast_value(self, value: Any, force_to: Any) -> Any:
+        return str(value).strip()
 
 if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'
