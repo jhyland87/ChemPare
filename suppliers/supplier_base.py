@@ -27,6 +27,9 @@ class SupplierBase(object, metaclass=ABCMeta):
     _cookies: Dict = {}
     """Cookies to use for supplier"""
 
+    _index: int = 0
+    """Index value used for __iter__ dunder method (for loop iteration)"""
+
     _query_results: Any = None
     """Location of cached query result (what other methods pull data from)"""
 
@@ -36,7 +39,7 @@ class SupplierBase(object, metaclass=ABCMeta):
     def __init__(self, query: str, limit: int=None):    
         if limit is not None:
             self._limit = limit
-            
+
         self._query = query
 
         # Execute the basic product search (logic should be in inheriting class)
@@ -45,6 +48,16 @@ class SupplierBase(object, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the product properties
         self._parse_products()
 
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> TypeProduct:
+        if self._index >= len(self._products):
+            raise StopIteration
+        value = self._products[self._index]
+        self._index += 1
+        return value
+    
     """ FINAL methods/properties """
 
     @property

@@ -16,6 +16,9 @@ class SearchFactory(object):
     __results: list = []
     """Contains a list of all the product results"""
 
+    __index: int = 0
+    """Index used for __iter__ iterations"""
+
     def __init__(self, query: str, limit: int=3):
         """Factory method for executing a search in all suppliers automatically
 
@@ -25,6 +28,25 @@ class SearchFactory(object):
         """
         self.__query(query, limit)
 
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        """Next dunder method for for loop iterations
+
+        Raises:
+            StopIteration: When the results are done
+
+        Returns:
+            TypeProduct: Individual products
+        """
+
+        if self.__index >= len(self.__results):
+            raise StopIteration
+        value = self.__results[self.__index]
+        self.__index += 1
+        return value
+    
     def __query(self, query: str, limit: int=None):
         """Iterates over the suppliers, running the query, then returning the results.
 
