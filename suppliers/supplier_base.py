@@ -322,31 +322,27 @@ class SupplierBase(object, metaclass=ABCMeta):
         Returns:
             Any: Casted value
         """
-        if value is None:
-            return None
-        
-        _type = type(value)
-        
-        if _type is float or _type is int or _type is bool:
+        # If it's not a string, then its probably a valid type..
+        if type(value) != str:
             return value
         
-        if _type == str:
-            value = value.strip()
+        # Most castable values just need to be trimmed to be compatible
+        value = value.strip()
 
-            if not value:
-                return None
+        if not value or value.isspace():
+            return None
             
-            if value.lower() == 'true':
-                return True
+        if value.lower() == 'true':
+            return True
             
-            if value.lower() == 'false':
-                return False
+        if value.lower() == 'false':
+            return False
             
-            if value.isdecimal(): 
-                return float(value) 
+        if value.isdecimal() or re.match(f'^[0-9]+.[0-9]+$', value): 
+            return float(value) 
                 
-            if value.isdecimal():
-                return int(value)
+        if value.isnumeric() or re.match(f'^[0-9]+$', value):
+            return int(value)   
             
         return value
 
