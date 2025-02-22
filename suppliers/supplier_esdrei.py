@@ -6,19 +6,19 @@ import re
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    # Supplier specific data
     _supplier: TypeSupplier = dict(
         name = 'EsDrei',
         #location = '',
         base_url = 'https://shop.es-drei.de' 
     )
+    """Supplier specific data"""
 
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query: str):
+    def _query_products(self, query: str):
         """Query products from supplier
 
         Args:
@@ -44,7 +44,7 @@ class SupplierEsDrei(SupplierBase):
     def _parse_products(self):
         """Parse product query results.
 
-        Iterate over the products returned from self._query_product, creating new requests
+        Iterate over the products returned from self._query_products, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
         new TypeProduct object for each to add to _products
 
@@ -55,8 +55,8 @@ class SupplierEsDrei(SupplierBase):
         product_page_soup = BeautifulSoup(self._query_results, 'html.parser')
         product_containers = product_page_soup.find_all('div',class_='product--info')
         
-        for product in product_containers[:self._limit]:
-            self._products.append(self._parse_product(product))
+        for product_elem in product_containers[:self._limit]:
+            self._products.append(self._parse_product(product_elem))
 
     def _parse_product(self, product_elem:BeautifulSoup) -> TypeProduct:
         """Parse a single div.product--info element, creating a Partner object
@@ -93,7 +93,7 @@ class SupplierEsDrei(SupplierBase):
         product = TypeProduct(
             title = title_elem.attrs['title'],
             name = title_elem.attrs['title'],
-            description = product_desc.string,
+            description = product_desc.string.strip(),
             url = title_elem.attrs['href'],
             supplier = self._supplier['name'],
         )

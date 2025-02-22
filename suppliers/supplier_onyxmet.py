@@ -22,14 +22,18 @@ class SupplierOnyxmet(SupplierBase):
     # Regex tested at https://regex101.com/r/bLWC2b/3 (matches 80-ish/80)
     # NOTE: The group names here should match keys in the self._product dictionary, as the 
     #       regex results will be merged into it.
-    # _title_regex_pattern = r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
+    #_title_regex_pattern = r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
+
+    # https://regex101.com/r/bLWC2b/4
+    # NOTE: This misses some simple ones like "Uranyl zinc acetate  10g", and needs to be worked on
+    _title_regex_pattern = r'^(?P<product>[a-zA-Z0-9\s\(\)]+[a-zA-Z\(\)])[-\s]+(?:(?P<purity>[0-9,]+%)?[-\s]*)(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
 
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query: str):
+    def _query_products(self, query: str):
         """Query products from supplier
 
         Args:
@@ -53,7 +57,7 @@ class SupplierOnyxmet(SupplierBase):
     def _parse_products(self):
         """Parse product query results.
 
-        Iterate over the products returned from self._query_product, creating new requests
+        Iterate over the products returned from self._query_products, creating new requests
         for each to get the HTML content of the individual product page, and creating a 
         new TypeProduct object for each to add to _products
 
@@ -61,6 +65,11 @@ class SupplierOnyxmet(SupplierBase):
             Have this execute in parallen using AsyncIO        
         """
 
+        # If no results were found, then abort early on
+        if self._query_results is None or len(self._query_results) == 0:
+            return
+        
+        # Iterate oer the products, parsing them and adding them to the _products
         for product in self._query_results:
             self._products.append(self._query_and_parse_product(product['href']))
 
@@ -101,13 +110,13 @@ class SupplierOnyxmet(SupplierBase):
             supplier = self._supplier['name']
         )
 
-        # # Use the regex pattern to parse the name for some useful data. 
-        # title_pattern = re.compile(self._title_regex_pattern)
-        # title_matches = title_pattern.search(product.name)
+        # Use the regex pattern to parse the name for some useful data. 
+        title_pattern = re.compile(self._title_regex_pattern)
+        title_matches = title_pattern.search(product.name)
 
          # If something is matched, then just merge the key/names into the self._product property
-        # if title_matches:
-            # product.update(title_matches.groupdict())
+        if title_matches:
+            product.update(title_matches.groupdict())
 
         return product
 

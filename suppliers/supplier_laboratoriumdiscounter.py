@@ -16,7 +16,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query: str):
+    def _query_products(self, query: str):
         """Query products from supplier
 
         Args:
@@ -49,12 +49,12 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
             self._products.append(TypeProduct(
-                uuid = product['id'],
+                uuid = str(product['id']).strip(),
                 name = product['title'],
                 title = product['fulltitle'],
                 cas = self._get_cas_from_variant(product['variant']),
-                description = product['description'],
-                price = product['price']['price'],
+                description = str(product['description']).strip() or None,
+                price = str(product['price']['price']).strip(),
                 currency = product['price']['currency'],
                 url = product['url'],
                 supplier = self._supplier['name']
