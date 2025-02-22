@@ -52,7 +52,6 @@ class SupplierLabchem(SupplierBase):
         # 1) Query the main product search page (returns HTML, but does not include prices)
         self._query_results = self.http_get_html('searchPage.action', get_params)
         
-
     def _query_products_autocomplete(self):
         """Query products from supplier"""
         # Example request url for Labchem Supplier
@@ -85,8 +84,13 @@ class SupplierLabchem(SupplierBase):
 
         # 2) Get the product ID's from the search page
         product_part_elems = product_page_soup.find_all('a',class_='log-addTocart-btn')
-        product_part_numbers = [n.attrs['id'] for n in product_part_elems] 
 
+        # If no products were found, don't process anything
+        if product_part_elems is None or len(product_part_elems) == 0:
+            return
+
+        product_part_numbers = [n.attrs['id'] for n in product_part_elems] 
+        
         # 3) Query for the price information using the part numbers
         product_prices = self._query_products_prices(product_part_numbers)
         product_containers = product_page_soup.find_all('li',class_='listView')
@@ -119,7 +123,7 @@ class SupplierLabchem(SupplierBase):
             url = self._supplier['base_url'] + link
         )
     
-    def _query_products_prices(self, part_numbers:Tuple[str,list]) -> dict:
+    def _query_products_prices(self, part_numbers:Tuple[str,list]) -> Optional[dict]:
         """Query specific product prices by their part numeber(s)
 
         Args:
@@ -129,12 +133,16 @@ class SupplierLabchem(SupplierBase):
             dict: lookup dictionary with the part number and list price values
         """
 
+        if part_numbers is None or len(part_numbers) == 0:
+            return None
+        
         if type(part_numbers) is list:
             part_numbers = ','.join(part_numbers)
 
         params = {
             'productIdList':part_numbers
         }
+        
         product_json = self.http_get_json('getPriceDetailPage.action', params=params)
         
         res = dict()

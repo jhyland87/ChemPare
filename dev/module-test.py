@@ -22,7 +22,7 @@ from suppliers.supplier_labchem import SupplierLabchem
 
 from search_factory import SearchFactory
 
-query = 'mercury'
+query = 'acetone'
 
 print(f'Searching {len(SearchFactory.suppliers)} suppliers for "{query}"...')
 

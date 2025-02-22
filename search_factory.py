@@ -1,4 +1,7 @@
+
 import os, sys
+from typing import List, Set, Tuple, Dict, Any, Optional
+from curl_cffi import requests
 from abcplus import finalmethod
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,7 +25,7 @@ class SearchFactory(object):
         """
         self.__query(query, limit)
 
-    def __query(self, query: str, limit:int =None):
+    def __query(self, query: str, limit: int=None):
         """Iterates over the suppliers, running the query, then returning the results.
 
         Args:
@@ -34,13 +37,18 @@ class SearchFactory(object):
         for supplier in suppliers.__all__:
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
+            supplier_query = query
 
+            # If the supplier allows a cas search, then do the cas lookup and try to use that
+            if supplier_module.allow_cas_search is True:
+                supplier_query = self.get_cas(query) or query
+               
             if __debug__:
-                print(f'Searching for {query} from {supplier_module.__name__}...')
-            
+                print(f'Searching for {supplier_query} from {supplier_module.__name__}...')
+
             # Execute a search by initializing an instance of the supplier class with
             # the product query term as the first param
-            res = supplier_module(query, limit)
+            res = supplier_module(supplier_query, limit)
             if not res:
                 if __debug__:
                     print('  No results found\n')
@@ -52,6 +60,35 @@ class SearchFactory(object):
             # If there were some results found, then extend the self.__results list with those products
             self.__results.extend(res.products)
     
+    def get_cas(self, chem_name:str) -> Optional[str]:
+        """Search for the CAS value(s) given a chemical name
+
+        Args:
+            chem_name (str): Name of chemical to search for
+
+        Returns:
+            Optional[str]: CAS value of chemical
+        """
+
+        # URL encode the identifier and representation (for any special characters)
+        url = f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas'
+        
+        # Send a GET request to the API
+        response = requests.get(url)
+        
+        # Check if the request was successful
+        if response.status_code != 200:
+            return f"Error: {response.status_code}"
+        
+        decoded_data = response.content.decode('utf-8')  # Decode the bytes to a string
+        split_data = decoded_data.split('\n')  # Split by newline
+            
+        # Do we want the first value?
+        return split_data[0]
+        
+        # Or the last?
+        #return split_data[-1]
+        
     @property
     @finalmethod 
     def results(self):
