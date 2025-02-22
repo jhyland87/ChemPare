@@ -93,7 +93,7 @@ class SupplierEsDrei(SupplierBase):
         product = TypeProduct(
             title = title_elem.attrs['title'],
             name = title_elem.attrs['title'],
-            description = product_desc.string,
+            description = product_desc.string.strip(),
             url = title_elem.attrs['href'],
             supplier = self._supplier['name'],
         )

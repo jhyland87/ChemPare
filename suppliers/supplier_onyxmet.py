@@ -29,7 +29,7 @@ class SupplierOnyxmet(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_product(self, query: str):
+    def _query_products(self, query: str):
         """Query products from supplier
 
         Args:

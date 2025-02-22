@@ -28,7 +28,6 @@ class SupplierLaballey(SupplierBase):
         Args:
             query (str): Query string to use
         """
-        print('self._supplier.api_key:',self._supplier['api_key'])
 
         # Example request url for Laboratorium Discounter
         # https://searchserverapi.com/getwidgets?api_key=8B7o0X1o7c&q=sulf&maxResults=6&startIndex=0&items=true&pages=true&facets=false&categories=true&suggestions=true&vendors=false&tags=false&pageStartIndex=0&pagesMaxResults=3&categoryStartIndex=0&categoriesMaxResults=3&suggestionsMaxResults=4&vendorsMaxResults=3&tagsMaxResults=3&output=json&_=1740051794061
@@ -93,10 +92,11 @@ class SupplierLaballey(SupplierBase):
             uuid = product_obj['product_id'],
             name = product_obj['title'],
             title = product_obj['title'],
-            description = product_obj['description'],
+            description = str(product_obj['description']).strip() if product_obj['description'] else None,
             price = product_obj['price'],
             url = '{0}{1}'.format(self._supplier['base_url'], product_obj['link']),
-            supplier = product_obj['vendor'],
+            manufacturer = product_obj['vendor'],
+            supplier= self._supplier['name'],
             currency = 'USD'
         )
 
