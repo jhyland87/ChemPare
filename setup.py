@@ -14,7 +14,8 @@ setup(
         "dataclasses",
         "numpy",
         "pathlib",
-        "curl_cffi"
+        "curl_cffi",
+        "translate"
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},

@@ -1,4 +1,8 @@
-import os, sys, time, math, re
+import os
+import sys
+import time
+import math
+import re
 from typing import List, Set, Tuple, Dict, Any, Optional, Union
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
@@ -67,7 +71,10 @@ class SupplierBase(object, metaclass=ABCMeta):
         return self._products
 
     @finalmethod 
-    def http_get(self, path: str, params: Dict=None) -> requests:
+    def http_get(
+            self, 
+            path: str, 
+            params: Dict=None) -> requests:
         """Base HTTP getter (not specific to data type).
 
        Args:
@@ -87,7 +94,12 @@ class SupplierBase(object, metaclass=ABCMeta):
         return requests.get(path, params=params, impersonate="chrome")
     
     @finalmethod 
-    def http_post(self, path: str, params: Dict=None, data: Any=None, json: Union[Dict, List]=None) -> requests:
+    def http_post(
+            self, 
+            path: str, 
+            params: Dict=None, 
+            data: Any=None, 
+            json: Union[Dict, List]=None) -> requests:
         """Base HTTP poster (not specific to data type).
 
        Args:
@@ -108,7 +120,11 @@ class SupplierBase(object, metaclass=ABCMeta):
         return requests.post(path, params=params, impersonate="chrome", json=json, data=data)
 
     @finalmethod 
-    def http_post_json(self, path: str, params: Dict=None, json: Union[Dict, List]=None) -> Union[Dict, List]:
+    def http_post_json(
+            self, 
+            path: str, 
+            params: Dict=None, 
+            json: Union[Dict, List]=None) -> Union[Dict, List]:
         url = self._supplier.get('api_url', None)
         req = self.http_post(f'{url}/{path}', params=params, json=json)
 
@@ -118,7 +134,9 @@ class SupplierBase(object, metaclass=ABCMeta):
         return req.json()
     
     @finalmethod
-    def http_get_html(self, path: str, params: Dict=None) -> str:
+    def http_get_html(self, 
+                      path: str, 
+                      params:Dict=None) -> str:
         """HTTP getter (for HTML content).
 
         Args:
@@ -134,7 +152,10 @@ class SupplierBase(object, metaclass=ABCMeta):
         return res.content
     
     @finalmethod
-    def http_get_json(self, path: str, params: Dict=None) -> Union[List,Dict]:
+    def http_get_json(
+            self,
+            path: str, 
+            params: Dict=None) -> Union[List,Dict]:
         """HTTP getter (for JSON content).
 
         Args:
@@ -184,7 +205,10 @@ class SupplierBase(object, metaclass=ABCMeta):
     """ GENERAL USE UTILITY METHODS """
 
     @finalmethod
-    def _split_array_into_groups(self, arr: List, size: int=2) -> List:
+    def _split_array_into_groups(
+            self, 
+            arr: List, 
+            size: int=2) -> List:
         """Splits an array into sub-arrays of 2 elements each.
 
         Args:
@@ -289,8 +313,42 @@ class SupplierBase(object, metaclass=ABCMeta):
 
         return int(checksum) == int(cas_dict['checksum'])
 
-    def _cast_value(self, value: Any, force_to: Any) -> Any:
-        return str(value).strip()
+    def _cast_type(self, value: Union[str,int,float,bool] = None) -> Any:
+        """Cast a value to the proper type. This is mostly used for casting int/float/bool
+
+        Args:
+            value (Union[str,int,float,bool]): Value to be casted (optional)
+
+        Returns:
+            Any: Casted value
+        """
+        if value is None:
+            return None
+        
+        _type = type(value)
+        
+        if _type is float or _type is int or _type is bool:
+            return value
+        
+        if _type == str:
+            value = value.strip()
+
+            if not value:
+                return None
+            
+            if value.lower() == 'true':
+                return True
+            
+            if value.lower() == 'false':
+                return False
+            
+            if value.isdecimal(): 
+                return float(value) 
+                
+            if value.isdecimal():
+                return int(value)
+            
+        return value
 
 if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'

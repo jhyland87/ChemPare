@@ -1,6 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
-import re
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
@@ -101,11 +100,11 @@ class SupplierChemsavers(SupplierBase):
             This should be parsed with BeautifulSoup and restricted
         """
         product = TypeProduct(
-            uuid = str(product_obj['product_id']).strip(),
-            name = product_obj['name'],
+            uuid = self._cast_type(product_obj['product_id']),
+            name = self._cast_type(product_obj['name']),
             #title = product_obj['title'],
-            description = product_obj['description'],
-            cas = product_obj.get('CAS', None),
+            description = self._cast_type(product_obj['description']),
+            cas = self._cast_type(product_obj.get('CAS', None)),
             price = product_obj.get('price', None),
             url = '{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
             sku = product_obj.get('sku', None),
@@ -122,7 +121,7 @@ class SupplierChemsavers(SupplierBase):
         else:
             product.upc = None
 
-        return product
+        return product.cast_properties()
     
 if __name__ == '__main__' and __package__ is None:
     __name__ = 'suppliers.supplier_chemsavers'

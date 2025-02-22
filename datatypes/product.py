@@ -1,5 +1,6 @@
-from dataclasses import dataclass, astuple
-from typing import List, Set, Tuple, Dict, Any
+from dataclasses import dataclass
+from typing import List, Set, Tuple, Dict, Any, Union
+import re
 
 
 @dataclass
@@ -67,3 +68,66 @@ class TypeProduct:
             data (Dict): Dictionary to merge into current dictioary
         """
         self.__dict__.update(data)
+
+    def cast_properties(self, include_none:bool=False) -> Dict:
+        """Cast the product attributes to the likely formats, and return them in a
+        separate dictionary, excluding record with None value by default
+
+        Args:
+            include_none (bool, optional): Exclude None types. Defaults to False.
+
+        Returns:
+            TypeProduct: Product with casted values
+        """
+        #dc = self.__class__.__dataclass_fields__['uuid'].type
+
+        for key, val in self.items():
+            _val = self.__cast_type(value=val, key=key)
+            self.__setattr__(key, _val)
+
+        return self
+
+    def __cast_type(self, value: Union[str,int,float,bool], key:str=None) -> Any:
+        """Cast a value to the proper type. This is mostly used for casting int/float/bool
+
+        Args:
+            value (Union[str,int,float,bool]): Value to be casted (optional)
+
+        Returns:
+            Any: Casted value
+        """
+        if value is None:
+            return None
+        
+        #_type = type(value)
+
+        # if key is not None:
+        #     if _type is self.__class__.__dataclass_fields__[key].type:
+        #         return value
+        
+        # if _type is float or _type is int or _type is bool:
+        #     return value
+        
+        # If it's not a string, then its probably a valid type..
+        if type(value) != str:
+            return value
+        
+        # Most castable values just need to be trimmed to be compatible
+        value = value.strip()
+
+        if not value or value.isspace():
+            return None
+            
+        if value.lower() == 'true':
+            return True
+            
+        if value.lower() == 'false':
+            return False
+            
+        if value.isdecimal() or re.match(f'^[0-9]+.[0-9]+$', value): 
+            return float(value) 
+                
+        if value.isnumeric() or re.match(f'^[0-9]+$', value):
+            return int(value)
+            
+        return value

@@ -1,7 +1,6 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any, Optional
 from bs4 import BeautifulSoup
-import re
 
 # File: /suppliers/supplier_labchem.py
 class SupplierLabchem(SupplierBase):
@@ -113,7 +112,7 @@ class SupplierLabchem(SupplierBase):
 
         title_elem = product_elem.find('h4').find('a').string.strip()
 
-        return TypeProduct(
+        _product = TypeProduct(
             name = title_elem,
             title = title_elem,
             supplier = self._supplier['name'],
@@ -122,6 +121,8 @@ class SupplierLabchem(SupplierBase):
             cas = cas.string.strip(),
             url = self._supplier['base_url'] + link
         )
+
+        return _product.cast_properties()
     
     def _query_products_prices(self, part_numbers:Tuple[str,list]) -> Optional[dict]:
         """Query specific product prices by their part numeber(s)
