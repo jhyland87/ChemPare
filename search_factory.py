@@ -69,12 +69,9 @@ class SearchFactory(object):
         Returns:
             Optional[str]: CAS value of chemical
         """
-
-        # URL encode the identifier and representation (for any special characters)
-        url = f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas'
         
         # Send a GET request to the API
-        response = requests.get(url)
+        response = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas')
         
         # Check if the request was successful
         if response.status_code != 200:
