@@ -4,13 +4,23 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 # Testing single supplier
-from suppliers.supplier_laballey import SupplierLaballey
-from suppliers.supplier_labchem import SupplierLabchem
+# from suppliers.supplier_laballey import SupplierLaballey
+# from suppliers.supplier_labchem import SupplierLabchem
+# from suppliers.supplier_chemsavers import SupplierChemsavers
 
 #print('allow_cas_search:',SupplierLabchem.allow_cas_search)
+#search = SupplierChemsavers('toluene')
 
-# search = SupplierLabchem('7487-94-7')
-# #print('search:',search.products)
+# print('len(search.products):', len(search.products))
+# for product in search.products:
+#     for key, value in product.items():
+#         if value is not None:
+#             print('{:>12}: {:12}'.format(key,value))
+#             #print(f"{key}: {value}")
+#     print('---------')
+#     print('')
+
+#print('search:',search.products)
 # for p in search.products:
 #     print(p)
 #     # print('name:', p.name)
@@ -19,19 +29,13 @@ from suppliers.supplier_labchem import SupplierLabchem
 #     # print('quantity:', p.quantity)
 #     # print('uom:', p.uom)
 #     print('\n')
-
 from search_factory import SearchFactory
 
-query = 'acetone'
+# print(f'Searching {len(SearchFactory.suppliers)} suppliers for "{query}"...')p
+product_search = SearchFactory('67-64-1')
 
-print(f'Searching {len(SearchFactory.suppliers)} suppliers for "{query}"...')
-
-product_search = SearchFactory(query)
-
-print('\n\n')
-print(f'RESULTS: - Found {len(product_search.results)} results for "{query}":\n')
-
-
+# print('\n\n')
+# print(f'RESULTS: - Found {len(product_search.results)} results for "{query}":\n')
 
 for product in product_search.results:
     # if product.name: print('  Supplier:', product.supplier) 
@@ -42,6 +46,5 @@ for product in product_search.results:
     for key, value in product.items():
         if value is not None:
             print('{:>12}: {:12}'.format(key,value))
-            #print(f"{key}: {value}")
     print('---------')
     print('')

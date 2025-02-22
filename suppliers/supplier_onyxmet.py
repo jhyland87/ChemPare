@@ -65,6 +65,11 @@ class SupplierOnyxmet(SupplierBase):
             Have this execute in parallen using AsyncIO        
         """
 
+        # If no results were found, then abort early on
+        if self._query_results is None or len(self._query_results) == 0:
+            return
+        
+        # Iterate oer the products, parsing them and adding them to the _products
         for product in self._query_results:
             self._products.append(self._query_and_parse_product(product['href']))
 
