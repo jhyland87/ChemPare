@@ -48,6 +48,12 @@ class TypeProduct:
     mpn: str = None
     """Manufacturer part number"""
 
+    sku: str = None
+    """Stock Keeping Unit - a unique code for a specific business"""
+
+    upc: str = None
+    """Universal Product Code - a globally recognized code"""
+
     supplier: str = None
     """Supplier the product is provided by"""
 

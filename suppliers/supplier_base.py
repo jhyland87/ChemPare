@@ -1,14 +1,11 @@
-from typing import List, Set, Tuple, Dict, Any, Optional
 import os, sys, time, math, re
+from typing import List, Set, Tuple, Dict, Any, Optional, Union
+from curl_cffi import requests
+from abcplus import ABCMeta, abstractmethod, finalmethod
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-#import requests
-from curl_cffi import requests
-from abcplus import ABCMeta, abstractmethod, finalmethod
-from dataclasses import dataclass, astuple
-from typing import List, Set, Tuple, Dict, Any, Union
 #from datatypes import TypeSupplier, TypeProduct
 
 # Todo: this should be automatic
@@ -37,7 +34,9 @@ class SupplierBase(object, metaclass=ABCMeta):
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
     def __init__(self, query: str, limit: int=None):    
-        self._limit = limit
+        if limit is not None:
+            self._limit = limit
+            
         self._query = query
 
         # Execute the basic product search (logic should be in inheriting class)
@@ -73,7 +72,38 @@ class SupplierBase(object, metaclass=ABCMeta):
             path = f'{base_url}/{path}'
             
         return requests.get(path, params=params, impersonate="chrome")
+    
+    @finalmethod 
+    def http_post(self, path: str, params: Dict=None, data: Any=None, json: Union[Dict, List]=None) -> requests:
+        """Base HTTP poster (not specific to data type).
 
+       Args:
+            path: URL Path to post (should not include the self._base_url value)
+            params: Dictionary of params to use in request (optional)
+            body: Body of data to post (text, json, etc)
+
+        Returns:
+            Result from requests.post()
+        """
+
+        api_url = self._supplier.get('api_url', None)
+        base_url = self._supplier.get('base_url', None)
+
+        if base_url not in path and (api_url is None or api_url not in path):
+            path = f'{base_url}/{path}'
+            
+        return requests.post(path, params=params, impersonate="chrome", json=json, data=data)
+
+    @finalmethod 
+    def http_post_json(self, path: str, params: Dict=None, json: Union[Dict, List]=None) -> Union[Dict, List]:
+        url = self._supplier.get('api_url', None)
+        req = self.http_post(f'{url}/{path}', params=params, json=json)
+
+        if req is None:
+            return None
+        
+        return req.json()
+    
     @finalmethod
     def http_get_html(self, path: str, params: Dict=None) -> str:
         """HTTP getter (for HTML content).
