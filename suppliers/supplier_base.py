@@ -202,12 +202,14 @@ class SupplierBase(object, metaclass=ABCMeta):
     def _is_cas(self, value:Any) -> bool:
         """Check if a string is a valid CAS registry number
 
-        This is done by taking the first two segments and iterating over them in reverse
-        order, multiplying each by their position, then taking the modulous of that number.
+        This is done by taking the first two segments and iterating over each individual
+        intiger in reverse order, multiplying each by its position, then taking the 
+        modulous of the sum of those values.
 
         Example:
-            1234-56-6 is valid because the result of the below equation matches the checksum
-                ((6*1)+(5*2)+(4*3)+(3*4)+(2*5)+(1*6)) % 10 == 6
+            1234-56-6 is valid because the result of the below equation matches the checksum,
+            (which is 6)
+                (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
 
             This can be simplified in the below aggregation:
                 cas_chars = [1, 2, 3, 4, 5, 6]
