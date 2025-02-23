@@ -125,8 +125,14 @@ class SearchFactory(object):
         # Decode the bytes to a string
         cas_response = cas_request.content.decode('utf-8')  
 
-        # Should only be one line/value, so just strip it before returning, if a value was found
-        return str(cas_response).strip() if cas_response else None
+        if not cas_response:
+            return None
+
+        cas_list = cas_response.split('\n') 
+        return cas_list[0]       
+
+        # # Should only be one line/value, so just strip it before returning, if a value was found
+        # return str(cas_response).strip() if cas_response else None
        
     def __get_name(self, cas_no:str) -> Optional[str]:
         """Search for a chemical name given a CAS #
