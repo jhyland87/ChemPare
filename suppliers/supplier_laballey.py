@@ -103,7 +103,9 @@ class SupplierLaballey(SupplierBase):
         # SKU/Quantity regex pattern test:  https://regex101.com/r/A1e2C2/1
         quantity_pattern = re.compile(r'^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$')
         quantity_matches = quantity_pattern.search(product_obj['product_code'])
-        product.update(quantity_matches.groupdict())
+
+        if quantity_matches: 
+            product.update(quantity_matches.groupdict())
 
         return product
     

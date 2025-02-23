@@ -1,4 +1,4 @@
-from get_CAS import get_cas
+#from get_CAS import get_cas
 from rich.console import Console
 from rich.panel import Panel
 from translate import Translator
@@ -6,15 +6,19 @@ from search_factory import SearchFactory
 import requests
 import json
 import re
+import sys
 from rich.progress import Progress
 
 def main():
-    print("Enter Chemical Name:")
-    chem = input("> ")
+    if len(sys.argv) >= 2:
+        chem = str(sys.argv[1]).strip()
+    else:
+        print("Enter Chemical Name:")
+        chem = input("> ")
 
     console = Console()
 
-    cas_number = get_cas(chem)
+    #cas_number = get_cas(chem)
 
     product_search = SearchFactory(chem)
 
@@ -25,7 +29,7 @@ def main():
     supplier_list = {}
 
     # Loop over the products and create the panel for each.
-    for product in product_search.results:
+    for product in product_search:
 
         if product.supplier in supplier_list:
             if supplier_list[product.supplier] == 3:
@@ -48,6 +52,7 @@ def main():
         # Create the panel to print
         panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}", expand=True)
         console.print(panel)
+    sys.exit()
 
 if __name__ == "__main__":
     main()

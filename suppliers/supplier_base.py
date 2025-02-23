@@ -48,6 +48,8 @@ class SupplierBase(object, metaclass=ABCMeta):
         if limit is not None:
             self._limit = limit
 
+        self._products = []
+        self._index = 0
         self._query = query
 
         # Execute the basic product search (logic should be in inheriting class)
