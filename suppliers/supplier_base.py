@@ -20,22 +20,22 @@ from datatypes.product import TypeProduct
 # File: /suppliers/supplier_base.py
 class SupplierBase(object, metaclass=ABCMeta):
 
-    _supplier: TypeSupplier = None
+    #_supplier: TypeSupplier = None
     """Supplier specific data"""
 
-    _products: List[TypeProduct] = []
+    #_products: List[TypeProduct] = []
     """List of TypeProduct elements"""
 
-    _limit: int = None
+    #_limit: int = None
     """Max products to query/return"""
 
-    _cookies: Dict = {}
+    #_cookies: Dict = {}
     """Cookies to use for supplier"""
 
-    _index: int = 0
+    #_index: int = 0
     """Index value used for __iter__ dunder method (for loop iteration)"""
 
-    _query_results: Any = None
+    #_query_results: Any = None
     """Location of cached query result (what other methods pull data from)"""
 
     allow_cas_search: bool = False
@@ -49,6 +49,7 @@ class SupplierBase(object, metaclass=ABCMeta):
             self._limit = limit
 
         self._products = []
+        self._query_results = []
         self._index = 0
         self._query = query
 
