@@ -80,7 +80,7 @@ class SupplierSynthetika(SupplierBase):
         """
         product = TypeProduct(
             uuid = product_obj['product_code'],
-            #name = product_obj['name'],
+            name = product_obj['name'],
             title = product_obj['name'],
             #description = str(product_obj['description']).strip() if product_obj['description'] else None,
             price = product_obj['price'],
