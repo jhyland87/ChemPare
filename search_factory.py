@@ -299,14 +299,16 @@ class SearchFactory(object):
         for phrase in keys:
             found = False
             for l_phrase in longest_phrases:
-                # If the entire phrase is found in a longer tuple...
                 intersection = set(l_phrase).intersection(phrase)
-                if len(intersection) == len(phrase):
-                    # ... and their frequency overlaps by 75% or more, we'll drop it
-                    difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
-                    if difference < 0.25:
-                        found = True
-                        break
+                if len(intersection) != len(phrase):
+                    next
+                    
+                # If the entire phrase is found in a longer tuple...
+                # ... and their frequency overlaps by 75% or more, we'll drop it
+                difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
+                if difference < 0.25:
+                    found = True
+                    break
             if not found:
                 longest_phrases[phrase] = phrases[phrase]
 
