@@ -26,7 +26,7 @@ class SupplierBase(object, metaclass=ABCMeta):
     #_products: List[TypeProduct] = []
     """List of TypeProduct elements"""
 
-    #_limit: int = None
+    _limit: int = None
     """Max products to query/return"""
 
     #_cookies: Dict = {}
@@ -44,9 +44,9 @@ class SupplierBase(object, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
-    def __init__(self, query: str):    
-        # if limit is not None:
-        #     self._limit = limit
+    def __init__(self, query: str, limit:int=None):    
+        if limit is not None:
+            self._limit = limit
 
         self._products = []
         self._query_results = []
