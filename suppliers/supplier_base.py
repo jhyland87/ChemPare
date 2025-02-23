@@ -41,6 +41,9 @@ class SupplierBase(object, metaclass=ABCMeta):
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
+    language_for_search: Any = None
+    """For what language it should use for the search query"""
+
     def __init__(self, query: str, limit: int=None):    
         if limit is not None:
             self._limit = limit

@@ -37,7 +37,10 @@ def main():
 
         name = product.name
         price = product.price
-        quantity = product.quantity
+        if product.quantity == None or product.uom == None:
+            quantity = 'N/A'
+        else:
+            quantity = f'{product.quantity}{product.uom}'
         # quantity = product['quantity']
         url = product.url
         supplier = product.supplier

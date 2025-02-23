@@ -11,6 +11,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         base_url = 'https://www.laboratoriumdiscounter.nl'
     )
 
+    allow_cas_search: bool = True
+    """Determines if the supplier allows CAS searches in addition to name searches"""
+
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)

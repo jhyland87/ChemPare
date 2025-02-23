@@ -95,9 +95,13 @@ class SearchFactory(object):
             # the product query term as the first param
             res = supplier_module(supplier_query, limit)
             if not res:
-                if __debug__:
-                    print('  No results found\n')
-                next
+                if supplier_module.allow_cas_search is True:
+                    res = supplier_module(query_name, limit)
+                    print(f'Searching for {query_name} from {supplier_module.__name__}...')
+                if not res:
+                    if __debug__:
+                        print('  No results found\n')
+                    next
             
             if __debug__:
                 print(f'  found {len(res.products)} products\n')

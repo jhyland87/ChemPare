@@ -85,11 +85,6 @@ class SupplierEsDrei(SupplierBase):
         price_pattern = re.compile(r'^(?P<price>.*)\s+(?P<currency>.)$')
         price_matches = price_pattern.search(price_data)
 
-        # Parse the quantity for the quantity and uom
-        # Pattern tested at: https://regex101.com/r/qpTlFm/1
-        quantity_pattern = re.compile(r'^(?P<quantity>[0-9,.]+)\s+(?P<uom>\w+)$')
-        quantity_matches = quantity_pattern.search(price_units[1].string.strip())
-
         product = TypeProduct(
             title = title_elem.attrs['title'],
             name = title_elem.attrs['title'],
@@ -107,9 +102,8 @@ class SupplierEsDrei(SupplierBase):
         #   product.currency = price_matches.currency
         product.update(price_matches.groupdict())
 
-        # Same thing with the quantity matches, they're named 'quantity' and 'uom', so that can just
-        # me merged with the product as well.
-        product.update(quantity_matches.groupdict())
+
+        product.quantity = price_unit.find_all("span")[-1].get_text(strip=True)
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space

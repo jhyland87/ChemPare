@@ -15,6 +15,9 @@ class SupplierOnyxmet(SupplierBase):
         base_url = 'https://onyxmet.com'
     )
 
+    allow_cas_search: bool = True
+    """Determines if the supplier allows CAS searches in addition to name searches"""
+
     # Regex tested at https://regex101.com/r/ddGVsT/1 (matches 66/80)
     #_title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>k?g|[cmμ]m)'
 
