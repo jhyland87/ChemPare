@@ -6,6 +6,7 @@ import re
 from typing import List, Set, Tuple, Dict, Any, Optional, Union
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
+from urllib.parse import urlparse, parse_qs
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
@@ -52,6 +53,9 @@ class SupplierBase(object, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the product properties
         self._parse_products()
 
+    def __len__(self):
+        return len(self._products)
+    
     def __iter__(self):
         return self
 
@@ -313,6 +317,7 @@ class SupplierBase(object, metaclass=ABCMeta):
 
         return int(checksum) == int(cas_dict['checksum'])
 
+    @finalmethod 
     def _cast_type(self, value: Union[str,int,float,bool] = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting int/float/bool
 
@@ -345,6 +350,35 @@ class SupplierBase(object, metaclass=ABCMeta):
             return int(value)   
             
         return value
+    
+    @finalmethod 
+    def _get_param_from_url(self, url:str, param:str) -> Union[str,int,bool]:
+        """Get a specific arameter from a GET URL
+
+        Args:
+            url (str): HREF address
+            param (str): Param key to find
+
+        Returns:
+            Union[str,int,bool]: Whatver the value was of the key, or nothing
+
+        Example:
+            self._get_param_from_url('http://google.com?foo=bar&product_id=12345', 'product_id')
+            12345
+        """
+        parsed_url = urlparse(url)
+        parsed_query = parse_qs(parsed_url.query)
+
+        if param not in parsed_query:
+            return
+        
+        if not parsed_query[param]:
+            return None
+        
+        if type(parsed_query[param]) is list and len(parsed_query[param]) == 1:
+            return parsed_query[param][0]
+        
+        return parsed_query[param]
 
 if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'

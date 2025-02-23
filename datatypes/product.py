@@ -136,7 +136,7 @@ class TypeProduct:
         if value.lower() == 'false':
             return False
             
-        if value.isdecimal() or re.match(f'^[0-9]+.[0-9]+$', value): 
+        if value.isdecimal() or re.match(f'^[0-9]+\.[0-9]+$', value): 
             return float(value) 
                 
         if value.isnumeric() or re.match(f'^[0-9]+$', value):

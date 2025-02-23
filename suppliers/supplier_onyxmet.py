@@ -1,10 +1,12 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
+import threading
 import re
 
 # File: /suppliers/supplier_onyxmet.py
 class SupplierOnyxmet(SupplierBase):
+    _limit:int = 10
 
     # Supplier specific data
     _supplier: TypeSupplier = dict(
@@ -69,11 +71,22 @@ class SupplierOnyxmet(SupplierBase):
         if self._query_results is None or len(self._query_results) == 0:
             return
         
-        # Iterate oer the products, parsing them and adding them to the _products
-        for product in self._query_results:
-            self._products.append(self._query_and_parse_product(product['href']))
+        # will store the threads 
+        threads = []
 
-    def _query_and_parse_product(self, href:str) -> TypeProduct:
+        # Iterate over the initial product search results, creating a thread to request the
+        # product page for each item, adding it to the self._products property
+        for product in self._query_results:
+            #self._query_and_parse_product(product['href'])
+            thread = threading.Thread(target=self._query_and_parse_product, kwargs=dict(href=product['href']))
+            threads.append(thread)
+            thread.start()
+
+        # Wait for all threads to complete
+        for thread in threads:
+            thread.join()  
+
+    def _query_and_parse_product(self, href:str) -> None:
         """Query specific product page and parse results
 
         Args:
@@ -93,7 +106,7 @@ class SupplierOnyxmet(SupplierBase):
         # Find the one with the 'product-price' class
         title_elem = next(obj for obj in h3_elems if 'product-title' in obj.get('class'))
         price_elem = next(obj for obj in h3_elems if 'product-price' in obj.get('class'))
-
+        
         # TODO: I'm sure there's an easier way to just specifically look for the 'h3.product-price' element,
         #       instead of _all_ h3 elements then filtering the results for one that has the 'product-price'
         #       class... But I'll leave that optimization up to you :-)
@@ -118,7 +131,7 @@ class SupplierOnyxmet(SupplierBase):
         if title_matches:
             product.update(title_matches.groupdict())
 
-        return product
+        self._products.append(product.cast_properties())
 
 if __name__ == '__main__' and __package__ is None:
     __name__ = 'suppliers.supplier_onyxmet'

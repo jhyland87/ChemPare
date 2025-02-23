@@ -6,10 +6,22 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 # Testing single supplier
 # from suppliers.supplier_laballey import SupplierLaballey
 # from suppliers.supplier_labchem import SupplierLabchem
-#from suppliers.supplier_chemsavers import SupplierChemsavers
+# from suppliers.supplier_chemsavers import SupplierChemsavers
+from suppliers.supplier_onyxmet import SupplierOnyxmet
 
-#print('allow_cas_search:',SupplierLabchem.allow_cas_search)
-# search = SupplierChemsavers('toluene')
+query = 'metal'
+print(f'Searching for {query}...')
+product_search = SupplierOnyxmet(query)
+
+print(f'Found {len(product_search)} products for {query}\n')
+
+for product in product_search:
+    #print(f'\tTitle: {product.title}')
+    for key, value in product.items():
+        if value is not None:
+            print('{:>15}: {}'.format(key,value))
+    print('---------')
+    print('')
 
 # for p in search:
 #     print('\n\np:', p)
@@ -33,13 +45,13 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 #     # print('uom:', p.uom)
 #     print('\n')
 
-from search_factory import SearchFactory
+# from search_factory import SearchFactory
 
-product_search = SearchFactory('67-64-1')
+# product_search = SearchFactory('67-64-1')
 
-for product in product_search:
-    for key, value in product.items():
-        if value is not None:
-            print('{:>12}: {:12}'.format(key,value))
-    print('---------')
-    print('')
+# for product in product_search:
+#     for key, value in product.items():
+#         if value is not None:
+#             print('{:>15}: {}'.format(key,value))
+#     print('---------')
+#     print('')
