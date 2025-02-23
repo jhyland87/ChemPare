@@ -183,35 +183,6 @@ class SupplierBase(object, metaclass=ABCMeta):
         res = self.http_get(path, params)
         return res.json()
 
-    """ ABSTRACT methods/properties """
-
-    @abstractmethod
-    def _query_products(self, query: str):
-        """Query the website for the products (name or CAS).
-
-        Args:
-            query: query string to use
-
-        Returns:
-            None
-
-        This should define the self._query_results property with the results
-        """
-        pass
-
-    @abstractmethod
-    def _parse_products(self):
-        """Method to set the local properties for the queried product.
-        
-        The self._query_results (populated by calling self._query_products()) is iterated over
-        by this method, which in turn parses each property and creates a new TypeProduct object that
-        gets saved to this._products
-
-        Returns:
-            None
-        """
-        pass
-
     """ GENERAL USE UTILITY METHODS """
 
     @finalmethod
@@ -385,6 +356,35 @@ class SupplierBase(object, metaclass=ABCMeta):
             return parsed_query[param][0]
         
         return parsed_query[param]
+
+    """ ABSTRACT methods/properties """
+
+    @abstractmethod
+    def _query_products(self, query: str):
+        """Query the website for the products (name or CAS).
+
+        Args:
+            query: query string to use
+
+        Returns:
+            None
+
+        This should define the self._query_results property with the results
+        """
+        pass
+
+    @abstractmethod
+    def _parse_products(self):
+        """Method to set the local properties for the queried product.
+        
+        The self._query_results (populated by calling self._query_products()) is iterated over
+        by this method, which in turn parses each property and creates a new TypeProduct object that
+        gets saved to this._products
+
+        Returns:
+            None
+        """
+        pass
 
 if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
     __package__ = 'suppliers.supplier_base.SupplierBase'
