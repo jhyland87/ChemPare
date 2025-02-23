@@ -10,20 +10,21 @@ from search_factory import SearchFactory
 # from suppliers.supplier_labchem import SupplierLabchem
 # from suppliers.supplier_chemsavers import SupplierChemsavers
 #from suppliers.supplier_onyxmet import SupplierOnyxmet
+from suppliers.supplier_synthetika import SupplierSynthetika
 
-query = sys.argv[1] if len(sys.argv) >= 2 else 'zinc'
+query = sys.argv[1] if len(sys.argv) >= 2 else 'borohydride'
 print(f'Searching for {query}...')
-# product_search = SupplierOnyxmet(query)
+product_search = SupplierSynthetika(query)
 
-# print(f'Found {len(product_search)} products for {query}\n')
+print(f'Found {len(product_search)} products for {query}\n')
 
-# for product in product_search:
-#     #print(f'\tTitle: {product.title}')
-#     for key, value in product.items():
-#         if value is not None:
-#             print('{:>15}: {}'.format(key,value))
-#     print('---------')
-#     print('')
+for product in product_search:
+    #print(f'\tTitle: {product.title}')
+    for key, value in product.items():
+        if value is not None:
+            print('{:>15}: {}'.format(key,value))
+    print('---------')
+    print('')
 
 # for p in search:
 #     print('\n\np:', p)
@@ -48,12 +49,12 @@ print(f'Searching for {query}...')
 #     print('\n')
 
 
-product_search = SearchFactory(query)
+# product_search = SearchFactory(query)
 
-for product in product_search:
-    #print('{:>25}: {}'.format(product.supplier,product.title))
-    for key, value in product.items():
-        if value is not None:
-            print('{:>15}: {}'.format(key,value))
-    print('---------')
-    print('')
+# for product in product_search:
+#     #print('{:>25}: {}'.format(product.supplier,product.title))
+#     for key, value in product.items():
+#         if value is not None:
+#             print('{:>15}: {}'.format(key,value))
+#     print('---------')
+#     print('')
