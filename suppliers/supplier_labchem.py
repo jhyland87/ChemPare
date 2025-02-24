@@ -21,8 +21,7 @@ class SupplierLabchem(SupplierBase):
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
-
-
+    
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
@@ -51,7 +50,7 @@ class SupplierLabchem(SupplierBase):
         # 1) Query the main product search page (returns HTML, but does not include prices)
         self._query_results = self.http_get_html('searchPage.action', get_params)
         
-    def _query_products_autocomplete(self):
+    def __query_products_autocomplete(self):
         """Query products from supplier"""
         # Example request url for Labchem Supplier
         # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
@@ -91,15 +90,15 @@ class SupplierLabchem(SupplierBase):
         product_part_numbers = [n.attrs['id'] for n in product_part_elems] 
         
         # 3) Query for the price information using the part numbers
-        product_prices = self._query_products_prices(product_part_numbers)
+        product_prices = self.__query_products_prices(product_part_numbers)
         product_containers = product_page_soup.find_all('li',class_='listView')
 
         for product_elem in product_containers[:self._limit]:
-            product_obj = self._parse_product(product_elem)
+            product_obj = self.__parse_product(product_elem)
             product_obj.price = product_prices.get(product_obj.mpn)
             self._products.append(product_obj)
 
-    def _parse_product(self, product_elem:BeautifulSoup) -> TypeProduct:
+    def __parse_product(self, product_elem:BeautifulSoup) -> TypeProduct:
         inputs = product_elem.find_all('input')        
         link = product_elem.find('div', class_='prodImage').find('a').attrs['href']
         cas = product_elem.find('ul', class_='otherNumWrap').find('span')
@@ -110,7 +109,7 @@ class SupplierLabchem(SupplierBase):
         mpn_value = next(x.attrs['id'] for x in inputs if x.attrs['value'] == part_number and x.attrs['id'].startswith('MPNValue_'))
         mpn_value = mpn_value.replace('MPNValue_','')
 
-        title_elem = product_elem.find('h4').find('a').string.strip()
+        title_elem = product_elem.find('h4').find('a').get_text(strip=True)
 
         _product = TypeProduct(
             name = title_elem,
@@ -118,13 +117,15 @@ class SupplierLabchem(SupplierBase):
             supplier = self._supplier['name'],
             mpn = mpn_value,
             uuid = compare_id,
-            cas = cas.string.strip(),
             url = self._supplier['base_url'] + link
         )
 
+        if cas:
+            _product.cas = cas.get_text(strip=True),
+
         return _product.cast_properties()
     
-    def _query_products_prices(self, part_numbers:Tuple[str,list]) -> Optional[dict]:
+    def __query_products_prices(self, part_numbers:Tuple[str,list]) -> Optional[dict]:
         """Query specific product prices by their part numeber(s)
 
         Args:
