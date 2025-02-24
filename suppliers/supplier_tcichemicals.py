@@ -6,6 +6,8 @@ import re
 # File: /suppliers/supplier_tcichemicals.py
 class SupplierTciChemicals(SupplierBase):
 
+    allow_cas_search = True
+    
     _limit = 20
 
     _supplier: TypeSupplier = dict(
