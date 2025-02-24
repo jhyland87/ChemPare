@@ -374,8 +374,8 @@ class SupplierBase(object, metaclass=ABCMeta):
         if not qty_string or qty_string.isspace():
             return None
         
-        #https://regex101.com/r/am7wLs/2
-        qty_pattern = re.compile(r'^(?P<quantity>[A-Z0-9\.\,]+)\s?(?P<uom>oz|ounces?|g|grams?|lb|pounds?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)$', re.IGNORECASE)
+        #https://regex101.com/r/am7wLs/3
+        qty_pattern = re.compile(r'(?P<quantity>[0-9\.\,]+)\s?(?P<uom>oz|ounces?|grams?|g|lbs?|pounds?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)', re.IGNORECASE)
         qty_matches = qty_pattern.search(qty_string)
 
         if not qty_matches: 
