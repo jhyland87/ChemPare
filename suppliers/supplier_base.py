@@ -3,6 +3,7 @@ import sys
 import time
 import math
 import re
+import regex
 from typing import List, Set, Tuple, Dict, Any, Optional, Union
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
@@ -347,9 +348,12 @@ class SupplierBase(object, metaclass=ABCMeta):
         if not price_str or price_str.isspace():
             return None
         
-        # https://regex101.com/r/wva7lq/1
-        price_pattern = re.compile(r'^(?P<currency>[^a-zA-Z0-9])\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)$')
-        price_matches = price_pattern.search(price_str)
+        # https://regex101.com/r/wva7lq/1 - OLD PATTERN
+        #price_pattern = re.compile(r'^(?P<currency>[^a-zA-Z0-9])\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)$')
+        #price_matches = price_pattern.search(price_str)
+
+        # Pattern matches for the currency sign using the magic pattern thing (\p{Sc}), then matches for the price. The two can be in either order.
+        price_matches = regex.match(r'^(?:(?P<currency>\p{Sc}|usd?|eu)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|usd?|eu))$', price_str, regex.IGNORECASE)
 
         if not price_matches: 
             return None

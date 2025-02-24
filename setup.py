@@ -16,7 +16,8 @@ setup(
         "pathlib",
         "curl_cffi",
         "translate",
-        "pytest"
+        "pytest",
+        "regex"
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},
