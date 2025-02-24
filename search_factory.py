@@ -118,7 +118,7 @@ class SearchFactory(object):
         Returns:
             Optional[str]: CAS value of chemical
         """
-        
+
         cas = None
         try:
             # Send a GET request to the API
@@ -136,7 +136,7 @@ class SearchFactory(object):
             cas_list = cas_response.split('\n') 
             cas = cas_list[0] 
         except:
-            print('Failed to get CA')
+            print('Failed to get CAS #')
         finally:
             return cas      
 
