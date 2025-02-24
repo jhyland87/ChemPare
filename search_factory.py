@@ -119,21 +119,26 @@ class SearchFactory(object):
             Optional[str]: CAS value of chemical
         """
         
-        # Send a GET request to the API
-        cas_request = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas')
-        
-        # Check if the request was successful
-        if cas_request.status_code != 200:
-            return f"Error: {cas_request.status_code}"
-        
-        # Decode the bytes to a string
-        cas_response = cas_request.content.decode('utf-8')  
+        cas = None
+        try:
+            # Send a GET request to the API
+            cas_request = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas')
+            # Check if the request was successful
+            if cas_request.status_code != 200:
+                return None
+            
+            # Decode the bytes to a string
+            cas_response = cas_request.content.decode('utf-8')  
 
-        if not cas_response:
-            return None
+            if not cas_response:
+                return None
 
-        cas_list = cas_response.split('\n') 
-        return cas_list[0]       
+            cas_list = cas_response.split('\n') 
+            cas = cas_list[0] 
+        except:
+            print('Failed to get CA')
+        finally:
+            return cas      
 
         # # Should only be one line/value, so just strip it before returning, if a value was found
         # return str(cas_response).strip() if cas_response else None
@@ -302,7 +307,7 @@ class SearchFactory(object):
                 intersection = set(l_phrase).intersection(phrase)
                 if len(intersection) != len(phrase):
                     next
-                    
+
                 # If the entire phrase is found in a longer tuple...
                 # ... and their frequency overlaps by 75% or more, we'll drop it
                 difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
