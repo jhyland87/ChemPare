@@ -328,32 +328,93 @@ class SupplierBase(object, metaclass=ABCMeta):
             
         return value
     
+    @finalmethod
+    def _parse_price(self, price_str:str) -> Optional[Dict]:
+        """Parse price from string
+
+        Args:
+            price_str (str): Suspected price string
+
+        Returns:
+            Optional[Dict]: Returns a dictionary with the 'price' and 'currency' values
+        """
+
+        if type(price_str) is not str:
+            return None
+        
+        price_str = price_str.strip()
+
+        if not price_str or price_str.isspace():
+            return None
+        
+        # https://regex101.com/r/wva7lq/1
+        price_pattern = re.compile(r'^(?P<currency>[^a-zA-Z0-9])\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)$')
+        price_matches = price_pattern.search(price_str)
+
+        if not price_matches: 
+            return None
+        
+        return price_matches.groupdict()
+        
+    @finalmethod
+    def _parse_quantity(self, qty_string:str) -> Optional[Dict]:
+        """Parse a string for the quantity and unit of measurement
+
+        Args:
+            qty_string (str): Suspected quantity string
+
+        Returns:
+            Optional[Dict]: Returns a dictionary with the 'quantity' and 'uom' values
+        """
+        if type(qty_string) is not str:
+            return None
+        
+        qty_string = qty_string.strip()
+
+        if not qty_string or qty_string.isspace():
+            return None
+        
+        #https://regex101.com/r/am7wLs/2
+        qty_pattern = re.compile(r'^(?P<quantity>[A-Z0-9\.\,]+)\s?(?P<uom>oz|ounces?|g|grams?|lb|pounds?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)$', re.IGNORECASE)
+        qty_matches = qty_pattern.search(qty_string)
+
+        if not qty_matches: 
+            return None
+        
+        return qty_matches.groupdict()
+    
     @finalmethod 
-    def _get_param_from_url(self, url:str, param:str) -> Union[str,int,bool]:
+    def _get_param_from_url(self, url:str, param:str=None) -> Optional[Any]:
         """Get a specific arameter from a GET URL
 
         Args:
             url (str): HREF address
-            param (str): Param key to find
+            param (str): Param key to find (optional)
 
         Returns:
-            Union[str,int,bool]: Whatver the value was of the key, or nothing
+            Any: Whatver the value was of the key, or nothing
 
         Example:
+            self._get_param_from_url('http://google.com?foo=bar&product_id=12345')
+            {'foo':'bar','product_id':'12345'}
             self._get_param_from_url('http://google.com?foo=bar&product_id=12345', 'product_id')
-            12345
+            '12345'
         """
         parsed_url = urlparse(url)
         parsed_query = parse_qs(parsed_url.query)
 
+        # Replace any ['values'] with just 'values'
+        parsed_query = {k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()}
+
+        if not param:
+            return parsed_query
+        
+        # If no specific parameter was defined, then just return this
         if param not in parsed_query:
-            return
+            return None
         
         if not parsed_query[param]:
             return None
-        
-        if type(parsed_query[param]) is list and len(parsed_query[param]) == 1:
-            return parsed_query[param][0]
         
         return parsed_query[param]
 
