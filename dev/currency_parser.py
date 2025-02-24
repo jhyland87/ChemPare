@@ -1,6 +1,6 @@
 import regex
 
-pattern = r'^(?:(?P<currency>\p{Sc}|usd?|eu|chf|aud?|rub|cad?)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|usd?|eu|chf|aud?|rub|cad?))$'
+pattern = r'^(?:(?P<currency>\p{Sc}|(?:us|au|ca)d?|eu|chf|rub)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|(?:us|au|ca)d?|eu|chf|rub))$'
 
 examples = [
     '56£','$1','1$','$1','1$','₹98,85','55,23₹','$23.43','¥23',
