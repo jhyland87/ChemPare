@@ -353,7 +353,8 @@ class SupplierBase(object, metaclass=ABCMeta):
         #price_matches = price_pattern.search(price_str)
 
         # Pattern matches for the currency sign using the magic pattern thing (\p{Sc}), then matches for the price. The two can be in either order.
-        price_matches = regex.match(r'^(?:(?P<currency>\p{Sc}|usd?|eu)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|usd?|eu))$', price_str, regex.IGNORECASE)
+        price_pattern = r'^(?:(?P<currency>\p{Sc}|usd?|eu|chf|aud?|rub|cad?)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|usd?|eu|chf|aud?|rub|cad?))$'
+        price_matches = regex.match(price_pattern, price_str, regex.IGNORECASE)
 
         if not price_matches: 
             return None
