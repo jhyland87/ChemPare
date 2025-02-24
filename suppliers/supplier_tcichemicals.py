@@ -7,7 +7,7 @@ import re
 class SupplierTciChemicals(SupplierBase):
 
     allow_cas_search = True
-    
+
     _limit = 20
 
     _supplier: TypeSupplier = dict(
@@ -105,9 +105,11 @@ class SupplierTciChemicals(SupplierBase):
         price = product_obj.find('div', class_='listPriceNoStrike')
 
         product = TypeProduct(
-            title=title.string.strip(),
+            name=title.string.strip(),
             quantity=quantity.string.strip(),
-            price=price.string.strip()
+            price=price.string.strip(),
+            supplier=self._supplier['name'],
+            url=self._supplier['base_url']+title.attrs['href']
         )
 
         description_container = product_obj.find('div', class_='product-description')
