@@ -10,15 +10,17 @@ from search_factory import SearchFactory
 # from suppliers.supplier_labchem import SupplierLabchem
 # from suppliers.supplier_chemsavers import SupplierChemsavers
 #from suppliers.supplier_onyxmet import SupplierOnyxmet
-from suppliers.supplier_synthetika import SupplierSynthetika
+#from suppliers.supplier_synthetika import SupplierSynthetika
+from suppliers.supplier_tcichemicals import SupplierTciChemicals
 
-query = sys.argv[1] if len(sys.argv) >= 2 else 'borohydride'
+query = sys.argv[1] if len(sys.argv) >= 2 else 'benz'
 print(f'Searching for {query}...')
-product_search = SupplierSynthetika(query)
+product_search = SupplierTciChemicals(query)
 
 print(f'Found {len(product_search)} products for {query}\n')
 
 for product in product_search:
+    #print('product:',product)
     #print(f'\tTitle: {product.title}')
     for key, value in product.items():
         if value is not None:

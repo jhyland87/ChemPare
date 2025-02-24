@@ -15,7 +15,8 @@ setup(
         "numpy",
         "pathlib",
         "curl_cffi",
-        "translate"
+        "translate",
+        "pytest"
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},
