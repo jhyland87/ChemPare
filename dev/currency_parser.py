@@ -1,31 +1,64 @@
 import regex
 
-pattern = (r'^(?:(?P<currency>\p{Sc}|(?:us|au|ca)d?|eu|chf|rub)\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)'
-            r'|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|(?:us|au|ca)d?|eu|chf|rub))$')
-
-# Or even more comprehensive:
+#pattern = r'(?P<B>(?<=A)B|B(?=A))|(?P<A>(?<=B)A|A(?=B))'
+# Partial test at https://regex101.com/r/KFaYjq/1
+#iso_4217_pattern = r'(?:AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD?|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYN|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRU|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STN|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD?|USN|UYI|UYU|UYW|UZS|VES|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL)'
 pattern = (r'^(?:(?P<currency>\p{Sc}|'
-           r'(?:AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD?|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB'
-           r'|BOV|BRL|BSD|BTN|BWP|BYN|BZD|CAD?|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP'
-           r'|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD'
-           r'|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW'
-           r'|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRU|MUR|MVR|MWK'
-           r'|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON'
-           r'|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STN|SVC|SYP|SZL|THB|TJS'
-           r'|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD?|USN|UYI|UYU|UYW|UZS|VES|VND|VUV|WST|XAF'
-           r'|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL))'
+           r'(?P<currency>'
+            r'A(?:[EM]D|FN|LL|[NW]G|OA|RS|UD?|ZN)|'
+            r'B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|'
+            r'C(?:AD|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|'
+            r'D(?:JF|KK|OP|ZD)|'
+            r'E(?:GP|RN|TB|UR?)|'
+            r'F(?:JD|KP)|'
+            r'G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|'
+            r'H(?:KD|NL|RK|TG|UF)|'
+            r'I(?:[NRD]R|LS|MP|QD|SK)|'
+            r'J(?:EP|MD|OD|PY)|'
+            r'K(?:[GE]S|HR|MF|[PR]W|W[DY]|ZT)|'
+            r'L(?:AK|BP|KR|[RY]D|SL)|'
+            r'M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|'
+            r'N(?:[AZ]D|GN|IO|OK|PR)|'
+            r'(?:QA|OM)R|'
+            r'P(?:AB|[EK]N|GK|HP|KR|YG)|'
+            r'R(?:ON|SD|UB|WF)|'
+            r'S(?:AR|[BRGD]D|CR|DG|EK|[HY]P|[LZ]L|OS|PL|VC)|'
+            r'T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|'
+            r'U(?:AH|GX|SD?|YU|ZS)|'
+            r'V(?:EF|ND|UV)|'
+            r'WST|'
+            r'X(?:[AOP]F|CD|DR)|'
+            r'YER|'
+            r'Z(?:AR|MW|WD)))'
            r'\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)'
            r'|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|'
            #r'(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)'
-           r'(?:AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD?|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB'
-           r'|BOV|BRL|BSD|BTN|BWP|BYN|BZD|CAD?|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP'
-           r'|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD'
-           r'|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW'
-           r'|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRU|MUR|MVR|MWK'
-           r'|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON'
-           r'|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STN|SVC|SYP|SZL|THB|TJS'
-           r'|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD?|USN|UYI|UYU|UYW|UZS|VES|VND|VUV|WST|XAF'
-           r'|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL))'
+           r'(?P<currency>'
+            r'A(?:[EM]D|FN|LL|[NW]G|OA|RS|UD?|ZN)|'
+            r'B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|'
+            r'C(?:AD|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|'
+            r'D(?:JF|KK|OP|ZD)|'
+            r'E(?:GP|RN|TB|UR?)|'
+            r'F(?:JD|KP)|'
+            r'G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|'
+            r'H(?:KD|NL|RK|TG|UF)|'
+            r'I(?:[NRD]R|LS|MP|QD|SK)|'
+            r'J(?:EP|MD|OD|PY)|'
+            r'K(?:[GE]S|HR|MF|[PR]W|W[DY]|ZT)|'
+            r'L(?:AK|BP|KR|[RY]D|SL)|'
+            r'M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|'
+            r'N(?:[AZ]D|GN|IO|OK|PR)|'
+            r'(?:QA|OM)R|'
+            r'P(?:AB|[EK]N|GK|HP|KR|YG)|'
+            r'R(?:ON|SD|UB|WF)|'
+            r'S(?:AR|[BRGD]D|CR|DG|EK|[HY]P|[LZ]L|OS|PL|VC)|'
+            r'T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|'
+            r'U(?:AH|GX|SD?|YU|ZS)|'
+            r'V(?:EF|ND|UV)|'
+            r'WST|'
+            r'X(?:[AOP]F|CD|DR)|'
+            r'YER|'
+            r'Z(?:AR|MW|WD)))'
            r')$')
 
 examples = [
@@ -39,3 +72,34 @@ for example in examples:
     r = regex.match(pattern, example, regex.IGNORECASE)
     if r:
         print(r.groupdict())
+
+
+"""
+
+AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|
+BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BRL|BSD|BTN|BWP|BYR|BZD|
+CAD|CDF|CHF|CLP|CNY|COP|CRC|CUC|CUP|CVE|CZK|
+DJF|DKK|DOP|DZD|
+EGP|ERN|ETB|EUR|
+FJD|FKP|
+GBP|GEL|GGP|GHS|GIP|GMD|GNF|GTQ|GYD|
+HKD|HNL|HRK|HTG|HUF|
+IDR|ILS|IMP|INR|IQD|IRR|ISK|
+JEP|JMD|JOD|JPY|
+KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|
+LAK|LBP|LKR|LRD|LSL|LYD|
+MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MYR|MZN|
+NAD|NGN|NIO|NOK|NPR|NZD|
+OMR|
+PAB|PEN|PGK|PHP|PKR|PLN|PYG|
+QAR|
+RON|RSD|RUB|RWF|
+SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SPL|SRD|STD|SVC|SYP|SZL|
+THB|TJS|TMT|TND|TOP|TRY|TTD|TVD|TWD|TZS|
+UAH|UGX|USD|UYU|UZS|
+VEF|VND|VUV|
+WST|
+XAF|XCD|XDR|XOF|XPF|
+YER|
+ZAR|ZMW|ZWD
+"""
