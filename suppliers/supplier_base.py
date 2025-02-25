@@ -103,6 +103,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # if path is not None and base_url not in path and (api_url is None or api_url not in path):
         #     url = f'{base_url}/{path}'
         
+        base_url = self._supplier.get('base_url', None)
+        api_url = self._supplier.get('api_url', base_url)
+
+        if path and api_url not in path:
+            path=f'{api_url}/{path}'
+
         return requests.get(path, params=params, impersonate="chrome")
     
     @finalmethod 
@@ -152,7 +158,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             params: Dict=None, 
             json:Dict=None) -> Union[Dict, List]:
         url = self._supplier.get('api_url', None)
-        #print('url:',url)
+
         if path:
             url=f'{url}/{path}'
 
@@ -160,7 +166,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         if req is None:
             return None
-        print('req:',req)
+
         return req.json()
     
     @finalmethod
@@ -176,6 +182,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         Returns:
             HTML content of response object
         """
+
+        base_url = self._supplier.get('base_url', None)
+        api_url = self._supplier.get('api_url', base_url)
+
+        if path and api_url not in path:
+            path=f'{api_url}/{path}'
 
         res = self.http_get(path, params)
 
@@ -196,14 +208,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             JSON object from response body
         """
 
-        api_url = self._supplier.get('api_url', None)
-        if api_url:
-            path = f'{api_url}/{path}'
+        # api_url = self._supplier.get('api_url', None)
+        # if api_url:
+        #     path = f'{api_url}/{path}'
 
-        print('GETTING URL:', path)
-        print('params:',params)
         res = self.http_get(path, params)
-        #print('res:',res.content)
 
         if not res:
             return None

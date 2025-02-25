@@ -71,20 +71,16 @@ class SupplierLoudwolf(SupplierBase):
                 if len(self.__product_pages) >= self._limit:
                     break
 
-                #print('Processing:',pe)
                 product_image_div = pe.find('div', class_='image')
-                #print('product_image_div:',product_image_div)
                 if not product_image_div: 
                     continue
 
                 product_link = product_image_div.find('a')
-                #print('product_link:',product_link)
 
                 if not product_link: 
                     continue
 
                 product_href = product_link.attrs['href']
-                #print('product_href:',product_href)
 
                 if not product_href: 
                     continue

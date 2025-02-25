@@ -52,7 +52,7 @@ class SupplierFtfScientific(SupplierBase):
             query (str): Query string to use
         """
 
-        self.__get_headers()
+        #self.__get_headers()
 
         #print('set-cookie:',headers['set-cookie'])
         return
