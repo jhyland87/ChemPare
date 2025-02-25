@@ -165,8 +165,7 @@ class SearchFactory(ClassUtils, object):
             
         # Do we want the first value?
         return name_lines[0]
-  
-    
+   
     def __get_popular_name(self, query:str) -> str:
         """Get the most frequently used name for a chemical from a list of its aliases
 
@@ -186,92 +185,10 @@ class SearchFactory(ClassUtils, object):
         name_response = name_request.content.decode('utf-8')  # Decode the bytes to a string
         name_lines = name_response.split('\n')  # Split by newline
 
-        highest_val = self.__filter_highest_value(self.__get_common_phrases(name_lines))
+        highest_val = self._filter_highest_value(self._get_common_phrases(name_lines))
 
         keys = list(highest_val.keys())
         return keys[0][0]
-
-    def __filter_highest_value(self, input_dict:Dict) -> Dict:
-        """Filter a dictionary for the entry with the highest numerical value.
-
-        Args:
-            input_dict (Dict): Dictionary to iterate through
-
-        Returns:
-            Dict: Item in dictionary with highest value
-        """
-        if not input_dict:
-            return {}
-        max_value = max(input_dict.values())
-        return {k: v for k, v in input_dict.items() if v == max_value}
-    
-    def __get_common_phrases(self, texts:list, maximum_length:int=3, minimum_repeat:int=2, stopwords:list=[]) -> dict:
-        """Get the most common phrases out of a list of phrases.
-
-        This is used to analyze the results from a query to https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names
-        to find the most common term used in the results. This term may yield better search results on some sites.
-
-        Source:
-            https://dev.to/mattschwartz/quickly-find-common-phrases-in-a-large-list-of-strings-9in
-
-        Args:
-            texts (list): Array of text values to analyze
-            maximum_length (int, optional): Maximum length of phrse. Defaults to 3.
-            minimum_repeat (int, optional): Minimum length of phrse. Defaults to 2.
-            stopwords (list, optional): Phrases to exclude. Defaults to [].
-
-        Returns:
-            dict: Dictionary of sets of words and the frequency as the value.
-        """
-
-        phrases = {}
-        for text in texts:
-            # Replace separators and punctuation with spaces
-            text = re.sub(r'[.!?,:;/\-\s]', ' ', text)
-            # Remove extraneous chars
-            text = re.sub(r'[\\|@#$&~%\(\)*\"]', '', text)
-
-            words = text.split(' ')
-            # Remove stop words and empty strings
-            words = [w for w in words if len(w) and w.lower() not in stopwords]
-            length = len(words)
-            # Look at phrases no longer than maximum_length words long
-            size = length if length <= maximum_length else maximum_length
-            while size > 0:
-                pos = 0
-                # Walk over all sets of words
-                while pos + size <= length:
-                    phrase = words[pos:pos+size]
-                    phrase = tuple(w.lower() for w in phrase)
-                    if phrase in phrases:
-                        phrases[phrase] += 1
-                    else:
-                        phrases[phrase] = 1
-                    pos += 1
-                size -= 1
-
-        phrases = {k: v for k, v in phrases.items() if v >= minimum_repeat}
-
-        longest_phrases = {}
-        keys = list(phrases.keys())
-        keys.sort(key=len, reverse=True)
-        for phrase in keys:
-            found = False
-            for l_phrase in longest_phrases:
-                intersection = set(l_phrase).intersection(phrase)
-                if len(intersection) != len(phrase):
-                    next
-
-                # If the entire phrase is found in a longer tuple...
-                # ... and their frequency overlaps by 75% or more, we'll drop it
-                difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
-                if difference < 0.25:
-                    found = True
-                    break
-            if not found:
-                longest_phrases[phrase] = phrases[phrase]
-
-        return longest_phrases
 
     @property
     @finalmethod 
