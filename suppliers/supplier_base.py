@@ -84,7 +84,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @finalmethod 
     def http_get(
             self, 
-            path: str, 
+            path: str=None, 
             params: Dict=None) -> requests:
         """Base HTTP getter (not specific to data type).
 
@@ -99,10 +99,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         api_url = self._supplier.get('api_url', None)
         base_url = self._supplier.get('base_url', None)
 
-        if base_url not in path and (api_url is None or api_url not in path):
-            path = f'{base_url}/{path}'
+        url=base_url
+        if path is not None and base_url not in path and (api_url is None or api_url not in path):
+            url = f'{base_url}/{path}'
             
-        return requests.get(path, params=params, impersonate="chrome")
+        return requests.get(url, params=params, impersonate="chrome")
     
     @finalmethod 
     def http_post(
@@ -130,15 +131,32 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             
         return requests.post(path, params=params, impersonate="chrome", json=json, data=data)
 
+    @finalmethod
+    def http_get_headers(
+            self,
+            **kwargs) -> requests.Headers:
+        """Get the response headers for a GET request
+
+        Returns:
+            requests.Headers: Header object
+        """
+        
+        resp = self.http_get(**kwargs)
+
+        return resp.headers 
+
     @finalmethod 
     def http_post_json(
             self, 
-            path: str, 
+            path: str=None, 
             params: Dict=None, 
             json:Dict=None) -> Union[Dict, List]:
         url = self._supplier.get('api_url', None)
-        print('url:',url)
-        req = self.http_post(f'{url}/{path}', params=params, json=json)
+        #print('url:',url)
+        if path:
+            url=f'{url}/{path}'
+
+        req = self.http_post(url, params=params, json=json)
 
         if req is None:
             return None

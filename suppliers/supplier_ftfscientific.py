@@ -22,12 +22,39 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
+    def __get_headers(self):
+        headers = self.http_get_headers()
+        #headers = headers.get('content-type')
+
+        # print("headers.get('set-cookie'):", headers.get('set-cookie'))
+        # print('\n\n')
+        # print("headers.items():", headers.items())
+        # print('\n\n')
+        # print("headers.multi_items():", headers.multi_items())
+        # print('\n\n')
+        # print("list(headers):", list(headers))
+        # print('\n\n')
+
+        for k, v in headers.multi_items():
+            if k == 'set-cookie':
+                print(k,': ',v,'\n\n')
+           
+        #print(headers,'\n\n')
+        # print('\n\nheaders:', headers)
+        # print('\n\ntype(headers):', headers.)
+        # print('\n\ntype(headers[0]):', type(headers[0]))
+        # print('\n\ntype(headers[0][0]):', type(headers[0][0]))
+
     def _query_products(self, query: str):
         """Query products from supplier
 
         Args:
             query (str): Query string to use
         """
+
+        self.__get_headers()
+
+        #print('set-cookie:',headers['set-cookie'])
         return
         # Example request url for FTF
         # https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search
