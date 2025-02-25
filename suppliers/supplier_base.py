@@ -96,14 +96,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             Result from requests.get()
         """
 
-        api_url = self._supplier.get('api_url', None)
-        base_url = self._supplier.get('base_url', None)
+        # api_url = self._supplier.get('api_url', None)
+        # base_url = self._supplier.get('base_url', None)
 
-        url=base_url
-        if path is not None and base_url not in path and (api_url is None or api_url not in path):
-            url = f'{base_url}/{path}'
-            
-        return requests.get(url, params=params, impersonate="chrome")
+        # url=base_url
+        # if path is not None and base_url not in path and (api_url is None or api_url not in path):
+        #     url = f'{base_url}/{path}'
+        
+        return requests.get(path, params=params, impersonate="chrome")
     
     @finalmethod 
     def http_post(
@@ -165,7 +165,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     
     @finalmethod
     def http_get_html(self, 
-                      path: str, 
+                      path:str=None, 
                       params:Dict=None) -> str:
         """HTTP getter (for HTML content).
 
@@ -184,8 +184,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @finalmethod
     def http_get_json(
             self,
-            path: str, 
-            params: Dict=None) -> Union[List,Dict]:
+            path:str=None, 
+            params:Dict=None) -> Union[List,Dict]:
         """HTTP getter (for JSON content).
 
         Args:
@@ -197,10 +197,17 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
         api_url = self._supplier.get('api_url', None)
-        if api_url is not None:
+        if api_url:
             path = f'{api_url}/{path}'
 
+        print('GETTING URL:', path)
+        print('params:',params)
         res = self.http_get(path, params)
+        #print('res:',res.content)
+
+        if not res:
+            return None
+        
         return res.json()
     
     """ ABSTRACT methods/properties """
