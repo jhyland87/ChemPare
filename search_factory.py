@@ -4,13 +4,13 @@ import re
 from typing import List, Set, Tuple, Dict, Any, Optional
 from curl_cffi import requests
 from abcplus import finalmethod
-
+from class_utils import ClassUtils
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 import suppliers
 
-class SearchFactory(object):
+class SearchFactory(ClassUtils, object):
     suppliers: list = suppliers.__all__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a list of suppliers"""
 
@@ -56,7 +56,7 @@ class SearchFactory(object):
             limit (int, optional): Amount to limit the search by. Defaults to None.
         """
 
-        query_is_cas = self.__is_cas(query)
+        query_is_cas = self._is_cas(query)
 
         # Get both the chemical name and CAS values for searches, to avoid having to make
         # the same HTTP calls to cactus.nci.nih.gov several times
@@ -165,53 +165,7 @@ class SearchFactory(object):
             
         # Do we want the first value?
         return name_lines[0]
-    
-    def __is_cas(self, value:Any) -> bool:
-        """Check if a string is a valid CAS registry number
-
-        This is done by taking the first two segments and iterating over each individual
-        intiger in reverse order, multiplying each by its position, then taking the 
-        modulous of the sum of those values.
-
-        Example:
-            1234-56-6 is valid because the result of the below equation matches the checksum,
-            (which is 6)
-                (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
-
-            This can be simplified in the below aggregation:
-                cas_chars = [1, 2, 3, 4, 5, 6]
-                sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
-
-        See: 
-            https://www.cas.org/training/documentation/chemical-substances/checkdig
-
-        Args:
-            value (str): The value to determine if its a CAS # or not
-
-        Returns:
-            bool: True if its a valid format and the checksum matches
-        """
-
-        if type(value) is not str:
-            return False
-        
-        # value='1234-56-6'
-        # https://regex101.com/r/xPF1Yp/2
-        cas_pattern_check = re.match(r'^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$', value)
-
-        if cas_pattern_check is None:
-            return False
-
-        cas_dict = cas_pattern_check.groupdict()
-        # cas_dict = dict(seg_a='1234', seg_b='56', checksum='6')
-
-        cas_chars = list(cas_dict['seg_a'] + cas_dict['seg_b'])
-        # cas_chars = ['1','2','3','4','5','6']
-
-        checksum = sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
-        # checksum = 6
-
-        return int(checksum) == int(cas_dict['checksum'])
+  
     
     def __get_popular_name(self, query:str) -> str:
         """Get the most frequently used name for a chemical from a list of its aliases
