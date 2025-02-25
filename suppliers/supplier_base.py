@@ -135,13 +135,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             self, 
             path: str, 
             params: Dict=None, 
-            json: Union[Dict, List]=None) -> Union[Dict, List]:
+            json:Dict=None) -> Union[Dict, List]:
         url = self._supplier.get('api_url', None)
+        print('url:',url)
         req = self.http_post(f'{url}/{path}', params=params, json=json)
 
         if req is None:
             return None
-        
+        print('req:',req)
         return req.json()
     
     @finalmethod
