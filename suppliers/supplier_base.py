@@ -54,6 +54,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index = 0
         self._query = query
 
+        if hasattr(self, '_setup'):
+            self._setup()
+
         # Execute the basic product search (logic should be in inheriting class)
         self._query_products(self._query)
 
@@ -106,7 +109,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         base_url = self._supplier.get('base_url', None)
         api_url = self._supplier.get('api_url', base_url)
 
-        if path and api_url not in path:
+        if not path:
+            path = api_url
+        elif api_url not in path:
             path=f'{api_url}/{path}'
 
         return requests.get(path, params=params, impersonate="chrome")
@@ -220,6 +225,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.json()
     
     """ ABSTRACT methods/properties """
+
+    @abstractmethod
+    def _setup(self):
+        pass
 
     @abstractmethod
     def _query_products(self, query: str):

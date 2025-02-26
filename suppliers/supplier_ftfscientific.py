@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
+from typing import List, Set, Tuple, Dict, Any, NoReturn, Union
 import re
 
 # File: /suppliers/supplier_ftfscientific.py
@@ -22,7 +22,7 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def __get_headers(self):
+    def __get_cookies_from_header(self) -> Union[List, None]:
         headers = self.http_get_headers()
         #headers = headers.get('content-type')
 
@@ -35,15 +35,18 @@ class SupplierFtfScientific(SupplierBase):
         # print("list(headers):", list(headers))
         # print('\n\n')
 
-        for k, v in headers.multi_items():
-            if k == 'set-cookie':
-                print(k,': ',v,'\n\n')
-           
-        #print(headers,'\n\n')
-        # print('\n\nheaders:', headers)
-        # print('\n\ntype(headers):', headers.)
-        # print('\n\ntype(headers[0]):', type(headers[0]))
-        # print('\n\ntype(headers[0][0]):', type(headers[0][0]))
+        return list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
+
+    def _setup(self):
+        cookies = self.__get_cookies_from_header()
+        #print('[setup] cookies:', cookies)
+
+        headers = Dict()
+
+        for c in cookies:
+            if c.startswith('ssr-caching'):
+                return
+
 
     def _query_products(self, query: str):
         """Query products from supplier
