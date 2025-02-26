@@ -139,8 +139,5 @@ class SupplierTciChemicals(SupplierBase):
         self._products.append(product.cast_properties())
 
     
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_tcichemicals'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierTciChemicals'
-    __disabled__ = True
+if __package__ == 'suppliers':
+    __disabled__ = False

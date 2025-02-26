@@ -81,6 +81,12 @@ class TypeProduct:
         """
         self.__dict__.update(data)
 
+    # def __set__(self, key, value):
+    #     self.__setattr__(key, value)
+
+    def set(self, key, value):
+         self.__setattr__(key, value)
+
     def cast_properties(self, include_none:bool=False) -> Dict:
         """Cast the product attributes to the likely formats, and return them in a
         separate dictionary, excluding record with None value by default

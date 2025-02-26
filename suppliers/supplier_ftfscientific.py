@@ -22,7 +22,7 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _setup(self):
+    def _setup(self, query:str=None):
         headers = self.http_get_headers()
         cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
 
@@ -155,7 +155,5 @@ class SupplierFtfScientific(SupplierBase):
 
         return product
     
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_ftfscientific'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierFtfScientific'
+if __package__ == 'suppliers':
+    __disabled__ = False

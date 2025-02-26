@@ -4,6 +4,8 @@ import time
 import math
 import re
 import regex
+import random
+import string
 from typing import List, Set, Tuple, Dict, Any, Optional, Union
 from abcplus import ABCMeta, finalmethod
 from urllib.parse import urlparse, parse_qs
@@ -295,6 +297,10 @@ class ClassUtils(metaclass=ABCMeta):
             
         return value
     
+    @finalmethod
+    def _random_string(self, length:int=10) -> str:
+        return''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(length))
+    
     @finalmethod 
     def _is_cas(self, value:Any) -> bool:
         """Check if a string is a valid CAS registry number
@@ -352,7 +358,7 @@ class ClassUtils(metaclass=ABCMeta):
         Returns:
             Dict: Item in dictionary with highest value
         """
-        
+
         if not input_dict:
             return {}
         max_value = max(input_dict.values())

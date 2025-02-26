@@ -79,7 +79,5 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         if variant_dict is not None and 'CAS' in variant_dict:
             return variant_dict['CAS']
 
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_laboratoriumdiscounter'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierLaboratoriumDiscounter'
+if __package__ == 'suppliers':
+    __disabled__ = False

@@ -109,7 +109,5 @@ class SupplierLaballey(SupplierBase):
 
         return product
     
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_laballey'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierLaballey'
+if __package__ == 'suppliers':
+    __disabled__ = False

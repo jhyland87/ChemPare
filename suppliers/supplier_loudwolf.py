@@ -234,9 +234,6 @@ class SupplierLoudwolf(SupplierBase):
                 break
 
         return product
-    
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_tcichemicals'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierLoudwolf'
-    __disabled__ = True
+
+if __package__ == 'suppliers':
+    __disabled__ = False

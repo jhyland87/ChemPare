@@ -1,22 +1,19 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
-from threading import Thread
+import threading
 import re
 
 # File: /suppliers/supplier_onyxmet.py
 class SupplierOnyxmet(SupplierBase):
-    _limit:int = 10
-
+    _limit:int = 20
+    
     # Supplier specific data
     _supplier: TypeSupplier = dict(
         name = 'Onyxmet',
         location = 'Poland',
         base_url = 'https://onyxmet.com'
     )
-
-    allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
 
     # Regex tested at https://regex101.com/r/ddGVsT/1 (matches 66/80)
     #_title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>k?g|[cmμ]m)'
@@ -34,9 +31,8 @@ class SupplierOnyxmet(SupplierBase):
     _title_regex_pattern = r'^(?P<product>[a-zA-Z0-9\s\-(\)]+[a-zA-Z\(\)])[-\s]+(?:(?P<purity>[0-9,]+%)?[-\s]*)(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?'
 
     # If any extra init logic needs to be called... uncmment the below and add changes
-    def __init__(self, query:str, limit:int=10):  
-        #self.__test_lock = Lock()
-        super().__init__(query, limit)
+    # def __init__(self, query, limit=123):
+    #     super().__init__(id, query, limit)
         # Do extra stuff here
 
     def _query_products(self, query: str):
@@ -75,22 +71,18 @@ class SupplierOnyxmet(SupplierBase):
         if self._query_results is None or len(self._query_results) == 0:
             return
         
-        # will store the threads 
-        threads = []
-
-        # Iterate over the initial product search results, creating a thread to request the
-        # product page for each item, adding it to the self._products property
+        threads = {}
+        # Iterate oer the products, parsing them and adding them to the _products
         for product in self._query_results:
-            #self.__query_and_parse_product(product['href'])
-            thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=product['href']))
-            threads.append(thread)
+            product_id = self._get_param_from_url(product['href'],'product_id')
+            thread = threading.Thread(target=self._query_and_parse_product, kwargs=dict(href=product['href']))
+            threads[product_id]=thread
             thread.start()
 
-        # Wait for all threads to complete
-        for thread in threads:
-            thread.join()  
+        for product_id, thread in threads.items():
+            thread.join()  # Wait for all threads to complete
 
-    def __query_and_parse_product(self, href:str) -> None:
+    def _query_and_parse_product(self, href:str) -> TypeProduct:
         """Query specific product page and parse results
 
         Args:
@@ -100,7 +92,6 @@ class SupplierOnyxmet(SupplierBase):
             TypeProduct: Single instance of TypeProduct
         """
        
-        #self.__test_lock.acquire()
         product_page_html = self.http_get_html(href)
 
         product_soup = BeautifulSoup(product_page_html, 'html.parser')
@@ -122,11 +113,10 @@ class SupplierOnyxmet(SupplierBase):
         # Get the product name and price
         # (Set the product name here to default it, we ca re-set it to the parsed value down below)
         product = TypeProduct(
-            title=title_elem.contents[0],
-            name=title_elem.contents[0],
-            price=price_elem.contents[0],
-            supplier=self._supplier['name'],
-            url=href
+            title = title_elem.contents[0],
+            name = title_elem.contents[0],
+            price = price_elem.contents[0],
+            supplier = self._supplier['name']
         )
 
         # Use the regex pattern to parse the name for some useful data. 
@@ -138,7 +128,9 @@ class SupplierOnyxmet(SupplierBase):
             product.update(title_matches.groupdict())
 
         self._products.append(product.cast_properties())
-        #self.__test_lock.release()
+        return product.cast_properties()
 
-if __package__ == 'suppliers':
-    __disabled__ = False
+if __name__ == '__main__' and __package__ is None:
+    __name__ = 'suppliers.supplier_onyxmet'
+    __package__ = 'suppliers'
+    __module__ = 'SupplierOnyxmet'

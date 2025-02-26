@@ -14,13 +14,14 @@ from search_factory import SearchFactory
 #from suppliers.supplier_onyxmet import SupplierOnyxmet
 #from suppliers.supplier_synthetika import SupplierSynthetika
 #from suppliers.supplier_tcichemicals import SupplierTciChemicals
-from suppliers.supplier_ftfscientific import SupplierFtfScientific
+#from suppliers.supplier_ftfscientific import SupplierFtfScientific
 #from suppliers.supplier_loudwolf import SupplierLoudwolf
+from suppliers.supplier_warchem import SupplierWarchem
 
 
 query = sys.argv[1] if len(sys.argv) >= 2 else 'benz'
 print(f'Searching for {query}...')
-product_search = SupplierFtfScientific(query)
+product_search = SupplierWarchem(query)
 
 print(f'Found {len(product_search)} products for {query}\n')
 

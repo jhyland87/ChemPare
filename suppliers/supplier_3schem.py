@@ -57,7 +57,6 @@ class Supplier3SChem(SupplierBase):
                 supplier = self._supplier['name']
             ))
 
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_3schem'
-    __package__ = 'suppliers'
-    __module__ = 'Supplier3SChem'
+
+if __package__ == 'suppliers':
+    __disabled__ = False

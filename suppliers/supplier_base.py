@@ -57,7 +57,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._headers = {}
 
         if hasattr(self, '_setup'):
-            self._setup()
+            self._setup(query)
 
         # Execute the basic product search (logic should be in inheriting class)
         self._query_products(self._query)
@@ -198,7 +198,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                              headers=headers or self._headers)
         if req is None:
             return None
-
+        
         return req.json()
     
     @finalmethod
@@ -249,7 +249,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         
         return res.json()
     
-    def _setup(self):
+    def _setup(self, query:str=None):
         pass
     
     """ ABSTRACT methods/properties """
@@ -282,6 +282,5 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
         pass
 
-if (__name__ == '__main__' or __name__ == 'suppliers.supplier_base') and __package__ is None:
-    __package__ = 'suppliers.supplier_base.SupplierBase'
-    __module__ = 'SupplierBase'
+if __package__ == 'suppliers':
+    __disabled__ = True

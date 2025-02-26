@@ -154,7 +154,5 @@ class SupplierLabchem(SupplierBase):
 
         return res
 
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_labchem'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierLabchem'
+if __package__ == 'suppliers':
+    __disabled__ = False

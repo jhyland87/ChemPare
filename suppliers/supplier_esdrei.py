@@ -111,7 +111,5 @@ class SupplierEsDrei(SupplierBase):
 
         return product
 
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_esdrie'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierEsDrei'
+if __package__ == 'suppliers':
+    __disabled__ = False

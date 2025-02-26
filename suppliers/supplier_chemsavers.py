@@ -136,7 +136,5 @@ class SupplierChemsavers(SupplierBase):
 
         return product.cast_properties()
     
-if __name__ == '__main__' and __package__ is None:
-    __name__ = 'suppliers.supplier_chemsavers'
-    __package__ = 'suppliers'
-    __module__ = 'SupplierChemsavers'
+if __package__ == 'suppliers':
+    __disabled__ = False
