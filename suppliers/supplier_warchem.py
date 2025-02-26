@@ -44,7 +44,15 @@ class SupplierWarchem(SupplierBase):
 
         search_result_soup = BeautifulSoup(search_result, 'html.parser')
         product_container = search_result_soup.find('div', class_='ListingWierszeKontener')
+
+        if not product_container: 
+            return
+        
         product_elements = product_container.find_all('div', class_='LiniaDolna')
+
+        if not product_elements: 
+            return
+        
         self._query_results = product_elements[:self._limit]
     
     # Method iterates over the product query results stored at self._query_results and 

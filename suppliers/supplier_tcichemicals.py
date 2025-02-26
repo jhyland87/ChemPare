@@ -103,11 +103,14 @@ class SupplierTciChemicals(SupplierBase):
 
         quantity = product_obj.find(attrs={'data-attr':'Size:'})
         price = product_obj.find('div', class_='listPriceNoStrike')
+        
+        if not price:
+            return
 
         product = TypeProduct(
-            name=title.string.strip(),
-            quantity=quantity.string.strip(),
-            price=price.string.strip(),
+            name=title.get_text(strip=True),
+            quantity=quantity.get_text(strip=True),
+            price=price.get_text(strip=True),
             supplier=self._supplier['name'],
             url=self._supplier['base_url']+title.attrs['href']
         )
@@ -116,12 +119,12 @@ class SupplierTciChemicals(SupplierBase):
         data = description_container.find_all('td')
 
         for idx, d in enumerate(data):
-            if d.string.strip() == 'Product Number':
-                product.uuid = data[idx+1].string.strip()
+            if d.get_text(strip=True) == 'Product Number':
+                product.uuid = data[idx+1].get_text(strip=True)
                 continue
 
-            if d.string.strip() == 'CAS RN':
-                product.cas  = data[idx+1].string.strip()
+            if d.get_text(strip=True) == 'CAS RN':
+                product.cas  = data[idx+1].get_text(strip=True)
                 continue
 
         quantity_pattern = re.compile(r'(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|[cmμ][mM]|[mM]?[lL]|[Mm][gG])$')
