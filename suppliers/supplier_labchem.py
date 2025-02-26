@@ -48,7 +48,7 @@ class SupplierLabchem(SupplierBase):
             get_params['srchTyp'] = -1
 
         # 1) Query the main product search page (returns HTML, but does not include prices)
-        self._query_results = self.http_get_html('searchPage.action', get_params)
+        self._query_results = self.http_get_html('searchPage.action', params=get_params)
         
     def __query_products_autocomplete(self):
         """Query products from supplier"""
@@ -63,7 +63,7 @@ class SupplierLabchem(SupplierBase):
             '_': 1739962847766
         }    
 
-        search_result = self.http_get_json('AutoComplete.slt', get_params)
+        search_result = self.http_get_json('AutoComplete.slt', params=get_params)
 
         if not search_result: 
             return

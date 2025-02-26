@@ -53,6 +53,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query_results = []
         self._index = 0
         self._query = query
+        self._cookies = {}
+        self._headers = {}
 
         if hasattr(self, '_setup'):
             self._setup()
@@ -87,8 +89,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @finalmethod 
     def http_get(
             self, 
-            path: str=None, 
-            params: Dict=None) -> requests:
+            path:str=None, 
+            params:Dict=None,
+            cookies:Dict=None,
+            headers:Dict=None) -> requests:
         """Base HTTP getter (not specific to data type).
 
        Args:
@@ -98,13 +102,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         Returns:
             Result from requests.get()
         """
-
-        # api_url = self._supplier.get('api_url', None)
-        # base_url = self._supplier.get('base_url', None)
-
-        # url=base_url
-        # if path is not None and base_url not in path and (api_url is None or api_url not in path):
-        #     url = f'{base_url}/{path}'
         
         base_url = self._supplier.get('base_url', None)
         api_url = self._supplier.get('api_url', base_url)
@@ -114,7 +111,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         elif api_url not in path:
             path=f'{api_url}/{path}'
 
-        return requests.get(path, params=params, impersonate="chrome")
+        return requests.get(path, 
+                            params=params, 
+                            impersonate="chrome", 
+                            cookies=cookies or self._cookies, 
+                            headers=headers or self._headers)
     
     @finalmethod 
     def http_post(
@@ -122,7 +123,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             path: str, 
             params: Dict=None, 
             data: Any=None, 
-            json: Union[Dict, List]=None) -> requests:
+            json: Union[Dict, List]=None,
+            cookies:Dict=None,
+            headers:Dict=None) -> requests:
         """Base HTTP poster (not specific to data type).
 
        Args:
@@ -140,7 +143,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if base_url not in path and (api_url is None or api_url not in path):
             path = f'{base_url}/{path}'
             
-        return requests.post(path, params=params, impersonate="chrome", json=json, data=data)
+        return requests.post(path, 
+                             params=params, 
+                             impersonate="chrome", 
+                             json=json,
+                             data=data,
+                             headers=headers or self._headers,
+                             cookies=cookies or self._cookies)
 
     @finalmethod
     def http_get_headers(
@@ -159,16 +168,34 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @finalmethod 
     def http_post_json(
             self, 
-            path: str=None, 
-            params: Dict=None, 
-            json:Dict=None) -> Union[Dict, List]:
+            path:str=None, 
+            params:Dict=None,
+            json:Dict=None,
+            headers:Dict=None,
+            cookies:Dict=None) -> Union[Dict, List]:
+        """Post a JSON request and get a JSON response
+
+        Args:
+            path (str, optional): Path to post to. Defaults to None.
+            params (Dict, optional): params object. Defaults to None.
+            json (Dict, optional): json body. Defaults to None.
+            headers (Dict, optional): override headers. Defaults to None.
+            cookies (Dict, optional): override cookies. Defaults to None.
+
+        Returns:
+            Union[Dict, List]: JSON response, if there was one
+        """
+
         url = self._supplier.get('api_url', None)
 
         if path:
             url=f'{url}/{path}'
 
-        req = self.http_post(url, params=params, json=json)
-
+        req = self.http_post(url, 
+                             params=params, 
+                             json=json, 
+                             cookies=cookies or self._cookies,
+                             headers=headers or self._headers)
         if req is None:
             return None
 
@@ -199,10 +226,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.content
     
     @finalmethod
-    def http_get_json(
-            self,
-            path:str=None, 
-            params:Dict=None) -> Union[List,Dict]:
+    def http_get_json(self, path:str=None, **kwargs) -> Union[List,Dict]:
         """HTTP getter (for JSON content).
 
         Args:
@@ -216,19 +240,20 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # api_url = self._supplier.get('api_url', None)
         # if api_url:
         #     path = f'{api_url}/{path}'
-
-        res = self.http_get(path, params)
+        #print(kwargs)
+        #return {}
+        res = self.http_get(path, **kwargs)
 
         if not res:
             return None
         
         return res.json()
     
-    """ ABSTRACT methods/properties """
-
-    @abstractmethod
     def _setup(self):
         pass
+    
+    """ ABSTRACT methods/properties """
+
 
     @abstractmethod
     def _query_products(self, query: str):

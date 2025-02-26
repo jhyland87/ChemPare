@@ -53,7 +53,7 @@ class SupplierOnyxmet(SupplierBase):
             'term': query
         }    
 
-        search_result = self.http_get_json('index.php', get_params)
+        search_result = self.http_get_json('index.php', params=get_params)
 
         if not search_result: 
             return

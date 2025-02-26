@@ -34,7 +34,7 @@ class Supplier3SChem(SupplierBase):
             'resources[limit]':1000,
             'resources[options][unavailable_products]':'last'
         }        
-        search_result = self.http_get_json('search/suggest.json', get_params)
+        search_result = self.http_get_json('search/suggest.json', params=get_params)
 
         if not search_result: 
             return

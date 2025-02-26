@@ -57,7 +57,7 @@ class SupplierLaballey(SupplierBase):
             '_': self._epoch    
         }
 
-        search_result = self.http_get_json(f'getwidgets', get_params)
+        search_result = self.http_get_json(f'getwidgets', params=get_params)
 
         if not search_result: 
             return

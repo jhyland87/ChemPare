@@ -22,31 +22,38 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def __get_cookies_from_header(self) -> Union[List, None]:
-        headers = self.http_get_headers()
-        #headers = headers.get('content-type')
-
-        # print("headers.get('set-cookie'):", headers.get('set-cookie'))
-        # print('\n\n')
-        # print("headers.items():", headers.items())
-        # print('\n\n')
-        # print("headers.multi_items():", headers.multi_items())
-        # print('\n\n')
-        # print("list(headers):", list(headers))
-        # print('\n\n')
-
-        return list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
-
     def _setup(self):
-        cookies = self.__get_cookies_from_header()
-        #print('[setup] cookies:', cookies)
+        headers = self.http_get_headers()
+        cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
 
-        headers = Dict()
+        auth_cookies={}
+        auth_headers={}
 
-        for c in cookies:
-            if c.startswith('ssr-caching'):
-                return
+        for cookie in cookies:
+            segs=cookie.split('=')
+            name=segs[0]
+            val='='.join(segs[1:-1])
 
+            if name == 'ssr-caching' or name == 'server-session-bind':    
+                auth_cookies[name]=val.split(';')[0]
+                next
+
+            if name == 'client-session-bind':
+                auth_headers['client-binding']=val.split(';')[0]
+                next
+
+
+        auth = self.http_get_json('_api/v1/access-tokens', cookies=auth_cookies, headers=auth_headers)
+
+        self._headers['authorization']=auth['apps']['1484cb44-49cd-5b39-9681-75188ab429de']['instance']
+
+        # Not sure if any of this is needed, keeping it here for now though
+        # self._headers['cache-control']='no-cache'
+        # self._headers['X-Wix-Client-Artifact-Id']='wix-thunderbolt'
+        # self._headers['Referer']='https://www.ftfscientific.com/_partials/wix-thunderbolt/dist/clientWorker.2323647d.bundle.min.js'
+        # self._headers['x-wix-brand']='wix'
+        # self._headers['commonConfig']='%7B%22brand%22%3A%22wix%22%2C%22host%22%3A%22VIEWER%22%2C%22BSI%22%3A%22%22%2C%22siteRevision%22%3A%22316%22%2C%22renderingFlow%22%3A%22NONE%22%2C%22language%22%3A%22en%22%2C%22locale%22%3A%22en-us%22%7D'
+        # self._headers['x-wix-search-bi-correlation-id']='5c4da737-0647-42a5-6bcb-ea87a4718a8b'
 
     def _query_products(self, query: str):
         """Query products from supplier
@@ -55,57 +62,46 @@ class SupplierFtfScientific(SupplierBase):
             query (str): Query string to use
         """
 
-        #self.__get_headers()
-
-        #print('set-cookie:',headers['set-cookie'])
-        return
         # Example request url for FTF
         # https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search
         # 
         body = {
-            "documentType": "public/stores/products",
-            "query": query,
-            "paging": {
-                "skip": 0,
-                "limit": self._limit
+            'documentType':'public/stores/products',
+            'query':query,
+            'paging':{
+                'skip':0,
+                'limit':12
             },
-            "includeSeoHidden": False,
-            "facets": {
-                "clauses": [
-                {
-                    "aggregation": {
-                    "name": "discountedPriceNumeric",
-                    "aggregation": "MIN"
+            'includeSeoHidden':False,
+            'facets':{
+                'clauses':[
+                    {
+                        'aggregation':{
+                            'name':'discountedPriceNumeric',
+                            'aggregation':'MIN'
+                        }
+                    },
+                    {
+                        'aggregation':{
+                            'name':'discountedPriceNumeric',
+                            'aggregation':'MAX'
+                        }
+                    },
+                    {
+                        'term':{
+                            'name':'collections',
+                            'limit':999
+                        }
                     }
-                },
-                {
-                    "aggregation": {
-                    "name": "discountedPriceNumeric",
-                    "aggregation": "MAX"
-                    }
-                },
-                {
-                    "term": {
-                    "name": "collections",
-                    "limit": 999
-                    }
-                }
                 ]
             },
-            "ordering": {
-                "ordering": []
+            'ordering':{
+                'ordering':[]
             },
-            "language": "en",
-            "properties": [],
-            "fuzzy": True,
-            "fields": [
-                "description",
-                "title",
-                "id",
-                "currency",
-                "discountedPrice",
-                "inStock"
-            ]
+            'language':'en',
+            'properties':[],
+            'fuzzy':True,
+            'fields':['description','title','id','currency','discountedPrice','inStock']
         }
 
         search_result = self.http_post_json(path=f'_api/search-services-sitesearch/v1/search', json=body)
@@ -113,13 +109,11 @@ class SupplierFtfScientific(SupplierBase):
         if not search_result: 
             return
         
-        self._query_results = search_result['documents'][0:self._limit]
+        self._query_results = search_result['documents']
     
     # Method iterates over the product query results stored at self._query_results and 
     # returns a list of TypeProduct objects.
     def _parse_products(self):
-        return
-        #print('self._query_results:',self._query_results)
         for product_obj in self._query_results: 
 
             # Add each product to the self._products list in the form of a TypeProduct
@@ -140,6 +134,7 @@ class SupplierFtfScientific(SupplierBase):
               about the same product but in different quantities. This could maybe be
               included?
         """
+
         product = TypeProduct(
             uuid=product_obj['id'],
             name=product_obj['title'],

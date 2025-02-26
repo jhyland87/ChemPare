@@ -43,7 +43,7 @@ class SupplierSynthetika(SupplierBase):
                 'page':page
             }
 
-            search_result = self.http_get_json(f'webapi/front/en_US/search/short-list/products', get_params)
+            search_result = self.http_get_json(f'webapi/front/en_US/search/short-list/products', params=get_params)
 
             if not search_result: 
                 return
@@ -85,7 +85,7 @@ class SupplierSynthetika(SupplierBase):
             #description = str(product_obj['description']).strip() if product_obj['description'] else None,
             price = product_obj['price'],
             url = '{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
-            manufacturer = product_obj['attributes']['producer_name'],
+            manufacturer = product_obj['attributes'].get('producer_name', None),
             supplier= self._supplier['name']
         )
 

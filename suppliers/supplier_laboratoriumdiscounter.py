@@ -34,7 +34,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # results returned from Supplier3SChem, not the rquests made by it. 
             'limit': 1000
         }        
-        search_result = self.http_get_json(f'en/search/{query}/page1.ajax?', get_params)
+        search_result = self.http_get_json(f'en/search/{query}/page1.ajax?', params=get_params)
 
         if not search_result: 
             return
