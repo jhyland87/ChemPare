@@ -21,6 +21,10 @@ class SupplierWarchem(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
     def _setup(self, query: str=None):
+        """The setup for WarChem is to store a randomly generated string in the eGold cookie, then set the 
+        product return count to the max (36), which will be carried on to any request afterwords.
+        """
+
         # This eGold cookie seems to be what they use to keep track of your settings
         self._cookies['eGold']=self._random_string(26)
 
@@ -85,6 +89,8 @@ class SupplierWarchem(SupplierBase):
 
         details = product_soup.find('div', class_='DodatkowyProduktuOpis').find_all('tr')
 
+        # The details table has some useful values. Add the key in the table and its assocaited key
+        # in the product object below, and it will get included
         translated_keys = {
             'Nazwa (ang.):':'name',
             'Numer CAS:':'cas'
