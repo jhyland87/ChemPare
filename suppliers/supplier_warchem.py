@@ -10,7 +10,7 @@ class SupplierWarchem(SupplierBase):
     _limit = 5
 
     _supplier: TypeSupplier = dict(
-        name = 'Template Example',
+        name = 'WarChem',
         location = None,
         base_url = 'https://warchem.pl',
         api_url = 'https://warchem.pl'
@@ -114,4 +114,4 @@ class SupplierWarchem(SupplierBase):
         self._products.append(product.cast_properties())
     
 if __package__ == 'suppliers':
-    __disabled__ = False
+    __disabled__ = True

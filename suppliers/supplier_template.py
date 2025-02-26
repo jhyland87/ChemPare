@@ -86,6 +86,5 @@ class SupplierTemplate(SupplierBase):
 
         return product
     
-print('__package__',__package__)
 if __package__ == 'suppliers':
     __disabled__ = True
