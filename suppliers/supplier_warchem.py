@@ -36,7 +36,8 @@ class SupplierWarchem(SupplierBase):
 
         # https://warchem.pl/szukaj.html/szukaj=ACET/s=2
 
-        search_result = self.http_get_html(path=f'szukaj.html/szukaj={query}')
+        search_result = self.http_get_html(path=f'szukaj.html/szukaj={query}/opis=tak/fraza=nie/nrkat=tak/kodprod=tak/ean=tak/kategoria=1/podkat=tak')
+
         search_result_soup = BeautifulSoup(search_result, 'html.parser')
         product_container = search_result_soup.find('div', class_='ListingWierszeKontener')
         product_elements = product_container.find_all('div', class_='LiniaDolna')
@@ -78,7 +79,8 @@ class SupplierWarchem(SupplierBase):
 
         product = TypeProduct(
             title=product_soup.find('h1').get_text(strip=True),
-            supplier=self._supplier['name']
+            supplier=self._supplier['name'],
+            url=href
         )
 
         details = product_soup.find('div', class_='DodatkowyProduktuOpis').find_all('tr')

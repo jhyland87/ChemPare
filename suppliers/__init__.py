@@ -11,7 +11,7 @@ __ignorable_files = [
     # Trying out using a __disabled__ property check instead of using this array. 
     'supplier_base.py',
     'supplier_template.py',
-    'supplier_warchem.py'
+    #'supplier_warchem.py'
 ]
 
 __all__ = []
