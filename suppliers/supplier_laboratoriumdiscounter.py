@@ -51,6 +51,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
+            quantity = self._parse_quantity(product['title'])
+
             self._products.append(TypeProduct(
                 uuid = str(product['id']).strip(),
                 name = product['title'],
@@ -60,7 +62,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 price = str(product['price']['price']).strip(),
                 currency = product['price']['currency'],
                 url = product['url'],
-                supplier = self._supplier['name']
+                supplier = self._supplier['name'],
+                quantity=quantity['quantity'],
+                uom=quantity['uom']
             ))
     
     """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """

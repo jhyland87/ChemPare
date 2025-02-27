@@ -127,6 +127,7 @@ class SupplierWarchem(SupplierBase):
         if quantity:
             product.update(self._parse_quantity(quantity.get_text(strip=True)))
 
+        
         self._products.append(product.cast_properties())
     
 if __package__ == 'suppliers':

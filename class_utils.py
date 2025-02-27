@@ -106,10 +106,9 @@ class ClassUtils(metaclass=ABCMeta):
             return None
         
         #https://regex101.com/r/am7wLs/3
-        #qty_pattern = re.compile(r'(?P<quantity>[0-9\.\,]+)\s?(?P<uom>oz|ounces?|grams?|g|lbs?|pounds?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)', re.IGNORECASE)
         pattern = r'(?P<quantity>\d+(?:[\.,]\d+)?)(?=\s?(?:[μmck]?[glm]|gal|gallon))\s?(?P<uom>[μmck]?[glm]|gal|gallon)(?:[^\w]|$)'
 
-        matches = regex.match(pattern, string, regex.IGNORECASE)
+        matches = regex.search(pattern, string, regex.IGNORECASE)
 
         if not matches: 
             return None
