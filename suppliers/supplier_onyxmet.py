@@ -124,10 +124,14 @@ class SupplierOnyxmet(SupplierBase):
         product = TypeProduct(
             title=title_elem.contents[0],
             name=title_elem.contents[0],
-            price=price_elem.contents[0],
+            #price=price_elem.contents[0],
             supplier=self._supplier['name'],
             url=href
         )
+
+        price = self._parse_price(price_elem.contents[0])
+
+        product.update(price)
 
         # Use the regex pattern to parse the name for some useful data. 
         title_pattern = re.compile(self._title_regex_pattern)
