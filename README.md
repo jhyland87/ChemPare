@@ -15,6 +15,26 @@ Magic.
 
 #### Python Enviroment Setup 
 
+##### Try using the Makefile
+
+1. Checkout this repo
+```bash
+git clone https://github.com/YourHeatingMantle/ChemPare.git
+```
+
+2. Go to repo directory and run Makefile
+```bash
+cd ChemPare
+make install
+```
+
+3. Run script
+```bash
+make run
+```
+
+##### Manual setup
+
 1. Install Python 3.9
 
 2. Checkout this repo
@@ -26,7 +46,8 @@ git clone https://github.com/YourHeatingMantle/ChemPare.git
 
 Optional. ([documentation here](https://packaging.python.org/en/latest/tutorials/installing-packages/#optionally-create-a-virtual-environment)).
 ```bash
-python3 -m venv ./ChemPare
+cd ./ChemPare
+python3 -m venv venv
 ```
 
 4. Go to the folder and activate the python env
@@ -34,8 +55,7 @@ python3 -m venv ./ChemPare
 <small>_On Linux/OSX:_</small>
 
 ```bash
-cd ./ChemPare
-source ./bin/activate
+source ./venv/bin/activate
 ```
 
 <small>_On Windows:_</small>
@@ -46,7 +66,7 @@ source ./bin/activate
 
 5. Install project packages
 ```bash
-pip install -e .
+./venv/bin/pip install -r requirements.txt
 ```
 
 6. Run main script, and provide a chemical name or CAS.
