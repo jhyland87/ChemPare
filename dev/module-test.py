@@ -8,21 +8,22 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 from search_factory import SearchFactory
 
 # Testing single supplier
-# from suppliers.supplier_laballey import SupplierLaballey
-# from suppliers.supplier_labchem import SupplierLabchem
-# from suppliers.supplier_chemsavers import SupplierChemsavers
-#from suppliers.supplier_onyxmet import SupplierOnyxmet
-#from suppliers.supplier_synthetika import SupplierSynthetika
-#from suppliers.supplier_tcichemicals import SupplierTciChemicals
-#from suppliers.supplier_ftfscientific import SupplierFtfScientific
-#from suppliers.supplier_loudwolf import SupplierLoudwolf
-#from suppliers.supplier_warchem import SupplierWarchem
-from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
+# from suppliers.supplier_laballey import SupplierLaballey as Supplier
+# from suppliers.supplier_labchem import SupplierLabchem as Supplier
+# from suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
+#from suppliers.supplier_onyxmet import SupplierOnyxmet as Supplier
+#from suppliers.supplier_synthetika import SupplierSynthetika as Supplier
+#from suppliers.supplier_tcichemicals import SupplierTciChemicals as Supplier
+#from suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
+#from suppliers.supplier_loudwolf import SupplierLoudwolf as Supplier
+#from suppliers.supplier_warchem import SupplierWarchem as Supplier
+#from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter as Supplier
+from suppliers.supplier_3schem import Supplier3SChem as Supplier
 
 
 query = sys.argv[1] if len(sys.argv) >= 2 else 'benz'
 print(f'Searching for {query}...')
-product_search = SupplierLaboratoriumDiscounter(query)
+product_search = Supplier(query)
 
 print(f'Found {len(product_search)} products for {query}\n')
 

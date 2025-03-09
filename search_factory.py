@@ -47,6 +47,10 @@ class SearchFactory(ClassUtils, object):
         value = self.__results[self.__index]
         self.__index += 1
         return value
+
+    def __len__(self):
+        #print('self.__results:',self.__results)
+        return len(self.__results)
     
     def __query(self, query: str, limit: int=None):
         """Iterates over the suppliers, running the query, then returning the results.
@@ -97,7 +101,8 @@ class SearchFactory(ClassUtils, object):
             if not res:
                 if supplier_module.allow_cas_search is True:
                     res = supplier_module(query_name, limit)
-                    print(f'Searching for {query_name} from {supplier_module.__name__}...')
+                    if __debug__:
+                        print(f'Searching for {query_name} from {supplier_module.__name__}...')
                 if not res:
                     if __debug__:
                         print('  No results found\n')
@@ -189,7 +194,7 @@ class SearchFactory(ClassUtils, object):
 
         keys = list(highest_val.keys())
         return keys[0][0]
-
+    
     @property
     @finalmethod 
     def results(self):
