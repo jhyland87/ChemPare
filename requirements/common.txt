@@ -1,0 +1,13 @@
+requests
+bs4
+rich
+abcplus
+typing
+enum34
+urllib3==1.26.6
+dataclasses
+numpy
+pathlib
+curl_cffi
+translate
+regex

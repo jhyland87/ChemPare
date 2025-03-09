@@ -7,7 +7,7 @@ Compares prices from chemical vendors that sell to individuals and residential a
 ---
 
 ### How does it work
-Magic.
+Magic, mostly. 
 
 ---
 
@@ -15,7 +15,7 @@ Magic.
 
 #### Python Enviroment Setup 
 
-##### Try using the Makefile
+##### Try using the Makefile (OSX)
 
 1. Checkout this repo
 ```bash
@@ -61,7 +61,7 @@ source ./venv/bin/activate
 <small>_On Windows:_</small>
 
 ```powershell
-# tbd...
+# tbd....
 ```
 
 5. Install project packages
@@ -77,3 +77,33 @@ python3 main.py
 
 Example output:
 ![image](assets/images/demo-screenshot-01.png)
+
+
+## Unit Tests
+
+To get the unit tests to fire, you need to install the dev packages.
+
+<small>__On OSX:__</small>
+
+If you're on OSX, just run `make install-dev` then `make test`.
+
+<small>__Other OS:__</small>
+
+1. Follow the regular install steps
+2. Run the following:
+
+```bash
+./venv/bin/pip3 install --upgrade pip
+./venv/bin/pip3 install -r requirements/dev.txt
+. ./venv/bin/activate
+
+```
+3. Run the below to execute all unit tests in `./tests` directory:
+
+```bash
+venv/bin/python3 -m pytest -vvv tests
+```
+
+The output should look simiar to the following:
+
+![image](assets/images/chempare_unit_tests_output.png)
