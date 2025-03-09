@@ -61,7 +61,7 @@ source ./venv/bin/activate
 <small>_On Windows:_</small>
 
 ```powershell
-# tbd...
+# tbd....
 ```
 
 5. Install project packages
