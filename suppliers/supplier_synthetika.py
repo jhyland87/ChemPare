@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, NoReturn
+from typing import List, Tuple, Dict, NoReturn
 import re
 
 # File: /suppliers/supplier_synthetika.py

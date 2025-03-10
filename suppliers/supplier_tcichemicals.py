@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, NoReturn
+from typing import NoReturn
 from bs4 import BeautifulSoup
 import re
 

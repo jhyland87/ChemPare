@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Any, Union
+from typing import Dict, Any, Union, List, NoReturn
 import re
 
 @dataclass
@@ -69,21 +69,22 @@ class TypeProduct:
     individual: bool = None
     """Does the supplier sell to individual people? (as opposed to businesses only)"""
 
-    def items(self):
+    def items(self) -> List:
         return self.__dict__.items()
-    
-    def update(self, data: Dict):
+
+    def update(self, data: Dict) -> NoReturn:
         """Update the TypeProduct instance
 
         Args:
             data (Dict): Dictionary to merge into current dictioary
         """
+
         self.__dict__.update(data)
 
     # def __set__(self, key, value):
     #     self.__setattr__(key, value)
 
-    def set(self, key, value):
+    def set(self, key, value) -> NoReturn:
          self.__setattr__(key, value)
 
     def cast_properties(self, include_none:bool=False) -> Dict:
@@ -115,36 +116,36 @@ class TypeProduct:
         """
         if value is None:
             return None
-        
+
         #_type = type(value)
 
         # if key is not None:
         #     if _type is self.__class__.__dataclass_fields__[key].type:
         #         return value
-        
+
         # if _type is float or _type is int or _type is bool:
         #     return value
-        
+
         # If it's not a string, then its probably a valid type..
         if type(value) is not str:
             return value
-        
+
         # Most castable values just need to be trimmed to be compatible
         value = value.strip()
 
         if not value or value.isspace():
             return None
-            
+
         if value.lower() == 'true':
             return True
-            
+
         if value.lower() == 'false':
             return False
-            
+
         if value.isdecimal() or re.match(r'^[0-9]+\.[0-9]+$', value):
-            return float(value) 
-                
+            return float(value)
+
         if value.isnumeric() or re.match(r'^[0-9]+$', value):
             return int(value)
-            
+
         return value
