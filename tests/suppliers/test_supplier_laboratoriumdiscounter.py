@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 import pytest
 import os
 import sys
@@ -20,17 +20,17 @@ class TestClass:
                 self._results = Supplier(self._query)
             except Exception as e:
                 self._results = e
-        
-        return self._results  
+
+        return self._results
 
 # Test cases for a valid search for this supplier
 class TestValidSearch(TestClass):
     _results = None
-    
+
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
-    
+
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
@@ -43,7 +43,7 @@ class TestInvalidSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
-    
+
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0
@@ -57,7 +57,7 @@ class TestValidCASSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
-    
+
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
@@ -72,7 +72,7 @@ class TestInvalidCASSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
-    
+
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0

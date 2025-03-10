@@ -19,6 +19,9 @@ __all__ = []
 
 suppliers_dir_files = [f[:-3] for f in os.listdir(path) if f.endswith('.py') and f.startswith('supplier_') and f not in __ignorable_files]
 
+# I get it. This file looks like shit. Not sure what the best way to
+# do dynamic imports in Python is though ¯\_(ツ)_/¯
+
 for supplier_file in suppliers_dir_files:
     supplier_module = __import__('.'.join([__name__, supplier_file]), fromlist=[supplier_file])
     if hasattr(supplier_module, '__disabled__') and supplier_module.__disabled__ is True:

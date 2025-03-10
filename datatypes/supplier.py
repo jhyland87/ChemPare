@@ -1,5 +1,5 @@
-from dataclasses import dataclass, astuple
-from typing import List, Set, Tuple, Dict, Any
+from dataclasses import dataclass
+from typing import NoReturn
 
 
 @dataclass
@@ -21,5 +21,5 @@ class TypeSupplier:
     api_key: str = None
     """Key for API calls, if needed"""
 
-    def update(self, data):
+    def update(self, data) -> NoReturn:
         self.__dict__.update(data)
