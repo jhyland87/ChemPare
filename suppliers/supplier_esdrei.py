@@ -1,5 +1,6 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from bs4 import BeautifulSoup
+from typing import NoReturn
 import re
 
 # File: /suppliers/supplier_esdrei.py
@@ -8,7 +9,7 @@ class SupplierEsDrei(SupplierBase):
     _supplier: TypeSupplier = dict(
         name = 'EsDrei',
         #location = '',
-        base_url = 'https://shop.es-drei.de' 
+        base_url = 'https://shop.es-drei.de'
     )
     """Supplier specific data"""
 
@@ -17,7 +18,7 @@ class SupplierEsDrei(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
@@ -26,34 +27,34 @@ class SupplierEsDrei(SupplierBase):
         # Example request url for S3Chem Supplier
         # https://shop.es-drei.de/search/index/sSearch/mercury?p=1&n=48
         # https://shop.es-drei.de/search?sSearch=mercury&p=1&n=48
-        # 
+        #
         get_params = {
             'sSearch': query,
             'p': 1, # Page number
             'n': self._limit # Items per page per page
-        }    
+        }
 
         search_result = self.http_get_html('search', get_params)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result
 
-    def _parse_products(self):
+    def _parse_products(self) -> NoReturn:
         """Parse product query results.
 
         Iterate over the products returned from self._query_products, creating new requests
-        for each to get the HTML content of the individual product page, and creating a 
+        for each to get the HTML content of the individual product page, and creating a
         new TypeProduct object for each to add to _products
 
         Todo:
-            Have this execute in parallen using AsyncIO        
+            Have this execute in parallen using AsyncIO
         """
 
         product_page_soup = BeautifulSoup(self._query_results, 'html.parser')
         product_containers = product_page_soup.find_all('div',class_='product--info')
-        
+
         for product_elem in product_containers[:self._limit]:
             self._products.append(self._parse_product(product_elem))
 
@@ -91,7 +92,7 @@ class SupplierEsDrei(SupplierBase):
             url = title_elem.attrs['href'],
             supplier = self._supplier['name'],
         )
-    
+
         # Since the pattern were matching for will name the matched groups 'price' and 'currency',
         # we can use the `groupdict()` method to return a dictionary like {price: 123, currency: '$'},
         # which we can then just directly update the product with.

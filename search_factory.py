@@ -1,38 +1,43 @@
-import os
-import sys
-import re
-from typing import List, Set, Tuple, Dict, Any, Optional
+
+from datatypes.product import TypeProduct
+import suppliers
+from typing import Optional, List, NoReturn
 from curl_cffi import requests
 from abcplus import finalmethod
 from class_utils import ClassUtils
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-import suppliers
+# import os
+# import sys
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 class SearchFactory(ClassUtils, object):
-    suppliers: list = suppliers.__all__
+    suppliers: List = suppliers.__all__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a list of suppliers"""
 
-    __results: list = []
+    __results: List = None
     """Contains a list of all the product results"""
 
     __index: int = 0
     """Index used for __iter__ iterations"""
 
-    def __init__(self, query: str, limit: int=3):
+    def __init__(self, query: str, limit: int=3) -> NoReturn:
         """Factory method for executing a search in all suppliers automatically
 
         Args:
             query (str): Search query
             limit (int, optional): Limit results to this. Defaults to 3.
         """
+
+        self.__results = []
+
         self.__query(query, limit)
 
     def __iter__(self):
+        """Simple iterator, making this object usable in for loops"""
+
         return self
 
-    def __next__(self):
+    def __next__(self) -> TypeProduct:
         """Next dunder method for for loop iterations
 
         Raises:
@@ -44,15 +49,22 @@ class SearchFactory(ClassUtils, object):
 
         if self.__index >= len(self.__results):
             raise StopIteration
+
         value = self.__results[self.__index]
         self.__index += 1
+
         return value
 
-    def __len__(self):
-        #print('self.__results:',self.__results)
+    def __len__(self) -> int:
+        """Result to return when len() is used
+
+        Returns:
+            int: Number of results from the last query
+        """
+
         return len(self.__results)
-    
-    def __query(self, query: str, limit: int=None):
+
+    def __query(self, query: str, limit: int=None) -> NoReturn:
         """Iterates over the suppliers, running the query, then returning the results.
 
         Args:
@@ -91,7 +103,7 @@ class SearchFactory(ClassUtils, object):
             elif supplier_module.allow_cas_search is False and query_is_cas is True:
                 # ... Then try to lookup the name for this
                 supplier_query = query_name
-               
+
             if __debug__:
                 print(f'Searching for {supplier_query} from {supplier_module.__name__}...')
 
@@ -106,14 +118,14 @@ class SearchFactory(ClassUtils, object):
                 if not res:
                     if __debug__:
                         print('  No results found\n')
-                    next
-            
+                    continue
+
             if __debug__:
                 print(f'  found {len(res.products)} products\n')
 
             # If there were some results found, then extend the self.__results list with those products
             self.__results.extend(res.products)
-    
+
     def __get_cas(self, chem_name:str) -> Optional[str]:
         """Search for the CAS value(s) given a chemical name
 
@@ -131,23 +143,23 @@ class SearchFactory(ClassUtils, object):
             # Check if the request was successful
             if cas_request.status_code != 200:
                 return None
-            
+
             # Decode the bytes to a string
-            cas_response = cas_request.content.decode('utf-8')  
+            cas_response = cas_request.content.decode('utf-8')
 
             if not cas_response:
                 return None
 
-            cas_list = cas_response.split('\n') 
-            cas = cas_list[0] 
-        except:
-            print('Failed to get CAS #')
-        finally:
-            return cas      
+            cas_list = cas_response.split('\n')
+            cas = cas_list[0]
+        except Exception as e:
+            print('Failed to get CAS #', e)
+
+        return cas
 
         # # Should only be one line/value, so just strip it before returning, if a value was found
         # return str(cas_response).strip() if cas_response else None
-       
+
     def __get_name(self, cas_no:str) -> Optional[str]:
         """Search for a chemical name given a CAS #
 
@@ -157,20 +169,20 @@ class SearchFactory(ClassUtils, object):
         Returns:
             Optional[str]: IUPAC name
         """
-           
+
         # Send a GET request to the API
         name_request = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{cas_no}/iupac_name')
-        
+
         # Check if the request was successful
         if name_request.status_code != 200:
             return f"Error: {name_request.status_code}"
-        
+
         name_response = name_request.content.decode('utf-8')  # Decode the bytes to a string
         name_lines = name_response.split('\n')  # Split by newline
-            
+
         # Do we want the first value?
         return name_lines[0]
-   
+
     def __get_popular_name(self, query:str) -> str:
         """Get the most frequently used name for a chemical from a list of its aliases
 
@@ -182,11 +194,11 @@ class SearchFactory(ClassUtils, object):
         """
         # Send a GET request to the API
         name_request = requests.get(f'https://cactus.nci.nih.gov/chemical/structure/{query}/names')
-        
+
         # Check if the request was successful
         if name_request.status_code != 200:
             raise SystemError(f"Error: {name_request.status_code}")
-        
+
         name_response = name_request.content.decode('utf-8')  # Decode the bytes to a string
         name_lines = name_response.split('\n')  # Split by newline
 
@@ -194,9 +206,13 @@ class SearchFactory(ClassUtils, object):
 
         keys = list(highest_val.keys())
         return keys[0][0]
-    
+
     @property
-    @finalmethod 
-    def results(self):
-        """Results getter"""
+    @finalmethod
+    def results(self) -> List[TypeProduct]:
+        """Results getter
+
+        Returns:
+            List[TypeProduct]: List of the aggregated TypeProduct objects from each supplier
+        """
         return self.__results

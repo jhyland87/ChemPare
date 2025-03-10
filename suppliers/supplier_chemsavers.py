@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
+from typing import List, Tuple, Dict, NoReturn
 from bs4 import BeautifulSoup
 
 # File: /suppliers/supplier_chemsavers.py
@@ -16,7 +16,7 @@ class SupplierChemsavers(SupplierBase):
 
     _limit: int = 10
     """Limiting chemsavers output to 10 products"""
-    
+
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
@@ -25,7 +25,7 @@ class SupplierChemsavers(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
@@ -34,9 +34,9 @@ class SupplierChemsavers(SupplierBase):
 
         # Example request url for Laboratorium Discounter
         # https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd
-        # 
+        #
         params = {
-            'x-typesense-api-key': self._supplier['api_key'] 
+            'x-typesense-api-key': self._supplier['api_key']
         }
 
         body = {
@@ -60,17 +60,17 @@ class SupplierChemsavers(SupplierBase):
             ]
         }
 
-        search_result = self.http_post_json(f'multi_search', json=body, params=params)
+        search_result = self.http_post_json('multi_search', json=body, params=params)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['results'][0]['hits']
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
-        for product_obj in self._query_results: 
+    def _parse_products(self) -> NoReturn:
+        for product_obj in self._query_results:
             #if len(self._products) == self._limit:
             #    break
 
@@ -112,7 +112,7 @@ class SupplierChemsavers(SupplierBase):
 
         # Since the description contains HTML, and it may contain restrictions, use BS
         description_soup = BeautifulSoup(product_obj['description'], 'html.parser')
-        
+
         # The restrictions always seem to be shown in <strong style="color: red;"></strong> tags
         restriction = description_soup.find('strong', {'style':'color: red;'})
 
@@ -130,11 +130,11 @@ class SupplierChemsavers(SupplierBase):
 
             if product.restriction and product.restriction in desc_parts:
                 desc_parts.remove(product.restriction)
-        
+
             if desc_parts:
                 product.description = '; '.join(desc_parts)
 
         return product.cast_properties()
-    
+
 if __package__ == 'suppliers':
     __disabled__ = False

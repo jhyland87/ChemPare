@@ -80,11 +80,11 @@ class ClassUtils(metaclass=ABCMeta):
             r'X(?:[AOP]F|CD|DR)|'
             r'Z(?:AR|MW|WD)))'
            r')$')
-        
+
         matches = regex.match(pattern, string, regex.IGNORECASE)
         if not matches:
             return None
-        
+
         return matches.groupdict()
 
     @finalmethod
@@ -99,23 +99,23 @@ class ClassUtils(metaclass=ABCMeta):
         """
         if type(string) is not str:
             return None
-        
+
         string = string.strip()
 
         if not string or string.isspace():
             return None
-        
+
         #https://regex101.com/r/am7wLs/3
-        pattern = r'(?P<quantity>\d+(?:[\.,]\d+)?)(?=\s?(?:[μmck]?[glm]|gal|gallon))\s?(?P<uom>[μmck]?[glm]|gal|gallon)(?:[^\w]|$)'
+        pattern = r'(?P<quantity>[0-9\.\,]+)\s?(?P<uom>oz|ounces?|grams?|gallon|gal|g|lbs?|pounds?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)'
 
         matches = regex.search(pattern, string, regex.IGNORECASE)
 
-        if not matches: 
+        if not matches:
             return None
-        
+
         return matches.groupdict()
 
-    @finalmethod 
+    @finalmethod
     def _get_param_from_url(self, url:str, param:str=None) -> Optional[Any]:
         """Get a specific arameter from a GET URL
 
@@ -141,20 +141,20 @@ class ClassUtils(metaclass=ABCMeta):
 
         if not param:
             return parsed_query
-        
+
         # If no specific parameter was defined, then just return this
         if param not in parsed_query:
             return None
-        
+
         if not parsed_query[param]:
             return None
-        
+
         return parsed_query[param]
-    
+
     @finalmethod
     def _split_array_into_groups(
-            self, 
-            arr: List, 
+            self,
+            arr: List,
             size: int=2) -> List:
         """Splits an array into sub-arrays of 2 elements each.
 
@@ -175,35 +175,35 @@ class ClassUtils(metaclass=ABCMeta):
             result.append(arr[i:i + size])
 
         return result
-    
+
     @finalmethod
-    def _nested_arr_to_dict(self, arr: List) -> Optional[Dict]:
-        """Splits an array into sub-arrays of 2 elements each.
+    def _nested_arr_to_dict(self, arr: List[List]) -> Optional[Dict]:
+        """Takes an array of arrays (ie: result from self._split_array_into_groups) and
+        converts that into a dictionary.
 
         Args:
-            arr: The input array.
-            size: Size to group array elements by
+            arr (List[List]): The input array.
 
         Returns:
-            A list of sub-arrays, where each sub-array contains {size} elements, or an empty list if the input array is empty.
+            Optional[Dict]: A dictionary based off of the input alues
 
         Example:
-            self._split_array_into_groups(['Variant', '500 g', 'CAS', '1762-95-4'])
-            [['Variant', '500 g'],['CAS', '1762-95-4']]
+            self._nested_arr_to_dict([['foo','bar'], ['baz','quux']])
+            {'foo':'bar','baz':'quux'}
+
         """
 
         # Only works if the array has even amount of elements
-        if len(arr) % 2 != 0: 
+        if len(arr) % 2 != 0:
             return None
 
         grouped_elem = self._split_array_into_groups(arr, 2)
-
-        variant_dict = [dict(item) for item in [grouped_elem]]
+        variant_dict = [dict(item) for item in grouped_elem]
 
         return variant_dict[0] or None
-    
+
     @property
-    @finalmethod 
+    @finalmethod
     def _epoch(self) -> int:
         """Get epoch string - Used for unique values in searches (sometimes _)
 
@@ -212,13 +212,13 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         return math.floor(time.time()*1000)
-    
-    @finalmethod 
+
+    @finalmethod
     def _is_cas(self, value:Any) -> bool:
         """Check if a string is a valid CAS registry number
 
         This is done by taking the first two segments and iterating over each individual
-        intiger in reverse order, multiplying each by its position, then taking the 
+        intiger in reverse order, multiplying each by its position, then taking the
         modulous of the sum of those values.
 
         Example:
@@ -230,7 +230,7 @@ class ClassUtils(metaclass=ABCMeta):
                 cas_chars = [1, 2, 3, 4, 5, 6]
                 sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
 
-        See: 
+        See:
             https://www.cas.org/training/documentation/chemical-substances/checkdig
 
         Args:
@@ -242,7 +242,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         if type(value) is not str:
             return False
-        
+
         # value='1234-56-6'
         # https://regex101.com/r/xPF1Yp/2
         cas_pattern_check = re.match(r'^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$', value)
@@ -261,7 +261,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         return int(checksum) == int(cas_dict['checksum'])
 
-    @finalmethod 
+    @finalmethod
     def _cast_type(self, value: Union[str,int,float,bool] = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting int/float/bool
 
@@ -275,38 +275,52 @@ class ClassUtils(metaclass=ABCMeta):
         # If it's not a string, then its probably a valid type..
         if type(value) is not str:
             return value
-        
+
         # Most castable values just need to be trimmed to be compatible
         value = value.strip()
 
         if not value or value.isspace():
             return None
-            
+
         if value.lower() == 'true':
             return True
-            
+
         if value.lower() == 'false':
             return False
-            
-        if value.isdecimal() or re.match(r'^[0-9]+.[0-9]+$', value):
-            return float(value) 
-                
-        if value.isnumeric() or re.match(r'^[0-9]+$', value):
-            return int(value)   
-            
+
+        try:
+            return int(value)
+        except Exception:
+            pass
+
+        try:
+            return float(value)
+        except Exception:
+            pass
+
+
         return value
-    
+
+
+        # if not value.isdecimal() or re.match(r'^[0-9]+.[0-9]+$', value):
+        #     return float(value)
+
+        # if value.isnumeric() or re.match(r'^[0-9]+$', value):
+        #     return int(value)
+
+        # return value
+
     @finalmethod
     def _random_string(self, length:int=10) -> str:
         # trunk-ignore(bandit/B311)
         return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(length))
-    
-    @finalmethod 
+
+    @finalmethod
     def _is_cas(self, value:Any) -> bool:
         """Check if a string is a valid CAS registry number
 
         This is done by taking the first two segments and iterating over each individual
-        intiger in reverse order, multiplying each by its position, then taking the 
+        intiger in reverse order, multiplying each by its position, then taking the
         modulous of the sum of those values.
 
         Example:
@@ -318,7 +332,7 @@ class ClassUtils(metaclass=ABCMeta):
                 cas_chars = [1, 2, 3, 4, 5, 6]
                 sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
 
-        See: 
+        See:
             https://www.cas.org/training/documentation/chemical-substances/checkdig
 
         Args:
@@ -330,7 +344,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         if type(value) is not str:
             return False
-        
+
         # value='1234-56-6'
         # https://regex101.com/r/xPF1Yp/2
         cas_pattern_check = re.match(r'^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$', value)
@@ -348,7 +362,7 @@ class ClassUtils(metaclass=ABCMeta):
         # checksum = 6
 
         return int(checksum) == int(cas_dict['checksum'])
-    
+
     def _filter_highest_value(self, input_dict:Dict) -> Dict:
         """Filter a dictionary for the entry with the highest numerical value.
 
@@ -363,8 +377,9 @@ class ClassUtils(metaclass=ABCMeta):
             return {}
         max_value = max(input_dict.values())
         return {k: v for k, v in input_dict.items() if v == max_value}
-    
+
     def _get_common_phrases(self, texts:list, maximum_length:int=3, minimum_repeat:int=2, stopwords:list=None) -> dict:
+        stopwords = stopwords or []
         """Get the most common phrases out of a list of phrases.
 
         This is used to analyze the results from a query to https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names

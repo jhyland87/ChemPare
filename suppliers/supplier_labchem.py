@@ -1,11 +1,11 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import Tuple, Optional
+from typing import Tuple, Optional, NoReturn
 from bs4 import BeautifulSoup
 
 # File: /suppliers/supplier_labchem.py
 class SupplierLabchem(SupplierBase):
     """
-    Todo: It looks like for LabChem, if you want to do a CAS Search, you first have to query a product 
+    Todo: It looks like for LabChem, if you want to do a CAS Search, you first have to query a product
           search page with the CAS, which returns HTML, then look for all 'a.log-addTocart-btn elements',
           grab the 'id' value, then send a GET request to the getPriceDetailPage.action page with the
           comma separated list of id's as the 'productIdList' parameter. Example below:
@@ -21,13 +21,8 @@ class SupplierLabchem(SupplierBase):
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
-    
-    # If any extra init logic needs to be called... uncmment the below and add changes
-    # def __init__(self, query, limit=123):
-    #     super().__init__(id, query, limit)
-        # Do extra stuff here
 
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         # Search types/ID's:
         #   desc = -1
         #   searchCustomerPartNumber = 1
@@ -49,9 +44,10 @@ class SupplierLabchem(SupplierBase):
 
         # 1) Query the main product search page (returns HTML, but does not include prices)
         self._query_results = self.http_get_html('searchPage.action', params=get_params)
-        
-    def __query_products_autocomplete(self):
+
+    def __query_products_autocomplete(self) -> NoReturn:
         """Query products from supplier"""
+
         # Example request url for Labchem Supplier
         # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
         #
@@ -61,21 +57,21 @@ class SupplierLabchem(SupplierBase):
             'timestamp':1739971044228,
             'width': '395px',
             '_': 1739962847766
-        }    
+        }
 
         search_result = self.http_get_json('AutoComplete.slt', params=get_params)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['response']['docs']['item'][0:self._limit]
 
-    def _parse_products(self):
+    def _parse_products(self) -> NoReturn:
         """Parse product query results.
 
         Iterate over the products returned from self._query_products, creating new requests
-        for each to get the HTML content of the individual product page, and creating a 
-        new TypeProduct object for each to add to _products   
+        for each to get the HTML content of the individual product page, and creating a
+        new TypeProduct object for each to add to _products
         """
 
         product_page_soup = BeautifulSoup(self._query_results, 'html.parser')
@@ -87,8 +83,8 @@ class SupplierLabchem(SupplierBase):
         if product_part_elems is None or len(product_part_elems) == 0:
             return
 
-        product_part_numbers = [n.attrs['id'] for n in product_part_elems] 
-        
+        product_part_numbers = [n.attrs['id'] for n in product_part_elems]
+
         # 3) Query for the price information using the part numbers
         product_prices = self.__query_products_prices(product_part_numbers)
         product_containers = product_page_soup.find_all('li',class_='listView')
@@ -99,7 +95,7 @@ class SupplierLabchem(SupplierBase):
             self._products.append(product_obj)
 
     def __parse_product(self, product_elem:BeautifulSoup) -> TypeProduct:
-        inputs = product_elem.find_all('input')        
+        inputs = product_elem.find_all('input')
         link = product_elem.find('div', class_='prodImage').find('a').attrs['href']
         cas = product_elem.find('ul', class_='otherNumWrap').find('span')
 
@@ -124,7 +120,7 @@ class SupplierLabchem(SupplierBase):
             _product.cas = cas.get_text(strip=True),
 
         return _product.cast_properties()
-    
+
     def __query_products_prices(self, part_numbers:Tuple[str,list]) -> Optional[dict]:
         """Query specific product prices by their part numeber(s)
 
@@ -137,16 +133,16 @@ class SupplierLabchem(SupplierBase):
 
         if part_numbers is None or len(part_numbers) == 0:
             return None
-        
+
         if type(part_numbers) is list:
             part_numbers = ','.join(part_numbers)
 
         params = {
             'productIdList':part_numbers
         }
-        
+
         product_json = self.http_get_json('getPriceDetailPage.action', params=params)
-        
+
         res = dict()
 
         for p in product_json:

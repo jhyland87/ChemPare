@@ -1,11 +1,12 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
+from typing import List, Set, Tuple, Dict, Any, NoReturn
 import re
 
 # File: /suppliers/supplier_synthetika.py
 class SupplierSynthetika(SupplierBase):
 
-    _limit = 20
+    _limit: int = 20
+    """Max results to store"""
 
     _supplier: TypeSupplier = dict(
         name = 'Synthetika',
@@ -18,47 +19,52 @@ class SupplierSynthetika(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    # # If any extra init logic needs to be called... uncmment the below and add changes
-    # def __init__(self, query):
-    #     super().__init__(query)
-        # Do extra stuff here
-
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
             query (str): Query string to use
         """
 
-        def __query_list(query, page=1):
+        def __query_list(query:str, page:int=1) -> NoReturn:
+            """Query list of products on page
+
+            Args:
+                query (str): Query string
+                page (int, optional): Page number. Defaults to 1.
+
+            Returns:
+                NoReturn: Nothing, just appends data to self._query_results and
+                          executes self.__query_list() again if needed
+            """
 
             # Example request url for Synthetika
             # https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?text=borohydride&org=borohydride&page=1
-            # 
+            #
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter should apply to
-                # results returned from Supplier3SChem, not the rquests made by it. 
+                # results returned from Supplier3SChem, not the rquests made by it.
                 'org':query,
                 'text':query,
                 'page':page
             }
 
-            search_result = self.http_get_json(f'webapi/front/en_US/search/short-list/products', params=get_params)
+            search_result = self.http_get_json('webapi/front/en_US/search/short-list/products', params=get_params)
 
-            if not search_result: 
+            if not search_result:
                 return
-            
+
             self._query_results.extend(search_result['list'])
 
             if int(search_result['pages']) > page and len(self._query_results) < self._limit:
                 __query_list(query, page+1)
 
         __query_list(query, 1)
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
-        for product_obj in self._query_results: 
+    def _parse_products(self) -> NoReturn:
+        for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
@@ -92,16 +98,16 @@ class SupplierSynthetika(SupplierBase):
         quantity_pattern = re.compile(r'(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])')
         quantity_matches = quantity_pattern.search(product_obj['name'])
 
-        if quantity_matches: 
+        if quantity_matches:
             product.update(quantity_matches.groupdict())
 
         price_pattern = re.compile(r'^(?P<currency>.)(?P<price>\d+\.\d+)$')
         price_matches = price_pattern.search(product_obj['price'])
 
-        if price_matches: 
+        if price_matches:
             product.update(price_matches.groupdict())
 
         return product
-    
+
 if __package__ == 'suppliers':
     __disabled__ = False

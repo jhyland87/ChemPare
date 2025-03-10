@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
+from typing import List, Tuple, Dict, NoReturn
 import re
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -17,12 +17,7 @@ class SupplierLaballey(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    # If any extra init logic needs to be called... uncmment the below and add changes
-    # def __init__(self, query, limit=123):
-    #     super().__init__(id, query, limit)
-        # Do extra stuff here
-
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
@@ -31,10 +26,10 @@ class SupplierLaballey(SupplierBase):
 
         # Example request url for Laboratorium Discounter
         # https://searchserverapi.com/getwidgets?api_key=8B7o0X1o7c&q=sulf&maxResults=6&startIndex=0&items=true&pages=true&facets=false&categories=true&suggestions=true&vendors=false&tags=false&pageStartIndex=0&pagesMaxResults=3&categoryStartIndex=0&categoriesMaxResults=3&suggestionsMaxResults=4&vendorsMaxResults=3&tagsMaxResults=3&output=json&_=1740051794061
-        # 
+        #
         get_params = {
             # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it. 
+            # results returned from Supplier3SChem, not the rquests made by it.
             'api_key': self._supplier['api_key'],
             'q':query,
             'maxResults': 6,
@@ -54,21 +49,21 @@ class SupplierLaballey(SupplierBase):
             'vendorsMaxResults': 3,
             'tagsMaxResults': 3,
             'output': 'json',
-            '_': self._epoch    
+            '_': self._epoch
         }
 
-        search_result = self.http_get_json(f'getwidgets', params=get_params)
+        search_result = self.http_get_json('getwidgets', params=get_params)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['items'][0:self._limit]
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
+    def _parse_products(self) -> NoReturn:
         #print('self._query_results:',self._query_results)
-        for product_obj in self._query_results: 
+        for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
@@ -88,6 +83,7 @@ class SupplierLaballey(SupplierBase):
               about the same product but in different quantities. This could maybe be
               included?
         """
+
         product = TypeProduct(
             uuid = product_obj['product_id'],
             name = product_obj['title'],
@@ -104,10 +100,10 @@ class SupplierLaballey(SupplierBase):
         quantity_pattern = re.compile(r'^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$')
         quantity_matches = quantity_pattern.search(product_obj['product_code'])
 
-        if quantity_matches: 
+        if quantity_matches:
             product.update(quantity_matches.groupdict())
 
         return product
-    
+
 if __package__ == 'suppliers':
     __disabled__ = False
