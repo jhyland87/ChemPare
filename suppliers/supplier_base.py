@@ -8,10 +8,10 @@ from class_utils import ClassUtils
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-#from datatypes import TypeSupplier, TypeProduct
 
 # Todo: this should be automatic
 from datatypes.product import TypeProduct
+from datatypes.supplier import TypeSupplier
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
