@@ -1,5 +1,4 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):

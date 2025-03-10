@@ -1,5 +1,4 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any
 from bs4 import BeautifulSoup
 import re
 
@@ -77,7 +76,7 @@ class SupplierEsDrei(SupplierBase):
         # Parse the nested elements under the product_elem children
         price_default = price_info.find('span', class_='price--default')
         price_unit = price_info.find('div', class_='price--unit')
-        price_units = price_unit.find_all('span')
+        #price_units = price_unit.find_all('span')
         price_data = price_default.string.strip().split('\n')[0]
 
         # Parse the price for the useful information

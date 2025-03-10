@@ -1,14 +1,10 @@
 import os
 import sys
-import time
-import math
-import re
-import regex
-from typing import List, Set, Tuple, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Union
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
-from urllib.parse import urlparse, parse_qs
 from class_utils import ClassUtils
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 

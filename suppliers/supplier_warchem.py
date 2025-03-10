@@ -1,8 +1,6 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, NoReturn, Union
 from threading import Thread
 from bs4 import BeautifulSoup
-import re
 
 # File: /suppliers/supplier_warchem.py
 class SupplierWarchem(SupplierBase):

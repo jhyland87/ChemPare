@@ -1,12 +1,12 @@
 #!/usr/bin/env python3 
+from suppliers.supplier_3schem import Supplier3SChem as Supplier
+
 import pytest
 import os
 import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-from suppliers.supplier_3schem import Supplier3SChem as Supplier
 
 # Base test class
 class TestClass:

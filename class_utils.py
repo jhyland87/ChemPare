@@ -1,3 +1,6 @@
+from typing import List, Dict, Any, Optional, Union
+from abcplus import ABCMeta, finalmethod
+from urllib.parse import urlparse, parse_qs
 import os
 import sys
 import time
@@ -6,9 +9,6 @@ import re
 import regex
 import random
 import string
-from typing import List, Set, Tuple, Dict, Any, Optional, Union
-from abcplus import ABCMeta, finalmethod
-from urllib.parse import urlparse, parse_qs
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
@@ -273,7 +273,7 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         # If it's not a string, then its probably a valid type..
-        if type(value) != str:
+        if type(value) is not str:
             return value
         
         # Most castable values just need to be trimmed to be compatible
@@ -288,17 +288,18 @@ class ClassUtils(metaclass=ABCMeta):
         if value.lower() == 'false':
             return False
             
-        if value.isdecimal() or re.match(f'^[0-9]+.[0-9]+$', value): 
+        if value.isdecimal() or re.match(r'^[0-9]+.[0-9]+$', value):
             return float(value) 
                 
-        if value.isnumeric() or re.match(f'^[0-9]+$', value):
+        if value.isnumeric() or re.match(r'^[0-9]+$', value):
             return int(value)   
             
         return value
     
     @finalmethod
     def _random_string(self, length:int=10) -> str:
-        return''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(length))
+        # trunk-ignore(bandit/B311)
+        return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(length))
     
     @finalmethod 
     def _is_cas(self, value:Any) -> bool:
@@ -363,7 +364,7 @@ class ClassUtils(metaclass=ABCMeta):
         max_value = max(input_dict.values())
         return {k: v for k, v in input_dict.items() if v == max_value}
     
-    def _get_common_phrases(self, texts:list, maximum_length:int=3, minimum_repeat:int=2, stopwords:list=[]) -> dict:
+    def _get_common_phrases(self, texts:list, maximum_length:int=3, minimum_repeat:int=2, stopwords:list=None) -> dict:
         """Get the most common phrases out of a list of phrases.
 
         This is used to analyze the results from a query to https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names
@@ -418,7 +419,7 @@ class ClassUtils(metaclass=ABCMeta):
             for l_phrase in longest_phrases:
                 intersection = set(l_phrase).intersection(phrase)
                 if len(intersection) != len(phrase):
-                    next
+                    continue
 
                 # If the entire phrase is found in a longer tuple...
                 # ... and their frequency overlaps by 75% or more, we'll drop it
