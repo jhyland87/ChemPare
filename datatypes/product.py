@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from typing import List, Set, Tuple, Dict, Any, Union
+from typing import Dict, Any, Union
 import re
-
 
 @dataclass
 class TypeProduct:
@@ -127,7 +126,7 @@ class TypeProduct:
         #     return value
         
         # If it's not a string, then its probably a valid type..
-        if type(value) != str:
+        if type(value) is not str:
             return value
         
         # Most castable values just need to be trimmed to be compatible
@@ -142,10 +141,10 @@ class TypeProduct:
         if value.lower() == 'false':
             return False
             
-        if value.isdecimal() or re.match(f'^[0-9]+\.[0-9]+$', value): 
+        if value.isdecimal() or re.match(r'^[0-9]+\.[0-9]+$', value):
             return float(value) 
                 
-        if value.isnumeric() or re.match(f'^[0-9]+$', value):
+        if value.isnumeric() or re.match(r'^[0-9]+$', value):
             return int(value)
             
         return value

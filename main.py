@@ -1,13 +1,7 @@
-#from get_CAS import get_cas
 from rich.console import Console
 from rich.panel import Panel
-from translate import Translator
 from search_factory import SearchFactory
-import requests
-import json
-import re
 import sys
-from rich.progress import Progress
 
 def main():
     if len(sys.argv) >= 2:
@@ -41,7 +35,8 @@ def main():
 
         name = product.name
         price = product.price
-        if product.quantity == None or product.uom == None:
+        # trunk-ignore(git-diff-check/error)
+        if product.quantity is None or product.uom is None:
             quantity = 'N/A'
         else:
             quantity = f'{product.quantity}{product.uom}'

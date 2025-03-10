@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, Optional
+from typing import Tuple, Optional
 from bs4 import BeautifulSoup
 
 # File: /suppliers/supplier_labchem.py
