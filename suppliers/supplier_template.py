@@ -1,7 +1,6 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, NoReturn, Union
-from bs4 import BeautifulSoup
-import re
+from typing import Dict, NoReturn
+
 
 # File: /suppliers/supplier_template.py
 class SupplierTemplate(SupplierBase):
@@ -17,13 +16,13 @@ class SupplierTemplate(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    def _setup(self, query:str=None):
+    def _setup(self, query:str=None) -> NoReturn:
         """Setup any cookies or header override values here. What's defined in self._headers and
         self._cookies will be included in all subsequent calls.
         """
 
         headers = self.http_get_headers()
-        cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
+        #cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
 
         self._headers['authorization'] = headers['auth_token']
 
@@ -38,22 +37,22 @@ class SupplierTemplate(SupplierBase):
             'term':query
         }
 
-        search_result = self.http_get_json(path=f'path/from/root/query', params=params)
+        search_result = self.http_get_json(path='path/from/root/query', params=params)
         #search_result = self.http_post_json(path=f'path/from/root/query', json={})
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['results']
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
+    def _parse_products(self) -> NoReturn:
         """Iterate over the self._query_results list, running the parser for each and adding the
         returned TypeProduct object to self._products
         """
 
-        for product_obj in self._query_results: 
+        for product_obj in self._query_results:
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
             self._products.append(self._parse_product(product_obj))
@@ -85,6 +84,6 @@ class SupplierTemplate(SupplierBase):
         )
 
         return product
-    
+
 if __package__ == 'suppliers':
     __disabled__ = True

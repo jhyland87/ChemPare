@@ -1,4 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from typing import NoReturn
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):
@@ -18,7 +19,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
@@ -27,26 +28,26 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         # Example request url for Laboratorium Discounter
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/page1.ajax?limit=100
-        # 
+        #
         get_params = {
             # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it. 
+            # results returned from Supplier3SChem, not the rquests made by it.
             'limit': 1000
-        }        
+        }
         search_result = self.http_get_json(f'en/search/{query}/page1.ajax?', params=get_params)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['products'][0:self._limit]
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
-        for product in self._query_results: 
+    def _parse_products(self) -> NoReturn:
+        for product in self._query_results:
             # Skip unavailable
             if product['available'] is False:
-                next
+                continue
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
@@ -65,10 +66,10 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 quantity=quantity['quantity'],
                 uom=quantity['uom']
             ))
-    
+
     """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """
-    
-    def _get_cas_from_variant(self, variant: str):
+
+    def _get_cas_from_variant(self, variant: str) -> NoReturn:
         """Get the CAS number from the variant, if applicable
 
         Args:
@@ -77,6 +78,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         Returns:
             str: CAS, if one was found
         """
+
         variant_dict = self._nested_arr_to_dict(variant.split(','))
 
         if variant_dict is not None and 'CAS' in variant_dict:

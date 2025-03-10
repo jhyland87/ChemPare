@@ -1,5 +1,4 @@
-#!/usr/bin/env python3 
-import pytest
+#!/usr/bin/env python3
 import os
 import sys
 
@@ -15,9 +14,10 @@ def test_chemical_name_query():
         res = SearchFactory('water')
     except Exception as e:
         exception = e
-    
+
     assert isinstance(exception, Exception) is False
     assert len(res) > 0
+
 
 # def test_chemical_cas_query():
 #     res = None
@@ -26,6 +26,6 @@ def test_chemical_name_query():
 #         res = SearchFactory('7732-18-5')
 #     except Exception as e:
 #         exception = e
-        
+
 #     assert isinstance(exception, Exception) is False
 #     assert len(res) > 0

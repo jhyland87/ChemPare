@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any, Union, NoReturn
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from class_utils import ClassUtils
@@ -11,7 +11,6 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 #from datatypes import TypeSupplier, TypeProduct
 
 # Todo: this should be automatic
-from datatypes.supplier import TypeSupplier
 from datatypes.product import TypeProduct
 
 # File: /suppliers/supplier_base.py
@@ -41,7 +40,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
-    def __init__(self, query: str, limit:int=None):    
+    def __init__(self, query: str, limit:int=None) -> NoReturn:
         if limit is not None:
             self._limit = limit
 
@@ -61,31 +60,33 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the product properties
         self._parse_products()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._products)
-    
+
     def __iter__(self):
         return self
 
     def __next__(self) -> TypeProduct:
         if self._index >= len(self._products):
             raise StopIteration
+
         value = self._products[self._index]
         self._index += 1
+
         return value
-    
+
     """ FINAL methods/properties """
 
     @property
-    @finalmethod 
-    def products(self):
+    @finalmethod
+    def products(self) -> List[TypeProduct]:
         """Product title getter"""
         return self._products
 
-    @finalmethod 
+    @finalmethod
     def http_get(
-            self, 
-            path:str=None, 
+            self,
+            path:str=None,
             params:Dict=None,
             cookies:Dict=None,
             headers:Dict=None) -> requests:
@@ -98,7 +99,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         Returns:
             Result from requests.get()
         """
-        
+
         base_url = self._supplier.get('base_url', None)
         api_url = self._supplier.get('api_url', base_url)
 
@@ -107,18 +108,18 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         elif api_url not in path:
             path=f'{api_url}/{path}'
 
-        return requests.get(path, 
-                            params=params, 
-                            impersonate="chrome", 
-                            cookies=cookies or self._cookies, 
+        return requests.get(path,
+                            params=params,
+                            impersonate="chrome",
+                            cookies=cookies or self._cookies,
                             headers=headers or self._headers)
-    
-    @finalmethod 
+
+    @finalmethod
     def http_post(
-            self, 
-            path: str, 
-            params: Dict=None, 
-            data: Any=None, 
+            self,
+            path: str,
+            params: Dict=None,
+            data: Any=None,
             json: Union[Dict, List]=None,
             cookies:Dict=None,
             headers:Dict=None) -> requests:
@@ -138,10 +139,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         if base_url not in path and (api_url is None or api_url not in path):
             path = f'{base_url}/{path}'
-            
-        return requests.post(path, 
-                             params=params, 
-                             impersonate="chrome", 
+
+        return requests.post(path,
+                             params=params,
+                             impersonate="chrome",
                              json=json,
                              data=data,
                              headers=headers or self._headers,
@@ -156,15 +157,15 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         Returns:
             requests.Headers: Header object
         """
-        
+
         resp = self.http_get(**kwargs)
 
-        return resp.headers 
+        return resp.headers
 
-    @finalmethod 
+    @finalmethod
     def http_post_json(
-            self, 
-            path:str=None, 
+            self,
+            path:str=None,
             params:Dict=None,
             json:Dict=None,
             headers:Dict=None,
@@ -187,19 +188,19 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if path:
             url=f'{url}/{path}'
 
-        req = self.http_post(url, 
-                             params=params, 
-                             json=json, 
+        req = self.http_post(url,
+                             params=params,
+                             json=json,
                              cookies=cookies or self._cookies,
                              headers=headers or self._headers)
         if req is None:
             return None
-        
+
         return req.json()
-    
+
     @finalmethod
-    def http_get_html(self, 
-                      path:str=None, 
+    def http_get_html(self,
+                      path:str=None,
                       params:Dict=None) -> str:
         """HTTP getter (for HTML content).
 
@@ -220,7 +221,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         res = self.http_get(path, params)
 
         return res.content
-    
+
     @finalmethod
     def http_get_json(self, path:str=None, **kwargs) -> Union[List,Dict]:
         """HTTP getter (for JSON content).
@@ -242,12 +243,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         if not res:
             return None
-        
+
         return res.json()
-    
+
     def _setup(self, query:str=None):
         pass
-    
+
     """ ABSTRACT methods/properties """
 
 
@@ -268,7 +269,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @abstractmethod
     def _parse_products(self):
         """Method to set the local properties for the queried product.
-        
+
         The self._query_results (populated by calling self._query_products()) is iterated over
         by this method, which in turn parses each property and creates a new TypeProduct object that
         gets saved to this._products

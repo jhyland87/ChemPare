@@ -1,6 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Set, Tuple, Dict, Any, NoReturn, Union
-import re
+from typing import Dict, NoReturn
 
 # File: /suppliers/supplier_ftfscientific.py
 class SupplierFtfScientific(SupplierBase):
@@ -22,7 +21,7 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
         # Do extra stuff here
 
-    def _setup(self, query:str=None):
+    def _setup(self, query:str=None) -> NoReturn:
         headers = self.http_get_headers()
         cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
 
@@ -34,13 +33,13 @@ class SupplierFtfScientific(SupplierBase):
             name=segs[0]
             val='='.join(segs[1:-1])
 
-            if name == 'ssr-caching' or name == 'server-session-bind':    
+            if name == 'ssr-caching' or name == 'server-session-bind':
                 auth_cookies[name]=val.split(';')[0]
-                next
+                continue
 
             if name == 'client-session-bind':
                 auth_headers['client-binding']=val.split(';')[0]
-                next
+                continue
 
 
         auth = self.http_get_json('_api/v1/access-tokens', cookies=auth_cookies, headers=auth_headers)
@@ -55,7 +54,7 @@ class SupplierFtfScientific(SupplierBase):
         # self._headers['commonConfig']='%7B%22brand%22%3A%22wix%22%2C%22host%22%3A%22VIEWER%22%2C%22BSI%22%3A%22%22%2C%22siteRevision%22%3A%22316%22%2C%22renderingFlow%22%3A%22NONE%22%2C%22language%22%3A%22en%22%2C%22locale%22%3A%22en-us%22%7D'
         # self._headers['x-wix-search-bi-correlation-id']='5c4da737-0647-42a5-6bcb-ea87a4718a8b'
 
-    def _query_products(self, query: str):
+    def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
         Args:
@@ -64,7 +63,7 @@ class SupplierFtfScientific(SupplierBase):
 
         # Example request url for FTF
         # https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search
-        # 
+        #
         body = {
             'documentType':'public/stores/products',
             'query':query,
@@ -104,17 +103,17 @@ class SupplierFtfScientific(SupplierBase):
             'fields':['description','title','id','currency','discountedPrice','inStock']
         }
 
-        search_result = self.http_post_json(path=f'_api/search-services-sitesearch/v1/search', json=body)
+        search_result = self.http_post_json(path='_api/search-services-sitesearch/v1/search', json=body)
 
-        if not search_result: 
+        if not search_result:
             return
-        
+
         self._query_results = search_result['documents']
-    
-    # Method iterates over the product query results stored at self._query_results and 
+
+    # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self):
-        for product_obj in self._query_results: 
+    def _parse_products(self) -> NoReturn:
+        for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
@@ -150,10 +149,10 @@ class SupplierFtfScientific(SupplierBase):
         # quantity_pattern = re.compile(r'^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$')
         # quantity_matches = quantity_pattern.search(product_obj['product_code'])
 
-        # if quantity_matches: 
+        # if quantity_matches:
         #     product.update(quantity_matches.groupdict())
 
         return product
-    
+
 if __package__ == 'suppliers':
     __disabled__ = False
