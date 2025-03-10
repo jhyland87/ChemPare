@@ -99,7 +99,6 @@ class TestClass(ClassUtils, object):
     ])
     def test_cast_type(self, value, casted_value, value_type):
         result = self._cast_type(value)
-        print('value:',value,'result:',result,'type(result):',type(result),'casted_value:',casted_value,' type(casted_value):', type(casted_value))
         assert type(result) is value_type
         assert result == casted_value
 
