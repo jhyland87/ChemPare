@@ -1,5 +1,7 @@
 -r common.txt
 pytest
+pytest-cov
+pytest-xdist
 requests
 bs4
 rich

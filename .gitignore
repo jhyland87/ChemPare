@@ -6,3 +6,4 @@ gitignore
 pyvenv.cfg
 __pycache__
 *.egg-info
+.coverage

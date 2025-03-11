@@ -32,11 +32,20 @@ class TestClass(ClassUtils, object):
     ])
     def test_parse_quantity(self, value, quantity, uom):
         result = self._parse_quantity(value)
-        assert type(result) is dict
-        assert 'quantity' in result
-        assert 'uom' in result
-        assert result['quantity'] == quantity
-        assert result['uom'] == uom
+
+        if type(result) is not dict:
+            pytest.fail(f'_parse_quantity({value}) returned non-dict type')
+            return
+
+        if 'quantity' not in result:
+            pytest.fail(f'_parse_quantity({value}) missing "quantity" key')
+        elif result['quantity'] != quantity:
+            pytest.fail(f'_parse_quantity({value}) quantity mismatch')
+
+        if 'uom' not in result:
+            pytest.fail(f'_parse_quantity({value}) missing "uom" key')
+        elif result['uom'] != uom:
+            pytest.fail(f'_parse_quantity({value}) uom mismatch')
 
 
     @pytest.mark.parametrize('value,param_name,expected_result', [
@@ -46,20 +55,39 @@ class TestClass(ClassUtils, object):
     ])
     def test_get_param_from_url(self, value, param_name, expected_result):
         result = self._get_param_from_url(value, param_name)
-        assert type(result) is type(expected_result)
-        assert result == expected_result
+
+        if type(result) is not type(expected_result):
+            pytest.fail(f'type of result ({type(result)}) does not match expected result type ({type(expected_result)})')
+        elif result != expected_result:
+            pytest.fail(f'result is not identical to expected reslt')
 
 
     def test_split_array_into_groups(self):
         result = self._split_array_into_groups(['Variant', '500 g', 'CAS', '1762-95-4'])
-        assert type(result) is list
-        assert len(result) == 2
-        assert len(result[0]) == 2
-        assert len(result[1]) == 2
-        assert result[0][0] == 'Variant'
-        assert result[0][1] == '500 g'
-        assert result[1][0] == 'CAS'
-        assert result[1][1] == '1762-95-4'
+
+        if type(result) is not list:
+            pytest.fail(f'expected type "list" for result, but got "{type(result)}')
+
+        if len(result) != 2:
+            pytest.fail(f'length of result ({len(result)}) is not equal to 2')
+
+        if len(result[0]) != 2:
+            pytest.fail(f'length of result[0] ({len(result[0])}) is not equal to 2')
+
+        if len(result[1]) != 2:
+            pytest.fail(f'length of result[1] ({len(result[1])}) is not equal to 2')
+
+        if result[0][0] != 'Variant':
+            pytest.fail(f'expected to find "Variant" at result[0][0], found "{result[0][0]}')
+
+        if result[0][1] != '500 g':
+            pytest.fail(f'expected to find "500 g" at result[0][1], found "{result[0][1]}')
+
+        if result[1][0] != 'CAS':
+            pytest.fail(f'expected to find "CAS" at result[1][0], found "{result[1][0]}')
+
+        if result[1][1] != '1762-95-4':
+            pytest.fail(f'expected to find "1762-95-4" at result[1][1], found "{result[1][1]}')
 
 
     def test_nested_arr_to_dict(self):
