@@ -17,7 +17,7 @@ setup(
         "curl_cffi",
         "translate",
         "pytest",
-        "regex"
+        "regex",
     ],
     py_modules=["main"],
     entry_points={"console_scripts": ["main = main:main"]},
