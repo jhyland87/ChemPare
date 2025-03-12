@@ -2,15 +2,16 @@ from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 import re
 
+
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaballey(SupplierBase):
 
     _supplier: TypeSupplier = dict(
-        name = 'Laballey',
-        location = None,
-        base_url = 'https://www.laballey.com',
-        api_url = 'https://searchserverapi.com',
-        api_key = '8B7o0X1o7c'
+        name="Laballey",
+        location=None,
+        base_url="https://www.laballey.com",
+        api_url="https://searchserverapi.com",
+        api_key="8B7o0X1o7c",
     )
     """Supplier specific data"""
 
@@ -30,46 +31,46 @@ class SupplierLaballey(SupplierBase):
         get_params = {
             # Setting the limit here to 1000, since the limit parameter should apply to
             # results returned from Supplier3SChem, not the rquests made by it.
-            'api_key': self._supplier['api_key'],
-            'q':query,
-            'maxResults': 6,
-            'startIndex': 0,
-            'items': True,
-            'pages': False,
-            'facets':False,
-            'categories': True,
-            'suggestions': True,
-            'vendors':False,
-            'tags':False,
-            'pageStartIndex':0,
-            'pagesMaxResults':10,
-            'categoryStartIndex': 0,
-            'categoriesMaxResults': 3,
-            'suggestionsMaxResults': 4,
-            'vendorsMaxResults': 3,
-            'tagsMaxResults': 3,
-            'output': 'json',
-            '_': self._epoch
+            "api_key": self._supplier["api_key"],
+            "q": query,
+            "maxResults": 6,
+            "startIndex": 0,
+            "items": True,
+            "pages": False,
+            "facets": False,
+            "categories": True,
+            "suggestions": True,
+            "vendors": False,
+            "tags": False,
+            "pageStartIndex": 0,
+            "pagesMaxResults": 10,
+            "categoryStartIndex": 0,
+            "categoriesMaxResults": 3,
+            "suggestionsMaxResults": 4,
+            "vendorsMaxResults": 3,
+            "tagsMaxResults": 3,
+            "output": "json",
+            "_": self._epoch,
         }
 
-        search_result = self.http_get_json('getwidgets', params=get_params)
+        search_result = self.http_get_json("getwidgets", params=get_params)
 
         if not search_result:
             return
 
-        self._query_results = search_result['items'][0:self._limit]
+        self._query_results = search_result["items"][0 : self._limit]
 
     # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
     def _parse_products(self) -> NoReturn:
-        #print('self._query_results:',self._query_results)
+        # print('self._query_results:',self._query_results)
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj:Tuple[List, Dict]) -> TypeProduct:
+    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
@@ -85,25 +86,33 @@ class SupplierLaballey(SupplierBase):
         """
 
         product = TypeProduct(
-            uuid = product_obj['product_id'],
-            name = product_obj['title'],
-            title = product_obj['title'],
-            description = str(product_obj['description']).strip() if product_obj['description'] else None,
-            price = product_obj['price'],
-            url = '{0}{1}'.format(self._supplier['base_url'], product_obj['link']),
-            manufacturer = product_obj['vendor'],
-            supplier= self._supplier['name'],
-            currency = 'USD'
+            uuid=product_obj["product_id"],
+            name=product_obj["title"],
+            title=product_obj["title"],
+            description=(
+                str(product_obj["description"]).strip()
+                if product_obj["description"]
+                else None
+            ),
+            price=product_obj["price"],
+            url="{0}{1}".format(self._supplier["base_url"], product_obj["link"]),
+            manufacturer=product_obj["vendor"],
+            supplier=self._supplier["name"],
+            currency_code="USD",
+            currency="$",
         )
 
         # SKU/Quantity regex pattern test:  https://regex101.com/r/A1e2C2/1
-        quantity_pattern = re.compile(r'^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$')
-        quantity_matches = quantity_pattern.search(product_obj['product_code'])
+        quantity_pattern = re.compile(
+            r"^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$"
+        )
+        quantity_matches = quantity_pattern.search(product_obj["product_code"])
 
         if quantity_matches:
             product.update(quantity_matches.groupdict())
 
         return product
 
-if __package__ == 'suppliers':
+
+if __package__ == "suppliers":
     __disabled__ = False

@@ -6,25 +6,25 @@ from typing import Dict, NoReturn
 class SupplierTemplate(SupplierBase):
 
     _supplier: TypeSupplier = dict(
-        name = 'Template Example',
-        location = None,
-        base_url = 'https://www.chemical-company.com',
-        api_url = 'https://api.chemical-company.com'
+        name="Template Example",
+        location=None,
+        base_url="https://www.chemical-company.com",
+        api_url="https://api.chemical-company.com",
     )
     """Supplier specific data"""
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    def _setup(self, query:str=None) -> NoReturn:
+    def _setup(self, query: str = None) -> NoReturn:
         """Setup any cookies or header override values here. What's defined in self._headers and
         self._cookies will be included in all subsequent calls.
         """
 
         headers = self.http_get_headers()
-        #cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
+        # cookies = list(v  for k, v in headers.multi_items() if k == 'set-cookie') or None
 
-        self._headers['authorization'] = headers['auth_token']
+        self._headers["authorization"] = headers["auth_token"]
 
     def _query_products(self, query: str):
         """Query products from supplier
@@ -33,17 +33,15 @@ class SupplierTemplate(SupplierBase):
             query (str): Query string to use
         """
 
-        params = {
-            'term':query
-        }
+        params = {"term": query}
 
-        search_result = self.http_get_json(path='path/from/root/query', params=params)
-        #search_result = self.http_post_json(path=f'path/from/root/query', json={})
+        search_result = self.http_get_json(path="path/from/root/query", params=params)
+        # search_result = self.http_post_json(path=f'path/from/root/query', json={})
 
         if not search_result:
             return
 
-        self._query_results = search_result['results']
+        self._query_results = search_result["results"]
 
     # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
@@ -57,7 +55,7 @@ class SupplierTemplate(SupplierBase):
             # object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj:Dict) -> TypeProduct:
+    def _parse_product(self, product_obj: Dict) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
@@ -73,17 +71,18 @@ class SupplierTemplate(SupplierBase):
         """
 
         product = TypeProduct(
-            uuid=product_obj['id'],
-            name=product_obj['title'],
-            title=product_obj['title'],
-            description=product_obj['description'],
-            price=product_obj['discountedPrice'],
-            url='{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
-            supplier=self._supplier['name'],
-            currency=product_obj['currency']
+            uuid=product_obj["id"],
+            name=product_obj["title"],
+            title=product_obj["title"],
+            description=product_obj["description"],
+            price=product_obj["discountedPrice"],
+            url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
+            supplier=self._supplier["name"],
+            currency=product_obj["currency"],
         )
 
         return product
 
-if __package__ == 'suppliers':
+
+if __package__ == "suppliers":
     __disabled__ = True

@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debugger: main.py",
+            "name": "Debugger: main2.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "main.py",
+            "program": "main2.py",
             "console": "integratedTerminal",
             "args": [
                 "borohydride"

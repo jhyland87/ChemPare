@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
-import os
-import sys
-
+from suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
 import pytest
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-from suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
 
 # Base test class
 class TestClass:
@@ -64,18 +58,3 @@ class TestValidCASSearch(TestClass):
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
-
-
-# Test cases for an invalid CAS search for this supplier
-@pytest.mark.skip
-class TestInvalidCASSearch(TestClass):
-    _query = "7782-77-6"  # Nitrous acid, too stable to be sold
-    _results = None
-
-    @pytest.mark.first
-    def test_query(self, results):
-        assert isinstance(results, Exception) is False
-
-    @pytest.mark.second
-    def test_results(self, results):
-        assert len(results) == 0
