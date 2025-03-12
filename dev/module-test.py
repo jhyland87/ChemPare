@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 -O
 
 import os
 import sys
@@ -11,30 +11,35 @@ from search_factory import SearchFactory
 # from suppliers.supplier_laballey import SupplierLaballey as Supplier
 # from suppliers.supplier_labchem import SupplierLabchem as Supplier
 # from suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
-#from suppliers.supplier_onyxmet import SupplierOnyxmet as Supplier
-#from suppliers.supplier_synthetika import SupplierSynthetika as Supplier
-#from suppliers.supplier_tcichemicals import SupplierTciChemicals as Supplier
-#from suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
-#from suppliers.supplier_loudwolf import SupplierLoudwolf as Supplier
-#from suppliers.supplier_warchem import SupplierWarchem as Supplier
-#from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter as Supplier
-from suppliers.supplier_3schem import Supplier3SChem as Supplier
+# from suppliers.supplier_onyxmet import SupplierOnyxmet as Supplier
+# from suppliers.supplier_esdrei import SupplierEsDrei as Supplier
+
+# from suppliers.supplier_synthetika import SupplierSynthetika as Supplier
+# from suppliers.supplier_tcichemicals import SupplierTciChemicals as Supplier
+# from suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
+# from suppliers.supplier_loudwolf import SupplierLoudwolf as Supplier
+# from suppliers.supplier_warchem import SupplierWarchem as Supplier
+from suppliers.supplier_laboratoriumdiscounter import (
+    SupplierLaboratoriumDiscounter as Supplier,
+)
+
+# from suppliers.supplier_3schem import Supplier3SChem as Supplier
 
 
-query = sys.argv[1] if len(sys.argv) >= 2 else 'benz'
-print(f'Searching for {query}...')
+query = sys.argv[1] if len(sys.argv) >= 2 else "75-15-0"
+print(f"Searching for {query}...")
 product_search = Supplier(query)
 
-print(f'Found {len(product_search)} products for {query}\n')
+print(f"Found {len(product_search)} products for {query}\n")
 
 for product in product_search:
-    #print('product:',product)
-    #print(f'\tTitle: {product.title}')
+    # print('product:',product)
+    # print(f'\tTitle: {product.title}')
     for key, value in product.items():
         if value is not None:
-            print('{:>15}: {}'.format(key,value))
-    print('---------')
-    print('')
+            print("{:>15}: {}".format(key, value))
+    print("---------")
+    print("")
 
 # for p in search:
 #     print('\n\np:', p)
@@ -48,7 +53,7 @@ for product in product_search:
 #     print('---------')
 #     print('')
 
-#print('search:',search.products)
+# print('search:',search.products)
 # for p in search.products:
 #     print(p)
 #     # print('name:', p.name)

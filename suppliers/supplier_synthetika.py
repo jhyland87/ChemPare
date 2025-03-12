@@ -2,6 +2,7 @@ from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 import re
 
+
 # File: /suppliers/supplier_synthetika.py
 class SupplierSynthetika(SupplierBase):
 
@@ -9,10 +10,10 @@ class SupplierSynthetika(SupplierBase):
     """Max results to store"""
 
     _supplier: TypeSupplier = dict(
-        name = 'Synthetika',
-        location = 'Eu',
-        base_url = 'https://synthetikaeu.com',
-        api_url = 'https://synthetikaeu.com'
+        name="Synthetika",
+        location="Eu",
+        base_url="https://synthetikaeu.com",
+        api_url="https://synthetikaeu.com",
     )
     """Supplier specific data"""
 
@@ -26,7 +27,7 @@ class SupplierSynthetika(SupplierBase):
             query (str): Query string to use
         """
 
-        def __query_list(query:str, page:int=1) -> NoReturn:
+        def __query_list(query: str, page: int = 1) -> NoReturn:
             """Query list of products on page
 
             Args:
@@ -44,20 +45,25 @@ class SupplierSynthetika(SupplierBase):
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter should apply to
                 # results returned from Supplier3SChem, not the rquests made by it.
-                'org':query,
-                'text':query,
-                'page':page
+                "org": query,
+                "text": query,
+                "page": page,
             }
 
-            search_result = self.http_get_json('webapi/front/en_US/search/short-list/products', params=get_params)
+            search_result = self.http_get_json(
+                "webapi/front/en_US/search/short-list/products", params=get_params
+            )
 
             if not search_result:
                 return
 
-            self._query_results.extend(search_result['list'])
+            self._query_results.extend(search_result["list"])
 
-            if int(search_result['pages']) > page and len(self._query_results) < self._limit:
-                __query_list(query, page+1)
+            if (
+                int(search_result["pages"]) > page
+                and len(self._query_results) < self._limit
+            ):
+                __query_list(query, page + 1)
 
         __query_list(query, 1)
 
@@ -70,7 +76,7 @@ class SupplierSynthetika(SupplierBase):
             # object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj:Tuple[List, Dict]) -> TypeProduct:
+    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
@@ -85,29 +91,31 @@ class SupplierSynthetika(SupplierBase):
               included?
         """
         product = TypeProduct(
-            uuid = product_obj['product_code'],
-            name = product_obj['name'],
-            title = product_obj['name'],
-            #description = str(product_obj['description']).strip() if product_obj['description'] else None,
-            price = product_obj['price'],
-            url = '{0}{1}'.format(self._supplier['base_url'], product_obj['url']),
-            manufacturer = product_obj['attributes'].get('producer_name', None),
-            supplier= self._supplier['name']
+            uuid=product_obj["product_code"],
+            name=product_obj["name"],
+            title=product_obj["name"],
+            # description = str(product_obj['description']).strip() if product_obj['description'] else None,
+            price=product_obj["price"],
+            url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
+            manufacturer=product_obj["attributes"].get("producer_name", None),
+            supplier=self._supplier["name"],
         )
 
-        quantity_pattern = re.compile(r'(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])')
-        quantity_matches = quantity_pattern.search(product_obj['name'])
+        quantity_pattern = re.compile(
+            r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"
+        )
+        quantity_matches = quantity_pattern.search(product_obj["name"])
 
         if quantity_matches:
             product.update(quantity_matches.groupdict())
 
-        price_pattern = re.compile(r'^(?P<currency>.)(?P<price>\d+\.\d+)$')
-        price_matches = price_pattern.search(product_obj['price'])
+        price_obj = self._parse_price(product_obj["price"])
 
-        if price_matches:
-            product.update(price_matches.groupdict())
+        if price_obj:
+            product.update(price_obj)
 
         return product
 
-if __package__ == 'suppliers':
+
+if __package__ == "suppliers":
     __disabled__ = False

@@ -2,6 +2,10 @@
 pytest
 pytest-cov
 pytest-xdist
+pylint-pytest
+pytest-instafail
+pytest-timeout
+pytest-pep8
 requests
 bs4
 rich

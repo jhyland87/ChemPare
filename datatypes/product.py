@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Dict, Any, Union, List, NoReturn
 import re
 
+
 @dataclass
 class TypeProduct:
     """Custom data class for products"""
@@ -35,6 +36,9 @@ class TypeProduct:
 
     currency: str = None
     """Currency the price is in"""
+
+    currency_code: str = None
+    """The currency code, if one can be determined from the currency symbol"""
 
     quantity: float = None
     """Quantity of listing"""
@@ -78,16 +82,13 @@ class TypeProduct:
         Args:
             data (Dict): Dictionary to merge into current dictioary
         """
-
-        self.__dict__.update(data)
-
-    # def __set__(self, key, value):
-    #     self.__setattr__(key, value)
+        if data:
+            self.__dict__.update(data)
 
     def set(self, key, value) -> NoReturn:
-         self.__setattr__(key, value)
+        self.__setattr__(key, value)
 
-    def cast_properties(self, include_none:bool=False) -> Dict:
+    def cast_properties(self, include_none: bool = False) -> Dict:
         """Cast the product attributes to the likely formats, and return them in a
         separate dictionary, excluding record with None value by default
 
@@ -97,7 +98,7 @@ class TypeProduct:
         Returns:
             TypeProduct: Product with casted values
         """
-        #dc = self.__class__.__dataclass_fields__['uuid'].type
+        # dc = self.__class__.__dataclass_fields__['uuid'].type
 
         for key, val in self.items():
             _val = self.__cast_type(value=val, key=key)
@@ -105,7 +106,7 @@ class TypeProduct:
 
         return self
 
-    def __cast_type(self, value: Union[str,int,float,bool], key:str=None) -> Any:
+    def __cast_type(self, value: Union[str, int, float, bool], key: str = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting int/float/bool
 
         Args:
@@ -117,7 +118,7 @@ class TypeProduct:
         if value is None:
             return None
 
-        #_type = type(value)
+        # _type = type(value)
 
         # if key is not None:
         #     if _type is self.__class__.__dataclass_fields__[key].type:
@@ -136,16 +137,16 @@ class TypeProduct:
         if not value or value.isspace():
             return None
 
-        if value.lower() == 'true':
+        if value.lower() == "true":
             return True
 
-        if value.lower() == 'false':
+        if value.lower() == "false":
             return False
 
-        if value.isdecimal() or re.match(r'^[0-9]+\.[0-9]+$', value):
+        if value.isdecimal() or re.match(r"^[0-9]+\.[0-9]+$", value):
             return float(value)
 
-        if value.isnumeric() or re.match(r'^[0-9]+$', value):
+        if value.isnumeric() or re.match(r"^[0-9]+$", value):
             return int(value)
 
         return value
