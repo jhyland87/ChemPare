@@ -15,13 +15,14 @@ from class_utils import ClassUtils
 
 class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
-        "value,price,currency",
+        ("value", "price", "currency"),
         [
             ("$123.45", "123.45", "$"),
+            ("$12,345.45", "12,345.45", "$"),
             ("123.45 USD", "123.45", "USD"),
             ("123.45 CAD", "123.45", "CAD"),
-            ("$12,345.45", "12,345.45", "$"),
         ],
+        ids=["$ test #1", "$ test #2", "USD test", "CAD test"],
     )
     def test_parse_price(self, value, price, currency):
         result = self._parse_price(value)
@@ -35,13 +36,14 @@ class TestClass(ClassUtils, object):
         # assert_('price', result, what='price', operator=Operators.CONTAINS)
 
     @pytest.mark.parametrize(
-        "value,quantity,uom",
+        ("value", "quantity", "uom"),
         [
             ("43 ounce", "43", "ounce"),
             ("4 lb", "4", "lb"),
             ("5 g", "5", "g"),
             ("123.45mm", "123.45", "mm"),
         ],
+        ids=["ounce test", "lb test", "g test", "mm test"],
     )
     def test_parse_quantity(self, value, quantity, uom):
         result = self._parse_quantity(value)
@@ -61,7 +63,7 @@ class TestClass(ClassUtils, object):
             pytest.fail(f"_parse_quantity({value}) uom mismatch")
 
     @pytest.mark.parametrize(
-        "value,param_name,expected_result",
+        ("value, param_name, expected_result"),
         [
             (
                 "http://google.com?foo=bar&product_id=12345",
@@ -129,13 +131,20 @@ class TestClass(ClassUtils, object):
         assert type(result) is int
 
     @pytest.mark.parametrize(
-        "cas,valid_cas",
+        ("cas", "valid_cas"),
         [
+            ("7732-18-5", True),
+            ("7664-93-9", True),
             ("123-34-34", False),
             ("321-2-1", False),
             ("a-1-333", False),
-            ("7732-18-5", True),
-            ("7664-93-9", True),
+        ],
+        ids=[
+            "Valid CAS #1",
+            "Valid CAS #2",
+            "Invalid CAS #1",
+            "Invalid CAS #2",
+            "Invalid CAS #3",
         ],
     )
     def test_is_cas(self, cas, valid_cas):
@@ -144,7 +153,7 @@ class TestClass(ClassUtils, object):
         assert result is valid_cas
 
     @pytest.mark.parametrize(
-        "value,casted_value,value_type",
+        ("value", "casted_value", "value_type"),
         [
             ("1234", 1234, int),
             ("test", "test", str),
@@ -152,6 +161,13 @@ class TestClass(ClassUtils, object):
             ("true", True, bool),
             ("123.35", 123.35, float),
             # ('',None,None)
+        ],
+        ids=[
+            "'1234' to 1234",
+            "'test' to 'test'",
+            "'false' to False",
+            "'true' to True",
+            "'123.35' to 123.35",
         ],
     )
     def test_cast_type(self, value, casted_value, value_type):
@@ -167,11 +183,12 @@ class TestClass(ClassUtils, object):
         assert result_a != result_b
 
     @pytest.mark.parametrize(
-        "value,expected_result",
+        ("value", "expected_result"),
         [
             ({"foo": 123, "bar": 555}, {"bar": 555}),
             ({"foo": 999999, "bar": 123}, {"foo": 999999}),
         ],
+        ids=["Pulling bar from object", "Pulling foo from object"],
     )
     def test_filter_highest_value(self, value, expected_result):
         result = self._filter_highest_value(value)

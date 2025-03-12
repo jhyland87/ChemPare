@@ -1,5 +1,8 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import Dict, NoReturn
+import pytest
+
+pytest.skip(allow_module_level=True)
 
 
 # File: /suppliers/supplier_template.py
