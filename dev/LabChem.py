@@ -1,9 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-import pytest
-
-pytest.skip(allow_module_level=True)
 
 
 def fetch_from_lab_chem(chem):

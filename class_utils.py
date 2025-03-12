@@ -108,16 +108,26 @@ class ClassUtils(metaclass=ABCMeta):
 
         matches_dict = matches.groupdict()
 
-        # If were trying to convert the currency symbol to the country code, then check that the
-        # "currency" matched is at least a currency symbol...
-        if symbol_to_code is True and self._is_currency_symbol(
+        if self._is_currency_symbol(
             matches_dict["currency"]
-        ):
-            # ... Then attempt to get the country code from it.
-            country_code = self._currency_code_from_symbol(matches_dict["currency"])
-            if country_code:
-                # If one was found, then override the "currency" property in the result
-                matches_dict["currency_code"] = country_code
+        ):  # If the currency is a symbol
+            matches_dict["currency_code"] = self._currency_code_from_symbol(
+                matches_dict["currency"]
+            )
+        else:
+            matches_dict["currency_code"] = matches_dict["currency"]
+            matches_dict["currency"] = self._currency_symbol_from_code(matches_dict["currency_code"])
+
+        # # If were trying to convert the currency symbol to the country code, then check that the
+        # # "currency" matched is at least a currency symbol...
+        # if symbol_to_code is True and self._is_currency_symbol(
+        #     matches_dict["currency"]
+        # ):
+        #     # ... Then attempt to get the country code from it.
+        #     country_code = self._currency_code_from_symbol(matches_dict["currency"])
+        #     if country_code:
+        #         # If one was found, then override the "currency" property in the result
+        #         matches_dict["currency_code"] = country_code
 
         return matches_dict
 
@@ -140,8 +150,8 @@ class ClassUtils(metaclass=ABCMeta):
         if not string or string.isspace():
             return None
 
-        # https://regex101.com/r/am7wLs/5
-        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>oz|ounces?|grams?|gallon|gal|g|(?:lb|pound)s?|l|qt|m?[glm]|milli(?:gram|meter|liter)s?)"
+        # https://regex101.com/r/lDLuVX/2
+        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>milli(?:gram|meter|liter)s?|z|ounces?|grams?|gallon|gal|g|lbs?|pounds?|l|qt|m?[glm])"
 
         matches = regex.search(pattern, string, regex.IGNORECASE)
 
@@ -386,7 +396,7 @@ class ClassUtils(metaclass=ABCMeta):
             "BRL": "R$",
             "BND": "$",
             "KHR": "៛",
-            "CAD": "$",
+            "CAD": "CA$",
             "KYD": "$",
             "CLP": "$",
             "CNY": "¥",
@@ -483,58 +493,6 @@ class ClassUtils(metaclass=ABCMeta):
             return currency_symbols[code]
 
     @finalmethod
-    def _is_cas(self, value: Any) -> bool:
-        """Check if a string is a valid CAS registry number
-
-        This is done by taking the first two segments and iterating over each individual
-        intiger in reverse order, multiplying each by its position, then taking the
-        modulous of the sum of those values.
-
-        Example:
-            1234-56-6 is valid because the result of the below equation matches the checksum,
-            (which is 6)
-                (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
-
-            This can be simplified in the below aggregation:
-                cas_chars = [1, 2, 3, 4, 5, 6]
-                sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
-
-        See:
-            https://www.cas.org/training/documentation/chemical-substances/checkdig
-
-        Args:
-            value (str): The value to determine if its a CAS # or not
-
-        Returns:
-            bool: True if its a valid format and the checksum matches
-        """
-
-        if type(value) is not str:
-            return False
-
-        # value='1234-56-6'
-        # https://regex101.com/r/xPF1Yp/2
-        cas_pattern_check = re.match(
-            r"^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$", value
-        )
-
-        if cas_pattern_check is None:
-            return False
-
-        cas_dict = cas_pattern_check.groupdict()
-        # cas_dict = dict(seg_a='1234', seg_b='56', checksum='6')
-
-        cas_chars = list(cas_dict["seg_a"] + cas_dict["seg_b"])
-        # cas_chars = ['1','2','3','4','5','6']
-
-        checksum = (
-            sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
-        )
-        # checksum = 6
-
-        return int(checksum) == int(cas_dict["checksum"])
-
-    @finalmethod
     def _cast_type(self, value: Union[str, int, float, bool] = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting int/float/bool
 
@@ -582,7 +540,7 @@ class ClassUtils(metaclass=ABCMeta):
         # return value
 
     @finalmethod
-    def _random_string(self, length: int = 10) -> str:
+    def _random_string(self, length: Optional[int] = 10) -> str:
         """Generate random string
 
         Args:
@@ -591,6 +549,8 @@ class ClassUtils(metaclass=ABCMeta):
         Returns:
             str: Random string, {length} chars long
         """
+        if type(length) is not int:
+            length = 10
 
         # trunk-ignore(bandit/B311)
         return "".join(
