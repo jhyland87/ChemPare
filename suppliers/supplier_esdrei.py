@@ -81,8 +81,6 @@ class SupplierEsDrei(SupplierBase):
 
         # Parse the price for the useful information
         # Pattern tested at: https://regex101.com/r/R4PQ5K/1
-        # price_pattern = re.compile(r"^(?P<price>.*)\s+(?P<currency>.)$")
-        # price_matches = price_pattern.search(price_data)
         price_string = re.sub(r"\s+", r" ", price_string)
         price_data = self._parse_price(price_string)
 
