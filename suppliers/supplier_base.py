@@ -36,6 +36,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     # _query_results: Any = None
     """Location of cached query result (what other methods pull data from)"""
 
+    # _defaults: Dict = None
+    """Default values for products from this supplier"""
+
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name searches"""
 

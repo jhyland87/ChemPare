@@ -41,7 +41,7 @@
       "id": "query",
       "type": "promptString",
       "description": "Reagent to query for",
-      "default": "borohydride"
+      "default": "water"
     },
     {
         "id":"supplier",

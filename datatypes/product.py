@@ -7,7 +7,7 @@ import re
 class TypeProduct:
     """Custom data class for products"""
 
-    uuid: str = None
+    uuid: Union[str, int] = None
     """Unique identifier used by supplier"""
 
     title: str = None
@@ -106,11 +106,11 @@ class TypeProduct:
 
         return self
 
-    def __cast_type(self, value: Union[str, int, float, bool], key: str = None) -> Any:
+    def __cast_type(self, value: Any, key: str = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting int/float/bool
 
         Args:
-            value (Union[str,int,float,bool]): Value to be casted (optional)
+            value (Any): Value to be casted (optional)
 
         Returns:
             Any: Casted value
@@ -143,10 +143,10 @@ class TypeProduct:
         if value.lower() == "false":
             return False
 
-        if value.isdecimal() or re.match(r"^[0-9]+\.[0-9]+$", value):
+        if re.match(r"^[0-9]+\.[0-9]+$", value):
             return float(value)
 
-        if value.isnumeric() or re.match(r"^[0-9]+$", value):
+        if re.match(r"^[0-9]+$", value):
             return int(value)
 
         return value

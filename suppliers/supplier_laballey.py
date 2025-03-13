@@ -18,6 +18,9 @@ class SupplierLaballey(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
+    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    """Default values applied to products from this supplier"""
+
     def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
@@ -63,9 +66,7 @@ class SupplierLaballey(SupplierBase):
     # Method iterates over the product query results stored at self._query_results and
     # returns a list of TypeProduct objects.
     def _parse_products(self) -> NoReturn:
-        # print('self._query_results:',self._query_results)
         for product_obj in self._query_results:
-
             # Add each product to the self._products list in the form of a TypeProduct
             # object.
             self._products.append(self._parse_product(product_obj))
@@ -86,6 +87,7 @@ class SupplierLaballey(SupplierBase):
         """
 
         product = TypeProduct(
+            **self.__defaults,
             uuid=product_obj["product_id"],
             name=product_obj["title"],
             title=product_obj["title"],
@@ -94,22 +96,16 @@ class SupplierLaballey(SupplierBase):
                 if product_obj["description"]
                 else None
             ),
-            price=product_obj["price"],
+            price=f"{float(product_obj['price']):.2f}",
             url="{0}{1}".format(self._supplier["base_url"], product_obj["link"]),
             manufacturer=product_obj["vendor"],
             supplier=self._supplier["name"],
-            currency_code="USD",
-            currency="$",
         )
 
-        # SKU/Quantity regex pattern test:  https://regex101.com/r/A1e2C2/1
-        quantity_pattern = re.compile(
-            r"^(?:[A-Z0-9]+)-(?P<quantity>[0-9\.]+)(?P<uom>[A-Za-z]+)$"
-        )
-        quantity_matches = quantity_pattern.search(product_obj["product_code"])
+        quantity_matches = self._parse_quantity(product_obj["product_code"])
 
         if quantity_matches:
-            product.update(quantity_matches.groupdict())
+            product.update(quantity_matches)
 
         return product
 
