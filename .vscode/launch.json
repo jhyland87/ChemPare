@@ -11,18 +11,57 @@
             "program": "main2.py",
             "console": "integratedTerminal",
             "args": [
-                "borohydride"
+                "${input:query}"
             ]
         },
         {
-            "name": "Debugger: Current File with Arguments",
+            "name": "Debugger: main.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "${command:pickArgs}"
+                "${input:query}"
+            ]
+        },
+        {
+            "name": "Debugger: module-test.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "dev/module-test.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${input:query}",
+                "${input:supplier}"
             ]
         }
-    ]
+    ],
+    "inputs": [
+    {
+      "id": "query",
+      "type": "promptString",
+      "description": "Reagent to query for",
+      "default": "borohydride"
+    },
+    {
+        "id":"supplier",
+        "type":"pickString",
+        "description": "Select a supplier",
+        "options": [
+            "SearchFactory",
+            "SupplierLaballey",
+            "SupplierLabchem",
+            "SupplierChemsavers",
+            "SupplierOnyxmet",
+            "SupplierEsDrei",
+            "SupplierSynthetika",
+            "SupplierTciChemicals",
+            "SupplierFtfScientific",
+            "SupplierLoudwolf",
+            "SupplierWarchem",
+            "SupplierLaboratoriumDiscounter",
+        ],
+        "default": "SearchFactory"
+    }
+  ]
 }

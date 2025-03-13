@@ -56,16 +56,20 @@ python3 -m venv venv
 
 ```bash
 source ./venv/bin/activate
+```
 
+If you're doing development work and using VSCode, then install some useful Python extensions using the [code command](https://code.visualstudio.com/docs/setup/mac#_launch-vs-code-from-the-command-line):
+
+```bash
 code --install-extension ms-python.black-formatter
 code --install-extension ms-python.debugpy
 code --install-extension ms-python.python
+code --install-extension ms-python.isort
 code --install-extension ms-python.vscode-pylance
 code --install-extension njqdev.vscode-python-typehint
 code --install-extension wolfieshorizon.python-auto-venv
-
+code --install-extension rodolphebarbanneau.python-docstring-highlighter
 ```
-
 
 <small>_On Windows:_</small>
 
