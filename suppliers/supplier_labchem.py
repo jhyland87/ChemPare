@@ -1,5 +1,5 @@
 from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import Tuple, Optional, NoReturn
+from typing import Tuple, Optional, NoReturn, Dict
 from bs4 import BeautifulSoup
 
 
@@ -22,6 +22,9 @@ class SupplierLabchem(SupplierBase):
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
+
+    __defaults: Dict = {"currency": "$", "currency_code": "USD"}
+    """Default values applied to products from this supplier"""
 
     def _query_products(self, query: str) -> NoReturn:
         # Search types/ID's:
@@ -115,6 +118,7 @@ class SupplierLabchem(SupplierBase):
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
 
         _product = TypeProduct(
+            **self.__defaults,
             name=title_elem,
             title=title_elem,
             supplier=self._supplier["name"],
@@ -124,7 +128,7 @@ class SupplierLabchem(SupplierBase):
         )
 
         if cas:
-            _product.cas = (cas.get_text(strip=True),)
+            _product.cas = cas.get_text(strip=True)
 
         return _product.cast_properties()
 

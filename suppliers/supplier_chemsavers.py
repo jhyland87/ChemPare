@@ -21,6 +21,9 @@ class SupplierChemsavers(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
+    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    """Default values applied to products from this supplier"""
+
     # If any extra init logic needs to be called... uncmment the below and add changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
@@ -96,6 +99,7 @@ class SupplierChemsavers(SupplierBase):
         """
 
         product = TypeProduct(
+            **self.__defaults,
             uuid=product_obj["product_id"],
             name=product_obj["name"],
             description=product_obj["description"],
@@ -104,10 +108,7 @@ class SupplierChemsavers(SupplierBase):
             url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
-            supplier=self._supplier["name"],
-            currency_code="USD",
-            currency="$",
-            is_restricted=False,
+            supplier=self._supplier["name"]
         )
 
         # Since the description contains HTML, and it may contain restrictions, use BS

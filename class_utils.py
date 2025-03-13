@@ -116,7 +116,9 @@ class ClassUtils(metaclass=ABCMeta):
             )
         else:
             matches_dict["currency_code"] = matches_dict["currency"]
-            matches_dict["currency"] = self._currency_symbol_from_code(matches_dict["currency_code"])
+            matches_dict["currency"] = self._currency_symbol_from_code(
+                matches_dict["currency_code"]
+            )
 
         # # If were trying to convert the currency symbol to the country code, then check that the
         # # "currency" matched is at least a currency symbol...
@@ -128,6 +130,9 @@ class ClassUtils(metaclass=ABCMeta):
         #     if country_code:
         #         # If one was found, then override the "currency" property in the result
         #         matches_dict["currency_code"] = country_code
+
+        if matches_dict["currency_code"] == "USD":
+            matches_dict["price"] = f"{float(matches_dict['price']):.2f}"
 
         return matches_dict
 
@@ -142,6 +147,17 @@ class ClassUtils(metaclass=ABCMeta):
             Optional[Dict]: Returns a dictionary with the 'quantity' and 'uom' values
         """
 
+        # When a UOM is found, its lower case key can be used to look up the correct
+        # case format for it.
+        uom_cases = {
+            "ml": "mL",
+            "l": "L",
+            "g": "g",
+            "lb": "lb",
+            "lbs": "lbs",
+            "kg": "kg",
+        }
+
         if type(string) is not str:
             return None
 
@@ -150,15 +166,20 @@ class ClassUtils(metaclass=ABCMeta):
         if not string or string.isspace():
             return None
 
-        # https://regex101.com/r/lDLuVX/2
-        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>milli(?:gram|meter|liter)s?|z|ounces?|grams?|gallon|gal|g|lbs?|pounds?|l|qt|m?[glm])"
+        # https://regex101.com/r/lDLuVX/4
+        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>(?:milli|kilo|centi)(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal|kg|g|lbs?|pounds?|l|qt|m?[glm])"
 
         matches = regex.search(pattern, string, regex.IGNORECASE)
 
         if not matches:
             return None
 
-        return matches.groupdict()
+        quantity_obj = matches.groupdict()
+
+        if str(quantity_obj["uom"]).lower() in uom_cases:
+            quantity_obj["uom"] = uom_cases[str(quantity_obj["uom"]).lower()]
+
+        return quantity_obj
 
     @finalmethod
     def _get_param_from_url(self, url: str, param: str = None) -> Optional[Any]:

@@ -76,6 +76,7 @@ class SupplierEsDrei(SupplierBase):
         # Parse the nested elements under the product_elem children
         price_default = price_info.find("span", class_="price--default")
         price_unit = price_info.find("div", class_="price--unit")
+
         # price_units = price_unit.find_all('span')
         price_string = price_default.string.strip().split("\n")[0]
 
@@ -87,7 +88,7 @@ class SupplierEsDrei(SupplierBase):
         product = TypeProduct(
             title=title_elem.attrs["title"],
             name=title_elem.attrs["title"],
-            description=product_desc.string.strip(),
+            description=product_desc.get_text(strip=True),
             url=title_elem.attrs["href"],
             supplier=self._supplier["name"],
             cas=self._find_cas(product_desc.string.strip()),
@@ -102,7 +103,9 @@ class SupplierEsDrei(SupplierBase):
         #   product.currency = price_matches.currency
         # product.update(price_matches.groupdict())
 
-        product.quantity = price_unit.find_all("span")[-1].get_text(strip=True)
+        quantity = price_unit.find_all("span")[-1].get_text(strip=True)
+        if quantity:
+            product.update(self._parse_quantity(quantity))
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space
