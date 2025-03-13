@@ -7,13 +7,13 @@ Compares prices from chemical vendors that sell to individuals and residential a
 ---
 
 ### How does it work
-Magic, mostly. 
+Magic, mostly.
 
 ---
 
 ### Installation
 
-#### Python Enviroment Setup 
+#### Python Enviroment Setup
 
 ##### Try using the Makefile (OSX)
 
@@ -35,7 +35,7 @@ make run
 
 ##### Manual setup
 
-1. Install Python 3.9
+1. Install Python 3.13.1
 
 2. Checkout this repo
 ```bash
@@ -56,7 +56,16 @@ python3 -m venv venv
 
 ```bash
 source ./venv/bin/activate
+
+code --install-extension ms-python.black-formatter
+code --install-extension ms-python.debugpy
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension njqdev.vscode-python-typehint
+code --install-extension wolfieshorizon.python-auto-venv
+
 ```
+
 
 <small>_On Windows:_</small>
 
@@ -107,3 +116,4 @@ venv/bin/python3 -m pytest -vvv tests
 The output should look simiar to the following:
 
 ![image](assets/images/chempare_unit_tests_output.png)
+
