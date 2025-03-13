@@ -166,8 +166,8 @@ class ClassUtils(metaclass=ABCMeta):
         if not string or string.isspace():
             return None
 
-        # https://regex101.com/r/lDLuVX/2
-        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>milli(?:gram|meter|liter)s?|z|ounces?|grams?|gallon|kg|gal|g|lbs?|pounds?|l|qt|m?[glm])"
+        # https://regex101.com/r/lDLuVX/4
+        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>(?:milli|kilo|centi)(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal|kg|g|lbs?|pounds?|l|qt|m?[glm])"
 
         matches = regex.search(pattern, string, regex.IGNORECASE)
 
