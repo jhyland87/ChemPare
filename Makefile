@@ -21,7 +21,7 @@ ifeq ('$(BREW_OK)','')
 	@echo "-----------------"
 endif
 	@echo "Installing python.."
-	brew install python
+	brew install python@3.13
 	@echo "-----------------"
 	@echo $(shell python3 --version 2>&1)
 	@echo "-----------------"
@@ -29,7 +29,7 @@ endif
 	@echo $(shell brew -v 2>&1)
 	@echo $(shell python3 --version 2>&1)
 
-# After the dependencies are installed/verified, this will actiate 
+# After the dependencies are installed/verified, this will actiate
 # the environment just using venv/bin/activate
 install: requirements/common.txt
 	make install-dependencies
@@ -44,8 +44,8 @@ install-dev: requirements/dev.txt
 	./venv/bin/pip3 install --upgrade pip
 	./venv/bin/pip3 install -r requirements/dev.txt
 	make venv/bin/activate
-	
-# Enter the python3 environment, then install the packages in the 
+
+# Enter the python3 environment, then install the packages in the
 # requirements/common.txtfile.
 venv/bin/activate: requirements/common.txt
 	python3 -m venv venv
@@ -65,7 +65,7 @@ ifeq ('$(PYTHON3_OK)','')
 	@echo "No python3 version found - run 'make install' first"
 	exit 1
 else
-	./venv/bin/python3 -O main.py	
+	./venv/bin/python3 -O main.py
 endif
 
 # Run the test cases - this does nothing right now
@@ -77,7 +77,7 @@ test: venv/bin/activate
 
 # Remove anything installed via pip in this env.
 clean:
-	rm -rf __pycache__ 
+	rm -rf __pycache__
 	rm -rf venv
 	rm -rf bin include build
 

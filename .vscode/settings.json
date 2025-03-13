@@ -8,5 +8,12 @@
     "files.trimTrailingWhitespace": true,
     "editor.trimAutoWhitespace": true,
     "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "python.testing.autoTestDiscoverOnSavePattern": "tests/**/*.py",
+    "python.defaultInterpreterPath": "python",
+    "python.analysis.generateWithTypeAnnotation": true,
+    "python.analysis.inlayHints.functionReturnTypes": false,
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.executeInFileDir": true,
 }
