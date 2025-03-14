@@ -53,7 +53,8 @@ class SupplierWarchem(SupplierBase):
         # https://warchem.pl/szukaj.html/szukaj=ACET/s=2
 
         search_result = self.http_get_html(
-            path=f"szukaj.html/szukaj={query}/opis=tak/fraza=nie/nrkat=tak/kodprod=tak/ean=tak/kategoria=1/podkat=tak"
+            # path=f"szukaj.html/szukaj={query}/opis=tak/fraza=nie/nrkat=tak/kodprod=tak/ean=tak/kategoria=1/podkat=tak"
+            path=f"szukaj.html/szukaj={query}"
         )
 
         search_result_soup = BeautifulSoup(search_result, "html.parser")
