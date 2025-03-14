@@ -5,7 +5,7 @@ pytest-xdist
 pylint-pytest
 pytest-instafail
 pytest-timeout
-pytest-pep8
+pytest-pycodestyle
 requests
 bs4
 rich
@@ -19,3 +19,4 @@ pathlib
 curl_cffi
 translate
 regex
+pycodestyle==2.4.0
