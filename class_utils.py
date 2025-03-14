@@ -15,6 +15,18 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 
 class ClassUtils(metaclass=ABCMeta):
+
+    @property
+    @finalmethod
+    def _epoch(self) -> int:
+        """Get epoch string - Used for unique values in searches (sometimes _)
+
+        Returns:
+            int: Current time in epoch
+        """
+
+        return math.floor(time.time() * 1000)
+
     @finalmethod
     def _parse_price(self, string: str, symbol_to_code: bool = True) -> Optional[Dict]:
         """Parse a string for a price value (currency and value)
@@ -149,16 +161,27 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         # When a UOM is found, its lower case key can be used to look up the correct
-        # case format for it.
+        # case format for it. If the UOM is in one of the below tuple keys, then it's
+        # substituted with the value.
         uom_cases = {
-            "ml": "mL",
-            "l": "L",
-            "g": "g",
-            "lb": "lb",
-            "lbs": "lbs",
-            "kg": "kg",
-            "millimeter": "mm",
-            "millimeters": "mm",
+            ("liter", "liters", "litres", "l"): "L",
+            (
+                "ml",
+                "mls",
+                "millilitre",
+                "millilitres",
+                "milliliter",
+                "milliliters",
+            ): "mL",
+            ("g", "gram", "grams"): "g",
+            ("lb", "lbs", "pound", "pounds"): "lb",
+            ("kg", "kgs", "killogram", "killograms"): "kg",
+            ("mm", "millimeter", "millimeters", "millimetre", "millimetres"): "mm",
+            ("cm", "centimeter", "centimeters", "centimetre", "centimetres"): "cm",
+            ("m", "meter", "meters", "metre", "metres"): "m",
+            ("oz", "ounce", "ounces"): "oz",
+            ("gal", "gallon", "gallons"): "gal",
+            ("qt", "quart", "quarts"): "qt",
         }
 
         if type(string) is not str:
@@ -179,8 +202,13 @@ class ClassUtils(metaclass=ABCMeta):
 
         quantity_obj = matches.groupdict()
 
-        if str(quantity_obj["uom"]).lower() in uom_cases:
-            quantity_obj["uom"] = uom_cases[str(quantity_obj["uom"]).lower()]
+        # Look for any proper substitution UOM's
+        proper_uom = self._find_values_with_element(
+            uom_cases, str(quantity_obj["uom"]).lower()
+        )
+
+        if len(proper_uom) > 0:
+            quantity_obj["uom"] = proper_uom[0]
 
         return quantity_obj
 
@@ -267,17 +295,6 @@ class ClassUtils(metaclass=ABCMeta):
         variant_dict = [dict(item) for item in grouped_elem]
 
         return variant_dict[0] or None
-
-    @property
-    @finalmethod
-    def _epoch(self) -> int:
-        """Get epoch string - Used for unique values in searches (sometimes _)
-
-        Returns:
-            int: Current time in epoch
-        """
-
-        return math.floor(time.time() * 1000)
 
     @finalmethod
     def _is_currency_symbol(self, char: str) -> bool:
@@ -564,11 +581,15 @@ class ClassUtils(metaclass=ABCMeta):
         # return value
 
     @finalmethod
-    def _random_string(self, length: Optional[int] = 10) -> str:
+    def _random_string(
+        self, length: Optional[int] = 10, include_special: bool = False
+    ) -> str:
         """Generate random string
 
         Args:
             length (int, optional): Length to generate string to. Defaults to 10.
+            include_special (bool, optional): Include special chars in output.
+                                              Defaults to False
 
         Returns:
             str: Random string, {length} chars long
@@ -576,13 +597,16 @@ class ClassUtils(metaclass=ABCMeta):
         if type(length) is not int:
             length = 10
 
+        # ascii_letters = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+        # digits = 0123456789
+        # punctuation = !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+        char_list = string.ascii_letters + string.digits
+
+        if include_special is True:
+            char_list += string.punctuation
+
         # trunk-ignore(bandit/B311)
-        return "".join(
-            random.choice(
-                string.ascii_uppercase + string.ascii_lowercase + string.digits
-            )
-            for _ in range(length)
-        )
+        return "".join(random.choice(char_list) for _ in range(length))
 
     @finalmethod
     def _find_cas(self, value: str) -> Optional[str]:
@@ -655,6 +679,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         return int(checksum) == int(cas_dict["checksum"])
 
+    @finalmethod
     def _filter_highest_value(self, input_dict: Dict) -> Dict:
         """Filter a dictionary for the entry with the highest numerical value.
 
@@ -670,6 +695,7 @@ class ClassUtils(metaclass=ABCMeta):
         max_value = max(input_dict.values())
         return {k: v for k, v in input_dict.items() if v == max_value}
 
+    @finalmethod
     def _get_common_phrases(
         self,
         texts: list,
@@ -746,6 +772,76 @@ class ClassUtils(metaclass=ABCMeta):
                 longest_phrases[phrase] = phrases[phrase]
 
         return longest_phrases
+
+    # @finalmethod
+    # def _find_keys_with_element(self, source: Dict, element: Union[str, int]) -> List:
+    #     """
+    #     Finds keys in a dictionary that are tuples and contain a specific element.
+
+    #     Args:
+    #         source (Dict): The dictionary to search.
+    #         element (str, int): The element to search for within the tuple keys.
+
+    #     Returns:
+    #         List: A list of keys (tuples) that contain the specified element.
+
+    #     Example:
+    #         my_dict = {
+    #             (1, 2): "a",
+    #             (2, 3): "b",
+    #             (3, 4): "c",
+    #             "hello": "d",
+    #             (2, 5, 6): "e"
+    #         }
+    #         self._find_keys_with_element(my_dict, 1)
+    #         [(1, 2)]
+    #         self._find_keys_with_element(my_dict, 2)
+    #         [(1, 2), (2, 3), (2, 5, 6)]
+    #         self._find_keys_with_element(my_dict, "hello")
+    #         ['hello']
+    #     """
+
+    #     return [
+    #         key
+    #         for key in source
+    #         if (isinstance(key, tuple) and element in key)
+    #         or (isinstance(key, str) and element == key)
+    #     ]
+
+    @finalmethod
+    def _find_values_with_element(self, source: Dict, element: Union[str, int]) -> List:
+        """
+        Finds values in a dictionary that are tuples and contain a specific element.
+
+        Args:
+            source (Dict): The dictionary to search.
+            element (str, int): The element to search for within the tuple keys.
+
+        Returns:
+            List: A list of values that were found
+
+        Example:
+            my_dict = {
+                (1, 2): "a",
+                (2, 3): "b",
+                (3, 4): "c",
+                "hello": "d",
+                (2, 5, 6): "e"
+            }
+            self._find_values_with_element(my_dict, 1)
+            ['a']
+            self._find_values_with_element(my_dict, 2)
+            ['a', 'b', 'e']
+            self._find_values_with_element(my_dict, "hello")
+            ['d']
+        """
+
+        return [
+            source[key]
+            for key in source
+            if (isinstance(key, tuple) and element in key)
+            or (isinstance(key, str) and element == key)
+        ]
 
 
 __all__ = "ClassUtils"

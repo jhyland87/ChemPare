@@ -6,6 +6,7 @@ pylint-pytest
 pytest-instafail
 pytest-timeout
 pytest-pycodestyle
+pytest-env
 requests
 bs4
 rich

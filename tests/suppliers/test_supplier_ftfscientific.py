@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
+from datatypes.product import TypeProduct
 import pytest
 
 
 # Base test class
+@pytest.mark.supplier
 class TestClass:
     _query = "water"
     _results = None
@@ -26,10 +28,14 @@ class TestValidSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
+        assert hasattr(results, "__iter__") is True
+        assert hasattr(results, "products") is True
+        assert type(results.products) is list
 
     @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
+        assert isinstance(results.products[0], TypeProduct) is True
 
 
 # Test cases for invalid searches for this supplier
@@ -40,6 +46,9 @@ class TestInvalidSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
+        assert hasattr(results, "__iter__") is True
+        assert hasattr(results, "products") is True
+        assert type(results.products) is list
 
     @pytest.mark.second
     def test_results(self, results):
@@ -54,6 +63,11 @@ class TestValidCASSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
+        assert hasattr(results, "__iter__") is True
+        assert hasattr(results, "products") is True
+        assert type(results.products) is list
+
+    # assert type(results) is list
 
     @pytest.mark.second
     def test_results(self, results):
@@ -68,6 +82,9 @@ class TestInvalidCASSearch(TestClass):
     @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
+        assert hasattr(results, "__iter__") is True
+        assert hasattr(results, "products") is True
+        assert type(results.products) is list
 
     @pytest.mark.second
     def test_results(self, results):

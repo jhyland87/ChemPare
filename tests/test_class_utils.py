@@ -54,10 +54,10 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("value", "quantity", "uom"),
         [
-            ("1 ounce", "1", "ounce"),
-            ("43 ounces", "43", "ounces"),
+            ("1 ounce", "1", "oz"),
+            ("43 ounces", "43", "oz"),
             ("1 lb", "1", "lb"),
-            ("4 lbs", "4", "lbs"),
+            ("4 lbs", "4", "lb"),
             ("5 g", "5", "g"),
             ("10 gal", "10", "gal"),
             ("43.56 qt", "43.56", "qt"),
@@ -330,25 +330,39 @@ class TestClass(ClassUtils, object):
         assert result == casted_value
 
     @pytest.mark.parametrize(
-        ("length"),
+        ("length", "include_special"),
         [
-            (None),
-            (5),
-            (100),
+            (None, None),
+            (5, None),
+            (100, None),
+            (10, True),
         ],
         ids=[
-            "_random_string: None -> return unique 10 character string",
-            "_random_string: 5 -> return unique 5 character string",
-            "_random_string: 100 -> return unique 100 character",
+            "_random_string: None -> return unique 10 character alphanumeric string",
+            "_random_string: 5 -> return unique 5 character alphanumeric string",
+            "_random_string: 100 -> return unique 100 character alphanumeric string",
+            "_random_string: 10 (include_special) -> return unique 10 character alphanumeric+special string",
         ],
     )
-    def test_random_string(self, length):
-        result_a = self._random_string(length)
-        result_b = self._random_string(length)
+    def test_random_string(self, length, include_special):
+        result_a = self._random_string(length, include_special)
+        result_b = self._random_string(length, include_special)
+
         assert type(result_a) is str
         assert type(result_b) is str
+
         assert len(result_a) == length or 10
         assert len(result_b) == length or 10
+        # All results should be ascii..
+        assert str.isascii(result_a) is True
+        assert str.isascii(result_b) is True
+
+        # If were including special chars then isalnum should be
+        # False (inverse of include_special)
+        assert str.isalnum(result_a) is not include_special
+        assert str.isalnum(result_b) is not include_special
+
+        # Obviously they should never be the same value
         assert result_a != result_b
 
     @pytest.mark.parametrize(
@@ -393,3 +407,40 @@ class TestClass(ClassUtils, object):
         result = self._get_common_phrases(phrases)
         assert type(result) is dict
         assert result == expected_result
+
+    @pytest.mark.parametrize(
+        ("values", "element", "expected_result"),
+        [
+            (
+                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                1,
+                ["a"],
+            ),
+            (
+                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                2,
+                ["a", "b", "e"],
+            ),
+            (
+                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                "hello",
+                ["d"],
+            ),
+            (
+                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                "test",
+                [],
+            ),
+        ],
+        ids=[
+            "Search for element with one result",
+            "Search for element with multiple results",
+            "Search for key instead of element",
+            "Search for element/key that does not exist",
+        ],
+    )
+    def test_find_values_with_element(self, values, element, expected_result):
+        res = self._find_values_with_element(values, element)
+        assert res is not None
+        assert type(res) is type(expected_result)
+        assert res == expected_result

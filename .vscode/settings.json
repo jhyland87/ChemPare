@@ -1,13 +1,24 @@
 {
-
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestArgs": [
+        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-show tests/test_class_utils.py
+        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-plan tests/test_class_utils.py
+        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-show tests/test_class_utils.py
+        //"-vvv",
+        "-v",
+        "--capture=fd", // fd|sys|no|tee-sys
+        "--show-capture=all", // no,stdout,stderr,log,all
         "-ra",
-        "-n","auto",
+        //"--quiet",
+        //"--no-header",
+        //"--disable-warnings",
+        "--doctest-modules",
+        "--numprocesses=auto",
         "--color=yes",
         "--code-highlight=yes",
-        "--cov=./tests",
+        "--cov=suppliers",
+        "--setup-show",
         "tests"
     ],
     "files.trimTrailingWhitespace": true,
