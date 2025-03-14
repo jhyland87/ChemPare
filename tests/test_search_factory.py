@@ -7,11 +7,12 @@ sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 from search_factory import SearchFactory
 
+
 def test_chemical_name_query():
     res = None
     exception = None
     try:
-        res = SearchFactory('water')
+        res = SearchFactory("water")
     except Exception as e:
         exception = e
 

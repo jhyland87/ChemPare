@@ -86,7 +86,7 @@ class ClassUtils(metaclass=ABCMeta):
             r"Z(?:AR|MW|WD)))"
             r"\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)"
             r"|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|"
-            # r'(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)'
+            # r"(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)"
             r"(?P<currency>"
             r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|UD?)|"
             r"B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|"
