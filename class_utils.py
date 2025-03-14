@@ -131,8 +131,9 @@ class ClassUtils(metaclass=ABCMeta):
         #         # If one was found, then override the "currency" property in the result
         #         matches_dict["currency_code"] = country_code
 
-        if matches_dict["currency_code"] == "USD":
-            matches_dict["price"] = f"{float(matches_dict['price']):.2f}"
+        if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
+            price = str(matches_dict["price"]).replace(",", "")
+            matches_dict["price"] = f"{float(price):.2f}"
 
         return matches_dict
 
@@ -156,6 +157,8 @@ class ClassUtils(metaclass=ABCMeta):
             "lb": "lb",
             "lbs": "lbs",
             "kg": "kg",
+            "millimeter": "mm",
+            "millimeters": "mm",
         }
 
         if type(string) is not str:

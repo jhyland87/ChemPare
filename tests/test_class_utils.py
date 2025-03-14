@@ -1,5 +1,8 @@
-# trunk-ignore-all(isort)
 #!/usr/bin/env python3
+# # trunk-ignore-all(isort)
+import warnings
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
 import os
 import sys
 import pytest
@@ -15,23 +18,25 @@ from class_utils import ClassUtils
 
 class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
-        ("value", "price", "currency","currency_code"),
+        ("value", "price", "currency", "currency_code"),
         [
-            ("$123.45", "123.45", "$","USD"),
-            ("$12,345.45", "12,345.45", "$","USD"),
-            ("123.45 USD", "123.45", "$","USD"),
+            ("$123.45", "123.45", "$", "USD"),
+            ("$12,345.45", "12345.45", "$", "USD"),
+            ("123.45 USD", "123.45", "$", "USD"),
             ("123.45 CAD", "123.45", "CA$", "CAD"),
-            ("€1,1234.5", "1,1234.5", "€", "EUR"),
+            ("€1,1234.5", "11234.50", "€", "EUR"),
             ("£123", "123", "£", "GBP"),
-            ("674 ¥", "674", "¥","JPY"),
+            ("674 ¥", "674", "¥", "JPY"),
         ],
-        ids=["_parse_price: '$123.45' -> $123.45 USD",
-             "_parse_price: '$12,345.45' -> $12,345.45 USD",
-             "_parse_price: '123.45 USD' -> $123.45 USD",
-             "_parse_price: '123.45 CAD' -> $123.45 CAD",
-             "_parse_price: '€1,1234.5' -> €1,1234.5 EUR",
-             "_parse_price: '£123' -> £123 GBP",
-             "_parse_price: '674 ¥' -> 674 ¥ JPY"],
+        ids=[
+            "_parse_price: '$123.45' -> $123.45 USD",
+            "_parse_price: '$12,345.45' -> $12,345.45 USD",
+            "_parse_price: '123.45 USD' -> $123.45 USD",
+            "_parse_price: '123.45 CAD' -> $123.45 CAD",
+            "_parse_price: '€1,1234.5' -> €1,1234.50 EUR",
+            "_parse_price: '£123' -> £123 GBP",
+            "_parse_price: '674 ¥' -> 674 ¥ JPY",
+        ],
     )
     def test_parse_price(self, value, price, currency, currency_code):
         result = self._parse_price(value)
@@ -57,9 +62,10 @@ class TestClass(ClassUtils, object):
             ("10 gal", "10", "gal"),
             ("43.56 qt", "43.56", "qt"),
             ("10L", "10", "L"),
-            ("5 l", "5", "l"),
+            ("5 l", "5", "L"),
             ("123.45mm", "123.45", "mm"),
-            ("100 millimeters", "100", "millimeters"),
+            ("100 millimeters", "100", "mm"),
+            ("1234ml", "1234", "mL"),
         ],
         ids=[
             "_parse_quantity: '1 ounce' -> 1 ounce",
@@ -70,10 +76,11 @@ class TestClass(ClassUtils, object):
             "_parse_quantity: '10 gal' -> 10 gal",
             "_parse_quantity: '43.56 qt' -> 43.56 qt",
             "_parse_quantity: '10L' -> 10 L",
-            "_parse_quantity: '5 l' -> 5 l",
+            "_parse_quantity: '5 l' -> 5 L",
             "_parse_quantity: '123.45mm' -> 123.45 mm",
-            "_parse_quantity: '100 millimeters' -> 100 millimeters"
-        ]
+            "_parse_quantity: '100 millimeters' -> 100 millimeters",
+            "_parse_quantity: '1234ml' -> 1234 mL",
+        ],
     )
     def test_parse_quantity(self, value, quantity, uom):
         result = self._parse_quantity(value)
@@ -117,15 +124,20 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("array", "expected_result"),
         [
-            (["Variant", "500 g", "CAS", "1762-95-4"], [["Variant", "500 g"], ["CAS", "1762-95-4"]]),
+            (
+                ["Variant", "500 g", "CAS", "1762-95-4"],
+                [["Variant", "500 g"], ["CAS", "1762-95-4"]],
+            ),
             (["name", "23", "address"], [["name", "23"], ["address"]]),
-        ]
+        ],
     )
     def test_split_array_into_groups(self, array, expected_result):
         result = self._split_array_into_groups(array)
 
         if type(result) is not type(expected_result):
-            pytest.fail(f'expected type "{type(expected_result)}" for result, but got "{type(result)}')
+            pytest.fail(
+                f'expected type "{type(expected_result)}" for result, but got "{type(result)}'
+            )
 
         assert result == expected_result
         # if len(result) != 2:
@@ -161,7 +173,7 @@ class TestClass(ClassUtils, object):
         ("array", "expected_result"),
         [
             ([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"}),
-        ]
+        ],
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
@@ -183,13 +195,14 @@ class TestClass(ClassUtils, object):
             ("A", False),
             ("Test", False),
         ],
-        ids=["_is_currency('$') is True",
-             "_is_currency('¥') is True",
-             "_is_currency('£') is True",
-             "_is_currency('€') is True",
-             "_is_currency('₽') is True",
-             "_is_currency('A') is False",
-             "_is_currency('Test') is False"
+        ids=[
+            "_is_currency('$') is True",
+            "_is_currency('¥') is True",
+            "_is_currency('£') is True",
+            "_is_currency('€') is True",
+            "_is_currency('₽') is True",
+            "_is_currency('A') is False",
+            "_is_currency('Test') is False",
         ],
     )
     def test_is_currency_symbol(self, char, is_currency):
@@ -326,7 +339,7 @@ class TestClass(ClassUtils, object):
         ids=[
             "_random_string: None -> return unique 10 character string",
             "_random_string: 5 -> return unique 5 character string",
-            "_random_string: 100 -> return unique 100 character"
+            "_random_string: 100 -> return unique 100 character",
         ],
     )
     def test_random_string(self, length):
@@ -353,29 +366,30 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("phrases", "expected_result"),
         [
-            ([
-                "oxidane",
-                "WATER",
-                "Atomic oxygen",
-                "Monooxygen",
-                "Oxygen(sup 3P)",
-                "Oxygen, atomic",
-                "Photooxygen",
-                "Singlet oxygen",
-                "acqua",
-                "agua",
-                "aqua",
-                "H2O",
-                "HYD",
-                "HYDROXY GROUP",
-                "BOUND OXYGEN",
-            ],{("atomic",): 2, ("oxygen",): 4}),
+            (
+                [
+                    "oxidane",
+                    "WATER",
+                    "Atomic oxygen",
+                    "Monooxygen",
+                    "Oxygen(sup 3P)",
+                    "Oxygen, atomic",
+                    "Photooxygen",
+                    "Singlet oxygen",
+                    "acqua",
+                    "agua",
+                    "aqua",
+                    "H2O",
+                    "HYD",
+                    "HYDROXY GROUP",
+                    "BOUND OXYGEN",
+                ],
+                {("atomic",): 2, ("oxygen",): 4},
+            ),
         ],
         ids=["Parse array of phrases"],
     )
     def test_get_common_phrases(self, phrases, expected_result):
-        result = self._get_common_phrases(
-            phrases
-        )
+        result = self._get_common_phrases(phrases)
         assert type(result) is dict
         assert result == expected_result
