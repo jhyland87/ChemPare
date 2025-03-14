@@ -47,7 +47,6 @@ class TestInvalidSearch(TestClass):
 
 
 # Test cases for a valid CAS search for this supplier
-@pytest.mark.skip
 class TestValidCASSearch(TestClass):
     _query = "7732-18-5"  # Water
     _results = None
@@ -62,7 +61,6 @@ class TestValidCASSearch(TestClass):
 
 
 # Test cases for an invalid CAS search for this supplier
-@pytest.mark.skip
 class TestInvalidCASSearch(TestClass):
     _query = "7782-77-6"  # Nitrous acid, too stable to be sold
     _results = None
