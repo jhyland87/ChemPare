@@ -6,6 +6,7 @@ import pytest
 
 
 # Base test class
+@pytest.mark.supplier
 class TestClass:
     _query = "water"
     _results = None
