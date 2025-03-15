@@ -34,6 +34,18 @@
                 "${input:query}",
                 "${input:supplier}"
             ]
+        },
+        {
+            "name":"Run pycodestyle",
+            "type":"debugpy",
+            "request":"launch",
+            "program":"pycodestyle",
+            "console":"integratedTerminal",
+            "args":[
+                "--config=pytest.ini",
+                "**/*.py",
+                "*.py"
+            ]
         }
     ],
     "inputs": [
@@ -54,6 +66,7 @@
             "SupplierChemsavers",
             "SupplierOnyxmet",
             "SupplierEsDrei",
+            "Supplier3SChem",
             "SupplierSynthetika",
             "SupplierTciChemicals",
             "SupplierFtfScientific",

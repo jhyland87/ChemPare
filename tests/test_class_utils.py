@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 # # trunk-ignore-all(isort)
-import warnings
+# import warnings
 
-warnings.simplefilter(action="ignore", category=FutureWarning)
+# warnings.simplefilter(action="ignore", category=FutureWarning)
 import os
 import sys
 import pytest
+from typing import Literal
+from class_utils import ClassUtils
 
 # from assertions import assert_
 # from assertions.operators import Operators
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from class_utils import ClassUtils
+# from class_utils import ClassUtils
 
 
 class TestClass(ClassUtils, object):
@@ -107,11 +109,20 @@ class TestClass(ClassUtils, object):
                 None,
                 {"foo": "bar", "product_id": "12345"},
             ),
-            ("http://google.com?foo=bar&product_id=12345", "product_id", "12345"),
+            (
+                "http://google.com?foo=bar&product_id=12345",
+                "product_id",
+                "12345",
+            ),
         ],
         ids=["no param_name", "with param_name"],
     )
-    def test_get_param_from_url(self, value, param_name, expected_result):
+    def test_get_param_from_url(
+        self,
+        value: Literal["http://google.com?foo=bar&product_id=12345"],
+        param_name: None | Literal["product_id"],
+        expected_result: dict[str, str] | Literal["12345"],
+    ):
         result = self._get_param_from_url(value, param_name)
 
         if type(result) is not type(expected_result):
@@ -412,22 +423,46 @@ class TestClass(ClassUtils, object):
         ("values", "element", "expected_result"),
         [
             (
-                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
                 1,
                 ["a"],
             ),
             (
-                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
                 2,
                 ["a", "b", "e"],
             ),
             (
-                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
                 "hello",
                 ["d"],
             ),
             (
-                {(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"},
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
                 "test",
                 [],
             ),

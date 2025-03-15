@@ -2,29 +2,20 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestArgs": [
-        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-show tests/test_class_utils.py
-        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-plan tests/test_class_utils.py
-        // pytest -v --capture=fd --show-capture=all -ra --color=yes --code-highlight=yes --cov=suppliers --setup-show tests/test_class_utils.py
-        //"-vvv",
-        "-v",
-        "--capture=fd", // fd|sys|no|tee-sys
-        "--show-capture=all", // no,stdout,stderr,log,all
         "-ra",
-        //"--quiet",
-        //"--no-header",
-        //"--disable-warnings",
         "--doctest-modules",
-        "--numprocesses=auto",
         "--color=yes",
         "--code-highlight=yes",
         "--cov=suppliers",
-        "--setup-show",
+        //"--pycodestyle",
+        "--numprocesses=auto",
         "tests"
     ],
     "files.trimTrailingWhitespace": true,
     "editor.trimAutoWhitespace": true,
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
+
     "python.testing.autoTestDiscoverOnSavePattern": "tests/**/*.py",
     "python.defaultInterpreterPath": "python",
     "python.analysis.generateWithTypeAnnotation": true,
@@ -32,4 +23,11 @@
     "python.terminal.activateEnvironment": true,
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.terminal.executeInFileDir": true,
+    "testing.coverageToolbarEnabled": true,
+    "editor.rulers": [
+        80
+    ],
+    "black-formatter.args": [
+        "--line-length=80"
+    ]
 }

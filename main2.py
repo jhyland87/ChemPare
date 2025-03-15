@@ -35,7 +35,8 @@ def main():
 
     # Create a progress bar with the total number of suppliers
     # with Progress(console=console) as progress:
-    # task = progress.add_task("[cyan]Searching..", total=len(product_search.results))
+    # task = progress.add_task("[cyan]Searching..",
+    # total=len(product_search.results))
 
     supplier_list = {}
 
@@ -67,23 +68,26 @@ def main():
         # Create the panel to print
 
         if not col_a:
-            # col_a = f"[yellow][b]{name}[/b][/yellow]\nPrice: {currency}{price} ({currency_code})\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}"
             col_a = Panel(
-                f"[yellow][b]{name}[/b][/yellow]\nCAS: {cas}\nPrice: {currency}{price} ({currency_code})\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}",
+                (
+                    f"[yellow][b]{name}[/b][/yellow]\nCAS: {cas}\n"
+                    f"Price: {currency}{price} ({currency_code})\n"
+                    f"Quantity: {quantity if quantity else 'N/A'}\n"
+                    f"Supplier: {supplier}\nURL: {url if url else 'N/A'}"
+                ),
                 expand=True,
                 width=col_widths,
                 height=8,
                 padding=(0, 0),
             )
-        # panel = Panel(
-        #     f"[yellow][b]{name}[/b][/yellow]\nPrice: {currency}{price} ({currency_code})\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}",
-        #     expand=True,
-        # )
         else:
-
-            # col_b = f"[yellow][b]{name}[/b][/yellow]\nPrice: {currency}{price} ({currency_code})\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}"
             col_b = Panel(
-                f"[yellow][b]{name}[/b][/yellow]\nCAS: {cas}\nPrice: {currency}{price} ({currency_code})\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}",
+                (
+                    f"[yellow][b]{name}[/b][/yellow]\n"
+                    f"CAS: {cas}\nPrice: {currency}{price} ({currency_code})\n"
+                    f"Quantity: {quantity if quantity else 'N/A'}\n"
+                    f"Supplier: {supplier}\nURL: {url if url else 'N/A'}"
+                ),
                 expand=True,
                 border_style="none",
                 width=col_widths,

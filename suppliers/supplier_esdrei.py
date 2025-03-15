@@ -43,16 +43,18 @@ class SupplierEsDrei(SupplierBase):
     def _parse_products(self) -> NoReturn:
         """Parse product query results.
 
-        Iterate over the products returned from self._query_products, creating new requests
-        for each to get the HTML content of the individual product page, and creating a
-        new TypeProduct object for each to add to _products
+        Iterate over the products returned from self._query_products, creating
+        new requests for each to get the HTML content of the individual product
+        page, and creating a new TypeProduct object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
         """
 
         product_page_soup = BeautifulSoup(self._query_results, "html.parser")
-        product_containers = product_page_soup.find_all("div", class_="product--info")
+        product_containers = product_page_soup.find_all(
+            "div", class_="product--info"
+        )
 
         for product_elem in product_containers[: self._limit]:
             self._products.append(self._parse_product(product_elem))
@@ -61,14 +63,15 @@ class SupplierEsDrei(SupplierBase):
         """Parse a single div.product--info element, creating a Partner object
 
         Args:
-            product_elem (BeautifulSoup): One of the elements returned from the BS search
+            product_elem (BeautifulSoup): One of the elements returned from the
+                                          BS search
 
         Returns:
             TypeProduct: Object of parsed product
         """
 
-        # Get some of the basic elements from this product_element object (which is just
-        # a BeautifulSoup object)
+        # Get some of the basic elements from this product_element object
+        # (which is just a BeautifulSoup object)
         title_elem = product_elem.find("a", class_="product--title")
         product_desc = product_elem.find("div", class_="product--description")
         price_info = product_elem.find("div", class_="product--price-info")
@@ -94,9 +97,10 @@ class SupplierEsDrei(SupplierBase):
             cas=self._find_cas(product_desc.string.strip()),
         )
 
-        # Since the pattern were matching for will name the matched groups 'price' and 'currency',
-        # we can use the `groupdict()` method to return a dictionary like {price: 123, currency: '$'},
-        # which we can then just directly update the product with.
+        # Since the pattern were matching for will name the matched groups
+        # 'price' and 'currency', we can use the `groupdict()` method to return
+        # a dictionary like {price: 123, currency: '$'}, which we can then just
+        # directly update the product with.
         #
         # This is just faster than doing:
         #   product.price = price_matches.price

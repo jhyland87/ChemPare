@@ -2,7 +2,8 @@ if __debug__:
     from pathlib import Path
 
     print(
-        "Running" if __name__ == "__main__" else "Importing", Path(__file__).resolve()
+        "Running" if __name__ == "__main__" else "Importing",
+        Path(__file__).resolve(),
     )
 
 import os
@@ -16,9 +17,10 @@ path = os.path.dirname(os.path.abspath(__file__))
 
 __ignorable_files = [
     "__init__.py",
-    # Trying out using a __disabled__ property check instead of using this array.
+    # Trying out using a __disabled__ property check instead of using this
+    # array.
     "supplier_base.py",
-    #'supplier_warchem.py'
+    # 'supplier_warchem.py'
 ]
 
 __all__ = []
@@ -26,7 +28,9 @@ __all__ = []
 suppliers_dir_files = [
     f[:-3]
     for f in os.listdir(path)
-    if f.endswith(".py") and f.startswith("supplier_") and f not in __ignorable_files
+    if f.endswith(".py")
+    and f.startswith("supplier_")
+    and f not in __ignorable_files
 ]
 
 # I get it. This file looks like shit. Not sure what the best way to
@@ -49,6 +53,9 @@ for supplier_file in suppliers_dir_files:
     ]
     for cls in classes:
         setattr(sys.modules[__name__], cls.__name__, cls)
-        if cls.__name__.startswith("Supplier") and cls.__name__ != "SupplierBase":
+        if (
+            cls.__name__.startswith("Supplier")
+            and cls.__name__ != "SupplierBase"
+        ):
             _logger.debug(f"Including supplier module {cls.__name__}")
             __all__.append(cls.__name__)

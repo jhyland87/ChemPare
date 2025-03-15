@@ -28,13 +28,16 @@ class ClassUtils(metaclass=ABCMeta):
         return math.floor(time.time() * 1000)
 
     @finalmethod
-    def _parse_price(self, string: str, symbol_to_code: bool = True) -> Optional[Dict]:
+    def _parse_price(
+        self, string: str, symbol_to_code: bool = True
+    ) -> Optional[Dict]:
         """Parse a string for a price value (currency and value)
 
         Args:
             string (str): String with price
-            symbol_to_code (bool): Attempt to convert the currency symbols to country codes if this
-                                   is set to True (defaults to True)
+            symbol_to_code (bool): Attempt to convert the currency symbols to
+                                   country codes if this is set to True
+                                   (defaults to True)
 
         Returns:
             Dict: Returns a dictionary with 'currency' and 'price' values
@@ -44,20 +47,11 @@ class ClassUtils(metaclass=ABCMeta):
 
         Todo:
             - Need to deal with:
-                A symbol may be positioned in various ways, according to national convention: before,
-                between or after the numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
+                A symbol may be positioned in various ways, according to
+                national convention: before, between or after the
+                numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
         """
 
-        # Partial test at https://regex101.com/r/KFaYjq/4
-        # iso_4217_pattern = r"(?:AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD?|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|"
-        #                    r"BOV|BRL|BSD|BTN|BWP|BYN|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|"
-        #                    r"CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|"
-        #                    r"HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|"
-        #                    r"KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRU|MUR|MVR|MWK|"
-        #                    r"MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|"
-        #                    r"RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STN|SVC|SYP|SZL|THB|TJS|"
-        #                    r"TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD?|USN|UYI|UYU|UYW|UZS|VES|VND|VUV|WST|XAF|"
-        #                    r"XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL)"
         iso_4217_pattern = (
             r"(?:ab\s?)?(?:(?P<currency>\p{Sc}|"
             r"(?P<currency>"
@@ -132,15 +126,18 @@ class ClassUtils(metaclass=ABCMeta):
                 matches_dict["currency_code"]
             )
 
-        # # If were trying to convert the currency symbol to the country code, then check that the
-        # # "currency" matched is at least a currency symbol...
+        # If we are trying to convert the currency symbol to the country code,
+        # then check that the "currency" matched is at least a currency symbol.
         # if symbol_to_code is True and self._is_currency_symbol(
         #     matches_dict["currency"]
         # ):
         #     # ... Then attempt to get the country code from it.
-        #     country_code = self._currency_code_from_symbol(matches_dict["currency"])
+        #     country_code = self._currency_code_from_symbol(
+        #         matches_dict["currency"]
+        #     )
         #     if country_code:
-        #         # If one was found, then override the "currency" property in the result
+        #         # If one was found, then override the "currency" property in
+        #         # the result
         #         matches_dict["currency_code"] = country_code
 
         if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
@@ -157,12 +154,13 @@ class ClassUtils(metaclass=ABCMeta):
             string (str): Suspected quantity string
 
         Returns:
-            Optional[Dict]: Returns a dictionary with the 'quantity' and 'uom' values
+            Optional[Dict]: Returns a dictionary with the 'quantity' and
+                            'uom' values
         """
 
-        # When a UOM is found, its lower case key can be used to look up the correct
-        # case format for it. If the UOM is in one of the below tuple keys, then it's
-        # substituted with the value.
+        # When a UOM is found, its lower case key can be used to look up the
+        # correct case format for it. If the UOM is in one of the below tuple
+        # keys, then it's substituted with the value.
         uom_cases = {
             ("liter", "liters", "litres", "l"): "L",
             (
@@ -176,8 +174,20 @@ class ClassUtils(metaclass=ABCMeta):
             ("g", "gram", "grams"): "g",
             ("lb", "lbs", "pound", "pounds"): "lb",
             ("kg", "kgs", "killogram", "killograms"): "kg",
-            ("mm", "millimeter", "millimeters", "millimetre", "millimetres"): "mm",
-            ("cm", "centimeter", "centimeters", "centimetre", "centimetres"): "cm",
+            (
+                "mm",
+                "millimeter",
+                "millimeters",
+                "millimetre",
+                "millimetres",
+            ): "mm",
+            (
+                "cm",
+                "centimeter",
+                "centimeters",
+                "centimetre",
+                "centimetres",
+            ): "cm",
             ("m", "meter", "meters", "metre", "metres"): "m",
             ("oz", "ounce", "ounces"): "oz",
             ("gal", "gallon", "gallons"): "gal",
@@ -193,7 +203,12 @@ class ClassUtils(metaclass=ABCMeta):
             return None
 
         # https://regex101.com/r/lDLuVX/4
-        pattern = r"(?P<quantity>[0-9][0-9\.\,]*)\s?(?P<uom>(?:milli|kilo|centi)(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal|kg|g|lbs?|pounds?|l|qt|m?[glm])"
+        pattern = (
+            r"(?P<quantity>[0-9][0-9\.\,]*)\s?"
+            r"(?P<uom>(?:milli|kilo|centi)"
+            r"(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal"
+            r"|kg|g|lbs?|pounds?|l|qt|m?[glm])"
+        )
 
         matches = regex.search(pattern, string, regex.IGNORECASE)
 
@@ -224,9 +239,13 @@ class ClassUtils(metaclass=ABCMeta):
             Any: Whatver the value was of the key, or nothing
 
         Example:
-            self._get_param_from_url('http://google.com?foo=bar&product_id=12345')
+            self._get_param_from_url(
+                'http://google.com?foo=bar&product_id=12345'
+            )
             {'foo':'bar','product_id':'12345'}
-            self._get_param_from_url('http://google.com?foo=bar&product_id=12345', 'product_id')
+            self._get_param_from_url(
+                'http://google.com?foo=bar&product_id=12345', 'product_id'
+            )
             '12345'
         """
 
@@ -234,7 +253,9 @@ class ClassUtils(metaclass=ABCMeta):
         parsed_query = parse_qs(parsed_url.query)
 
         # Replace any ['values'] with just 'values'
-        parsed_query = {k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()}
+        parsed_query = {
+            k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()
+        }
 
         if not param:
             return parsed_query
@@ -257,10 +278,13 @@ class ClassUtils(metaclass=ABCMeta):
             size: Size to group array elements by
 
         Returns:
-            A list of sub-arrays, where each sub-array contains {size} elements, or an empty list if the input array is empty.
+            A list of sub-arrays, where each sub-array contains {size} elements,
+            or an empty list if the input array is empty.
 
         Example:
-            self._split_array_into_groups(['Variant', '500 g', 'CAS', '1762-95-4'])
+            self._split_array_into_groups([
+                'Variant', '500 g', 'CAS', '1762-95-4'
+            ])
             [['Variant', '500 g'],['CAS', '1762-95-4']]
         """
 
@@ -272,8 +296,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _nested_arr_to_dict(self, arr: List[List]) -> Optional[Dict]:
-        """Takes an array of arrays (ie: result from self._split_array_into_groups) and
-        converts that into a dictionary.
+        """Takes an array of arrays (ie: result from
+        self._split_array_into_groups) and converts that into a dictionary.
 
         Args:
             arr (List[List]): The input array.
@@ -313,7 +337,8 @@ class ClassUtils(metaclass=ABCMeta):
             False
         """
 
-        # Use Pythons nifty \p{Sc} pattern to make sure the value given is actually a currency symbol
+        # Use Pythons nifty \p{Sc} pattern to make sure the value given is
+        # actually a currency symbol
         return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
 
     @finalmethod
@@ -339,7 +364,8 @@ class ClassUtils(metaclass=ABCMeta):
 
         symbol = symbol.strip()
 
-        # Use Pythons nifty \p{Sc} pattern to make sure the value given is actually a currency symbol
+        # Use Pythons nifty \p{Sc} pattern to make sure the value given is
+        # actually a currency symbol
         if not self._is_currency_symbol(symbol):
             print(f"The symbol {symbol} does not match SC pattern")
             return None
@@ -535,7 +561,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _cast_type(self, value: Union[str, int, float, bool] = None) -> Any:
-        """Cast a value to the proper type. This is mostly used for casting int/float/bool
+        """Cast a value to the proper type. This is mostly used for casting
+        int/float/bool
 
         Args:
             value (Union[str,int,float,bool]): Value to be casted (optional)
@@ -587,7 +614,7 @@ class ClassUtils(metaclass=ABCMeta):
         """Generate random string
 
         Args:
-            length (int, optional): Length to generate string to. Defaults to 10.
+            length (int, optional): Length to generate string to. Defaults to 10
             include_special (bool, optional): Include special chars in output.
                                               Defaults to False
 
@@ -631,18 +658,19 @@ class ClassUtils(metaclass=ABCMeta):
     def _is_cas(self, value: Any) -> bool:
         """Check if a string is a valid CAS registry number
 
-        This is done by taking the first two segments and iterating over each individual
-        intiger in reverse order, multiplying each by its position, then taking the
-        modulous of the sum of those values.
+        This is done by taking the first two segments and iterating over each
+        individual intiger in reverse order, multiplying each by its position,
+        then taking the modulous of the sum of those values.
 
         Example:
-            1234-56-6 is valid because the result of the below equation matches the checksum,
-            (which is 6)
+            1234-56-6 is valid because the result of the below equation matches
+            the checksum, (which is 6)
                 (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
 
             This can be simplified in the below aggregation:
                 cas_chars = [1, 2, 3, 4, 5, 6]
-                sum([(idx+1)*int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
+                sum([(idx+1)*int(n) for idx, n
+                    in enumerate(cas_chars[::-1])]) % 10
 
         See:
             https://www.cas.org/training/documentation/chemical-substances/checkdig
@@ -660,7 +688,8 @@ class ClassUtils(metaclass=ABCMeta):
         # value='1234-56-6'
         # https://regex101.com/r/xPF1Yp/2
         cas_pattern_check = re.match(
-            r"^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$", value
+            r"^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$",
+            value,
         )
 
         if cas_pattern_check is None:
@@ -673,7 +702,8 @@ class ClassUtils(metaclass=ABCMeta):
         # cas_chars = ['1','2','3','4','5','6']
 
         checksum = (
-            sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
+            sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])])
+            % 10
         )
         # checksum = 6
 
@@ -706,16 +736,18 @@ class ClassUtils(metaclass=ABCMeta):
         stopwords = stopwords or []
         """Get the most common phrases out of a list of phrases.
 
-        This is used to analyze the results from a query to https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names
-        to find the most common term used in the results. This term may yield better search results on some sites.
+        This is used to analyze the results from a query to
+        https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names to
+        find the most common term used in the results. This term may yield
+        better search results on some sites.
 
         Source:
             https://dev.to/mattschwartz/quickly-find-common-phrases-in-a-large-list-of-strings-9in
 
         Args:
             texts (list): Array of text values to analyze
-            maximum_length (int, optional): Maximum length of phrse. Defaults to 3.
-            minimum_repeat (int, optional): Minimum length of phrse. Defaults to 2.
+            maximum_length (int, optional): Max length of phrse. Defaults to 3.
+            minimum_repeat (int, optional): Min length of phrse. Defaults to 2.
             stopwords (list, optional): Phrases to exclude. Defaults to [].
 
         Returns:
@@ -773,49 +805,17 @@ class ClassUtils(metaclass=ABCMeta):
 
         return longest_phrases
 
-    # @finalmethod
-    # def _find_keys_with_element(self, source: Dict, element: Union[str, int]) -> List:
-    #     """
-    #     Finds keys in a dictionary that are tuples and contain a specific element.
-
-    #     Args:
-    #         source (Dict): The dictionary to search.
-    #         element (str, int): The element to search for within the tuple keys.
-
-    #     Returns:
-    #         List: A list of keys (tuples) that contain the specified element.
-
-    #     Example:
-    #         my_dict = {
-    #             (1, 2): "a",
-    #             (2, 3): "b",
-    #             (3, 4): "c",
-    #             "hello": "d",
-    #             (2, 5, 6): "e"
-    #         }
-    #         self._find_keys_with_element(my_dict, 1)
-    #         [(1, 2)]
-    #         self._find_keys_with_element(my_dict, 2)
-    #         [(1, 2), (2, 3), (2, 5, 6)]
-    #         self._find_keys_with_element(my_dict, "hello")
-    #         ['hello']
-    #     """
-
-    #     return [
-    #         key
-    #         for key in source
-    #         if (isinstance(key, tuple) and element in key)
-    #         or (isinstance(key, str) and element == key)
-    #     ]
-
     @finalmethod
-    def _find_values_with_element(self, source: Dict, element: Union[str, int]) -> List:
+    def _find_values_with_element(
+        self, source: Dict, element: Union[str, int]
+    ) -> List:
         """
-        Finds values in a dictionary that are tuples and contain a specific element.
+        Finds values in a dictionary that are tuples and contain a specific
+        element.
 
         Args:
             source (Dict): The dictionary to search.
-            element (str, int): The element to search for within the tuple keys.
+            element (str, int): The element to search for within the tuple keys
 
         Returns:
             List: A list of values that were found

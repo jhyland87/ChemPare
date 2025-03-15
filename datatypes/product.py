@@ -71,7 +71,8 @@ class TypeProduct:
     """Does the supplier sell to residential addresses?"""
 
     individual: bool = None
-    """Does the supplier sell to individual people? (as opposed to businesses only)"""
+    """Does the supplier sell to individual people? (as opposed to businesses
+    only)"""
 
     def items(self) -> List:
         return self.__dict__.items()
@@ -89,11 +90,12 @@ class TypeProduct:
         self.__setattr__(key, value)
 
     def cast_properties(self, include_none: bool = False) -> Dict:
-        """Cast the product attributes to the likely formats, and return them in a
-        separate dictionary, excluding record with None value by default
+        """Cast the product attributes to the likely formats, and return them
+        in a separate dictionary, excluding record with None value by default
 
         Args:
-            include_none (bool, optional): Exclude None types. Defaults to False.
+            include_none (bool, optional): Exclude None types. Defaults
+                                           to False.
 
         Returns:
             TypeProduct: Product with casted values
@@ -107,7 +109,8 @@ class TypeProduct:
         return self
 
     def __cast_type(self, value: Any, key: str = None) -> Any:
-        """Cast a value to the proper type. This is mostly used for casting int/float/bool
+        """Cast a value to the proper type. This is mostly used for casting
+        int/float/bool
 
         Args:
             value (Any): Value to be casted (optional)

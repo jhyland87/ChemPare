@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-
+import suppliers
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-import suppliers
+# import suppliers
 
 
 __ignorable_files = [
@@ -29,7 +29,9 @@ def test_suppliers_unit_test_presence():
     ]
 
     missing = [
-        test_file for test_file in test_files if os.path.exists(test_file) is False
+        test_file
+        for test_file in test_files
+        if os.path.exists(test_file) is False
     ]
 
     assert len(missing) == 0

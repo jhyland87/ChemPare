@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+
+from search_factory import SearchFactory
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from search_factory import SearchFactory
+# from search_factory import SearchFactory
 
 
 def test_chemical_name_query():

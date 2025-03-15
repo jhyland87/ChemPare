@@ -7,10 +7,11 @@ from threading import Thread
 # File: /suppliers/supplier_loudwolf.py
 class SupplierLoudwolf(SupplierBase):
     """
-    Todo: Currently, the LoudWolf module has the allow_cas_search set to False since searching
-          using the CAS won't work. But it turns out that if you allow it to search in the
-          product descriptions (using &description=true), then it will match the CAS values.
-          Should the &description=true only be added when searching via CAS?..
+    Todo: Currently, the LoudWolf module has the allow_cas_search set to False
+          since searching using the CAS won't work. But it turns out that if
+          you allow it to search in the product descriptions (using
+          &description=true), then it will match the CAS values. Should the
+          &description=true only be added when searching via CAS?..
     """
 
     _limit: int = 5
@@ -24,7 +25,8 @@ class SupplierLoudwolf(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = False
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
     def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
@@ -33,19 +35,17 @@ class SupplierLoudwolf(SupplierBase):
             query (str): Query string to use
         """
 
-        # Example request url for Loudwolf
-        # JSON (limited search results)
-        # HTML
-        # https://www.loudwolf.com/storefront/index.php?route=product/search&sort=p.price&order=ASC&search=ferric&limit=100
-        #
         self.__product_pages = dict()
 
-        def __query_search_page(query: str, limit: int = 100, page_idx: int = 1):
+        def __query_search_page(
+            query: str, limit: int = 100, page_idx: int = 1
+        ):
             """Handles the pagination on the search page"""
             get_params = {
-                # Setting the limit here to 1000, since the limit parameter should apply to
-                # results returned from Supplier3SChem, not the rquests made by it.
-                #'q': f'{query}:productNameExactMatch',
+                # Setting the limit here to 1000, since the limit parameter
+                # should apply to results returned from Supplier3SChem, not the
+                # rquests made by it.
+                # 'q': f'{query}:productNameExactMatch',
                 "search": query,
                 "limit": 100,
                 "route": "product/search",
@@ -54,7 +54,8 @@ class SupplierLoudwolf(SupplierBase):
                 "page": page_idx,
             }
 
-            # If were doing a CAS search, then we must include description matching
+            # If were doing a CAS search, then we must include description
+            # matching
             if self._is_cas(query) is True:
                 get_params["description"] = True
 
@@ -67,14 +68,18 @@ class SupplierLoudwolf(SupplierBase):
 
             product_soup = BeautifulSoup(search_result, "html.parser")
 
-            # Since we know the element is a <h3 class=product-price /> element, search for H3's
-            product_elements = product_soup.find_all("div", class_="product-layout")
+            # Since we know the element is a <h3 class=product-price /> element,
+            # search for H3's
+            product_elements = product_soup.find_all(
+                "div", class_="product-layout"
+            )
 
             if product_elements is None:
                 # No product wrapper found
                 return
 
-            # Iterate through the product elements, getting the product_id and link for each
+            # Iterate through the product elements, getting the product_id and
+            # link for each
             for pe in product_elements:
                 if len(self.__product_pages) >= self._limit:
                     break
@@ -93,7 +98,9 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(product_href.strip())
+                product_href_params = self._get_param_from_url(
+                    product_href.strip()
+                )
 
                 if not product_href_params or not product_href_params.get(
                     "product_id", None
@@ -109,19 +116,21 @@ class SupplierLoudwolf(SupplierBase):
 
         __query_search_page(query)
 
-    # Method iterates over the product query results stored at self._query_results and
+    # Method iterates over the product query results stored at
+    # self._query_results and
     # returns a list of TypeProduct objects.
     def _parse_products(self) -> NoReturn:
-        """Parse products from initial query. This will iterate over self.__product_pages,
-        and execute the self.__query_and_parse_product method using multiple thrads to
-        speed things up.
+        """Parse products from initial query. This will iterate over
+        self.__product_pages, and execute the self.__query_and_parse_product
+        method using multiple thrads to speed things up.
         """
 
         threads = []
 
         for product_href in self.__product_pages.values():
             thread = Thread(
-                target=self.__query_and_parse_product, kwargs=dict(href=product_href)
+                target=self.__query_and_parse_product,
+                kwargs=dict(href=product_href),
             )
             threads.append(thread)
             thread.start()
@@ -131,8 +140,8 @@ class SupplierLoudwolf(SupplierBase):
             thread.join()
 
     def __query_and_parse_product(self, href: str) -> NoReturn:
-        """Execute the product page query and parse functions, one after the other,
-        then updating the self._products
+        """Execute the product page query and parse functions, one after the
+        other, then updating the self._products
 
         Args:
             href (str): URL for product
@@ -149,7 +158,8 @@ class SupplierLoudwolf(SupplierBase):
         if not product:
             return
 
-        # If this is a CAS search, but there is no CAS found, or it's a mismatch, then skip this product.
+        # If this is a CAS search, but there is no CAS found, or it's a
+        # mismatch, then skip this product.
         if self._is_cas(self._query) is True:
             if not product.cas or product.cas != self._query:
                 return
@@ -177,7 +187,8 @@ class SupplierLoudwolf(SupplierBase):
         """Parse a specific product page's HTML
 
         Args:
-            product_html (bytes): Product pages HTML (ie: from __query_product_page)
+            product_html (bytes): Product pages HTML
+                                  (ie: from __query_product_page)
 
         Returns:
             TypeProduct: A new product object, if valid
@@ -219,9 +230,9 @@ class SupplierLoudwolf(SupplierBase):
         paragraphs = product_desc_tab.find_all("p", class_="MsoNormal")
 
         # There's no useful ID's or classes, so just enumerating over them and
-        # checking for specific values (GRADE, CAS, etc), then grabbing the value
-        # of the next element seems to work ok. Though it kinda sucks and will
-        # backfire if the format changes.
+        # checking for specific values (GRADE, CAS, etc), then grabbing the
+        # value of the next element seems to work ok. Though it kinda sucks and
+        # will backfire if the format changes.
         for idx, p in enumerate(paragraphs):
             p_txt = p.get_text(strip=True)
             if idx == 0:

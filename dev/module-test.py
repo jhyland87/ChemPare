@@ -20,7 +20,9 @@ from suppliers.supplier_tcichemicals import SupplierTciChemicals
 from suppliers.supplier_ftfscientific import SupplierFtfScientific
 from suppliers.supplier_loudwolf import SupplierLoudwolf
 from suppliers.supplier_warchem import SupplierWarchem
-from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
+from suppliers.supplier_laboratoriumdiscounter import (
+    SupplierLaboratoriumDiscounter,
+)
 from suppliers.supplier_3schem import Supplier3SChem
 
 
