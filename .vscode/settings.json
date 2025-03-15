@@ -2,11 +2,14 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestArgs": [
-        "-ra",
+        "-vvv",
+        "--capture=tee-sys",
+        "-rA",
         "--doctest-modules",
         "--color=yes",
         "--code-highlight=yes",
-        "--cov=suppliers",
+        "--cov=.",
+        "--cov-config=.coveragerc",
         //"--pycodestyle",
         "--numprocesses=auto",
         "tests"
@@ -15,7 +18,6 @@
     "editor.trimAutoWhitespace": true,
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
-
     "python.testing.autoTestDiscoverOnSavePattern": "tests/**/*.py",
     "python.defaultInterpreterPath": "python",
     "python.analysis.generateWithTypeAnnotation": true,

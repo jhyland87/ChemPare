@@ -6,8 +6,9 @@
 import os
 import sys
 import pytest
-from typing import Literal
+from typing import Literal, Any
 from class_utils import ClassUtils
+from currex import Currency
 
 # from assertions import assert_
 # from assertions.operators import Operators
@@ -20,38 +21,85 @@ from class_utils import ClassUtils
 
 class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
-        ("value", "price", "currency", "currency_code"),
+        ("value", "return_type", "price", "currency", "currency_code"),
         [
-            ("$123.45", "123.45", "$", "USD"),
-            ("$12,345.45", "12345.45", "$", "USD"),
-            ("123.45 USD", "123.45", "$", "USD"),
-            ("123.45 CAD", "123.45", "CA$", "CAD"),
-            ("€1,1234.5", "11234.50", "€", "EUR"),
-            ("£123", "123", "£", "GBP"),
-            ("674 ¥", "674", "¥", "JPY"),
+            ("$123.45", dict, 123.45, "$", "USD"),
+            ("$12,345.45", dict, 12345.45, "$", "USD"),
+            ("$123.45 USD", dict, 123.45, "$", "USD"),
+            ("CA$123.45", dict, 123.45, "CA$", "CAD"),
+            ("€1,1234.5", dict, 11234.50, "€", "EUR"),
+            ("£123", dict, 123, "£", "GBP"),
+            ("674 ¥", dict, 674, "¥", "JPY"),
+            ("Invalid", None, None, None, None),
         ],
         ids=[
             "_parse_price: '$123.45' -> $123.45 USD",
             "_parse_price: '$12,345.45' -> $12,345.45 USD",
-            "_parse_price: '123.45 USD' -> $123.45 USD",
-            "_parse_price: '123.45 CAD' -> $123.45 CAD",
+            "_parse_price: '$123.45 USD' -> $123.45 USD",
+            "_parse_price: 'CA$123.45' -> $123.45 CAD",
             "_parse_price: '€1,1234.5' -> €1,1234.50 EUR",
             "_parse_price: '£123' -> £123 GBP",
             "_parse_price: '674 ¥' -> 674 ¥ JPY",
+            "_parse_price: Invalid value",
         ],
     )
-    def test_parse_price(self, value, price, currency, currency_code):
+    def test_parse_price(
+        self, value, return_type, price, currency, currency_code
+    ):
         result = self._parse_price(value)
+
+        if return_type is None:
+            assert result is None
+            return
+
+        assert isinstance(result, return_type)
         assert type(result) is dict
         assert "currency" in result
         assert "price" in result
         assert "currency_code" in result
+        # If the currency code is not USD, then there should be a USD
+        # entry in the dictionary
+        assert (currency_code is not "USD") is ("USD" in result)
         assert result["currency"] == currency
         assert result["price"] == price
         assert result["currency_code"] == currency_code
-        # assert_( type(result) is list, what='result', operator=Operators.TRUTH)
-        # assert_('currency', result, what='currency', operator=Operators.CONTAINS)
-        # assert_('price', result, what='price', operator=Operators.CONTAINS)
+
+    @pytest.mark.parametrize(
+        ("amount", "expected_instance"),
+        [
+            ("€100", float),
+            ("€100.234,10", float),
+            ("£321", float),
+            ("£321.346,64", float),
+            ("¥123", float),
+            ("AU$123", float),
+            ("CA$123,234.12", float),
+            ("FOO123", type(None)),
+        ],
+        ids=[
+            "€100 (EUR) to USD",
+            "€100.234,10 (EUR) to USD",
+            "£321 (GBP) to USD",
+            "£321.346,64 (GBP) to USD",
+            "¥321 (JPY) to USD",
+            "AU$123 (AUD) to USD",
+            "CA$123,234.12 (CAD) to USD",
+            "error",
+        ],
+    )
+    def test_to_usd(
+        self,
+        amount: int | float | str,
+        expected_instance: Any,
+    ):
+        result = self._to_usd(amount=amount)
+
+        assert isinstance(result, expected_instance) is True
+
+        if expected_instance is type(None):
+            return
+
+        assert result is not None
 
     @pytest.mark.parametrize(
         ("value", "quantity", "uom"),
@@ -102,7 +150,7 @@ class TestClass(ClassUtils, object):
             pytest.fail(f"_parse_quantity({value}) uom mismatch")
 
     @pytest.mark.parametrize(
-        ("value, param_name, expected_result"),
+        ("value", "param_name", "expected_result"),
         [
             (
                 "http://google.com?foo=bar&product_id=12345",

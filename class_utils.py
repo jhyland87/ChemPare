@@ -1,6 +1,8 @@
 from typing import List, Dict, Any, Optional, Union
 from abcplus import ABCMeta, finalmethod
 from urllib.parse import urlparse, parse_qs
+from currex import Currency, CURRENCIES
+from price_parser import Price
 import os
 import sys
 import time
@@ -53,11 +55,11 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         iso_4217_pattern = (
-            r"(?:ab\s?)?(?:(?P<currency>\p{Sc}|"
+            r"(?:ab\s?)?(?:(?P<currency>[\p{Sc}ƒ]|"
             r"(?P<currency>"
-            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|UD?)|"
+            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|"
             r"B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|"
-            r"C(?:AD|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|"
+            r"C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|"
             r"D(?:JF|KK|OP|ZD)|"
             r"E(?:GP|RN|TB|UR?)|"
             r"F(?:JD|KP)|"
@@ -79,10 +81,10 @@ class ClassUtils(metaclass=ABCMeta):
             r"X(?:[AOP]F|CD|DR)|"
             r"Z(?:AR|MW|WD)))"
             r"\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)"
-            r"|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>\p{Sc}|"
+            r"|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>[\p{Sc}ƒ]|"
             # r"(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)"
             r"(?P<currency>"
-            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|UD?)|"
+            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|"
             r"B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|"
             r"C(?:AD|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|"
             r"D(?:JF|KK|OP|ZD)|"
@@ -112,39 +114,147 @@ class ClassUtils(metaclass=ABCMeta):
         if not matches:
             return None
 
-        matches_dict = matches.groupdict()
+        matches_str = matches.group()
+        price = Price.fromstring(matches_str)
+        country_code = self._currency_code_from_symbol(price.currency)
 
-        if self._is_currency_symbol(
-            matches_dict["currency"]
-        ):  # If the currency is a symbol
-            matches_dict["currency_code"] = self._currency_code_from_symbol(
-                matches_dict["currency"]
-            )
-        else:
-            matches_dict["currency_code"] = matches_dict["currency"]
-            matches_dict["currency"] = self._currency_symbol_from_code(
-                matches_dict["currency_code"]
-            )
+        result = {
+            "currency": price.currency,
+            "price": float(price.amount),
+            "currency_code": country_code,
+        }
 
-        # If we are trying to convert the currency symbol to the country code,
-        # then check that the "currency" matched is at least a currency symbol.
-        # if symbol_to_code is True and self._is_currency_symbol(
+        if country_code != "USD":
+            usd_price = self._to_usd(
+                from_currency=country_code, amount=float(price.amount)
+            )
+            if usd_price:
+                result["USD"] = usd_price
+
+        return result
+
+        # matches_dict = matches.groupdict()
+
+        # if self._is_currency_symbol(
         #     matches_dict["currency"]
-        # ):
-        #     # ... Then attempt to get the country code from it.
-        #     country_code = self._currency_code_from_symbol(
+        # ):  # If the currency is a symbol
+        #     matches_dict["currency_code"] = self._currency_code_from_symbol(
         #         matches_dict["currency"]
         #     )
-        #     if country_code:
-        #         # If one was found, then override the "currency" property in
-        #         # the result
-        #         matches_dict["currency_code"] = country_code
+        # else:
+        #     matches_dict["currency_code"] = matches_dict["currency"]
+        #     matches_dict["currency"] = self._currency_symbol_from_code(
+        #         matches_dict["currency_code"]
+        #     )
 
-        if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
-            price = str(matches_dict["price"]).replace(",", "")
-            matches_dict["price"] = f"{float(price):.2f}"
+        # # If we are trying to convert the currency symbol to the country code,
+        # # then check that the "currency" matched is at least a currency symbol.
+        # # if symbol_to_code is True and self._is_currency_symbol(
+        # #     matches_dict["currency"]
+        # # ):
+        # #     # ... Then attempt to get the country code from it.
+        # #     country_code = self._currency_code_from_symbol(
+        # #         matches_dict["currency"]
+        # #     )
+        # #     if country_code:
+        # #         # If one was found, then override the "currency" property in
+        # #         # the result
+        # #         matches_dict["currency_code"] = country_code
 
-        return matches_dict
+        # if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
+        #     price = str(matches_dict["price"]).replace(",", "")
+        #     matches_dict["price"] = f"{float(price):.2f}"
+
+        # return matches_dict
+
+    @finalmethod
+    def _to_usd(
+        self, from_currency: str = None, amount: Union[int, float, str] = None
+    ) -> Optional[float]:
+        """Convert a no USD price to the USD price
+
+        Args:
+            from_currency (str, optional): Currency the price currently is in.
+                                           Defaults to None.
+            amount (Union[int, float, str], optional): Amount/price to convert.
+                                                       Defaults to None.
+
+        Raises:
+            Exception: If amount is string that is not parseable
+            TypeError: Invalid from_currency value/type
+            TypeError: No amount provided
+
+        Returns:
+            Optional[float]: USD price (if one was found)
+        """
+
+        try:
+            if from_currency is None and type(amount) is str:
+                parsed_price = self._parse_price(amount)
+                if not parsed_price:
+                    raise Exception(
+                        "Unable to determine from currency from amount"
+                    )
+
+                from_currency = parsed_price["currency_code"]
+                amount = parsed_price["price"]
+
+            if not from_currency or type(from_currency) is not str:
+                raise TypeError("from_currency not provided or not string")
+
+            from_currency = from_currency.upper()
+            if from_currency not in CURRENCIES:
+                # print(f"Unable to convert from '{from_currency}'")
+                # raise LookupError(f"Unable to convert from '{from_currency}")
+                return None
+
+            if not amount:
+                raise TypeError("No amount provided or found")
+
+            # if type(amount) is not int and type(amount) is not float:
+            #      raise TypeError("amount needs to be float or int")
+
+            from_currency_obj = Currency(from_currency, amount)
+            usd = from_currency_obj.to("USD")
+            return round(float(usd.amount), 2)
+        except Exception as err:
+            # print("Exception:", err)
+            return None
+
+    # def _to_usd(
+    #     self, from_currency: str = None, amount: Union[int, float, str] = None
+    # ) -> Optional[float]:
+    #     try:
+    #         if not from_currency and type(amount) is str:
+    #             parsed_price = self._parse_price(amount)
+    #             if not parsed_price:
+    #                 raise Exception(
+    #                     "Unable to determine from currency from amount"
+    #                 )
+
+    #             from_currency = parsed_price["currency_code"]
+    #             amount = parsed_price["price"]
+
+    #         if not from_currency or type(from_currency) is not str:
+    #             raise TypeError("from_currency not provided or not string")
+
+    #         from_currency = from_currency.upper()
+    #         if from_currency not in CURRENCIES:
+    #             print(f"Unable to convert from '{from_currency}'")
+    #             # raise LookupError(f"Unable to convert from '{from_currency}")
+    #             return None
+
+    #         if not amount:
+    #             raise TypeError("No amount provided or found")
+
+    #         # if type(amount) is not int and type(amount) is not float:
+    #         #      raise TypeError("amount needs to be float or int")
+
+    #         from_currency_obj = Currency(from_currency, amount)
+    #         return from_currency_obj.to("USD")
+    #     except Exception as err:
+    #         print("Exception:", err)
+    #         return
 
     @finalmethod
     def _parse_quantity(self, string: str) -> Optional[Dict]:
@@ -366,14 +476,15 @@ class ClassUtils(metaclass=ABCMeta):
 
         # Use Pythons nifty \p{Sc} pattern to make sure the value given is
         # actually a currency symbol
-        if not self._is_currency_symbol(symbol):
-            print(f"The symbol {symbol} does not match SC pattern")
-            return None
+        # if not self._is_currency_symbol(symbol):
+        #     print(f"The symbol {symbol} does not match SC pattern")
+        #     return None
 
         currency_codes = {
             "Lek": "ALL",
             "؋": "AFN",
             "$": "USD",
+            "CA$": "CAD",
             "ƒ": "ANG",
             "₼": "AZN",
             "Br": "BYN",
@@ -405,6 +516,7 @@ class ClassUtils(metaclass=ABCMeta):
             "₭": "LAK",
             "ден": "MKD",
             "RM": "MYR",
+            "AU$": "AUD",
             "₨": "LKR",
             "₮": "MNT",
             " د.إ": "AED",
@@ -433,7 +545,7 @@ class ClassUtils(metaclass=ABCMeta):
             # "€ab": "???",
         }
 
-        return currency_codes[symbol] or None
+        return currency_codes.get(symbol, None)
 
     @finalmethod
     def _currency_symbol_from_code(self, code: str) -> Optional[str]:
@@ -449,7 +561,7 @@ class ClassUtils(metaclass=ABCMeta):
             "AFN": "؋",
             "ARS": "$",
             "AWG": "ƒ",
-            "AUD": "$",
+            "AUD": "AU$",
             "AZN": "₼",
             "BSD": "$",
             "BBD": "$",
