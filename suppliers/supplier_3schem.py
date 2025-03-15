@@ -4,9 +4,12 @@ from typing import NoReturn
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
+    _limit: int = 20
 
     _supplier: TypeSupplier = dict(
-        name="3S Chemicals LLC", location=None, base_url="https://3schemicalsllc.com"
+        name="3S Chemicals LLC",
+        location=None,
+        base_url="https://3schemicalsllc.com",
     )
     """Supplier specific data"""
 
@@ -18,23 +21,30 @@ class Supplier3SChem(SupplierBase):
         """
 
         # Example request url for 3S Supplier
-        # https://3schemicalsllc.com/search/suggest.json?q=clean&resources[type]=product&resources[limit]=6&resources[options][unavailable_products]=last
+        # https://3schemicalsllc.com/search/suggest.json?
+        #   q=clean
+        #   &resources[type]=product
+        #   &resources[limit]=6
+        #   &resources[options][unavailable_products]=last
         #
         get_params = {
             "q": query,
             "resources[type]": "product",
-            # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it.
+            # Setting the limit here to 1000, since the limit parameter should
+            # apply to results returned from Supplier3SChem, not the rquests
+            # made by it.
             "resources[limit]": 1000,
             "resources[options][unavailable_products]": "last",
         }
-        search_result = self.http_get_json("search/suggest.json", params=get_params)
+        search_result = self.http_get_json(
+            "search/suggest.json", params=get_params
+        )
 
         if not search_result:
             return
 
         self._query_results = search_result["resources"]["results"]["products"][
-            0 : self._limit
+            : self._limit
         ]
 
     def _parse_products(self) -> NoReturn:

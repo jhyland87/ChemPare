@@ -17,24 +17,41 @@ class SupplierOnyxmet(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
     # Regex tested at https://regex101.com/r/ddGVsT/1 (matches 66/80)
-    # _title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>k?g|[cmμ]m)'
+    # _title_regex_pattern = (
+    #   r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)"
+    #   r"(?P<uom>k?g|[cmμ]m)'
+    # )
 
     # Regex tested at https://regex101.com/r/qL8u8s/1 67/80
-    # _title_regex_pattern = r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg])'
+    # _title_regex_pattern = (
+    #   r'^(?P<name>.*) (-\s)?(?P<quantity>[0-9,]+)"
+    #   r"(?P<uom>[cmkμ]?[mlg])'
+    # )
 
     # Regex tested at https://regex101.com/r/bLWC2b/3 (matches 80-ish/80)
-    # NOTE: The group names here should match keys in the self._product dictionary, as the
-    #       regex results will be merged into it.
-    # _title_regex_pattern = r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)(?P<unit>[cmkμ]?[mlg]))?'
+    # NOTE: The group names here should match keys in the self._product
+    #       dictionary, as the regex results will be merged into it.
+    # _title_regex_pattern = (
+    #   r'^(?P<product>[a-zA-Z\s\-\(\)]+[a-zA-Z\(\)])"
+    #   r"[-\s]+(?P<purity>[0-9,]+%)?[-\s]*(?:(?P<quantity>[0-9,]+)"
+    #   r"(?P<unit>[cmkμ]?[mlg]))?'
+    # )
 
     # https://regex101.com/r/bLWC2b/5
-    # NOTE: This misses some simple ones like "Uranyl zinc acetate  10g", and needs to be worked on
-    _title_regex_pattern = r"^(?P<product>[a-zA-Z0-9\s\-(\)]+[a-zA-Z\(\)])[-\s]+(?:(?P<purity>[0-9,]+%)?[-\s]*)(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?"
+    # NOTE: This misses some simple ones like "Uranyl zinc acetate  10g", and
+    #       needs to be worked on
+    _title_regex_pattern = (
+        r"^(?P<product>[a-zA-Z0-9\s\-(\)]+[a-zA-Z\(\)])"
+        r"[-\s]+(?:(?P<purity>[0-9,]+%)?[-\s]*)"
+        r"(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?"
+    )
 
-    # If any extra init logic needs to be called... uncmment the below and add changes
+    # If any extra init logic needs to be called... uncmment the below and add
+    # changes
     def __init__(self, query: str, limit: int = 10) -> NoReturn:
         # self.__test_lock = Lock()
         super().__init__(query, limit)
@@ -57,14 +74,14 @@ class SupplierOnyxmet(SupplierBase):
         if not search_result:
             return
 
-        self._query_results = search_result[0 : self._limit]
+        self._query_results = search_result[: self._limit]
 
     def _parse_products(self) -> NoReturn:
         """Parse product query results.
 
-        Iterate over the products returned from self._query_products, creating new requests
-        for each to get the HTML content of the individual product page, and creating a
-        new TypeProduct object for each to add to _products
+        Iterate over the products returned from self._query_products, creating
+        new requests for each to get the HTML content of the individual product
+        page, and creating a new TypeProduct object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
@@ -77,12 +94,14 @@ class SupplierOnyxmet(SupplierBase):
         # will store the threads
         threads = []
 
-        # Iterate over the initial product search results, creating a thread to request the
-        # product page for each item, adding it to the self._products property
+        # Iterate over the initial product search results, creating a thread to
+        # request the product page for each item, adding it to the
+        # self._products property
         for product in self._query_results:
             # self.__query_and_parse_product(product['href'])
             thread = Thread(
-                target=self.__query_and_parse_product, kwargs=dict(href=product["href"])
+                target=self.__query_and_parse_product,
+                kwargs=dict(href=product["href"]),
             )
             threads.append(thread)
             thread.start()
@@ -95,7 +114,8 @@ class SupplierOnyxmet(SupplierBase):
         """Query specific product page and parse results
 
         Args:
-            href (str): The path of the web page to query and parse using BeautifulSoup
+            href (str): The path of the web page to query and parse
+                        using BeautifulSoup
 
         Returns:
             TypeProduct: Single instance of TypeProduct
@@ -106,7 +126,8 @@ class SupplierOnyxmet(SupplierBase):
 
         product_soup = BeautifulSoup(product_page_html, "html.parser")
 
-        # Since we know the element is a <h3 class=product-price /> element, search for H3's
+        # Since we know the element is a <h3 class=product-price /> element,
+        # search for H3's
         h3_elems = product_soup.find_all("h3")
 
         # Find the one with the 'product-price' class
@@ -117,15 +138,17 @@ class SupplierOnyxmet(SupplierBase):
             obj for obj in h3_elems if "product-price" in obj.get("class")
         )
 
-        # TODO: I'm sure there's an easier way to just specifically look for the 'h3.product-price' element,
-        #       instead of _all_ h3 elements then filtering the results for one that has the 'product-price'
+        # TODO: I'm sure there's an easier way to just specifically look for
+        #       the 'h3.product-price' element, instead of _all_ h3 elements
+        #       then filtering the results for one that has the 'product-price'
         #       class... But I'll leave that optimization up to you :-)
 
         if not price_elem:
             raise Exception("No price found")
 
         # Get the product name and price
-        # (Set the product name here to default it, we ca re-set it to the parsed value down below)
+        # (Set the product name here to default it, we ca re-set it to the
+        # parsed value down below)
         product = TypeProduct(
             title=title_elem.contents[0],
             name=title_elem.contents[0],
@@ -142,7 +165,8 @@ class SupplierOnyxmet(SupplierBase):
         title_pattern = re.compile(self._title_regex_pattern)
         title_matches = title_pattern.search(product.name)
 
-        # If something is matched, then just merge the key/names into the self._product property
+        # If something is matched, then just merge the key/names into the
+        # self._product property
         if title_matches:
             product.update(title_matches.groupdict())
 

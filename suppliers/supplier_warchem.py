@@ -19,23 +19,26 @@ class SupplierWarchem(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
     def _setup(self, query: str = None) -> NoReturn:
-        """The setup for WarChem is to store a randomly generated string in the eGold cookie,
-        then set the product return count to the max (36), which will be carried on to any
-        request afterwords.
+        """The setup for WarChem is to store a randomly generated string in the
+        eGold cookie, then set the product return count to the max (36), which
+        will be carried on to any request afterwords.
 
         Args:
-            query (str, optional):  Query beig ran. This is here because sometimes the HTTP calls
-                                    preceeding the actual query might use the query in some hash
-                                    generation logic. Defaults to None.
+            query (str, optional):  Query beig ran. This is here because
+                                    sometimes the HTTP calls preceeding the
+                                    actual query might use the query in some
+                                    hash generation logic. Defaults to None.
 
         Returns:
             NoReturn: Nothing
         """
 
-        # This eGold cookie seems to be what they use to keep track of your settings
+        # This eGold cookie seems to be what they use to keep track of your
+        # settings
         self._cookies["eGold"] = self._random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
@@ -65,7 +68,9 @@ class SupplierWarchem(SupplierBase):
         if not product_container:
             return
 
-        product_elements = product_container.find_all("div", class_="LiniaDolna")
+        product_elements = product_container.find_all(
+            "div", class_="LiniaDolna"
+        )
 
         if not product_elements:
             return
@@ -73,16 +78,16 @@ class SupplierWarchem(SupplierBase):
         self._query_results = product_elements[: self._limit]
 
     def _parse_products(self) -> NoReturn:
-        """Method iterates over the product query results stored at self._query_results and
-        returns a list of TypeProduct objects.
+        """Method iterates over the product query results stored at
+        self._query_results and returns a list of TypeProduct objects.
         """
 
         # Each product page query will have its own thread stored here
         threads = []
 
         for product_elem in self._query_results:
-            # Add each product to the self._products list in the form of a TypeProduct
-            # object.
+            # Add each product to the self._products list in the form of
+            # a TypeProduct object.
 
             link = product_elem.find("h3").find("a")
             thread = Thread(
@@ -100,11 +105,12 @@ class SupplierWarchem(SupplierBase):
         """Query specific product page and parse results
 
         Args:
-            href (str): The path of the web page to query and parse using BeautifulSoup
+            href (str): The path of the web page to query and parse
+                        using BeautifulSoup
 
         Returns:
-            NoReturn: Nothing, just inserts a new TypeProduct into self._products (if
-                      successful).
+            NoReturn: Nothing, just inserts a new TypeProduct into
+                      self._products (if successful).
         """
 
         product_page_html = self.http_get_html(href)
@@ -116,12 +122,13 @@ class SupplierWarchem(SupplierBase):
             url=href,
         )
 
-        details = product_soup.find("div", class_="DodatkowyProduktuOpis").find_all(
-            "tr"
-        )
+        details = product_soup.find(
+            "div", class_="DodatkowyProduktuOpis"
+        ).find_all("tr")
 
-        # The details table has some useful values. Add the key in the table and its assocaited key
-        # in the product object below, and it will get included
+        # The details table has some useful values. Add the key in the table
+        # and its assocaited key in the product object below, and it will get
+        # included
         translated_keys = {"Nazwa (ang.):": "name", "Numer CAS:": "cas"}
 
         for tr in details:

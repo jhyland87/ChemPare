@@ -6,8 +6,8 @@ from typing import NoReturn
 class SupplierLaboratoriumDiscounter(SupplierBase):
     """
     Todo:
-        Creat a method that can query and parse individual products. This can be done by just taking
-        the product page URL and appending ?format=json:
+        Creat a method that can query and parse individual products. This can
+        be done by just taking the product page URL and appending ?format=json:
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
@@ -19,7 +19,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
     def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
@@ -37,8 +38,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/?format=json
         #
         get_params = {
-            # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it.
+            # Setting the limit here to 1000, since the limit parameter should
+            # apply to results returned from Supplier3SChem, not the rquests
+            # made by it.
             "limit": 1000
         }
         search_result = self.http_get_json(
@@ -48,17 +50,18 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         if not search_result:
             return
 
-        self._query_results = search_result["products"][0 : self._limit]
+        self._query_results = search_result["products"][: self._limit]
 
-    # Method iterates over the product query results stored at self._query_results and
-    # returns a list of TypeProduct objects.
+    # Method iterates over the product query results stored at
+    # self._query_results and returns a list of TypeProduct objects.
     def _parse_products(self) -> NoReturn:
         for product in self._query_results:
             # Skip unavailable
             if product["available"] is False:
                 continue
 
-            # Add each product to the self._products list in the form of a TypeProduct bject.
+            # Add each product to the self._products list in the form of a
+            # TypeProduct object.
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product["variant"])
 
@@ -71,7 +74,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 description=str(product["description"]).strip() or None,
                 price=str(product["price"]["price"]).strip(),
                 currency_code=product["price"]["currency"].upper(),
-                currency=self._currency_symbol_from_code(product["price"]["currency"]),
+                currency=self._currency_symbol_from_code(
+                    product["price"]["currency"]
+                ),
                 url=product["url"],
                 supplier=self._supplier["name"],
                 # quantity=quantity["quantity"],

@@ -21,7 +21,8 @@ class SupplierTciChemicals(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
     def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
@@ -32,7 +33,8 @@ class SupplierTciChemicals(SupplierBase):
 
         # Example request url for Synthetika
         # JSON (limited search results)
-        # https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?text=borohydride&org=borohydride&page=1
+        # https://synthetikaeu.com/webapi/front/en_US/search/short-list/products
+        #   ?text=borohydride&org=borohydride&page=1
         # HTML
         # https://www.tcichemicals.com/US/en/search/?text=benz'
         #
@@ -41,29 +43,34 @@ class SupplierTciChemicals(SupplierBase):
 
             Args:
                 query (str): Query string
-                page_idx (int, optional): Page number to query for. Defaults to 0.
+                page_idx (int, optional): Page number to query for.
+                                          Defaults to 0.
 
             Returns:
-                NoReturn: Nothing, just adds new entries to self._query_results, and executes
-                          self.__query_search_page if needed.
+                NoReturn: Nothing, just adds new entries to self._query_results,
+                          and executes self.__query_search_page if needed.
             """
 
             get_params = {
-                # Setting the limit here to 1000, since the limit parameter should apply to
-                # results returned from Supplier3SChem, not the rquests made by it.
-                #'q': f'{query}:productNameExactMatch',
+                # Setting the limit here to 1000, since the limit parameter
+                # should apply to results returned from Supplier3SChem, not
+                # the rquests made by it.
+                # 'q': f'{query}:productNameExactMatch',
                 "text": query,
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html("US/en/search/", params=get_params)
+            search_result = self.http_get_html(
+                "US/en/search/", params=get_params
+            )
 
             if not search_result:
                 return
 
             product_soup = BeautifulSoup(search_result, "html.parser")
 
-            # Since we know the element is a <h3 class=product-price /> element, search for H3's
+            # Since we know the element is a <h3 class=product-price />
+            # element, search for H3's
             product_basic = product_soup.find("div", id="product-basic-wrap")
 
             if product_basic is None:
@@ -88,8 +95,8 @@ class SupplierTciChemicals(SupplierBase):
         __query_search_page(query, 0)
 
     def _parse_products(self) -> NoReturn:
-        """Method iterates over the product query results stored at self._query_results and
-        returns a list of TypeProduct objects.
+        """Method iterates over the product query results stored at
+        self._query_results and returns a list of TypeProduct objects.
 
         Returns:
             NoReturn: Nothing.
@@ -101,12 +108,13 @@ class SupplierTciChemicals(SupplierBase):
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON body
+            product_obj (Tuple[List, Dict]): Single product object from the
+                                             JSON body
 
         Todo:
-            - It looks like each product has a shopify_variants array that stores data
-              about the same product but in different quantities. This could maybe be
-              included?
+            - It looks like each product has a shopify_variants array that
+              stores data about the same product but in different quantities.
+              This could maybe be included?
         """
 
         title = product_obj.find("a", class_="product-title")
@@ -132,7 +140,9 @@ class SupplierTciChemicals(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        description_container = product_obj.find("div", class_="product-description")
+        description_container = product_obj.find(
+            "div", class_="product-description"
+        )
         data = description_container.find_all("td")
 
         for idx, d in enumerate(data):
@@ -145,7 +155,10 @@ class SupplierTciChemicals(SupplierBase):
                 continue
 
         quantity_pattern = re.compile(
-            r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|[cmμ][mM]|[mM]?[lL]|[Mm][gG])$"
+            (
+                r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|"
+                r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$"
+            )
         )
         quantity_matches = quantity_pattern.search(product.quantity)
 

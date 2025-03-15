@@ -16,16 +16,21 @@ class SupplierFtfScientific(SupplierBase):
     """Supplier specific data"""
 
     allow_cas_search: bool = True
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """Determines if the supplier allows CAS searches in addition to name
+    searches"""
 
-    # If any extra init logic needs to be called... uncmment the below and add changes
+    # If any extra init logic needs to be called... uncmment the below and add
+    # changes
     # def __init__(self, query, limit=123):
     #     super().__init__(id, query, limit)
     # Do extra stuff here
 
     def _setup(self, query: str = None) -> NoReturn:
         headers = self.http_get_headers()
-        cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
+        cookies = (
+            list(v for k, v in headers.multi_items() if k == "set-cookie")
+            or None
+        )
 
         auth_cookies = {}
         auth_headers = {}
@@ -51,14 +56,6 @@ class SupplierFtfScientific(SupplierBase):
             "1484cb44-49cd-5b39-9681-75188ab429de"
         ]["instance"]
 
-        # Not sure if any of this is needed, keeping it here for now though
-        # self._headers['cache-control']='no-cache'
-        # self._headers['X-Wix-Client-Artifact-Id']='wix-thunderbolt'
-        # self._headers['Referer']='https://www.ftfscientific.com/_partials/wix-thunderbolt/dist/clientWorker.2323647d.bundle.min.js'
-        # self._headers['x-wix-brand']='wix'
-        # self._headers['commonConfig']='%7B%22brand%22%3A%22wix%22%2C%22host%22%3A%22VIEWER%22%2C%22BSI%22%3A%22%22%2C%22siteRevision%22%3A%22316%22%2C%22renderingFlow%22%3A%22NONE%22%2C%22language%22%3A%22en%22%2C%22locale%22%3A%22en-us%22%7D'
-        # self._headers['x-wix-search-bi-correlation-id']='5c4da737-0647-42a5-6bcb-ea87a4718a8b'
-
     def _query_products(self, query: str) -> NoReturn:
         """Query products from supplier
 
@@ -66,16 +63,14 @@ class SupplierFtfScientific(SupplierBase):
             query (str): Query string to use
 
         Todo:
-            - It looks like FTF will return more results than expected when searching via CAS.
-              For example, if you search for 598-21-0, you will get Bromoacetybromide as the
-              first result along with 224 products that do not have the same CAS. It might be
-              a good idea to add some logic to the FTF module that will _only_ return the item(s)
-              with the matching CAS if a CAS search was used.
+            - It looks like FTF will return more results than expected when
+              searching via CAS. For example, if you search for 598-21-0, you
+              will get Bromoacetybromide as the first result along with 224
+              products that do not have the same CAS. It might be a good idea
+              to add some logic to the FTF module that will _only_ return the
+              item(s) with the matching CAS if a CAS search was used.
         """
 
-        # Example request url for FTF
-        # https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search
-        #
         body = {
             "documentType": "public/stores/products",
             "query": query,
@@ -121,16 +116,17 @@ class SupplierFtfScientific(SupplierBase):
 
         self._query_results = search_result["documents"]
 
-    # Method iterates over the product query results stored at self._query_results and
-    # returns a list of TypeProduct objects.
+    # Method iterates over the product query results stored at
+    # self._query_results and returns a list of TypeProduct objects.
     def _parse_products(self) -> NoReturn:
         for product_obj in self._query_results:
 
-            # Add each product to the self._products list in the form of a TypeProduct
-            # object.
+            # Add each product to the self._products list in the form of a
+            # TypeProduct object.
             product = self._parse_product(product_obj)
 
-            # If the search was CAS specific, then verify this result has the correect CAS
+            # If the search was CAS specific, then verify this result has the
+            # correect CAS
             if self._is_cas(self._query):
                 if not product.cas or product.cas != self._query:
                     continue
@@ -147,9 +143,9 @@ class SupplierFtfScientific(SupplierBase):
             TypeProduct: Instance of TypeProduct
 
         Todo:
-            - It looks like each product has a shopify_variants array that stores data
-              about the same product but in different quantities. This could maybe be
-              included?
+            - It looks like each product has a shopify_variants array that
+              stores data about the same product but in different quantities.
+              This could maybe be included?
         """
 
         product = TypeProduct(
@@ -175,8 +171,8 @@ class SupplierFtfScientific(SupplierBase):
         return product
 
     def __query_product_page(self, url: str) -> Dict:
-        """Query a specific product page and parse the HTML for the cas or other info that's not present in
-        the initial search result page
+        """Query a specific product page and parse the HTML for the cas or
+        other info that's not present in the initial search result page
 
         Args:
             url (str): URL for product
@@ -187,7 +183,9 @@ class SupplierFtfScientific(SupplierBase):
 
         product_page_html = self.http_get_html(url)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
-        product_container = product_soup.find("div", {"data-hook": "product-page"})
+        product_container = product_soup.find(
+            "div", {"data-hook": "product-page"}
+        )
         product_info = {}
 
         product_info["price"] = product_container.find(
