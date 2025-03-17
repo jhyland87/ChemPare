@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import NoReturn
 from bs4 import BeautifulSoup
 import re
@@ -56,7 +57,9 @@ class SupplierTciChemicals(SupplierBase):
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html("US/en/search/", params=get_params)
+            search_result = self.http_get_html(
+                "US/en/search/", params=get_params
+            )
 
             if not search_result:
                 return
@@ -132,7 +135,9 @@ class SupplierTciChemicals(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        description_container = product_obj.find("div", class_="product-description")
+        description_container = product_obj.find(
+            "div", class_="product-description"
+        )
         data = description_container.find_all("td")
 
         for idx, d in enumerate(data):

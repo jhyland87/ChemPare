@@ -9,7 +9,6 @@
         "-v",
         "--capture=fd", // fd|sys|no|tee-sys
         "--show-capture=all", // no,stdout,stderr,log,all
-        "-ra",
         //"--quiet",
         //"--no-header",
         //"--disable-warnings",
@@ -26,10 +25,23 @@
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
     "python.testing.autoTestDiscoverOnSavePattern": "tests/**/*.py",
-    "python.defaultInterpreterPath": "python",
+    "python.defaultInterpreterPath": "venv",
     "python.analysis.generateWithTypeAnnotation": true,
     "python.analysis.inlayHints.functionReturnTypes": false,
     "python.terminal.activateEnvironment": true,
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.terminal.executeInFileDir": true,
+    "editor.rulers": [
+        80
+    ],
+    "black-formatter.args": [
+        "--line-length=80"
+    ],
+    "python.analysis.extraPaths": [
+        ".",
+        "test",
+        "suppliers",
+        "datatypes"
+    ],
+    "python.analysis.autoSearchPaths": true,
 }

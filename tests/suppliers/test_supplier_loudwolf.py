@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from suppliers.supplier_loudwolf import SupplierLoudwolf as Supplier
-from datatypes.product import TypeProduct
+from datatypes import TypeProduct
 import pytest
 
 

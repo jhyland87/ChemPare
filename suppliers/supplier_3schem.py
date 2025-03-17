@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import NoReturn
 
 
@@ -6,7 +7,9 @@ from typing import NoReturn
 class Supplier3SChem(SupplierBase):
 
     _supplier: TypeSupplier = dict(
-        name="3S Chemicals LLC", location=None, base_url="https://3schemicalsllc.com"
+        name="3S Chemicals LLC",
+        location=None,
+        base_url="https://3schemicalsllc.com",
     )
     """Supplier specific data"""
 
@@ -18,23 +21,27 @@ class Supplier3SChem(SupplierBase):
         """
 
         # Example request url for 3S Supplier
-        # https://3schemicalsllc.com/search/suggest.json?q=clean&resources[type]=product&resources[limit]=6&resources[options][unavailable_products]=last
+        # https://3schemicalsllc.com/search/suggest.json?q=clean
+        #   &resources[type]=product
+        #   &resources[limit]=6
+        #   &resources[options][unavailable_products]=last
         #
         get_params = {
             "q": query,
             "resources[type]": "product",
-            # Setting the limit here to 1000, since the limit parameter should apply to
-            # results returned from Supplier3SChem, not the rquests made by it.
+            # Setting the limit here to 1000, since the limit parameter should
+            # apply to results returned from Supplier3SChem, not the rquests
+            # made by it.
             "resources[limit]": 1000,
             "resources[options][unavailable_products]": "last",
         }
-        search_result = self.http_get_json("search/suggest.json", params=get_params)
+        results = self.http_get_json("search/suggest.json", params=get_params)
 
-        if not search_result:
+        if not results:
             return
 
-        self._query_results = search_result["resources"]["results"]["products"][
-            0 : self._limit
+        self._query_results = results["resources"]["results"]["products"][
+            self._limit
         ]
 
     def _parse_products(self) -> NoReturn:

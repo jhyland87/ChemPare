@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from threading import Thread
 from bs4 import BeautifulSoup
 from typing import NoReturn
@@ -65,7 +66,9 @@ class SupplierWarchem(SupplierBase):
         if not product_container:
             return
 
-        product_elements = product_container.find_all("div", class_="LiniaDolna")
+        product_elements = product_container.find_all(
+            "div", class_="LiniaDolna"
+        )
 
         if not product_elements:
             return
@@ -116,9 +119,9 @@ class SupplierWarchem(SupplierBase):
             url=href,
         )
 
-        details = product_soup.find("div", class_="DodatkowyProduktuOpis").find_all(
-            "tr"
-        )
+        details = product_soup.find(
+            "div", class_="DodatkowyProduktuOpis"
+        ).find_all("tr")
 
         # The details table has some useful values. Add the key in the table and its assocaited key
         # in the product object below, and it will get included

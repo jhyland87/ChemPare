@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import NoReturn
 
 
@@ -71,7 +72,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 description=str(product["description"]).strip() or None,
                 price=str(product["price"]["price"]).strip(),
                 currency_code=product["price"]["currency"].upper(),
-                currency=self._currency_symbol_from_code(product["price"]["currency"]),
+                currency=self._currency_symbol_from_code(
+                    product["price"]["currency"]
+                ),
                 url=product["url"],
                 supplier=self._supplier["name"],
                 # quantity=quantity["quantity"],

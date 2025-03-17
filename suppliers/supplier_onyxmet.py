@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import NoReturn
 from bs4 import BeautifulSoup
 from threading import Thread
@@ -82,7 +83,8 @@ class SupplierOnyxmet(SupplierBase):
         for product in self._query_results:
             # self.__query_and_parse_product(product['href'])
             thread = Thread(
-                target=self.__query_and_parse_product, kwargs=dict(href=product["href"])
+                target=self.__query_and_parse_product,
+                kwargs=dict(href=product["href"]),
             )
             threads.append(thread)
             thread.start()

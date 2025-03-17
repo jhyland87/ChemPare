@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 import re
 
@@ -18,7 +19,11 @@ class SupplierLaballey(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: Dict = {
+        "currency": "$",
+        "currency_code": "USD",
+        "is_restricted": False,
+    }
     """Default values applied to products from this supplier"""
 
     def _query_products(self, query: str) -> NoReturn:
@@ -97,7 +102,9 @@ class SupplierLaballey(SupplierBase):
                 else None
             ),
             price=f"{float(product_obj['price']):.2f}",
-            url="{0}{1}".format(self._supplier["base_url"], product_obj["link"]),
+            url="{0}{1}".format(
+                self._supplier["base_url"], product_obj["link"]
+            ),
             manufacturer=product_obj["vendor"],
             supplier=self._supplier["name"],
         )

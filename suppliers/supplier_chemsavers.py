@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 from bs4 import BeautifulSoup
 
@@ -21,7 +22,11 @@ class SupplierChemsavers(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: Dict = {
+        "currency": "$",
+        "currency_code": "USD",
+        "is_restricted": False,
+    }
     """Default values applied to products from this supplier"""
 
     # If any extra init logic needs to be called... uncmment the below and add changes
@@ -62,7 +67,9 @@ class SupplierChemsavers(SupplierBase):
             ]
         }
 
-        search_result = self.http_post_json("multi_search", json=body, params=params)
+        search_result = self.http_post_json(
+            "multi_search", json=body, params=params
+        )
 
         if not search_result:
             return
@@ -112,7 +119,9 @@ class SupplierChemsavers(SupplierBase):
         )
 
         # Since the description contains HTML, and it may contain restrictions, use BS
-        description_soup = BeautifulSoup(product_obj["description"], "html.parser")
+        description_soup = BeautifulSoup(
+            product_obj["description"], "html.parser"
+        )
 
         # The restrictions always seem to be shown in <strong style="color: red;"></strong> tags
         restriction = description_soup.find("strong", {"style": "color: red;"})
@@ -130,7 +139,8 @@ class SupplierChemsavers(SupplierBase):
 
         if desc and desc is not None:
             desc_parts = [
-                d.string.strip() if d.string and d.string else None for d in desc
+                d.string.strip() if d.string and d.string else None
+                for d in desc
             ]
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))

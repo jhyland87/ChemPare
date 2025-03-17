@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import Dict, NoReturn
 from bs4 import BeautifulSoup
 from threading import Thread
@@ -40,7 +41,9 @@ class SupplierLoudwolf(SupplierBase):
         #
         self.__product_pages = dict()
 
-        def __query_search_page(query: str, limit: int = 100, page_idx: int = 1):
+        def __query_search_page(
+            query: str, limit: int = 100, page_idx: int = 1
+        ):
             """Handles the pagination on the search page"""
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter should apply to
@@ -68,7 +71,9 @@ class SupplierLoudwolf(SupplierBase):
             product_soup = BeautifulSoup(search_result, "html.parser")
 
             # Since we know the element is a <h3 class=product-price /> element, search for H3's
-            product_elements = product_soup.find_all("div", class_="product-layout")
+            product_elements = product_soup.find_all(
+                "div", class_="product-layout"
+            )
 
             if product_elements is None:
                 # No product wrapper found
@@ -93,7 +98,9 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(product_href.strip())
+                product_href_params = self._get_param_from_url(
+                    product_href.strip()
+                )
 
                 if not product_href_params or not product_href_params.get(
                     "product_id", None
@@ -121,7 +128,8 @@ class SupplierLoudwolf(SupplierBase):
 
         for product_href in self.__product_pages.values():
             thread = Thread(
-                target=self.__query_and_parse_product, kwargs=dict(href=product_href)
+                target=self.__query_and_parse_product,
+                kwargs=dict(href=product_href),
             )
             threads.append(thread)
             thread.start()

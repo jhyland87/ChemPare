@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import Dict, NoReturn
 from bs4 import BeautifulSoup
 
@@ -25,7 +26,10 @@ class SupplierFtfScientific(SupplierBase):
 
     def _setup(self, query: str = None) -> NoReturn:
         headers = self.http_get_headers()
-        cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
+        cookies = (
+            list(v for k, v in headers.multi_items() if k == "set-cookie")
+            or None
+        )
 
         auth_cookies = {}
         auth_headers = {}
@@ -187,7 +191,9 @@ class SupplierFtfScientific(SupplierBase):
 
         product_page_html = self.http_get_html(url)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
-        product_container = product_soup.find("div", {"data-hook": "product-page"})
+        product_container = product_soup.find(
+            "div", {"data-hook": "product-page"}
+        )
         product_info = {}
 
         product_info["price"] = product_container.find(

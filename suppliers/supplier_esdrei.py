@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from bs4 import BeautifulSoup
 from typing import NoReturn
 import re
@@ -52,7 +53,9 @@ class SupplierEsDrei(SupplierBase):
         """
 
         product_page_soup = BeautifulSoup(self._query_results, "html.parser")
-        product_containers = product_page_soup.find_all("div", class_="product--info")
+        product_containers = product_page_soup.find_all(
+            "div", class_="product--info"
+        )
 
         for product_elem in product_containers[: self._limit]:
             self._products.append(self._parse_product(product_elem))

@@ -1,4 +1,5 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from suppliers.supplier_base import SupplierBase
+from datatypes import TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 import re
 
@@ -51,7 +52,8 @@ class SupplierSynthetika(SupplierBase):
             }
 
             search_result = self.http_get_json(
-                "webapi/front/en_US/search/short-list/products", params=get_params
+                "webapi/front/en_US/search/short-list/products",
+                params=get_params,
             )
 
             if not search_result:

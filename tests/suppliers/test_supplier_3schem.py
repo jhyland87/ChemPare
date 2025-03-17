@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from suppliers.supplier_3schem import Supplier3SChem as Supplier
-from datatypes.product import TypeProduct
+from datatypes import TypeProduct
 import pytest
 
 

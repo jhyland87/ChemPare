@@ -1,18 +1,19 @@
 import os
 import sys
 import logging
+from datatypes import TypeProduct
 from typing import List, Dict, Any, Union, NoReturn, Self
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
 from class_utils import ClassUtils
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 
-# Todo: this should be automatic
-from datatypes.product import TypeProduct
-from datatypes.supplier import TypeSupplier
+# # Todo: this should be automatic
+# from datatypes.product import TypeProduct
+# from datatypes.supplier import TypeSupplier
 
 
 # File: /suppliers/supplier_base.py
@@ -40,7 +41,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """Default values for products from this supplier"""
 
     allow_cas_search: bool = False
-    """Determines if the supplier allows CAS searches in addition to name searches"""
+    """True if the supplier allows CAS searches"""
 
     language_for_search: Any = None
     """For what language it should use for the search query"""
@@ -61,10 +62,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if hasattr(self, "_setup"):
             self._setup(query)
 
-        # Execute the basic product search (logic should be in inheriting class)
+        # Execute the basic product search (logic should be in child class)
         self._query_products(self._query)
 
-        # Execute the method that parses self._query_results to define the product properties
+        # Execute the method that parses self._query_results to define the
+        # product properties
         self._parse_products()
 
     def __init_logging(self) -> NoReturn:
@@ -198,7 +200,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """Base HTTP getter (not specific to data type).
 
         Args:
-             path: URL Path to get (should not include the self._base_url value)
+             path: URL Path to get (should not include the self._base_url val)
              params: Dictionary of params to use in request (optional)
 
          Returns:
@@ -234,7 +236,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """Base HTTP poster (not specific to data type).
 
         Args:
-             path: URL Path to post (should not include the self._base_url value)
+             path: URL Path to post (should not include the self._base_url val)
              params: Dictionary of params to use in request (optional)
              body: Body of data to post (text, json, etc)
 
@@ -351,9 +353,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.json()
 
     def _setup(self, query: str = None) -> NoReturn:
-        """Setup method - Triggered before the query is executed. This is useful
-        for when we need to make an initial request to a homepage to get headers
-        and stores some cookies
+        """Setup method - Triggered before the query is executed. This is
+        useful for when we need to make an initial request to a homepage to get
+        headers and stores some cookies
         """
 
         pass
@@ -376,9 +378,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     def _parse_products(self) -> NoReturn:
         """Method to set the local properties for the queried product.
 
-        The self._query_results (populated by calling self._query_products()) is iterated over
-        by this method, which in turn parses each property and creates a new TypeProduct object that
-        gets saved to this._products
+        The self._query_results (populated by calling self._query_products())
+        is iterated over by this method, which in turn parses each property and
+        creates a new TypeProduct object that gets saved to this._products
         """
 
         pass
