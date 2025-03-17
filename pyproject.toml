@@ -2,8 +2,16 @@
 name = "chempare"
 version = "0.0.1"
 description = "Reagent search utility"
-authors = [{ name = "Justin Hyland", email = "j@linux.com" }]
-maintainers = [{ name = "Justin Hyland", email = "j@linux.com" }]
+authors = [
+	# Maui3
+	{ name = "Justin Hyland", email = "j@linux.com" },
+	# spuos
+]
+maintainers = [
+	# Maui3
+	{ name = "Justin Hyland", email = "j@linux.com" },
+	# spuos
+]
 readme = { file = "README.txt", content-type = "text/markdown" }
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
 dependencies = [
