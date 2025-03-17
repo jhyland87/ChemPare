@@ -51,8 +51,7 @@ test = [
 dev = ["pycodestyle==2.4.0"]
 
 [project.scripts]
-foo = "chempare.chempare_cli:main"
-bar = "chempare_cli:main"
+chemparecli = "chempare.chempare_cli:main"
 
 [build-system]
 requires = ["setuptools >= 61.0"]
@@ -64,7 +63,7 @@ target-version = ["py39", "py310", "py311", "py312", "py313"]
 
 [tool.setuptools]
 packages = ["chempare"]
-
+package-dir = { "chempare" = "." }
 
 [tool.setuptools.package-data]
 chempare_cli = ["chempare/*", "chempare/*/*"]
