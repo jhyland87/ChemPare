@@ -1,13 +1,11 @@
-#!/usr/bin/env python3
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=too-many-positional-arguments
+# pylint: disable=broad-exception-caught
 
-from search_factory import SearchFactory
-import os
-import sys
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# from search_factory import SearchFactory
+from chempare.search_factory import SearchFactory
 
 
 def test_chemical_name_query():

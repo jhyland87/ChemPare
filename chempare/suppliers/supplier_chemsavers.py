@@ -1,10 +1,12 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Tuple, Dict, NoReturn
+"""Chemsavers module"""
+from typing import Dict, List, NoReturn, Tuple
 from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
+    """Chemsavers module"""
 
     _supplier: TypeSupplier = dict(
         name="Chemsavers",

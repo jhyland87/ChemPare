@@ -1,10 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""FTF Scientific module"""
+
 from typing import Dict, NoReturn
 from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_ftfscientific.py
 class SupplierFtfScientific(SupplierBase):
+    """FTF Scientific module"""
 
     _supplier: TypeSupplier = dict(
         name="FTF Scientific",
@@ -108,7 +111,8 @@ class SupplierFtfScientific(SupplierBase):
         }
 
         search_result = self.http_post_json(
-            path="_api/search-services-sitesearch/v1/search", json=body
+            path="_api/search-services-sitesearch/v1/search",
+            json=body
         )
 
         if not search_result:

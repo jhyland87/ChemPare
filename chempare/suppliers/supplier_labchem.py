@@ -1,19 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import Tuple, Optional, NoReturn, Dict
+"""LabChem module"""
+
+from typing import Dict, NoReturn, Optional, Tuple
 from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_labchem.py
 class SupplierLabchem(SupplierBase):
-    """
-    Todo: It looks like for LabChem, if you want to do a CAS Search, you first
-          have to query a product search page with the CAS, which returns HTML,
-          then look for all 'a.log-addTocart-btn elements', grab the 'id'
-          value, then send a GET request to the getPriceDetailPage.action page
-          with the comma separated list of id's as the 'productIdList'
-          parameter. Example below:
-          https://www.labchem.com/getPriceDetailPage.action?productIdList=LC261700-L03,LC261700-L27
-    """
+    """LabChem module"""
 
     _supplier: TypeSupplier = dict(
         name="Labchem",

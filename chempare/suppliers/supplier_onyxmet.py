@@ -1,12 +1,14 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""Onyxmet supplier module"""
+import re
+from threading import Thread
 from typing import NoReturn
 from bs4 import BeautifulSoup
-from threading import Thread
-import re
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_onyxmet.py
 class SupplierOnyxmet(SupplierBase):
+    """Onyxmet supplier module"""
 
     _limit: int = 10
     """Max results to store"""

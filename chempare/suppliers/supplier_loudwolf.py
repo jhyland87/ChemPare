@@ -1,18 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""Loudwolf supplier module"""
+from threading import Thread
 from typing import Dict, NoReturn
 from bs4 import BeautifulSoup
-from threading import Thread
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_loudwolf.py
 class SupplierLoudwolf(SupplierBase):
-    """
-    Todo: Currently, the LoudWolf module has the allow_cas_search set to False
-          since searching using the CAS won't work. But it turns out that if
-          you allow it to search in the product descriptions (using
-          &description=true), then it will match the CAS values. Should the
-          &description=true only be added when searching via CAS?..
-    """
+    """Loudwolf supplier module"""
 
     _limit: int = 5
     """Max results to store"""
@@ -24,7 +19,7 @@ class SupplierLoudwolf(SupplierBase):
     )
     """Supplier specific data"""
 
-    allow_cas_search: bool = False
+    allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 

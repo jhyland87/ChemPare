@@ -1,11 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""TCI Chemicals module"""
+import re
 from typing import NoReturn
 from bs4 import BeautifulSoup
-import re
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_tcichemicals.py
 class SupplierTciChemicals(SupplierBase):
+    """TCI Chemicals module"""
 
     allow_cas_search: bool = True
     """Determines if this supplier allows CAS searches"""

@@ -1,0 +1,15 @@
+[run]
+parallel = true
+branch = true
+source =
+    .
+
+[paths]
+source =
+    chempare
+    chempare/suppliers
+    chempare/datatypes
+
+[report]
+show_missing = true
+precision = 2

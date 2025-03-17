@@ -1,10 +1,12 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Tuple, Dict, NoReturn
+"""Synthetika supplier module"""
 import re
+from typing import Dict, List, NoReturn, Tuple
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_synthetika.py
 class SupplierSynthetika(SupplierBase):
+    """Synthetika supplier module"""
 
     _limit: int = 20
     """Max results to store"""

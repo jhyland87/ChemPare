@@ -1,15 +1,12 @@
-from datatypes.product import TypeProduct
-import suppliers
-from typing import Optional, List, NoReturn
-from curl_cffi import requests
+"""Search factory"""
+from typing import List, NoReturn, Optional
+
 from abcplus import finalmethod
-from class_utils import ClassUtils
+from curl_cffi import requests
 
-# import os
-# import sys
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
+from chempare import suppliers
+from chempare.class_utils import ClassUtils
+from chempare.datatypes.product import TypeProduct
 
 class SearchFactory(ClassUtils, object):
     suppliers: List = suppliers.__all__

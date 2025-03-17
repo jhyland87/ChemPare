@@ -31,23 +31,30 @@ endif
 
 # After the dependencies are installed/verified, this will actiate
 # the environment just using venv/bin/activate
-install: requirements/common.txt
+install:
 	make install-dependencies
 	make venv/bin/activate
 	./venv/bin/pip3 install --upgrade pip
-	./venv/bin/pip3 install -r requirements/common.txt
+	./venv/bin/pip3 install -e .
 	make venv/bin/activate
 
-install-dev: requirements/dev.txt
+install-dev:
 	make install-dependencies
 	make venv/bin/activate
 	./venv/bin/pip3 install --upgrade pip
-	./venv/bin/pip3 install -r requirements/dev.txt
+	./venv/bin/pip3 install -e .[dev]
+	make venv/bin/activate
+
+install-test:
+	make install-dependencies
+	make venv/bin/activate
+	./venv/bin/pip3 install --upgrade pip
+	./venv/bin/pip3 install -e .[test]
 	make venv/bin/activate
 
 # Enter the python3 environment, then install the packages in the
 # requirements/common.txtfile.
-venv/bin/activate: requirements/common.txt
+venv/bin/activate:
 	python3 -m venv venv
 
 # Just a simple help output. Not sure this is even necessary

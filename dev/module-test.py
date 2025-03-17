@@ -9,21 +9,21 @@ from search_factory import SearchFactory
 
 
 # Testing single supplier
-from suppliers.supplier_laballey import SupplierLaballey
-from suppliers.supplier_labchem import SupplierLabchem
-from suppliers.supplier_chemsavers import SupplierChemsavers
-from suppliers.supplier_onyxmet import SupplierOnyxmet
-from suppliers.supplier_esdrei import SupplierEsDrei
+from chemparesrc.suppliers.supplier_laballey import SupplierLaballey
+from chempare.suppliers.supplier_labchem import SupplierLabchem
+from chempare.suppliers.supplier_chemsavers import SupplierChemsavers
+from chempare.suppliers.supplier_onyxmet import SupplierOnyxmet
+from chempare.suppliers.supplier_esdrei import SupplierEsDrei
 
-from suppliers.supplier_synthetika import SupplierSynthetika
-from suppliers.supplier_tcichemicals import SupplierTciChemicals
-from suppliers.supplier_ftfscientific import SupplierFtfScientific
-from suppliers.supplier_loudwolf import SupplierLoudwolf
-from suppliers.supplier_warchem import SupplierWarchem
-from suppliers.supplier_laboratoriumdiscounter import (
+from chempare.suppliers.supplier_synthetika import SupplierSynthetika
+from chempare.suppliers.supplier_tcichemicals import SupplierTciChemicals
+from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
+from chempare.suppliers.supplier_loudwolf import SupplierLoudwolf
+from chempare.suppliers.supplier_warchem import SupplierWarchem
+from chempare.suppliers.supplier_laboratoriumdiscounter import (
     SupplierLaboratoriumDiscounter,
 )
-from suppliers.supplier_3schem import Supplier3SChem
+from chempare.suppliers.supplier_3schem import Supplier3SChem
 
 
 query = sys.argv[1] if len(sys.argv) >= 2 else "water"

@@ -1,10 +1,11 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Tuple, Dict, NoReturn
-import re
+"""LabAlley Module"""
+from typing import Dict, List, NoReturn, Tuple
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaballey(SupplierBase):
+    """LabAlley Module"""
 
     _supplier: TypeSupplier = dict(
         name="Laballey",

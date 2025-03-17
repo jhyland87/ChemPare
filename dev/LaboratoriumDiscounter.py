@@ -4,7 +4,7 @@ import re
 SCRIPT_DIR = os.path.dirname(os.path.abspath('suppliers/supplier_laboratoriumdiscounter'))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
+from chempare.suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter
 
 def fetch_from_lab_dis(chem):
     laboratoriumDiscounter = SupplierLaboratoriumDiscounter(chem, 3)

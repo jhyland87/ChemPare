@@ -2,21 +2,29 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestArgs": [
-        "-ra",
-        "--doctest-modules",
-        "--color=yes",
-        "--code-highlight=yes",
-        "--cov=suppliers",
-        //"--pycodestyle",
-        "--numprocesses=auto",
+        // "-vvv",
+        // "--capture=tee-sys",
+        // "-rA",
+        // "--doctest-modules",
+        // "--color=yes",
+        // "--code-highlight=yes",
+        // "--cov=chempare/*.py",
+        // "--cov=chempare/suppliers/*.py",
+        // "--cov=chempare/datatypes/*.py",
+        // "--cov-config=.coveragerc",
+        // //"--pycodestyle",
+        // "--numprocesses=auto",
         "tests"
     ],
     "files.trimTrailingWhitespace": true,
     "editor.trimAutoWhitespace": true,
-    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "autopep8.args": [
+        "--config", "pyproject.toml",
+        "in-place", //"aggressive", "aggressive", "aggressive"
+    ],
+    //"editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
-
-    "python.testing.autoTestDiscoverOnSavePattern": "tests/**/*.py",
     "python.defaultInterpreterPath": "python",
     "python.analysis.generateWithTypeAnnotation": true,
     "python.analysis.inlayHints.functionReturnTypes": false,
@@ -29,5 +37,14 @@
     ],
     "black-formatter.args": [
         "--line-length=80"
-    ]
+    ],
+    "notebook.defaultFormatter": "ms-python.autopep8",
+    "pylint.args": [
+        "--disable=C0116,W0101,R0913,R0917",
+        "--max-line-length=81"
+    ],
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    }
 }
+

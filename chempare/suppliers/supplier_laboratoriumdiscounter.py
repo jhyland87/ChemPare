@@ -1,15 +1,11 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""Laboratorium Discounter module"""
 from typing import NoReturn
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaboratoriumDiscounter(SupplierBase):
-    """
-    Todo:
-        Creat a method that can query and parse individual products. This can
-        be done by just taking the product page URL and appending ?format=json:
-            https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
-    """
+    """Laboratorium Discounter module"""
 
     _supplier: TypeSupplier = dict(
         name="Laboratorium Discounter",

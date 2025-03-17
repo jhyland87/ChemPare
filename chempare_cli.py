@@ -4,7 +4,7 @@ import os
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
-from search_factory import SearchFactory
+from chempare.search_factory import SearchFactory
 
 
 def get_terminal_width():
@@ -56,6 +56,7 @@ def main():
         price = product.price
         currency = product.currency
         currency_code = product.currency_code or "XX"
+        #if hasattr(product, 'USD')
         cas = product.cas or "N/A"
         # trunk-ignore(git-diff-check/error)
         if product.quantity is None or product.uom is None:
@@ -106,11 +107,8 @@ def main():
             console.print(panel)
     sys.exit()
 
-
 if __name__ == "__main__":
     main()
-    input("")
-
 # If returns none okay, skip.
 # Quantities.
 # Translate for LabChem (and S3).

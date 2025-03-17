@@ -19,6 +19,6 @@ setup(
         "pytest",
         "regex",
     ],
-    py_modules=["main"],
-    entry_points={"console_scripts": ["main = main:main"]},
+    py_modules=["chempare"],
+    #entry_points={"console_scripts": ["main = main:main"]},
 )

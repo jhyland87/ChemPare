@@ -1,9 +1,11 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""3S Chem Module"""
 from typing import NoReturn
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
+    """3S Chem Module"""
     _limit: int = 20
 
     _supplier: TypeSupplier = dict(

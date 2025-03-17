@@ -1,11 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from bs4 import BeautifulSoup
-from typing import NoReturn
+"""EsDrei (S3) Supplier """
 import re
+from typing import NoReturn
+from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
+    """EsDrei (S3) Supplier """
 
     _supplier: TypeSupplier = dict(
         name="EsDrei",

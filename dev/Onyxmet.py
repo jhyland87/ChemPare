@@ -4,7 +4,7 @@ import re
 SCRIPT_DIR = os.path.dirname(os.path.abspath('suppliers/supplier_onyxmet'))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from suppliers.supplier_onyxmet import SupplierOnyxmet
+from chempare.suppliers.supplier_onyxmet import SupplierOnyxmet
 
 def fetch_from_onyxmet(chem):
     onyxmet = SupplierOnyxmet(chem, 3)

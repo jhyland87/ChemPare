@@ -1,20 +1,103 @@
-from typing import List, Dict, Any, Optional, Union
-from abcplus import ABCMeta, finalmethod
-from urllib.parse import urlparse, parse_qs
-import os
-import sys
-import time
+"""Utils class that can be extended by supplier modules"""
+
+import logging
 import math
-import re
-import regex
+import os
 import random
+import re
 import string
+import time
+from typing import Any, Dict, List, NoReturn, Optional, Union
+from urllib.parse import parse_qs, urlparse
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
+import regex
+from abcplus import ABCMeta, finalmethod
 
 class ClassUtils(metaclass=ABCMeta):
+    """Utility class - meant to be extended by Suppliers if needed"""
+
+    _logger = None
+
+    def _init_logging(self) -> NoReturn:
+        """Create the logger specific to this class instance (child)
+
+        Returns:
+            NoReturn: None
+
+        Note:
+            Uses the LOG_LEVEL env var for the log level. Valid values are:
+            CRITICAL FATAL ERROR WARNING INFO DEBUG. The default is WARNING
+        """
+        if hasattr(self, "_logger") is False or not self._logger:
+            return
+
+        self._logger = logging.getLogger(str(self.__class__.__name__))
+        logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
+
+    def _log(self, message: str) -> NoReturn:
+        """Create a regular log entry
+
+        Args:
+            message (str): Message to send to the logs
+
+        Returns:
+            NoReturn: None
+        """
+        if hasattr(self, "_logger") is False or not self._logger:
+            return
+
+        self._logger.log(logging.INFO, message)
+
+    def _debug(self, message: str) -> NoReturn:
+        """Create a debugger log entry
+
+        Args:
+            message (str): Message to send to the logs
+
+        Returns:
+            NoReturn: None
+        """
+        if hasattr(self, "_logger") is False or not self._logger:
+            return
+
+        self._logger.log(logging.DEBUG, message)
+
+    def _error(self, message: str) -> NoReturn:
+        """Create an error log entry
+
+        Args:
+            message (str): Message to send to the logs
+
+        Returns:
+            NoReturn: None
+        """
+        if hasattr(self, "_logger") is False or not self._logger:
+            return
+
+        self._logger.log(logging.ERROR, message)
+
+    def _warn(self, message: str) -> NoReturn:
+        """Create a warning log entry
+
+        Args:
+            message (str): Message to send to the logs
+
+        Returns:
+            NoReturn: None
+        """
+        if hasattr(self, "_logger") is False or not self._logger:
+            return
+
+        self._logger.log(logging.WARN, message)
+
+        # CRITICAL = 50
+        # FATAL = CRITICAL
+        # ERROR = 40
+        # WARNING = 30
+        # WARN = WARNING
+        # INFO = 20
+        # DEBUG = 10
+        # NOTSET = 0
 
     @property
     @finalmethod
@@ -29,12 +112,12 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _parse_price(
-        self, string: str, symbol_to_code: bool = True
+        self, content: str, symbol_to_code: bool = True
     ) -> Optional[Dict]:
         """Parse a string for a price value (currency and value)
 
         Args:
-            string (str): String with price
+            content (str): String with price
             symbol_to_code (bool): Attempt to convert the currency symbols to
                                    country codes if this is set to True
                                    (defaults to True)
@@ -108,7 +191,7 @@ class ClassUtils(metaclass=ABCMeta):
             r")"
         )
 
-        matches = regex.match(iso_4217_pattern, string, regex.IGNORECASE)
+        matches = regex.match(iso_4217_pattern, content, regex.IGNORECASE)
         if not matches:
             return None
 
@@ -147,11 +230,11 @@ class ClassUtils(metaclass=ABCMeta):
         return matches_dict
 
     @finalmethod
-    def _parse_quantity(self, string: str) -> Optional[Dict]:
+    def _parse_quantity(self, content: str) -> Optional[Dict]:
         """Parse a string for the quantity and unit of measurement
 
         Args:
-            string (str): Suspected quantity string
+            content (str): Suspected quantity string
 
         Returns:
             Optional[Dict]: Returns a dictionary with the 'quantity' and
@@ -194,12 +277,12 @@ class ClassUtils(metaclass=ABCMeta):
             ("qt", "quart", "quarts"): "qt",
         }
 
-        if type(string) is not str:
+        if type(content) is not str:
             return None
 
-        string = string.strip()
+        content = content.strip()
 
-        if not string or string.isspace():
+        if not content or content.isspace():
             return None
 
         # https://regex101.com/r/lDLuVX/4
@@ -210,7 +293,7 @@ class ClassUtils(metaclass=ABCMeta):
             r"|kg|g|lbs?|pounds?|l|qt|m?[glm])"
         )
 
-        matches = regex.search(pattern, string, regex.IGNORECASE)
+        matches = regex.search(pattern, content, regex.IGNORECASE)
 
         if not matches:
             return None

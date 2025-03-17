@@ -1,46 +1,16 @@
-import os
-import sys
-import logging
+"""Supplier Base Cass"""
 from typing import List, Dict, Any, Union, NoReturn, Self
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
-from class_utils import ClassUtils
+from chempare.class_utils import ClassUtils
 
 # Todo: this should be automatic
-from datatypes.product import TypeProduct
-from datatypes.supplier import TypeSupplier
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# # Todo: this should be automatic
-# from datatypes.product import TypeProduct
-# from datatypes.supplier import TypeSupplier
-
+from chempare.datatypes.product import TypeProduct
+from chempare.datatypes.supplier import TypeSupplier
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
-
-    # _supplier: TypeSupplier = None
-    """Supplier specific data"""
-
-    # _products: List[TypeProduct] = []
-    """List of TypeProduct elements"""
-
-    # _limit: int = None
-    """Max products to query/return"""
-
-    # _cookies: Dict = {}
-    """Cookies to use for supplier"""
-
-    # _index: int = 0
-    """Index value used for __iter__ dunder method (for loop iteration)"""
-
-    # _query_results: Any = None
-    """Location of cached query result (what other methods pull data from)"""
-
-    # _defaults: Dict = None
-    """Default values for products from this supplier"""
+    """Supplier Base Cass"""
 
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name
@@ -49,8 +19,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
+    #_limit = 20
+    _supplier: TypeSupplier = None
+
     def __init__(self, query: str, limit: int = None) -> NoReturn:
-        self.__init_logging()
 
         self._limit = limit or 20
 
@@ -61,8 +33,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._cookies = {}
         self._headers = {}
 
-        if hasattr(self, "_setup"):
-            self._setup(query)
+        self._init_logging()
+
+        self._setup()
 
         # Execute the basic product search (logic should be in inheriting class)
         self._query_products(self._query)
@@ -70,77 +43,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
-
-    def __init_logging(self) -> NoReturn:
-        """Create the logger specific to this class instance (child)
-
-        Returns:
-            NoReturn: None
-
-        Note:
-            Uses the LOG_LEVEL env var for the log level. Valid values are:
-            CRITICAL FATAL ERROR WARNING INFO DEBUG. The default is WARNING
-        """
-
-        self._logger = logging.getLogger(str(self.__class__.__name__))
-        logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
-
-    def _log(self, message: str) -> NoReturn:
-        """Create a regular log entry
-
-        Args:
-            message (str): Message to send to the logs
-
-        Returns:
-            NoReturn: None
-        """
-
-        self._logger.log(logging.INFO, message)
-
-    def _debug(self, message: str) -> NoReturn:
-        """Create a debugger log entry
-
-        Args:
-            message (str): Message to send to the logs
-
-        Returns:
-            NoReturn: None
-        """
-
-        self._logger.log(logging.DEBUG, message)
-
-    def _error(self, message: str) -> NoReturn:
-        """Create an error log entry
-
-        Args:
-            message (str): Message to send to the logs
-
-        Returns:
-            NoReturn: None
-        """
-
-        self._logger.log(logging.ERROR, message)
-
-    def _warn(self, message: str) -> NoReturn:
-        """Create a warning log entry
-
-        Args:
-            message (str): Message to send to the logs
-
-        Returns:
-            NoReturn: None
-        """
-
-        self._logger.log(logging.WARN, message)
-
-        # CRITICAL = 50
-        # FATAL = CRITICAL
-        # ERROR = 40
-        # WARNING = 30
-        # WARN = WARNING
-        # INFO = 20
-        # DEBUG = 10
-        # NOTSET = 0
 
     def __len__(self) -> int:
         """len() magic method for getting number of products
@@ -177,8 +79,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index += 1
 
         return value
-
-    """ FINAL methods/properties """
 
     @property
     @finalmethod
@@ -361,10 +261,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         headers and stores some cookies
         """
 
-        pass
-
-    """ ABSTRACT methods/properties """
-
     @abstractmethod
     def _query_products(self, query: str) -> NoReturn:
         """Query the website for the products (name or CAS).
@@ -375,8 +271,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         This should define the self._query_results property with the results
         """
 
-        pass
-
     @abstractmethod
     def _parse_products(self) -> NoReturn:
         """Method to set the local properties for the queried product.
@@ -385,8 +279,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         is iterated over by this method, which in turn parses each property and
         creates a new TypeProduct object that gets saved to this._products
         """
-
-        pass
 
 
 if __package__ == "suppliers":

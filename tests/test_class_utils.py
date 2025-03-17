@@ -1,21 +1,13 @@
-#!/usr/bin/env python3
-# # trunk-ignore-all(isort)
-# import warnings
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=too-many-positional-arguments
+# pylint: disable=broad-exception-caught
 
-# warnings.simplefilter(action="ignore", category=FutureWarning)
-import os
-import sys
-import pytest
 from typing import Literal
-from class_utils import ClassUtils
-
-# from assertions import assert_
-# from assertions.operators import Operators
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# from class_utils import ClassUtils
+import pytest
+from chempare.class_utils import ClassUtils
 
 
 class TestClass(ClassUtils, object):
@@ -42,7 +34,7 @@ class TestClass(ClassUtils, object):
     )
     def test_parse_price(self, value, price, currency, currency_code):
         result = self._parse_price(value)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert "currency" in result
         assert "price" in result
         assert "currency_code" in result

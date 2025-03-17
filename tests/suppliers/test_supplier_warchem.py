@@ -1,7 +1,14 @@
-#!/usr/bin/env python3
-from suppliers.supplier_warchem import SupplierWarchem as Supplier
-from datatypes.product import TypeProduct
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=too-many-positional-arguments
+# pylint: disable=broad-exception-caught
+
 import pytest
+
+from chempare.datatypes.product import TypeProduct
+from chempare.suppliers.supplier_warchem import SupplierWarchem as Supplier
 
 
 # Base test class

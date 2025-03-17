@@ -1,11 +1,4 @@
-if __debug__:
-    from pathlib import Path
-
-    print(
-        "Running" if __name__ == "__main__" else "Importing",
-        Path(__file__).resolve(),
-    )
-
+"""Suppliers init"""
 import os
 import sys
 import logging
@@ -44,7 +37,7 @@ for supplier_file in suppliers_dir_files:
         hasattr(supplier_module, "__disabled__")
         and supplier_module.__disabled__ is True
     ):
-        _logger.debug(f"Skipping module {supplier_file} (disabled)")
+        _logger.debug("Skipping module %s (disabled)", supplier_file)
         continue
     classes = [
         getattr(supplier_module, x)
@@ -57,5 +50,5 @@ for supplier_file in suppliers_dir_files:
             cls.__name__.startswith("Supplier")
             and cls.__name__ != "SupplierBase"
         ):
-            _logger.debug(f"Including supplier module {cls.__name__}")
+            _logger.debug("Including supplier module %s", cls.__name__)
             __all__.append(cls.__name__)

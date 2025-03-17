@@ -1,11 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+"""Warchem Module"""
 from threading import Thread
-from bs4 import BeautifulSoup
 from typing import NoReturn
+from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_warchem.py
 class SupplierWarchem(SupplierBase):
+    """Warchem Module"""
 
     _limit: int = 5
     """Maximum amount of allowed search results to be returned"""

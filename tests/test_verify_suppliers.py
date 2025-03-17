@@ -1,13 +1,12 @@
-#!/usr/bin/env python3
-import suppliers
+# pylint: disable=too-many-arguments
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=too-many-positional-arguments
+# pylint: disable=broad-exception-caught
+
 import os
-import sys
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# import suppliers
-
+import suppliers
 
 __ignorable_files = [
     "__init__.py",
