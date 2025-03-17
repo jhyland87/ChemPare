@@ -1,6 +1,6 @@
 from rich.console import Console
 from rich.panel import Panel
-from search_factory import SearchFactory
+from chempare.search_factory import SearchFactory
 import sys
 
 def main():
@@ -43,7 +43,7 @@ def main():
         # quantity = product['quantity']
         url = product.url
         supplier = product.supplier
-        
+
         # Create the panel to print
         panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}", expand=True)
         console.print(panel)

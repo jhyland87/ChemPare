@@ -16,6 +16,7 @@ readme = { file = "README.txt", content-type = "text/markdown" }
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
 dependencies = [
 	"requests",
+	"inquirer",
 	"bs4",
 	"rich",
 	"abcplus",
@@ -50,7 +51,9 @@ test = [
 dev = ["pycodestyle==2.4.0"]
 
 [project.scripts]
-chemparecli = "chempare.chempare_cli:main"
+chemparecli = "chempare.cli.chempare_cli:main"
+chemparemain = "chempare.cli.main:main"
+querysupplier = "chempare.cli.query_supplier:init"
 
 [build-system]
 requires = ["setuptools >= 61.0"]
@@ -60,19 +63,48 @@ build-backend = "setuptools.build_meta"
 # See https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#t-target-version
 target-version = ["py39", "py310", "py311", "py312", "py313"]
 
-[tool.setuptools]
-packages = ["chempare"]
-package-dir = { "chempare" = "." }
+# [tool.setuptools]
+# packages = ["chempare"]
+# package-dir = { "chempare" = "." }
 
 [tool.setuptools.package-data]
-chempare_cli = ["chempare/*", "chempare/*/*"]
-"pytest" = ["py.typed"]
+chempare_cli = [
+	".",
+	"src",
+	"src/scripts",
+	"src/chempare/*",
+	"chempare/*",
+	"src/scripts/*",
+]
+# "pytest" = ["py.typed"]
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = [
+	".",
+	"src",
+	"scripts",
+	# "chempare",
+	# "chempare/scripts",
+	# "chempare/scripts/*",
+	# "src/scripts",
+	# "src/scripts/*",
+	# "src/chempare",
+	# "src/chempare/*",
+	# "src/chempare/*/*",
+]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-rx -q -rx -n auto --color=yes --code-highlight=yes --cov=chempare"
 testpaths = ["tests"]
-pythonpath = [".", "chempare", "chempare/suppliers", "chempare/datatypes"]
+pythonpath = [
+	".",
+	"chempare",
+	"chempare/suppliers",
+	"chempare/datatypes",
+	"chempare/scripts",
+]
 # addopts = "-rfEX -p pytester --strict-markers"
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 

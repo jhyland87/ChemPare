@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debugger: main2.py",
+            "name": "Debugger: chempare_cli.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "main2.py",
+            "program": "src/chempare/cli/chempare_cli.py",
             "console": "integratedTerminal",
             "args": [
                 "${input:query}"
@@ -18,21 +18,21 @@
             "name": "Debugger: main.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "main.py",
+            "program": "src/chempare/cli/main.py",
             "console": "integratedTerminal",
             "args": [
                 "${input:query}"
             ]
         },
         {
-            "name": "Debugger: module-test.py",
+            "name": "Debugger: query_supplier.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "dev/module-test.py",
+            "program": "src/chempare/cli/query_supplier.py",
             "console": "integratedTerminal",
             "args": [
-                "${input:query}",
-                "${input:supplier}"
+                "${input:supplier}",
+                "${input:query}"
             ]
         },
         {
