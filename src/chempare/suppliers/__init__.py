@@ -1,10 +1,4 @@
-if __debug__:
-    from pathlib import Path
-
-    print(
-        "Running" if __name__ == "__main__" else "Importing",
-        Path(__file__).resolve(),
-    )
+"""Suppliers init"""
 
 import os
 import sys
@@ -19,7 +13,7 @@ __ignorable_files = [
     "__init__.py",
     # Trying out using a __disabled__ property check instead of using this
     # array.
-    "supplier_base.py",
+    # "supplier_base.py",
     # 'supplier_warchem.py'
 ]
 
@@ -44,7 +38,7 @@ for supplier_file in suppliers_dir_files:
         hasattr(supplier_module, "__disabled__")
         and supplier_module.__disabled__ is True
     ):
-        _logger.debug(f"Skipping module {supplier_file} (disabled)")
+        _logger.debug("Skipping module %s (disabled)", supplier_file)
         continue
     classes = [
         getattr(supplier_module, x)
@@ -55,7 +49,7 @@ for supplier_file in suppliers_dir_files:
         setattr(sys.modules[__name__], cls.__name__, cls)
         if (
             cls.__name__.startswith("Supplier")
-            and cls.__name__ != "SupplierBase"
+            #  and cls.__name__ != "SupplierBase"
         ):
-            _logger.debug(f"Including supplier module {cls.__name__}")
+            _logger.debug("Including supplier module %s", cls.__name__)
             __all__.append(cls.__name__)

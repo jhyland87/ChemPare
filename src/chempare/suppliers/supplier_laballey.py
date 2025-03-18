@@ -1,6 +1,6 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
-import re
+from chempare.suppliers.supplier_base import SupplierBase
+from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py

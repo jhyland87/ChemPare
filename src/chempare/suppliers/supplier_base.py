@@ -1,14 +1,13 @@
 import os
-import sys
 import logging
 from typing import List, Dict, Any, Union, NoReturn, Self
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
-from class_utils import ClassUtils
+from chempare import ClassUtils
 
 # Todo: this should be automatic
-from datatypes.product import TypeProduct
-from datatypes.supplier import TypeSupplier
+# from chempare.suppliers.supplier_base import SupplierBase
+from chempare.datatypes import TypeProduct
 
 # SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # sys.path.append(os.path.dirname(SCRIPT_DIR))

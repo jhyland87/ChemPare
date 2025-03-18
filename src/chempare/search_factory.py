@@ -1,14 +1,11 @@
-from datatypes.product import TypeProduct
-import suppliers
-from typing import Optional, List, NoReturn
-from curl_cffi import requests
-from abcplus import finalmethod
-from class_utils import ClassUtils
+"""Search factory"""
 
-# import os
-# import sys
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
+from typing import List, NoReturn, Optional
+
+from abcplus import finalmethod
+from curl_cffi import requests
+from chempare import ClassUtils, suppliers
+from chempare.datatypes import TypeProduct
 
 
 class SearchFactory(ClassUtils, object):
@@ -97,6 +94,9 @@ class SearchFactory(ClassUtils, object):
 
         # Iterate over the modules in the suppliers package
         for supplier in suppliers.__all__:
+            if supplier == "SupplierBase":
+                continue
+
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
             supplier_query = query
