@@ -94,6 +94,9 @@ class SearchFactory(ClassUtils, object):
 
         # Iterate over the modules in the suppliers package
         for supplier in suppliers.__all__:
+            if supplier == 'SupplierBase':
+                continue
+
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
             supplier_query = query
