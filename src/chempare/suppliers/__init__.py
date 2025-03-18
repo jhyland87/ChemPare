@@ -1,8 +1,9 @@
 """Suppliers init"""
 
+import logging
 import os
 import sys
-import logging
+
 
 _logger = logging.getLogger("suppliers/__init__")
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))

@@ -1,22 +1,29 @@
 """Utility class meant to provide functionality to any inheriting classes"""
 
 import math
+
 # import os
 # import sys
 import random
 import re
 import string
 import time
-from typing import Any, Dict, List, Optional, Union
-from urllib.parse import parse_qs, urlparse
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Union
+from urllib.parse import parse_qs
+from urllib.parse import urlparse
+
 import regex
-from abcplus import ABCMeta, finalmethod
-from currex import CURRENCIES, Currency
+from abcplus import ABCMeta
+from abcplus import finalmethod
+from currex import CURRENCIES
+from currex import Currency
 from price_parser import Price
 
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
+import chempare
 
 
 class ClassUtils(metaclass=ABCMeta):
@@ -57,6 +64,13 @@ class ClassUtils(metaclass=ABCMeta):
                 national convention: before, between or after the
                 numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
         """
+
+        # if chempare.called_from_test is True:
+        #     print(
+        #         "\n\n\nchempare.called_from_test:",
+        #         chempare.called_from_test,
+        #         "\n\n\n",
+        #     )
 
         iso_4217_pattern = (
             r"(?:ab\s?)?(?:(?P<currency>[\p{Sc}ƒ]|"

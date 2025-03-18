@@ -1,6 +1,6 @@
 [project]
 name = "chempare"
-version = "0.0.1"
+version = "0.1"
 description = "Reagent search utility"
 requires-python = ">= 3.13"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]

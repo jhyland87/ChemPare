@@ -1,5 +1,3 @@
-# # trunk-ignore-all(isort)
-# import warnings
 from typing import Any
 from typing import Literal
 
@@ -7,15 +5,6 @@ from typing import Literal
 import pytest
 
 from chempare import ClassUtils
-
-
-# from assertions import assert_
-# from assertions.operators import Operators
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# from class_utils import ClassUtils
 
 
 class TestClass(ClassUtils, object):

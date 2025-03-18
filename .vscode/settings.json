@@ -121,8 +121,10 @@
     ],
     "python.testing.pytestArgs": [
         //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
-        // -ra --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests
+        // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
         //"-vvv",
+        "--capture=no",
+        //"--show-capture=all",
         "-ra",
         "--numprocesses=auto",
         "--color=yes",
