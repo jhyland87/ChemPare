@@ -50,7 +50,7 @@ install-dev:
 	./venv/bin/pip3 install --upgrade pip
 	./venv/bin/pip3 install -e .[dev]
 	make venv/bin/activate
-∏
+
 # Enter the python3 environment, then install the packages in the
 # requirements/common.txtfile.
 venv/bin/activate:
@@ -86,4 +86,3 @@ clean:
 	rm -rf __pycache__
 	rm -rf venv
 	rm -rf bin include build
-
