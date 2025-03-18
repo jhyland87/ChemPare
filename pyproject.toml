@@ -25,13 +25,13 @@ dependencies = [
 
 authors = [
     # Maui3
-    { name = "Justin Hyland", email = "j@linux.com"}
+    { name = "Justin Hyland", email = "j@linux.com" },
     # Spuos
 ]
 
 maintainers = [
     # Maui3
-    { name = "Justin Hyland", email = "j@linux.com"}
+    { name = "Justin Hyland", email = "j@linux.com" },
     # Spuos
 ]
 
@@ -102,10 +102,7 @@ where = [
 minversion = "7.0"
 addopts = "-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc"
 testpaths = ["tests"]
-pythonpath = [
-	"src/chempare",
-	"src/chempare/*"
-]
+pythonpath = ["src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 
 [tool.isort]
