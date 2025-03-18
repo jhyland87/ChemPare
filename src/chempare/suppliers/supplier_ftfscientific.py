@@ -1,6 +1,7 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import Dict, NoReturn
 from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase
+from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_ftfscientific.py

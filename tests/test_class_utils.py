@@ -2,13 +2,15 @@
 # # trunk-ignore-all(isort)
 # import warnings
 
+from typing import Any
+from typing import Literal
+
 # warnings.simplefilter(action="ignore", category=FutureWarning)
-import os
-import sys
 import pytest
-from typing import Literal, Any
-from class_utils import ClassUtils
 from currex import Currency
+
+from chempare import ClassUtils
+
 
 # from assertions import assert_
 # from assertions.operators import Operators

@@ -1,8 +1,9 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import NoReturn
-from bs4 import BeautifulSoup
-from threading import Thread
 import re
+from typing import NoReturn
+from threading import Thread
+from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase
+from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_onyxmet.py

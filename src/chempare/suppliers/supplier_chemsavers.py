@@ -1,6 +1,7 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import List, Tuple, Dict, NoReturn
 from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase
+from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -122,7 +123,7 @@ class SupplierChemsavers(SupplierBase):
             url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
-            supplier=self._supplier["name"]
+            supplier=self._supplier["name"],
         )
 
         # Since the description contains HTML, and it may contain restrictions,
