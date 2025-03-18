@@ -5,7 +5,7 @@
 # pylint: disable=too-many-positional-arguments
 # pylint: disable=broad-exception-caught
 
-from chempare.search_factory import SearchFactory
+from chempare import SearchFactory
 
 
 def test_chemical_name_query():

@@ -80,30 +80,21 @@ chempare_cli = [
 
 [tool.setuptools.packages.find]
 namespaces = true
-where = [
-	".",
-	"src",
-	"scripts",
-	# "chempare",
-	# "chempare/scripts",
-	# "chempare/scripts/*",
-	# "src/scripts",
-	# "src/scripts/*",
-	# "src/chempare",
-	# "src/chempare/*",
-	# "src/chempare/*/*",
-]
+where = [".", "src", "scripts"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-rx -q -rx -n auto --color=yes --code-highlight=yes --cov=chempare"
+addopts = "-rx -q -rx -n auto --color=yes --code-highlight=yes --cov=src/chempare"
 testpaths = ["tests"]
 pythonpath = [
-	".",
-	"chempare",
-	"chempare/suppliers",
-	"chempare/datatypes",
-	"chempare/scripts",
+	"src",
+	"src/chempare",
+	"src/chempare/*",
+	# ".",
+	# "src",
+	# "src/chempare",
+	# "src/chempare/suppliers",
+	# "src/chempare/datatypes",
 ]
 # addopts = "-rfEX -p pytester --strict-markers"
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
