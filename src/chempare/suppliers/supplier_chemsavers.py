@@ -1,7 +1,13 @@
-from typing import List, Tuple, Dict, NoReturn
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Tuple
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -152,8 +158,7 @@ class SupplierChemsavers(SupplierBase):
 
         if desc and desc is not None:
             desc_parts = [
-                d.string.strip() if d.string and d.string else None
-                for d in desc
+                d.string.strip() if d.string and d.string else None for d in desc
             ]
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))

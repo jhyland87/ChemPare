@@ -1,7 +1,12 @@
 import re
-from typing import List, Tuple, Dict, NoReturn
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Tuple
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_synthetika.py

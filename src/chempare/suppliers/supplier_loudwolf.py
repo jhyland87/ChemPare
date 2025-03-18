@@ -1,8 +1,12 @@
-from typing import Dict, NoReturn
 from threading import Thread
+from typing import Dict
+from typing import NoReturn
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_loudwolf.py
@@ -38,9 +42,7 @@ class SupplierLoudwolf(SupplierBase):
 
         self.__product_pages = dict()
 
-        def __query_search_page(
-            query: str, limit: int = 100, page_idx: int = 1
-        ):
+        def __query_search_page(query: str, limit: int = 100, page_idx: int = 1):
             """Handles the pagination on the search page"""
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter

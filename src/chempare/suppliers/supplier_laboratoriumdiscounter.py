@@ -1,6 +1,8 @@
 from typing import NoReturn
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py

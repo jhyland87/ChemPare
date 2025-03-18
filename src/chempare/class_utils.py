@@ -1,22 +1,26 @@
-from typing import List, Dict, Any, Optional, Union
-from abcplus import ABCMeta, finalmethod
-from urllib.parse import urlparse, parse_qs
-from currex import Currency, CURRENCIES
-from price_parser import Price
-import os
-import sys
-import time
-import math
-import re
-import regex
-import random
-import string
+"""Utility class meant to provide functionality to any inheriting classes"""
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+import math
+# import os
+# import sys
+import random
+import re
+import string
+import time
+from typing import Any, Dict, List, Optional, Union
+from urllib.parse import parse_qs, urlparse
+import regex
+from abcplus import ABCMeta, finalmethod
+from currex import CURRENCIES, Currency
+from price_parser import Price
+
+
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 
 class ClassUtils(metaclass=ABCMeta):
+    """Utility class meant to provide functionality to any inheriting classes"""
 
     @property
     @finalmethod

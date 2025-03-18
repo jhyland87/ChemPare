@@ -1,17 +1,16 @@
 [paths]
 source =
-    .
+    src/chempare
+    src/chempare/datatypes
+    src/chempare/suppliers
 
 [run]
 branch = true
 parallel = true
 source =
     tests
-omit =
-    main.py
-    main2.py
-    setup.py
     tests/*
+omit = */__init__.py
 
 [report]
 show_missing = true

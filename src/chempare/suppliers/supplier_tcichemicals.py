@@ -1,8 +1,11 @@
 import re
 from typing import NoReturn
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_tcichemicals.py

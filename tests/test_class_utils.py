@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
 # # trunk-ignore-all(isort)
 # import warnings
-
 from typing import Any
 from typing import Literal
 
 # warnings.simplefilter(action="ignore", category=FutureWarning)
 import pytest
-from currex import Currency
 
 from chempare import ClassUtils
 
@@ -89,11 +86,7 @@ class TestClass(ClassUtils, object):
             "error",
         ],
     )
-    def test_to_usd(
-        self,
-        amount: int | float | str,
-        expected_instance: Any,
-    ):
+    def test_to_usd(self, amount: int | float | str, expected_instance: Any):
         result = self._to_usd(amount=amount)
 
         assert isinstance(result, expected_instance) is True
@@ -232,9 +225,7 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("array", "expected_result"),
-        [
-            ([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"}),
-        ],
+        [([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"})],
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
@@ -392,12 +383,7 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("length", "include_special"),
-        [
-            (None, None),
-            (5, None),
-            (100, None),
-            (10, True),
-        ],
+        [(None, None), (5, None), (100, None), (10, True)],
         ids=[
             "_random_string: None -> return unique 10 character alphanumeric string",
             "_random_string: 5 -> return unique 5 character alphanumeric string",
@@ -460,7 +446,7 @@ class TestClass(ClassUtils, object):
                     "BOUND OXYGEN",
                 ],
                 {("atomic",): 2, ("oxygen",): 4},
-            ),
+            )
         ],
         ids=["Parse array of phrases"],
     )

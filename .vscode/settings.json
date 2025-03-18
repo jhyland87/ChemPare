@@ -4,6 +4,7 @@
         120
     ],
     "editor.renderWhitespace": "trailing",
+    "editor.trimAutoWhitespace": true,
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
@@ -28,21 +29,21 @@
     "markdown.validate.enabled": true,
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
-        "editor.wordWrapColumn": 80,
+        "editor.wordWrapColumn": 120,
         "editor.wordWrap": "wordWrapColumn",
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        //"editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.formatOnSave": false
     },
     "[yaml]": {
         "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 80,
-        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.wordWrapColumn": 120,
+        // "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.formatOnSave": false
     },
     "[toml]": {
         "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 80,
-        "editor.defaultFormatter": "tamasfe.even-better-toml",
+        "editor.wordWrapColumn": 120,
+        // "editor.defaultFormatter": "tamasfe.even-better-toml",
         "editor.formatOnSave": true
     },
     "better-comments.tags": [
@@ -80,11 +81,12 @@
     ],
     "errorLens.enabled": false,
     "[python]": {
-        "editor.formatOnSave": false,
-        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.wordWrapColumn": 120,
+        "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnType": false,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": "never"
+            "source.organizeImports": "always"
         }
     },
     "python.languageServer": "Pylance",
@@ -113,11 +115,29 @@
     "notebook.diff.ignoreOutputs": true,
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.autoComplete.extraPaths": [
-        "./src/chempare"
+        "./src/chempare",
+        "./src/chempare/suppliers",
+        "./src/chempare/datatypes",
     ],
     "python.testing.pytestArgs": [
+        //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
+        // -ra --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests
+        //"-vvv",
+        "-ra",
+        "--numprocesses=auto",
+        "--color=yes",
+        "--code-highlight=yes",
+        //"--capture=tee-sys",
+        "--doctest-modules",
+        "--cov=src/chempare",
+        "--cov-config=.coveragerc",
+        //"--pycodestyle",
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "editor.formatOnSave": true,
+    "python.testing.pytestEnabled": true,
+    "editor.wordWrapColumn": 120,
+    "editor.wordWrap": "off",
+    "python.defaultInterpreterPath": "python",
 }

@@ -1,45 +1,25 @@
-import os
-import logging
-from typing import List, Dict, Any, Union, NoReturn, Self
-from curl_cffi import requests
-from abcplus import ABCMeta, abstractmethod, finalmethod
-from chempare import ClassUtils
+"""SupplierBase module to be inherited by any supplier modules"""
 
-# Todo: this should be automatic
-# from chempare.suppliers.supplier_base import SupplierBase
+import logging
+import os
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Self
+from typing import Union
+
+from abcplus import ABCMeta
+from abcplus import abstractmethod
+from abcplus import finalmethod
+from curl_cffi import requests
+
+from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
 
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-# # Todo: this should be automatic
-# from datatypes.product import TypeProduct
-# from datatypes.supplier import TypeSupplier
-
-
-# File: /suppliers/supplier_base.py
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
-
-    # _supplier: TypeSupplier = None
-    """Supplier specific data"""
-
-    # _products: List[TypeProduct] = []
-    """List of TypeProduct elements"""
-
-    # _limit: int = None
-    """Max products to query/return"""
-
-    # _cookies: Dict = {}
-    """Cookies to use for supplier"""
-
-    # _index: int = 0
-    """Index value used for __iter__ dunder method (for loop iteration)"""
-
-    # _query_results: Any = None
-    """Location of cached query result (what other methods pull data from)"""
-
-    # _defaults: Dict = None
-    """Default values for products from this supplier"""
+    """SupplierBase module to be inherited by any supplier modules"""
 
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name

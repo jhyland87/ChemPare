@@ -95,17 +95,33 @@ where = [
 ]
 
 [tool.pytest.ini_options]
+# minversion = "7.0"
+# addopts = "-ra -q -n auto --color=yes --code-highlight=yes --cov=chempare"
+# testpaths = ["tests"]
+# pythonpath = [".", "src", "src/chempare", "src/chempare/suppliers"]
+# python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
+# xfail_strict = true
+# filterwarnings = []
+# markers = ["supplier", "webtest", "first", "second"]
 minversion = "7.0"
-addopts = "-rx -q -rx -n auto --color=yes --code-highlight=yes --cov=src/chempare"
+#addopts = "-q -ra -n auto --color=yes --code-highlight=yes --cov=src/chempare"
+addopts = "-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc"
 testpaths = ["tests"]
-pythonpath = ["src", "src/chempare", "src/chempare/*"]
+pythonpath = [
+	#"src",
+	"src/chempare",
+	"src/chempare/*",
+	# ".",
+	# "src",
+	# "src/chempare",
+	# "src/chempare/suppliers",
+	# "src/chempare/datatypes",
+]
+# addopts = "-rfEX -p pytester --strict-markers"
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
-xfail_strict = true
-filterwarnings = []
-markers = ["supplier", "webtest", "first", "second"]
 
 [tool.isort]
-py_version = 310
+py_version = 313
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 default_section = "THIRDPARTY"
 known_third_party = []
@@ -124,7 +140,7 @@ skip_glob = ["docs/*", "setup.py"]
 filter_files = true
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py313"
 line-length = 120
 indent-width = 4
 extend-exclude = ["docs", "test", "tests"]
@@ -181,7 +197,7 @@ preview = false
 docstring-code-format = true
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.13"
 ignore_missing_imports = true
 follow_imports = "silent"
 no_implicit_optional = false

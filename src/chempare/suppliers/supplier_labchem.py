@@ -1,7 +1,13 @@
-from typing import Tuple, Optional, NoReturn, Dict
+from typing import Dict
+from typing import NoReturn
+from typing import Optional
+from typing import Tuple
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_labchem.py
@@ -66,9 +72,7 @@ class SupplierLabchem(SupplierBase):
             "_": 1739962847766,
         }
 
-        search_result = self.http_get_json(
-            "AutoComplete.slt", params=get_params
-        )
+        search_result = self.http_get_json("AutoComplete.slt", params=get_params)
 
         if not search_result:
             return

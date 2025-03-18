@@ -1,8 +1,11 @@
 from threading import Thread
 from typing import NoReturn
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.datatypes import TypeProduct, TypeSupplier
 
 
 # File: /suppliers/supplier_warchem.py
@@ -69,9 +72,7 @@ class SupplierWarchem(SupplierBase):
         if not product_container:
             return
 
-        product_elements = product_container.find_all(
-            "div", class_="LiniaDolna"
-        )
+        product_elements = product_container.find_all("div", class_="LiniaDolna")
 
         if not product_elements:
             return
