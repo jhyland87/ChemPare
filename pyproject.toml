@@ -23,13 +23,17 @@ dependencies = [
     "regex",
 ]
 
-[[project.authors]]
-name = "Justin Hyland"
-email = "j@linux.com"
+authors = [
+    # Maui3
+    { name = "Justin Hyland", email = "j@linux.com"}
+    # Spuos
+]
 
-[[project.maintainers]]
-name = "Justin Hyland"
-email = "j@linux.com"
+maintainers = [
+    # Maui3
+    { name = "Justin Hyland", email = "j@linux.com"}
+    # Spuos
+]
 
 [project.readme]
 file = "README.txt"
@@ -95,29 +99,13 @@ where = [
 ]
 
 [tool.pytest.ini_options]
-# minversion = "7.0"
-# addopts = "-ra -q -n auto --color=yes --code-highlight=yes --cov=chempare"
-# testpaths = ["tests"]
-# pythonpath = [".", "src", "src/chempare", "src/chempare/suppliers"]
-# python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
-# xfail_strict = true
-# filterwarnings = []
-# markers = ["supplier", "webtest", "first", "second"]
 minversion = "7.0"
-#addopts = "-q -ra -n auto --color=yes --code-highlight=yes --cov=src/chempare"
 addopts = "-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc"
 testpaths = ["tests"]
 pythonpath = [
-	#"src",
 	"src/chempare",
-	"src/chempare/*",
-	# ".",
-	# "src",
-	# "src/chempare",
-	# "src/chempare/suppliers",
-	# "src/chempare/datatypes",
+	"src/chempare/*"
 ]
-# addopts = "-rfEX -p pytester --strict-markers"
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 
 [tool.isort]
