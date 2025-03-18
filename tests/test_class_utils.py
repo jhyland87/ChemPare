@@ -119,7 +119,7 @@ class TestClass(ClassUtils, object):
     def test_parse_quantity(self, value, quantity, uom):
         result = self._parse_quantity(value)
 
-        if type(result) is not dict:
+        if isinstance(result, dict) is False:
             pytest.fail(f"_parse_quantity({value}) returned non-dict type")
             return
 
@@ -162,7 +162,7 @@ class TestClass(ClassUtils, object):
                 f"type of result ({type(result)}) does not match expected result type ({type(expected_result)})"
             )
         elif result != expected_result:
-            pytest.fail(f"result is not identical to expected reslt")
+            pytest.fail("result is not identical to expected reslt")
 
     @pytest.mark.parametrize(
         ("array", "expected_result"),

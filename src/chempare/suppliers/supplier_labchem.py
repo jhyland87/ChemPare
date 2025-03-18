@@ -169,7 +169,7 @@ class SupplierLabchem(SupplierBase):
         if part_numbers is None or len(part_numbers) == 0:
             return None
 
-        if type(part_numbers) is list:
+        if isinstance(part_numbers, list):
             part_numbers = ",".join(part_numbers)
 
         params = {"productIdList": part_numbers}

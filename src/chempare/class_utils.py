@@ -42,12 +42,12 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _parse_price(
-        self, string: str, symbol_to_code: bool = True
+        self, value: str, symbol_to_code: bool = True
     ) -> Optional[Dict]:
         """Parse a string for a price value (currency and value)
 
         Args:
-            string (str): String with price
+            value (str): String with price
             symbol_to_code (bool): Attempt to convert the currency symbols to
                                    country codes if this is set to True
                                    (defaults to True)
@@ -128,7 +128,7 @@ class ClassUtils(metaclass=ABCMeta):
             r")"
         )
 
-        matches = regex.match(iso_4217_pattern, string, regex.IGNORECASE)
+        matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
         if not matches:
             return None
 
@@ -275,11 +275,11 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, string: str) -> Optional[Dict]:
+    def _parse_quantity(self, value: str) -> Optional[Dict]:
         """Parse a string for the quantity and unit of measurement
 
         Args:
-            string (str): Suspected quantity string
+            value (str): Suspected quantity string
 
         Returns:
             Optional[Dict]: Returns a dictionary with the 'quantity' and
@@ -322,12 +322,12 @@ class ClassUtils(metaclass=ABCMeta):
             ("qt", "quart", "quarts"): "qt",
         }
 
-        if type(string) is not str:
+        if isinstance(value, str) is False:
             return None
 
-        string = string.strip()
+        value = value.strip()
 
-        if not string or string.isspace():
+        if not value or value.isspace():
             return None
 
         # https://regex101.com/r/lDLuVX/4
@@ -338,7 +338,7 @@ class ClassUtils(metaclass=ABCMeta):
             r"|kg|g|lbs?|pounds?|l|qt|m?[glm])"
         )
 
-        matches = regex.search(pattern, string, regex.IGNORECASE)
+        matches = regex.search(pattern, value, regex.IGNORECASE)
 
         if not matches:
             return None
@@ -487,7 +487,7 @@ class ClassUtils(metaclass=ABCMeta):
             "USD"
         """
 
-        if type(symbol) is not str:
+        if isinstance(symbol, str) is False:
             return None
 
         symbol = symbol.strip()
@@ -568,7 +568,7 @@ class ClassUtils(metaclass=ABCMeta):
     @finalmethod
     def _currency_symbol_from_code(self, code: str) -> Optional[str]:
 
-        if type(code) is not str:
+        if isinstance(code, str) is False:
             return None
 
         code = code.strip().upper()
@@ -702,7 +702,7 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         # If it's not a string, then its probably a valid type..
-        if type(value) is not str:
+        if isinstance(value, str) is False:
             return value
 
         # Most castable values just need to be trimmed to be compatible
@@ -751,7 +751,7 @@ class ClassUtils(metaclass=ABCMeta):
         Returns:
             str: Random string, {length} chars long
         """
-        if type(length) is not int:
+        if isinstance(length, int) is False:
             length = 10
 
         # ascii_letters = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -812,7 +812,7 @@ class ClassUtils(metaclass=ABCMeta):
             bool: True if its a valid format and the checksum matches
         """
 
-        if type(value) is not str:
+        if isinstance(value, str) is False:
             return False
 
         # value='1234-56-6'
