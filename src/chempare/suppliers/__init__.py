@@ -12,7 +12,7 @@ __ignorable_files = [
     "__init__.py",
     # Trying out using a __disabled__ property check instead of using this
     # array.
-    "supplier_base.py",
+    #"supplier_base.py",
     # 'supplier_warchem.py'
 ]
 
@@ -48,7 +48,7 @@ for supplier_file in suppliers_dir_files:
         setattr(sys.modules[__name__], cls.__name__, cls)
         if (
             cls.__name__.startswith("Supplier")
-            and cls.__name__ != "SupplierBase"
+          #  and cls.__name__ != "SupplierBase"
         ):
             _logger.debug("Including supplier module %s", cls.__name__)
             __all__.append(cls.__name__)

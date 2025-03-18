@@ -4,9 +4,9 @@ from typing import List, NoReturn, Optional
 from abcplus import finalmethod
 from curl_cffi import requests
 
-from chempare import suppliers
-from chempare.class_utils import ClassUtils
-from chempare.datatypes.product import TypeProduct
+#from chempare import suppliers
+from chempare import ClassUtils, suppliers
+from chempare.datatypes import TypeProduct
 
 class SearchFactory(ClassUtils, object):
     suppliers: List = suppliers.__all__

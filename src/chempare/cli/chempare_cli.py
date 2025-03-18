@@ -1,11 +1,20 @@
 import math
 import sys
 import os
+import signal
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
-from chempare.search_factory import SearchFactory
+from chempare import SearchFactory
 
+
+# def signal_handler(sig, frame):
+#     print('You pressed Ctrl+C!')
+#     sys.exit(0)
+
+# signal.signal(signal.SIGINT, signal_handler)
+# print('Press Ctrl+C')
+# signal.pause()
 
 def get_terminal_width():
     """

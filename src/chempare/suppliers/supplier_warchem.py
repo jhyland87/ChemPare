@@ -2,7 +2,8 @@
 from threading import Thread
 from typing import NoReturn
 from bs4 import BeautifulSoup
-from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from chempare.datatypes import TypeProduct, TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_warchem.py

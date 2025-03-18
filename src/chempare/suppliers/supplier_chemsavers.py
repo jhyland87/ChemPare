@@ -1,7 +1,8 @@
 """Chemsavers module"""
 from typing import Dict, List, NoReturn, Tuple
 from bs4 import BeautifulSoup
-from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from chempare.datatypes import TypeProduct, TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_chemsavers.py

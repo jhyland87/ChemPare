@@ -1,6 +1,6 @@
 from rich.console import Console
 from rich.panel import Panel
-from chempare.search_factory import SearchFactory
+from chempare import SearchFactory
 import sys
 
 def main():

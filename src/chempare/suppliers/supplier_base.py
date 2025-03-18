@@ -2,11 +2,12 @@
 from typing import List, Dict, Any, Union, NoReturn, Self
 from curl_cffi import requests
 from abcplus import ABCMeta, abstractmethod, finalmethod
-from chempare.class_utils import ClassUtils
+from chempare import ClassUtils
 
 # Todo: this should be automatic
-from chempare.datatypes.product import TypeProduct
-from chempare.datatypes.supplier import TypeSupplier
+# from chempare.datatypes.product import TypeProduct
+# from chempare.datatypes.supplier import TypeSupplier
+from chempare.datatypes import TypeProduct, TypeSupplier
 
 # File: /suppliers/supplier_base.py
 class SupplierBase(ClassUtils, metaclass=ABCMeta):

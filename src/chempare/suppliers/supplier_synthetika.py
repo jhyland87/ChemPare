@@ -1,7 +1,8 @@
 """Synthetika supplier module"""
 import re
 from typing import Dict, List, NoReturn, Tuple
-from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from chempare.datatypes import TypeProduct, TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_synthetika.py

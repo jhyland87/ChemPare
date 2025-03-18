@@ -1,6 +1,7 @@
 """3S Chem Module"""
 from typing import NoReturn
-from chempare.suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
+from chempare.datatypes import TypeProduct, TypeSupplier
+from chempare.suppliers import SupplierBase
 
 
 # File: /suppliers/supplier_3schem.py
