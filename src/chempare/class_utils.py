@@ -207,7 +207,7 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         try:
-            if from_currency is None and type(amount) is str:
+            if from_currency is None and isinstance(amount, str) is True:
                 parsed_price = self._parse_price(amount)
                 if not parsed_price:
                     raise Exception(
@@ -217,7 +217,7 @@ class ClassUtils(metaclass=ABCMeta):
                 from_currency = parsed_price["currency_code"]
                 amount = parsed_price["price"]
 
-            if not from_currency or type(from_currency) is not str:
+            if not from_currency or isinstance(from_currency, str) is False:
                 raise TypeError("from_currency not provided or not string")
 
             from_currency = from_currency.upper()
@@ -229,7 +229,7 @@ class ClassUtils(metaclass=ABCMeta):
             if not amount:
                 raise TypeError("No amount provided or found")
 
-            # if type(amount) is not int and type(amount) is not float:
+            # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
             #      raise TypeError("amount needs to be float or int")
 
             from_currency_obj = Currency(from_currency, amount)
@@ -253,7 +253,7 @@ class ClassUtils(metaclass=ABCMeta):
     #             from_currency = parsed_price["currency_code"]
     #             amount = parsed_price["price"]
 
-    #         if not from_currency or type(from_currency) is not str:
+    #         if not from_currency or isinstance(from_currency, str) is False
     #             raise TypeError("from_currency not provided or not string")
 
     #         from_currency = from_currency.upper()
@@ -265,7 +265,7 @@ class ClassUtils(metaclass=ABCMeta):
     #         if not amount:
     #             raise TypeError("No amount provided or found")
 
-    #         # if type(amount) is not int and type(amount) is not float:
+    #         # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
     #         #      raise TypeError("amount needs to be float or int")
 
     #         from_currency_obj = Currency(from_currency, amount)

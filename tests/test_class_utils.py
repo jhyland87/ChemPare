@@ -41,7 +41,7 @@ class TestClass(ClassUtils, object):
             return
 
         assert isinstance(result, return_type)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert "currency" in result
         assert "price" in result
         assert "currency_code" in result
@@ -179,7 +179,7 @@ class TestClass(ClassUtils, object):
 
         if type(result) is not type(expected_result):
             pytest.fail(
-                f'expected type "{type(expected_result)}" for result, but got "{type(result)}'
+                f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'"
             )
 
         assert result == expected_result
@@ -218,12 +218,12 @@ class TestClass(ClassUtils, object):
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert result == expected_result
 
     def test_epoch(self):
         result = self._epoch
-        assert type(result) is int
+        assert isinstance(result, int) is True
 
     @pytest.mark.parametrize(
         ("char", "is_currency"),
@@ -248,7 +248,7 @@ class TestClass(ClassUtils, object):
     )
     def test_is_currency_symbol(self, char, is_currency):
         result = self._is_currency_symbol(char)
-        assert type(result) is bool
+        assert isinstance(result, bool) is True
         assert result is is_currency
 
     @pytest.mark.parametrize(
@@ -270,7 +270,7 @@ class TestClass(ClassUtils, object):
     )
     def test_is_cas(self, cas, valid_cas):
         result = self._is_cas(cas)
-        assert type(result) is bool
+        assert isinstance(result, bool) is True
         assert result is valid_cas
 
     @pytest.mark.parametrize(
@@ -367,7 +367,7 @@ class TestClass(ClassUtils, object):
     )
     def test_cast_type(self, value, casted_value, value_type):
         result = self._cast_type(value)
-        assert type(result) is value_type
+        assert isinstance(result, value_type) is True
         assert result == casted_value
 
     @pytest.mark.parametrize(
@@ -384,8 +384,8 @@ class TestClass(ClassUtils, object):
         result_a = self._random_string(length, include_special)
         result_b = self._random_string(length, include_special)
 
-        assert type(result_a) is str
-        assert type(result_b) is str
+        assert isinstance(result_a, str) is True
+        assert isinstance(result_b, str) is True
 
         assert len(result_a) == length or 10
         assert len(result_b) == length or 10
@@ -441,7 +441,7 @@ class TestClass(ClassUtils, object):
     )
     def test_get_common_phrases(self, phrases, expected_result):
         result = self._get_common_phrases(phrases)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert result == expected_result
 
     @pytest.mark.parametrize(
