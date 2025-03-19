@@ -1,35 +1,25 @@
 """query supplier"""
 
-import sys
-import signal
+# pylint: disable=unused-import
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=missing-function-docstring
+# pylint: disable=unused-argument
+
+
 import os
+import signal
+import sys
+
 import inquirer
 
 # from curl_cffi.requests.exceptions import ConnectionError
-from chempare import SearchFactory
-
-
-# Testing single supplier
-# from chempare.suppliers import SupplierLaballey, SupplierLabchem, SupplierLabchem, SupplierChemsavers, SupplierOnyxmet
-# from chempare.suppliers.supplier_laballey import SupplierLaballey
-# from chempare.suppliers.supplier_labchem import SupplierLabchem
-# from chempare.suppliers.supplier_chemsavers import SupplierChemsavers
-# from chempare.suppliers.supplier_onyxmet import SupplierOnyxmet
-# from chempare.suppliers.supplier_esdrei import SupplierEsDrei
-
-# from chempare.suppliers.supplier_synthetika import SupplierSynthetika
-# from chempare.suppliers.supplier_tcichemicals import SupplierTciChemicals
-# from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
-# from chempare.suppliers.supplier_loudwolf import SupplierLoudwolf
-# from chempare.suppliers.supplier_warchem import SupplierWarchem
-# from chempare.suppliers.supplier_laboratoriumdiscounter import (
-#     SupplierLaboratoriumDiscounter,
-# )
-# from chempare.suppliers.supplier_3schem import Supplier3SChem
-from chempare.suppliers import *
+from chempare import SearchFactory  # noqa: F401
+from chempare.suppliers import *  # noqa: F401,F403
 
 
 def signal_handler(sig, frame):
+    print(f"Trapped signal {sig}")
     print("\033[?1049l")
     os.system(f"kill -3 {os.getpid()}")
     raise SystemExit
@@ -38,24 +28,24 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-def main(supplier_module="SearchFactory", query="water"):
-    print(f"Searching supplier {supplier_module} for {query}...")
+def main(supplier="SearchFactory", query="water"):
+    print(f"Searching supplier {supplier} for {query}...")
 
-    product_search = globals()[supplier_module](query)
+    product_search = globals()[supplier](query)
 
     print(f"Found {len(product_search)} products for {query}\n")
 
     for product in product_search:
         for key, value in product.items():
             if value is not None:
-                print("{:>15}: {}".format(key, value))
+                print(f"{key:>15}: {value}")
         print("---------")
         print("")
 
 
 questions = [
     inquirer.List(
-        "supplier_module",
+        "supplier",
         message="Supplier module",
         choices=[
             "SearchFactory",
