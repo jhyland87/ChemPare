@@ -1,10 +1,10 @@
 import math
-import sys
 import os
-import signal
+import sys
+
 from rich.console import Console
-from rich.columns import Columns
 from rich.panel import Panel
+
 from chempare import SearchFactory
 
 
@@ -36,7 +36,7 @@ def main():
         print("Enter Chemical Name:")
         chem = input("> ")
 
-    col_widths = math.floor(get_terminal_width() / 2 - 2)
+    term_width = get_terminal_width() - 2
     console = Console()
 
     # cas_number = get_cas(chem)
@@ -51,7 +51,6 @@ def main():
     supplier_list = {}
 
     # Loop over the products and create the panel for each.
-    col_a = None
     for product in product_search:
 
         if product.supplier in supplier_list:
@@ -65,7 +64,7 @@ def main():
         name = product.name
         price = product.price
         currency = product.currency
-        currency_code = product.currency_code or "XX"
+        # currency_code = product.currency_code or "XX"
         # if hasattr(product, 'USD')
         cas = product.cas or "N/A"
         # trunk-ignore(git-diff-check/error)
@@ -73,48 +72,33 @@ def main():
             quantity = "N/A"
         else:
             quantity = f"{product.quantity}{product.uom}"
-        # quantity = product['quantity']
-        url = product.url
+
         supplier = product.supplier
         # Create the panel to print
 
-        if not col_a:
-            col_a = Panel(
-                (
-                    f"[yellow][b]{name}[/b][/yellow]\nCAS: {cas}\n"
-                    f"Price: {currency}{price} ({currency_code})\n"
-                    f"Quantity: {quantity if quantity else 'N/A'}\n"
-                    f"Supplier: {supplier}\nURL: {url if url else 'N/A'}"
-                ),
-                expand=True,
-                width=col_widths,
-                height=8,
-                padding=(0, 0),
-            )
-        else:
-            col_b = Panel(
-                (
-                    f"[yellow][b]{name}[/b][/yellow]\n"
-                    f"CAS: {cas}\nPrice: {currency}{price} ({currency_code})\n"
-                    f"Quantity: {quantity if quantity else 'N/A'}\n"
-                    f"Supplier: {supplier}\nURL: {url if url else 'N/A'}"
-                ),
-                expand=True,
-                border_style="none",
-                width=col_widths,
-                height=8,
-                padding=(0, 0),
-            )
-            panel = Panel.fit(
-                Columns([col_a, col_b]),
-                # title="My Panel",
-                # border_style="Yellow",
-                border_style="black",
-                title_align="left",
-                padding=(0, 0),
-            )
-            col_a = None
-            console.print(panel)
+        us_equiv = ""
+
+        # If the price has a USD conversion, then show that in parenthesis
+        if hasattr(product, 'usd'):
+            us_equiv = f" (${product.usd} USD)"
+
+        result_row = Panel(
+            (
+                f"[yellow][b]{name}[/b][/yellow]\n"
+                f"CAS: {cas}\n"
+                f"Price: {currency}{price}{us_equiv}\n"
+                f"Quantity: {quantity if quantity else "N/A"}\n"
+                f"Supplier: {supplier}\n"
+                f"URL: {product.url or "N/A"}"
+            ),
+            expand=True,
+            width=term_width,
+            height=8,
+            padding=(0, 0),
+        )
+
+        console.print(result_row)
+
     sys.exit()
 
 

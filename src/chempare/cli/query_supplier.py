@@ -73,7 +73,7 @@ def init():
 
     # try:
     if len(sys.argv) >= 3:
-        query_params = {"supplier_module": sys.argv[1], "query": sys.argv[2]}
+        query_params = {"supplier": sys.argv[1], "query": sys.argv[2]}
     else:
         query_params = inquirer.prompt(questions)
 

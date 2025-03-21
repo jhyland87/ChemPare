@@ -2,6 +2,7 @@
 
 import os
 from typing import NoReturn
+from typing import Optional
 
 
 #
@@ -69,3 +70,27 @@ def enable_line_drawing() -> NoReturn:
 
 def disable_line_drawing() -> NoReturn:
     print("\033(B")
+
+
+def hyperlink(href: str, label=Optional[str]) -> str:
+    """
+    hyperlink Create hyperlink in terminal
+
+    Args:
+        href (str): HTTP(s) address for link
+        label (str, optional): Label for link
+
+    Returns:
+        str: Terminal escaped hyperlink (can be printed)
+    """
+
+    if label is None:
+        label = href
+    parameters = ''
+
+    # OSC 8 ; params ; URI ST <name> OSC 8 ;; ST
+
+    # print(f'\033]8;{parameters};{uri}\033\\{label}\033]8;;\033\\')
+    escape_mask = "\033]8;{};{}\033\\{}\033]8;;\033\\"
+
+    return escape_mask.format(parameters, href, label)

@@ -147,7 +147,7 @@ class ClassUtils(metaclass=ABCMeta):
                 from_currency=country_code, amount=float(price.amount)
             )
             if usd_price:
-                result["USD"] = usd_price
+                result["usd"] = usd_price
 
         return result
 

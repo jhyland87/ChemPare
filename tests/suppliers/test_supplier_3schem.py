@@ -1,4 +1,5 @@
 import pytest
+from base_test import SupplierBaseTest
 
 from chempare.datatypes import TypeProduct
 from chempare.suppliers import Supplier3SChem as Supplier

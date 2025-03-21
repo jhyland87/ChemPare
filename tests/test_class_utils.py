@@ -47,7 +47,7 @@ class TestClass(ClassUtils, object):
         assert "currency_code" in result
         # If the currency code is not USD, then there should be a USD
         # entry in the dictionary
-        assert (currency_code is not "USD") is ("USD" in result)
+        assert (currency_code != "USD") is ("usd" in result)
         assert result["currency"] == currency
         assert result["price"] == price
         assert result["currency_code"] == currency_code

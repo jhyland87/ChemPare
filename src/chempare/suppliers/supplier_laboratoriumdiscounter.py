@@ -67,6 +67,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # TypeProduct object.
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product["variant"])
+            # price = self._parse_price(product["price"])
 
             product_obj = TypeProduct(
                 uuid=str(product["id"]).strip(),

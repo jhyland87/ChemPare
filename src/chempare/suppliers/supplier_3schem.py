@@ -57,16 +57,20 @@ class Supplier3SChem(SupplierBase):
             if product["available"] is False:
                 continue
 
-            self._products.append(
-                TypeProduct(
-                    uuid=product["id"],
-                    name=product["title"],
-                    title=product["title"],
-                    price=product["price"],
-                    url=self._supplier["base_url"] + product["url"],
-                    supplier=self._supplier["name"],
-                )
+            product_obj = TypeProduct(
+                uuid=product["id"],
+                name=product["title"],
+                title=product["title"],
+                # price=product["price"],
+                url=self._supplier["base_url"] + product["url"],
+                supplier=self._supplier["name"],
             )
+
+            price = self._parse_price(product["price"])
+
+            product_obj.update(price)
+
+            self._products.append(product_obj)
 
 
 if __package__ == "suppliers":
