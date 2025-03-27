@@ -28,9 +28,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
-    def __init__(self, query: str, limit: int = None) -> NoReturn:
+    def __init__(
+        self, query: str, limit: int = None, exact: bool = False
+    ) -> NoReturn:
         self.__init_logging()
 
+        self._exact_match = exact
         self._limit = limit or 20
 
         self._products = []
@@ -49,6 +52,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
+
+        self._filter_exact()
 
     def __init_logging(self) -> NoReturn:
         """Create the logger specific to this class instance (child)
@@ -139,6 +144,21 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return self
 
+    def _filter_exact(self) -> NoReturn:
+        """Filter products for exact query match"""
+        if (
+            not self._products
+            or self._exact_match is False
+            or self._is_cas(self._query)
+        ):
+            return
+
+        self._products = [
+            product
+            for product in self._products
+            if self._contains_exact_match(product.name, self._query)
+        ]
+
     def __next__(self) -> TypeProduct:
         """next magic method
 
@@ -156,8 +176,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index += 1
 
         return value
-
-    """ FINAL methods/properties """
 
     @property
     @finalmethod
@@ -340,10 +358,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         headers and stores some cookies
         """
 
-        pass
-
-    """ ABSTRACT methods/properties """
-
     @abstractmethod
     def _query_products(self, query: str) -> NoReturn:
         """Query the website for the products (name or CAS).
@@ -354,8 +368,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         This should define the self._query_results property with the results
         """
 
-        pass
-
     @abstractmethod
     def _parse_products(self) -> NoReturn:
         """Method to set the local properties for the queried product.
@@ -364,8 +376,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         is iterated over by this method, which in turn parses each property and
         creates a new TypeProduct object that gets saved to this._products
         """
-
-        pass
 
 
 if __package__ == "suppliers":

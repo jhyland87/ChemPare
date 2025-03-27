@@ -92,7 +92,7 @@ def main():
                 f"URL: {product.url or "N/A"}"
             ),
             expand=True,
-            width=term_width,
+            # width=term_width,
             height=8,
             padding=(0, 0),
         )

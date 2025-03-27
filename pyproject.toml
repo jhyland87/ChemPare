@@ -53,8 +53,10 @@ test = [
     "pytest-instafail",
     "pytest-timeout",
     "pytest-pycodestyle",
+    #"pytest-codestyle",
     "pytest-env",
     "pycodestyle==2.4.0",
+    "flake8-pyproject"
 ]
 dev = ["pycodestyle==2.4.0"]
 
@@ -213,3 +215,23 @@ show_error_context = false
 show_column_numbers = false
 show_error_codes = true
 exclude = ["docs", "test", "tests"]
+
+[tool.flake8]
+# Check that this is aligned with your other tools like Black
+max-line-length = 90
+max-doc-length = 150
+exclude = [
+    # No need to traverse our git directory
+    ".git",
+    # There's no value in checking cache directories
+    "__pycache__"
+]
+# Use extend-ignore to add to already ignored checks which are anti-patterns like W503.
+extend-ignore = [
+    # PEP 8 recommends to treat : in slices as a binary operator with the lowest priority, and to leave an equal
+    # amount of space on either side, except if a parameter is omitted (e.g. ham[1 + 1 :]).
+    # This behaviour may raise E203 whitespace before ':' warnings in style guide enforcement tools like Flake8.
+    # Since E203 is not PEP 8 compliant, we tell Flake8 to ignore this warning.
+    # https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#slices
+    "E203"
+]

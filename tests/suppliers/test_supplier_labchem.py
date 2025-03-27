@@ -24,6 +24,7 @@ class TestClass:
 # Test cases for a valid search for this supplier
 class TestValidSearch(TestClass):
     _results = None
+    _query = "water"
 
     @pytest.mark.first
     def test_query(self, results):

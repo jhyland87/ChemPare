@@ -45,9 +45,11 @@ class SupplierLabchem(SupplierBase):
         #   formula = 12
         # searchPage.action?keyWord=mercury&srchTyp=4&overRideCatId=N
 
-        get_params = dict(keyWord=query, overRideCatId="N", resultPage=60)
+        self._query = query
 
-        if self._is_cas(query) is True:
+        get_params = dict(keyWord=self._query, overRideCatId="N", resultPage=60)
+
+        if self._is_cas(self._query) is True:
             get_params["srchTyp"] = 11
         else:
             get_params["srchTyp"] = -1
@@ -109,10 +111,20 @@ class SupplierLabchem(SupplierBase):
 
         for product_elem in product_containers[: self._limit]:
             product_obj = self.__parse_product(product_elem)
+            if not product_obj:
+                continue
             product_obj.price = product_prices.get(product_obj.mpn)
             self._products.append(product_obj)
 
     def __parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
+        title_elem = product_elem.find("h4").find("a").get_text(strip=True)
+
+        # if (
+        #     self._exact_match is True
+        #     and self._contains_exact_match(title_elem, self._query) is False
+        # ):
+        #     return
+
         inputs = product_elem.find_all("input")
         link = (
             product_elem.find("div", class_="prodImage").find("a").attrs["href"]
@@ -127,17 +139,18 @@ class SupplierLabchem(SupplierBase):
         part_number = next(
             x.attrs["value"]
             for x in inputs
-            if x.attrs["id"] == f"partNumber_{compare_id}"
+            if "id" in x.attrs and x.attrs["id"] == f"partNumber_{compare_id}"
         )
         mpn_value = next(
             x.attrs["id"]
             for x in inputs
             if x.attrs["value"] == part_number
+            and "id" in x.attrs
             and x.attrs["id"].startswith("MPNValue_")
         )
         mpn_value = mpn_value.replace("MPNValue_", "")
 
-        title_elem = product_elem.find("h4").find("a").get_text(strip=True)
+        # title_elem = product_elem.find("h4").find("a").get_text(strip=True)
 
         _product = TypeProduct(
             **self.__defaults,
