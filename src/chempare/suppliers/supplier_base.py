@@ -145,7 +145,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return self
 
     def _filter_exact(self) -> NoReturn:
-        """Filter products for exact query match"""
+        """Filter products for exact query match
+
+        Todo: May be worth excluding anything in parenthesis, which would help
+              exclude false positives such as:
+                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
+                ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
+        """
         if (
             not self._products
             or self._exact_match is False
