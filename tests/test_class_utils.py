@@ -505,31 +505,31 @@ class TestClass(ClassUtils, object):
         assert type(res) is type(expected_result)
         assert res == expected_result
 
-    @pytest.mark.parametrize(
-        ("content", "search", "expected_result"),
-        [
-            ("sodium borohydride", "sodium borohydride", True),
-            ("SODIUM BOROHYDRIDE", "sodium borohydride", True),
-            ("Pure sodium borohydride, 100%", "sodium borohydride", True),
-            ("Technical SODIUM BOROHYDRIDE..", "sodium borohydride", True),
-            (
-                "Pure triacetoxyborohydride borohydride, 100%",
-                "sodium borohydride",
-                False,
-            ),
-        ],
-        ids=[
-            "'sodium borohydride' contains 'sodium borohydride'",
-            "'SODIUM BOROHYDRIDE' contains 'sodium borohydride'",
-            "'Pure sodium borohydride, 100%' contains 'sodium borohydride'",
-            "'Technical SODIUM BOROHYDRIDE..' contains 'sodium borohydride'",
-            (
-                "'Pure triacetoxyborohydride borohydride, 100%' "
-                "does not contain 'sodium borohydride'"
-            ),
-        ],
-    )
-    def test_contains_exact_match(self, content, search, expected_result):
-        result = self._contains_exact_match(content, search)
-        assert isinstance(result, bool) is True
-        assert result == expected_result
+    # @pytest.mark.parametrize(
+    #     ("content", "search", "expected_result"),
+    #     [
+    #         ("sodium borohydride", "sodium borohydride", True),
+    #         ("SODIUM BOROHYDRIDE", "sodium borohydride", True),
+    #         ("Pure sodium borohydride, 100%", "sodium borohydride", True),
+    #         ("Technical SODIUM BOROHYDRIDE..", "sodium borohydride", True),
+    #         (
+    #             "Pure triacetoxyborohydride borohydride, 100%",
+    #             "sodium borohydride",
+    #             False,
+    #         ),
+    #     ],
+    #     ids=[
+    #         "'sodium borohydride' contains 'sodium borohydride'",
+    #         "'SODIUM BOROHYDRIDE' contains 'sodium borohydride'",
+    #         "'Pure sodium borohydride, 100%' contains 'sodium borohydride'",
+    #         "'Technical SODIUM BOROHYDRIDE..' contains 'sodium borohydride'",
+    #         (
+    #             "'Pure triacetoxyborohydride borohydride, 100%' "
+    #             "does not contain 'sodium borohydride'"
+    #         ),
+    #     ],
+    # )
+    # def test_contains_exact_match(self, content, search, expected_result):
+    #     result = self._contains_exact_match(content, search)
+    #     assert isinstance(result, bool) is True
+    #     assert result == expected_result

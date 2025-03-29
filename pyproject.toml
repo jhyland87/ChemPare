@@ -10,6 +10,7 @@ dependencies = [
     "price_parser",
     "inquirer",
     "bs4",
+    "fuzzywuzzy[speedup]",
     "rich",
     "abcplus",
     "typing",

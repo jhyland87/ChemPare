@@ -6,6 +6,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import NoReturn
+from typing import Optional
 from typing import Self
 from typing import Union
 
@@ -13,6 +14,7 @@ from abcplus import ABCMeta
 from abcplus import abstractmethod
 from abcplus import finalmethod
 from curl_cffi import requests
+from fuzzywuzzy import fuzz
 
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
@@ -29,11 +31,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """For what language it should use for the search query"""
 
     def __init__(
-        self, query: str, limit: int = None, exact: bool = False
+        self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 90
     ) -> NoReturn:
         self.__init_logging()
 
-        self._exact_match = exact
+        self._fuzz_ratio = fuzz_ratio
         self._limit = limit or 20
 
         self._products = []
@@ -53,7 +55,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # product properties
         self._parse_products()
 
-        self._filter_exact()
+        self._fuzz_filter()
 
     def __init_logging(self) -> NoReturn:
         """Create the logger specific to this class instance (child)
@@ -144,8 +146,15 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return self
 
-    def _filter_exact(self) -> NoReturn:
-        """Filter products for exact query match
+    def _fuzz_filter(self) -> NoReturn:
+        """Filter products for ones where the title has a partial fuzz ratio of
+        90% or more.
+        When testing different fuzz methods with string 'sodium borohydride',
+        partial_ratio would return 58 for 'sodium amide' and 67 for 'sodium
+        triacetoxyborohydride', where as both token_set_ratio and ratio would
+        return 67 and 78 respectively. For this reason, I decided that using
+        partial_ratio would give more reliable results.
+        Fuzz method comparison tests can be found in dev/fuzz-test.py
 
         Todo: May be worth excluding anything in parenthesis, which would help
               exclude false positives such as:
@@ -154,7 +163,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
         if (
             not self._products
-            or self._exact_match is False
+            or isinstance(self._fuzz_ratio, int) is False
             or self._is_cas(self._query)
         ):
             return
@@ -162,7 +171,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._products = [
             product
             for product in self._products
-            if self._contains_exact_match(product.name, self._query)
+            if fuzz.partial_ratio(self._query.lower(), product.name.lower())
+            >= self._fuzz_ratio
         ]
 
     def __next__(self) -> TypeProduct:

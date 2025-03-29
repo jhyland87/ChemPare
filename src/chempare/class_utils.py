@@ -973,28 +973,5 @@ class ClassUtils(metaclass=ABCMeta):
             or (isinstance(key, str) and element == key)
         ]
 
-    def _contains_exact_match(self, content: str, search: str) -> bool:
-        """Make sure some string contains an exact match of another string
-
-        Args:
-            content (str): Content to search through
-            search (str): String to search for
-
-        Returns:
-            bool: True if found, false if not
-
-        Example:
-            _contains_exact_match("Pure sodium borohydride, 100%",
-                                  "sodium borohydride")
-            True
-            _contains_exact_match("Pure triacetoxyborohydride borohydride, 100%",
-                                  "sodium borohydride")
-            False
-
-        """
-        return bool(
-            regex.match(f".*\\b{search}\\b.*", content, regex.IGNORECASE)
-        )
-
 
 __all__ = list("ClassUtils")

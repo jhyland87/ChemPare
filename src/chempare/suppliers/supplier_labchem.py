@@ -119,12 +119,6 @@ class SupplierLabchem(SupplierBase):
     def __parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
 
-        # if (
-        #     self._exact_match is True
-        #     and self._contains_exact_match(title_elem, self._query) is False
-        # ):
-        #     return
-
         inputs = product_elem.find_all("input")
         link = (
             product_elem.find("div", class_="prodImage").find("a").attrs["href"]

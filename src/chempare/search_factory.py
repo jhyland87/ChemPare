@@ -104,7 +104,7 @@ class SearchFactory(ClassUtils, object):
             # Execute a search by initializing an instance of the supplier
             # class with the product query term as the first param
             try:
-                res = supplier_module(query, limit, True)
+                res = supplier_module(query, limit)
             except Exception as e:  # pylint: disable=broad-exception-caught
                 if __debug__:
                     print("ERROR:", e)
