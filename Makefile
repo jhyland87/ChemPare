@@ -1,6 +1,7 @@
 .PHONY: init test install install-dev help clean install-dependencies
 
-PYTHON3_OK := $(shell python3 --version 2>&1)
+PYTHON3_OK := $(shell python --version 2>&1)
+PYENV313_OK := $(shell pyenv versions | grep -q 3.13 2>&1)
 BREW_OK := $(shell brew -v 2>&1)
 
 #init: venv/bin/activate
@@ -21,34 +22,53 @@ ifeq ('$(BREW_OK)','')
 	@echo "-----------------"
 endif
 	@echo "Installing python.."
-	brew install python@3.13
+	brew install pyenv python@3.13
+	pyenv install --skip-existing 3.13
+	pyenv local 3.13
+	pyenv shell 3.13
 	@echo "-----------------"
-	@echo $(shell python3 --version 2>&1)
+	@echo $(shell python --version 2>&1)
 	@echo "-----------------"
 endif
 	@echo $(shell brew -v 2>&1)
-	@echo $(shell python3 --version 2>&1)
+	@echo $(shell python --version 2>&1)
 
 # After the dependencies are installed/verified, this will actiate
 # the environment just using venv/bin/activate
-install: requirements/common.txt
+install:
 	make install-dependencies
 	make venv/bin/activate
+	pyenv install --skip-existing 3.13
+	pyenv local 3.13
+	pyenv shell 3.13
 	./venv/bin/pip3 install --upgrade pip
-	./venv/bin/pip3 install -r requirements/common.txt
+	./venv/bin/pip3 install -e .
 	make venv/bin/activate
 
-install-dev: requirements/dev.txt
+install-dev:
 	make install-dependencies
 	make venv/bin/activate
+	pyenv install --skip-existing 3.13
+	pyenv local 3.13
+	pyenv shell 3.13
 	./venv/bin/pip3 install --upgrade pip
-	./venv/bin/pip3 install -r requirements/dev.txt
+	./venv/bin/pip3 install -e .[dev]
+	make venv/bin/activate
+
+install-test:
+	make install-dependencies
+	make venv/bin/activate
+	pyenv install --skip-existing 3.13
+	pyenv local 3.13
+	pyenv shell 3.13
+	./venv/bin/pip3 install --upgrade pip
+	./venv/bin/pip3 install -e .[test]
 	make venv/bin/activate
 
 # Enter the python3 environment, then install the packages in the
 # requirements/common.txtfile.
-venv/bin/activate: requirements/common.txt
-	python3 -m venv venv
+venv/bin/activate:
+	python -m venv venv
 
 # Just a simple help output. Not sure this is even necessary
 help:
@@ -65,19 +85,18 @@ ifeq ('$(PYTHON3_OK)','')
 	@echo "No python3 version found - run 'make install' first"
 	exit 1
 else
-	./venv/bin/python3 -O main.py
+	./venv/bin/python -O main.py
 endif
 
 # Run the test cases - this does nothing right now
 test: venv/bin/activate
 	make install-dev
 	@echo "\\nStarting tests...\\n"
-	# venv/bin/python3 -m pytest -svvv tests/test_search_factory.py
-	venv/bin/python3 -m pytest -vvv tests
+	# venv/bin/python -m pytest -svvv tests/test_search_factory.py
+	venv/bin/python -m pytest -vvv tests
 
 # Remove anything installed via pip in this env.
 clean:
 	rm -rf __pycache__
 	rm -rf venv
 	rm -rf bin include build
-

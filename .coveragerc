@@ -1,0 +1,17 @@
+[paths]
+source =
+    src/chempare
+    src/chempare/datatypes
+    src/chempare/suppliers
+
+[run]
+branch = true
+parallel = true
+source =
+    tests
+    tests/*
+omit = */__init__.py
+
+[report]
+show_missing = true
+precision = 2

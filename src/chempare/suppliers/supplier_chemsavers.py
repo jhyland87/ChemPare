@@ -1,6 +1,13 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Tuple, Dict, NoReturn
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Tuple
+
 from bs4 import BeautifulSoup
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -119,10 +126,11 @@ class SupplierChemsavers(SupplierBase):
             description=product_obj["description"],
             cas=product_obj.get("CAS", None),
             price=product_obj.get("price", None),
-            url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
+            # url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
+            url=f"{self._supplier["base_url"]}{product_obj["url"]}",
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
-            supplier=self._supplier["name"]
+            supplier=self._supplier["name"],
         )
 
         # Since the description contains HTML, and it may contain restrictions,
@@ -151,8 +159,7 @@ class SupplierChemsavers(SupplierBase):
 
         if desc and desc is not None:
             desc_parts = [
-                d.string.strip() if d.string and d.string else None
-                for d in desc
+                d.string.strip() if d.string and d.string else None for d in desc
             ]
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))

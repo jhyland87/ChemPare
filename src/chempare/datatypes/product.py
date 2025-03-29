@@ -1,6 +1,10 @@
-from dataclasses import dataclass
-from typing import Dict, Any, Union, List, NoReturn
 import re
+from dataclasses import dataclass
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Union
 
 
 @dataclass
@@ -131,7 +135,7 @@ class TypeProduct:
         #     return value
 
         # If it's not a string, then its probably a valid type..
-        if type(value) is not str:
+        if isinstance(value, str) is False:
             return value
 
         # Most castable values just need to be trimmed to be compatible

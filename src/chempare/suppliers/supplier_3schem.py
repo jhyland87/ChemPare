@@ -1,5 +1,8 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import NoReturn
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_3schem.py
@@ -54,16 +57,20 @@ class Supplier3SChem(SupplierBase):
             if product["available"] is False:
                 continue
 
-            self._products.append(
-                TypeProduct(
-                    uuid=product["id"],
-                    name=product["title"],
-                    title=product["title"],
-                    price=product["price"],
-                    url=self._supplier["base_url"] + product["url"],
-                    supplier=self._supplier["name"],
-                )
+            product_obj = TypeProduct(
+                uuid=product["id"],
+                name=product["title"],
+                title=product["title"],
+                # price=product["price"],
+                url=self._supplier["base_url"] + product["url"],
+                supplier=self._supplier["name"],
             )
+
+            price = self._parse_price(product["price"])
+
+            product_obj.update(price)
+
+            self._products.append(product_obj)
 
 
 if __package__ == "suppliers":

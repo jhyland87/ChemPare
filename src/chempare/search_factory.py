@@ -1,14 +1,15 @@
-from datatypes.product import TypeProduct
-import suppliers
-from typing import Optional, List, NoReturn
-from curl_cffi import requests
-from abcplus import finalmethod
-from class_utils import ClassUtils
+"""Search factory"""
 
-# import os
-# import sys
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
+from typing import List
+from typing import NoReturn
+from typing import Optional
+
+from abcplus import finalmethod
+from curl_cffi import requests
+
+from chempare import ClassUtils
+from chempare import suppliers
+from chempare.datatypes import TypeProduct
 
 
 class SearchFactory(ClassUtils, object):
@@ -78,70 +79,43 @@ class SearchFactory(ClassUtils, object):
 
         query_is_cas = self._is_cas(query)
 
-        # Get both the chemical name and CAS values for searches, to avoid
-        # having to make the same HTTP calls to cactus.nci.nih.gov several
-        # times
-        if query_is_cas is True:
-            query_cas = query
-            # Use self.__get_name() to get the IUPAC name.
-            # Example: '67-64-1' yields 'propan-2-one'
-            # query_name = self.__get_name(query) or query
-
-            # Use self.__get_popular_name(query) to try and determine the most
-            # common name.
-            # Example: '67-64-1' yields 'acetone'
-            query_name = self.__get_popular_name(query) or query
-        else:
-            query_cas = self.__get_cas(query) or query
-            query_name = query
+        if __debug__:
+            print(f"Searching suppliers for '{query}'...\n")
 
         # Iterate over the modules in the suppliers package
         for supplier in suppliers.__all__:
+            if supplier == "SupplierBase":
+                continue
+
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
-            supplier_query = query
 
-            # If the supplier allows a CAS search and the current value isn't a
-            # CAS number...
             if (
-                supplier_module.allow_cas_search is True
-                and query_is_cas is False
+                query_is_cas is True
+                and supplier_module.allow_cas_search is False
             ):
-                # ... Then do a lookup to get the CAS number
-                supplier_query = query_cas
-            # If the supplier does not allow CAS searches, but were searching
-            # by CAS..
-            elif (
-                supplier_module.allow_cas_search is False
-                and query_is_cas is True
-            ):
-                # ... Then try to lookup the name for this
-                supplier_query = query_name
+                if __debug__:
+                    print(f"Skipping {supplier_module.__name__} CAS search")
+                continue
 
             if __debug__:
-                print(
-                    f"Searching for {supplier_query} "
-                    f"from {supplier_module.__name__}..."
-                )
+                print(f"Searching {supplier_module.__name__}... ", end='')
 
             # Execute a search by initializing an instance of the supplier
             # class with the product query term as the first param
-            res = supplier_module(supplier_query, limit)
-            if not res:
-                if supplier_module.allow_cas_search is True:
-                    res = supplier_module(query_name, limit)
-                    if __debug__:
-                        print(
-                            f"Searching for {query_name} "
-                            f"from {supplier_module.__name__}..."
-                        )
-                if not res:
-                    if __debug__:
-                        print("  No results found\n")
-                    continue
+            try:
+                res = supplier_module(query, limit)
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                if __debug__:
+                    print("ERROR:", e)
+                print("ERROR, skipping")
+                continue
 
             if __debug__:
-                print(f"  found {len(res.products)} products\n")
+                print(f"found {len(res.products)} products")
+
+            if not res:
+                continue
 
             # If there were some results found, then extend the self.__results
             # list with those products

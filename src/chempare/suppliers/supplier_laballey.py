@@ -1,6 +1,11 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
-from typing import List, Tuple, Dict, NoReturn
-import re
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Tuple
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -123,9 +128,7 @@ class SupplierLaballey(SupplierBase):
                 else None
             ),
             price=f"{float(product_obj['price']):.2f}",
-            url="{0}{1}".format(
-                self._supplier["base_url"], product_obj["link"]
-            ),
+            url="{0}{1}".format(self._supplier["base_url"], product_obj["link"]),
             manufacturer=product_obj["vendor"],
             supplier=self._supplier["name"],
         )

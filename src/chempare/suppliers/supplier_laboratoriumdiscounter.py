@@ -1,5 +1,8 @@
-from suppliers.supplier_base import SupplierBase, TypeProduct, TypeSupplier
 from typing import NoReturn
+
+from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
+from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -64,6 +67,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # TypeProduct object.
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product["variant"])
+            # price = self._parse_price(product["price"])
 
             product_obj = TypeProduct(
                 uuid=str(product["id"]).strip(),

@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
-from suppliers.supplier_laballey import SupplierLaballey as Supplier
-from datatypes.product import TypeProduct
 import pytest
+
+from chempare.datatypes import TypeProduct
+from chempare.suppliers import SupplierLaballey as Supplier
 
 
 # Base test class

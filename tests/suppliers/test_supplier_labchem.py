@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
-from suppliers.supplier_labchem import SupplierLabchem as Supplier
-from datatypes.product import TypeProduct
 import pytest
+
+from chempare.datatypes import TypeProduct
+from chempare.suppliers import SupplierLabchem as Supplier
 
 
 # Base test class
@@ -24,6 +24,7 @@ class TestClass:
 # Test cases for a valid search for this supplier
 class TestValidSearch(TestClass):
     _results = None
+    _query = "water"
 
     @pytest.mark.first
     def test_query(self, results):

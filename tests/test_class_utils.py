@@ -1,57 +1,89 @@
-#!/usr/bin/env python3
-# # trunk-ignore-all(isort)
-# import warnings
+from typing import Any
+from typing import Literal
 
 # warnings.simplefilter(action="ignore", category=FutureWarning)
-import os
-import sys
 import pytest
-from typing import Literal
-from class_utils import ClassUtils
 
-# from assertions import assert_
-# from assertions.operators import Operators
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# from class_utils import ClassUtils
+from chempare import ClassUtils
 
 
 class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
-        ("value", "price", "currency", "currency_code"),
+        ("value", "return_type", "price", "currency", "currency_code"),
         [
-            ("$123.45", "123.45", "$", "USD"),
-            ("$12,345.45", "12345.45", "$", "USD"),
-            ("123.45 USD", "123.45", "$", "USD"),
-            ("123.45 CAD", "123.45", "CA$", "CAD"),
-            ("€1,1234.5", "11234.50", "€", "EUR"),
-            ("£123", "123", "£", "GBP"),
-            ("674 ¥", "674", "¥", "JPY"),
+            ("$123.45", dict, 123.45, "$", "USD"),
+            ("$12,345.45", dict, 12345.45, "$", "USD"),
+            ("$123.45 USD", dict, 123.45, "$", "USD"),
+            ("CA$123.45", dict, 123.45, "CA$", "CAD"),
+            ("€1,1234.5", dict, 11234.50, "€", "EUR"),
+            ("£123", dict, 123, "£", "GBP"),
+            ("674 ¥", dict, 674, "¥", "JPY"),
+            ("Invalid", None, None, None, None),
         ],
         ids=[
             "_parse_price: '$123.45' -> $123.45 USD",
             "_parse_price: '$12,345.45' -> $12,345.45 USD",
-            "_parse_price: '123.45 USD' -> $123.45 USD",
-            "_parse_price: '123.45 CAD' -> $123.45 CAD",
+            "_parse_price: '$123.45 USD' -> $123.45 USD",
+            "_parse_price: 'CA$123.45' -> $123.45 CAD",
             "_parse_price: '€1,1234.5' -> €1,1234.50 EUR",
             "_parse_price: '£123' -> £123 GBP",
             "_parse_price: '674 ¥' -> 674 ¥ JPY",
+            "_parse_price: Invalid value",
         ],
     )
-    def test_parse_price(self, value, price, currency, currency_code):
+    def test_parse_price(
+        self, value, return_type, price, currency, currency_code
+    ):
         result = self._parse_price(value)
-        assert type(result) is dict
+
+        if return_type is None:
+            assert result is None
+            return
+
+        assert isinstance(result, return_type)
+        assert isinstance(result, dict) is True
         assert "currency" in result
         assert "price" in result
         assert "currency_code" in result
+        # If the currency code is not USD, then there should be a USD
+        # entry in the dictionary
+        assert (currency_code != "USD") is ("usd" in result)
         assert result["currency"] == currency
         assert result["price"] == price
         assert result["currency_code"] == currency_code
-        # assert_( type(result) is list, what='result', operator=Operators.TRUTH)
-        # assert_('currency', result, what='currency', operator=Operators.CONTAINS)
-        # assert_('price', result, what='price', operator=Operators.CONTAINS)
+
+    @pytest.mark.parametrize(
+        ("amount", "expected_instance"),
+        [
+            ("€100", float),
+            ("€100.234,10", float),
+            ("£321", float),
+            ("£321.346,64", float),
+            ("¥123", float),
+            ("AU$123", float),
+            ("CA$123,234.12", float),
+            ("FOO123", type(None)),
+        ],
+        ids=[
+            "€100 (EUR) to USD",
+            "€100.234,10 (EUR) to USD",
+            "£321 (GBP) to USD",
+            "£321.346,64 (GBP) to USD",
+            "¥321 (JPY) to USD",
+            "AU$123 (AUD) to USD",
+            "CA$123,234.12 (CAD) to USD",
+            "error",
+        ],
+    )
+    def test_to_usd(self, amount: int | float | str, expected_instance: Any):
+        result = self._to_usd(amount=amount)
+
+        assert isinstance(result, expected_instance) is True
+
+        if expected_instance is type(None):
+            return
+
+        assert result is not None
 
     @pytest.mark.parametrize(
         ("value", "quantity", "uom"),
@@ -87,7 +119,7 @@ class TestClass(ClassUtils, object):
     def test_parse_quantity(self, value, quantity, uom):
         result = self._parse_quantity(value)
 
-        if type(result) is not dict:
+        if isinstance(result, dict) is False:
             pytest.fail(f"_parse_quantity({value}) returned non-dict type")
             return
 
@@ -102,7 +134,7 @@ class TestClass(ClassUtils, object):
             pytest.fail(f"_parse_quantity({value}) uom mismatch")
 
     @pytest.mark.parametrize(
-        ("value, param_name, expected_result"),
+        ("value", "param_name", "expected_result"),
         [
             (
                 "http://google.com?foo=bar&product_id=12345",
@@ -130,7 +162,7 @@ class TestClass(ClassUtils, object):
                 f"type of result ({type(result)}) does not match expected result type ({type(expected_result)})"
             )
         elif result != expected_result:
-            pytest.fail(f"result is not identical to expected reslt")
+            pytest.fail("result is not identical to expected reslt")
 
     @pytest.mark.parametrize(
         ("array", "expected_result"),
@@ -147,7 +179,7 @@ class TestClass(ClassUtils, object):
 
         if type(result) is not type(expected_result):
             pytest.fail(
-                f'expected type "{type(expected_result)}" for result, but got "{type(result)}'
+                f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'"
             )
 
         assert result == expected_result
@@ -182,18 +214,16 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("array", "expected_result"),
-        [
-            ([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"}),
-        ],
+        [([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"})],
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert result == expected_result
 
     def test_epoch(self):
         result = self._epoch
-        assert type(result) is int
+        assert isinstance(result, int) is True
 
     @pytest.mark.parametrize(
         ("char", "is_currency"),
@@ -218,7 +248,7 @@ class TestClass(ClassUtils, object):
     )
     def test_is_currency_symbol(self, char, is_currency):
         result = self._is_currency_symbol(char)
-        assert type(result) is bool
+        assert isinstance(result, bool) is True
         assert result is is_currency
 
     @pytest.mark.parametrize(
@@ -240,7 +270,7 @@ class TestClass(ClassUtils, object):
     )
     def test_is_cas(self, cas, valid_cas):
         result = self._is_cas(cas)
-        assert type(result) is bool
+        assert isinstance(result, bool) is True
         assert result is valid_cas
 
     @pytest.mark.parametrize(
@@ -337,17 +367,12 @@ class TestClass(ClassUtils, object):
     )
     def test_cast_type(self, value, casted_value, value_type):
         result = self._cast_type(value)
-        assert type(result) is value_type
+        assert isinstance(result, value_type) is True
         assert result == casted_value
 
     @pytest.mark.parametrize(
         ("length", "include_special"),
-        [
-            (None, None),
-            (5, None),
-            (100, None),
-            (10, True),
-        ],
+        [(None, None), (5, None), (100, None), (10, True)],
         ids=[
             "_random_string: None -> return unique 10 character alphanumeric string",
             "_random_string: 5 -> return unique 5 character alphanumeric string",
@@ -359,8 +384,8 @@ class TestClass(ClassUtils, object):
         result_a = self._random_string(length, include_special)
         result_b = self._random_string(length, include_special)
 
-        assert type(result_a) is str
-        assert type(result_b) is str
+        assert isinstance(result_a, str) is True
+        assert isinstance(result_b, str) is True
 
         assert len(result_a) == length or 10
         assert len(result_b) == length or 10
@@ -410,13 +435,13 @@ class TestClass(ClassUtils, object):
                     "BOUND OXYGEN",
                 ],
                 {("atomic",): 2, ("oxygen",): 4},
-            ),
+            )
         ],
         ids=["Parse array of phrases"],
     )
     def test_get_common_phrases(self, phrases, expected_result):
         result = self._get_common_phrases(phrases)
-        assert type(result) is dict
+        assert isinstance(result, dict) is True
         assert result == expected_result
 
     @pytest.mark.parametrize(
@@ -479,3 +504,32 @@ class TestClass(ClassUtils, object):
         assert res is not None
         assert type(res) is type(expected_result)
         assert res == expected_result
+
+    # @pytest.mark.parametrize(
+    #     ("content", "search", "expected_result"),
+    #     [
+    #         ("sodium borohydride", "sodium borohydride", True),
+    #         ("SODIUM BOROHYDRIDE", "sodium borohydride", True),
+    #         ("Pure sodium borohydride, 100%", "sodium borohydride", True),
+    #         ("Technical SODIUM BOROHYDRIDE..", "sodium borohydride", True),
+    #         (
+    #             "Pure triacetoxyborohydride borohydride, 100%",
+    #             "sodium borohydride",
+    #             False,
+    #         ),
+    #     ],
+    #     ids=[
+    #         "'sodium borohydride' contains 'sodium borohydride'",
+    #         "'SODIUM BOROHYDRIDE' contains 'sodium borohydride'",
+    #         "'Pure sodium borohydride, 100%' contains 'sodium borohydride'",
+    #         "'Technical SODIUM BOROHYDRIDE..' contains 'sodium borohydride'",
+    #         (
+    #             "'Pure triacetoxyborohydride borohydride, 100%' "
+    #             "does not contain 'sodium borohydride'"
+    #         ),
+    #     ],
+    # )
+    # def test_contains_exact_match(self, content, search, expected_result):
+    #     result = self._contains_exact_match(content, search)
+    #     assert isinstance(result, bool) is True
+    #     assert result == expected_result

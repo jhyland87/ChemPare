@@ -1,46 +1,27 @@
-import os
-import sys
+"""SupplierBase module to be inherited by any supplier modules"""
+
 import logging
-from typing import List, Dict, Any, Union, NoReturn, Self
+import os
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import NoReturn
+from typing import Optional
+from typing import Self
+from typing import Union
+
+from abcplus import ABCMeta
+from abcplus import abstractmethod
+from abcplus import finalmethod
 from curl_cffi import requests
-from abcplus import ABCMeta, abstractmethod, finalmethod
-from class_utils import ClassUtils
+from fuzzywuzzy import fuzz
 
-# Todo: this should be automatic
-from datatypes.product import TypeProduct
-from datatypes.supplier import TypeSupplier
-
-# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
-
-# # Todo: this should be automatic
-# from datatypes.product import TypeProduct
-# from datatypes.supplier import TypeSupplier
+from chempare import ClassUtils
+from chempare.datatypes import TypeProduct
 
 
-# File: /suppliers/supplier_base.py
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
-
-    # _supplier: TypeSupplier = None
-    """Supplier specific data"""
-
-    # _products: List[TypeProduct] = []
-    """List of TypeProduct elements"""
-
-    # _limit: int = None
-    """Max products to query/return"""
-
-    # _cookies: Dict = {}
-    """Cookies to use for supplier"""
-
-    # _index: int = 0
-    """Index value used for __iter__ dunder method (for loop iteration)"""
-
-    # _query_results: Any = None
-    """Location of cached query result (what other methods pull data from)"""
-
-    # _defaults: Dict = None
-    """Default values for products from this supplier"""
+    """SupplierBase module to be inherited by any supplier modules"""
 
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name
@@ -49,9 +30,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
-    def __init__(self, query: str, limit: int = None) -> NoReturn:
+    def __init__(
+        self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 90
+    ) -> NoReturn:
         self.__init_logging()
 
+        self._fuzz_ratio = fuzz_ratio
         self._limit = limit or 20
 
         self._products = []
@@ -70,6 +54,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
+
+        self._fuzz_filter()
 
     def __init_logging(self) -> NoReturn:
         """Create the logger specific to this class instance (child)
@@ -160,6 +146,35 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return self
 
+    def _fuzz_filter(self) -> NoReturn:
+        """Filter products for ones where the title has a partial fuzz ratio of
+        90% or more.
+        When testing different fuzz methods with string 'sodium borohydride',
+        partial_ratio would return 58 for 'sodium amide' and 67 for 'sodium
+        triacetoxyborohydride', where as both token_set_ratio and ratio would
+        return 67 and 78 respectively. For this reason, I decided that using
+        partial_ratio would give more reliable results.
+        Fuzz method comparison tests can be found in dev/fuzz-test.py
+
+        Todo: May be worth excluding anything in parenthesis, which would help
+              exclude false positives such as:
+                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
+                ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
+        """
+        if (
+            not self._products
+            or isinstance(self._fuzz_ratio, int) is False
+            or self._is_cas(self._query)
+        ):
+            return
+
+        self._products = [
+            product
+            for product in self._products
+            if fuzz.partial_ratio(self._query.lower(), product.name.lower())
+            >= self._fuzz_ratio
+        ]
+
     def __next__(self) -> TypeProduct:
         """next magic method
 
@@ -177,8 +192,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index += 1
 
         return value
-
-    """ FINAL methods/properties """
 
     @property
     @finalmethod
@@ -361,10 +374,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         headers and stores some cookies
         """
 
-        pass
-
-    """ ABSTRACT methods/properties """
-
     @abstractmethod
     def _query_products(self, query: str) -> NoReturn:
         """Query the website for the products (name or CAS).
@@ -375,8 +384,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         This should define the self._query_results property with the results
         """
 
-        pass
-
     @abstractmethod
     def _parse_products(self) -> NoReturn:
         """Method to set the local properties for the queried product.
@@ -385,8 +392,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         is iterated over by this method, which in turn parses each property and
         creates a new TypeProduct object that gets saved to this._products
         """
-
-        pass
 
 
 if __package__ == "suppliers":
