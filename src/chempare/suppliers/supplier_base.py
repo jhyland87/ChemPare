@@ -31,7 +31,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """For what language it should use for the search query"""
 
     def __init__(
-        self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 90
+        self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 100
     ) -> NoReturn:
         self.__init_logging()
 
