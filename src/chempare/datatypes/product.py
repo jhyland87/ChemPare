@@ -78,6 +78,9 @@ class TypeProduct:
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
+    variants: List[Dict] = None
+    """List of variants for this product"""
+
     def items(self) -> List:
         return self.__dict__.items()
 
@@ -91,7 +94,8 @@ class TypeProduct:
             self.__dict__.update(data)
 
     def set(self, key, value) -> NoReturn:
-        self.__setattr__(key, value)
+        # self.__setattr__(key, value)
+        setattr(self, key, value)
 
     def cast_properties(self, include_none: bool = False) -> Dict:
         """Cast the product attributes to the likely formats, and return them
@@ -107,12 +111,18 @@ class TypeProduct:
         # dc = self.__class__.__dataclass_fields__['uuid'].type
 
         for key, val in self.items():
-            _val = self.__cast_type(value=val, key=key)
-            self.__setattr__(key, _val)
+            _val = self.__cast_type(value=val)
+
+            if _val is None and include_none is True:
+                continue
+
+            self.set(key, val)
+            # setattr(self, key, val)
+            # self.setarr(key, _val)
 
         return self
 
-    def __cast_type(self, value: Any, key: str = None) -> Any:
+    def __cast_type(self, value: Any) -> Any:
         """Cast a value to the proper type. This is mostly used for casting
         int/float/bool
 

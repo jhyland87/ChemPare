@@ -55,6 +55,7 @@
         "description": "Select a supplier",
         "options": [
             "SearchFactory",
+            "SupplierBioFuranChem",
             "SupplierLaballey",
             "SupplierLabchem",
             "SupplierChemsavers",

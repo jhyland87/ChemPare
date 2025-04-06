@@ -31,7 +31,7 @@ signal.signal(signal.SIGINT, signal_handler)
 def main(supplier="SearchFactory", query="water"):
     print(f"Searching supplier {supplier} for {query}...")
 
-    product_search = globals()[supplier](query=query, exact=True)
+    product_search = globals()[supplier](query=query)
 
     print(f"Found {len(product_search)} products for {query}\n")
 
