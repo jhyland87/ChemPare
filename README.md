@@ -121,3 +121,8 @@ The output should look simiar to the following:
 
 ![image](assets/images/chempare_unit_tests_output.png)
 
+
+## Suppliers To Add
+- https://www.jk-sci.com
+- https://www.chemworld.com/searchresults.asp?Search=potassium&Submit=
+- https://www.sciencecompany.com/Search?Keywords=acid&ManufacturerId=0&categoryId=670&PageSize=48

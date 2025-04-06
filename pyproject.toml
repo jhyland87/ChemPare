@@ -60,11 +60,12 @@ test = [
     "flake8-pyproject"
 ]
 dev = ["pycodestyle==2.4.0"]
-
+api = ["uvicorn","fastapi"]
 [project.scripts]
 chemparecli = "chempare.cli.chempare_cli:main"
 chemparemain = "chempare.cli.main:main"
 querysupplier = "chempare.cli.query_supplier:init"
+chempareapi = "chempare.api.server:init"
 
 [build-system]
 requires = ["setuptools >= 61.0"]
@@ -217,9 +218,11 @@ show_column_numbers = false
 show_error_codes = true
 exclude = ["docs", "test", "tests"]
 
+
+
 [tool.flake8]
 # Check that this is aligned with your other tools like Black
-max-line-length = 90
+max-line-length = 120
 max-doc-length = 150
 exclude = [
     # No need to traverse our git directory

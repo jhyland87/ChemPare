@@ -277,14 +277,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         )
 
     @finalmethod
-    def http_get_headers(self, **kwargs) -> requests.Headers:
+    def http_get_headers(self, *args, **kwargs) -> requests.Headers:
         """Get the response headers for a GET request
 
         Returns:
             requests.Headers: Header object
         """
 
-        resp = self.http_get(**kwargs)
+        resp = self.http_get(*args, **kwargs)
 
         return resp.headers
 
