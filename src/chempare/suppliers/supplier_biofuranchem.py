@@ -1,10 +1,6 @@
 # pylint: disable=unreachable
-import json
-import urllib.parse
 from typing import Dict
 from typing import NoReturn
-
-from bs4 import BeautifulSoup
 
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
@@ -114,39 +110,72 @@ class SupplierBioFuranChem(SupplierBase):
               item(s) with the matching CAS if a CAS search was used.
         """
 
-        query_json = {
-            "mainCollectionId": "00000000-000000-000000-000000000001",
-            "offset": 0,
-            "limit": 100,
-            "sort": None,
-            "filters": {
-                "term": {
-                    "field": "name",
-                    "op": "CONTAINS",
-                    "values": [f"*'{self._query}'*"],
-                }
-            },
-            "withOptions": True,
-            "withPriceRange": False,
-        }
-
-        query_json = json.dumps(query_json)
-
         query_params = {
             "o": "getFilteredProducts",
             "s": "WixStoresWebClient",
-            "q": (
-                "query,getFilteredProductsWithHasDiscount($mainCollectionId:String\u0021,$filters:ProductFilters,"
-                "$sort:ProductSort,$offset:Int,$limit:Int,$withOptions:Boolean,=,false,"
-                "$withPriceRange:Boolean,=,false){catalog{category(categoryId:$mainCollectionId){"
-                "numOfProducts,productsWithMetaData(filters:$filters,limit:$limit,sort:$sort,offset:$offset,"
-                "onlyVisible:true){totalCount,list{id,options{id,key,title,@include(if:$withOptions),optionType,"
-                "@include(if:$withOptions),selections,@include(if:$withOptions){id,value,description,key,inStock}}"
-                "productItems,@include(if:$withOptions){id,optionsSelections,price,formattedPrice}productType,price,"
-                "sku,isInStock,urlPart,formattedPrice,name,description,brand,"
-                "priceRange(withSubscriptionPriceRange:true),@include(if:$withPriceRange){fromPriceFormatted}}}}}}"
-            ),
-            "v": query_json,  # urllib.parse.quote(query_json),
+            # Below is a GraphQL structure
+            "q": """\
+                query,getFilteredProductsWithHasDiscount(
+                    $mainCollectionId:String!,
+                    $filters:ProductFilters,
+                    $sort:ProductSort,
+                    $offset:Int,
+                    $limit:Int,
+                    $withOptions:Boolean,=,false,
+                    $withPriceRange:Boolean,=,false
+                ){
+                    catalog{
+                        category(categoryId:$mainCollectionId){
+                            numOfProducts,
+                            productsWithMetaData(
+                                filters:$filters,
+                                limit:$limit,
+                                sort:$sort,
+                                offset:$offset,
+                                onlyVisible:true
+                            ){
+                                totalCount,
+                                list{
+                                    id,
+                                    options{
+                                        id,key,title,@include(if:$withOptions),
+                                        optionType,@include(if:$withOptions),
+                                        selections,@include(if:$withOptions){
+                                            id,value,description,key,inStock
+                                        }
+                                    }
+                                    productItems,
+                                    @include(if:$withOptions){
+                                        id,optionsSelections,price,formattedPrice
+                                    }
+                                    productType,price,sku,isInStock,urlPart,
+                                    formattedPrice,name,description,brand,
+                                    priceRange(withSubscriptionPriceRange:true),
+                                    @include(if:$withPriceRange){
+                                        fromPriceFormatted
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            """,
+            # Query used with the above GraphQL structure
+            "v": {
+                "mainCollectionId": "00000000-000000-000000-000000000001",
+                "offset": 0,
+                "limit": 100,
+                "sort": None,
+                "filters": {
+                    "term": {
+                        "field": "name",
+                        "op": "CONTAINS",
+                        "values": [f"*'{self._query}'*"],
+                    }
+                },
+                "withOptions": True,
+                "withPriceRange": False,
+            },
         }
 
         search_result = self.http_get_json(
