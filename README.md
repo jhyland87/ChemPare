@@ -126,3 +126,6 @@ The output should look simiar to the following:
 - https://www.jk-sci.com
 - https://www.chemworld.com/searchresults.asp?Search=potassium&Submit=
 - https://www.sciencecompany.com/Search?Keywords=acid&ManufacturerId=0&categoryId=670&PageSize=48
+- https://carolinachemical.com/
+    https://carolinachemical.com/wp-json/wp/v2/search?search=borohydride
+    https://carolinachemical.com/wp-json/wp/v2/product/6981

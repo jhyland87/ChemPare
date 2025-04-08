@@ -47,7 +47,7 @@
       "id": "query",
       "type": "promptString",
       "description": "Reagent to query for",
-      "default": "water"
+      "default": "acid"
     },
     {
         "id":"supplier",
@@ -55,6 +55,7 @@
         "description": "Select a supplier",
         "options": [
             "SearchFactory",
+            "SupplierCarolinaChemical",
             "SupplierBioFuranChem",
             "SupplierLaballey",
             "SupplierLabchem",

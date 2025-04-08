@@ -1,5 +1,8 @@
+"""TypeSupplier datatype"""
+
 from dataclasses import dataclass
-from typing import NoReturn, Dict
+from typing import Dict
+from typing import NoReturn
 
 
 @dataclass
@@ -21,5 +24,11 @@ class TypeSupplier:
     api_key: str = None
     """Key for API calls, if needed"""
 
-    def update(self, data) -> NoReturn:
-        self.__dict__.update(data)
+    def update(self, data: Dict) -> NoReturn:
+        """Update the TypeSupplier instance
+
+        Args:
+            data (Dict): Dictionary to merge into current dictioary
+        """
+        if data:
+            self.__dict__.update(data)
