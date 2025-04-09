@@ -122,18 +122,21 @@
         //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
         // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
         //"-vvv",
-        "--capture=no",
-        //"--show-capture=all",
-        "-ra",
-        "--numprocesses=auto",
-        "--color=yes",
-        "--code-highlight=yes",
-        //"--capture=tee-sys",
-        "--doctest-modules",
-        "--cov=src/chempare",
-        "--cov-config=.coveragerc",
-        //"--pycodestyle",
-        "tests"
+        "-c=pyproject.toml",
+        // "--capture=no",
+        // //"--show-capture=all",
+        // "-ra",
+        // "--numprocesses=auto",
+        // "--color=yes",
+        // "--code-highlight=yes",
+        // //"--capture=tee-sys",
+        // "--doctest-modules",
+        // "--cov=src/chempare",
+        // //"--cov-config=.coveragerc",
+        // "--cov-report=html:coverage",
+        // "--cov-report=term",
+        // //"--pycodestyle",
+        // "tests"
     ],
     "python.testing.unittestEnabled": false,
     "editor.formatOnSave": true,
@@ -142,4 +145,8 @@
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "off",
     "python.defaultInterpreterPath": "python",
+    "yaml.schemas": {
+        "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
+        "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
+    },
 }

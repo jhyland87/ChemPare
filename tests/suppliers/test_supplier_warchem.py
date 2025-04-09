@@ -34,6 +34,7 @@ class TestValidSearch(TestClass):
 
     @pytest.mark.second
     def test_results(self, results):
+        print("results:", results)
         assert len(results) > 0
         assert isinstance(results.products[0], TypeProduct) is True
 

@@ -1,3 +1,4 @@
+import re
 from typing import Dict
 from typing import NoReturn
 from typing import Optional
@@ -56,9 +57,7 @@ class SupplierLabchem(SupplierBase):
 
         # 1) Query the main product search page (returns HTML, but does not
         # include prices)
-        self._query_results = self.http_get_html(
-            "searchPage.action", params=get_params
-        )
+        self._query_results = self.http_get_html("searchPage.action", params=get_params)
 
     def __query_products_autocomplete(self) -> NoReturn:
         """Query products from supplier"""
@@ -79,9 +78,7 @@ class SupplierLabchem(SupplierBase):
         if not search_result:
             return
 
-        self._query_results = search_result["response"]["docs"]["item"][
-            : self._limit
-        ]
+        self._query_results = search_result["response"]["docs"]["item"][: self._limit]
 
     def _parse_products(self) -> NoReturn:
         """Parse product query results.
@@ -95,9 +92,7 @@ class SupplierLabchem(SupplierBase):
         product_page_soup = BeautifulSoup(self._query_results, "html.parser")
 
         # 2) Get the product ID's from the search page
-        product_part_elems = product_page_soup.find_all(
-            "a", class_="log-addTocart-btn"
-        )
+        product_part_elems = product_page_soup.find_all("a", class_="log-addTocart-btn")
 
         # If no products were found, don't process anything
         if product_part_elems is None or len(product_part_elems) == 0:
@@ -118,40 +113,36 @@ class SupplierLabchem(SupplierBase):
 
     def __parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
-
-        inputs = product_elem.find_all("input")
-        link = (
-            product_elem.find("div", class_="prodImage").find("a").attrs["href"]
-        )
+        link = product_elem.find("div", class_="prodImage").find("a").attrs["href"]
         cas = product_elem.find("ul", class_="otherNumWrap").find("span")
 
         # Get the compare ID, which is necessary since its used in some element
         # identifiers
-        compare_id = next(
-            x.attrs["value"] for x in inputs if x.attrs["name"] == "compareId"
-        )
-        part_number = next(
-            x.attrs["value"]
-            for x in inputs
-            if "id" in x.attrs and x.attrs["id"] == f"partNumber_{compare_id}"
-        )
-        mpn_value = next(
-            x.attrs["id"]
-            for x in inputs
-            if x.attrs["value"] == part_number
-            and "id" in x.attrs
-            and x.attrs["id"].startswith("MPNValue_")
-        )
-        mpn_value = mpn_value.replace("MPNValue_", "")
+        compare_input = product_elem.find_all("input", attrs={"name": "compareId", "type": "checkbox"})
 
-        # title_elem = product_elem.find("h4").find("a").get_text(strip=True)
+        if not compare_input:
+            raise AttributeError("Unable to find a compareId")
+
+        compare_id = compare_input[0].attrs['value']
+        part_number_elem = product_elem.find("input", attrs={"id": f"partNumber_{compare_id}"})
+
+        part_number = None
+
+        if part_number_elem:
+            part_number = part_number_elem.attrs["value"] or None
+
+        mpn_value_elem = product_elem.find("input", attrs={"id": re.compile("^MPNValue_")})
+
+        mpn_value = None
+        if mpn_value_elem:
+            mpn_value = mpn_value_elem.attrs["value"] or None
 
         _product = TypeProduct(
             **self.__defaults,
             name=title_elem,
             title=title_elem,
             supplier=self._supplier["name"],
-            mpn=mpn_value,
+            mpn=mpn_value or part_number,
             uuid=compare_id,
             url=self._supplier["base_url"] + link,
         )
@@ -161,9 +152,7 @@ class SupplierLabchem(SupplierBase):
 
         return _product.cast_properties()
 
-    def __query_products_prices(
-        self, part_numbers: Tuple[str, list]
-    ) -> Optional[dict]:
+    def __query_products_prices(self, part_numbers: Tuple[str, list]) -> Optional[dict]:
         """Query specific product prices by their part numeber(s)
 
         Args:
@@ -181,16 +170,12 @@ class SupplierLabchem(SupplierBase):
 
         params = {"productIdList": part_numbers}
 
-        product_json = self.http_get_json(
-            "getPriceDetailPage.action", params=params
-        )
+        product_json = self.http_get_json("getPriceDetailPage.action", params=params)
 
         res = dict()
 
         for p in product_json:
-            res[p["partNumber"]] = (
-                str(p["listPrice"]).strip() if p["listPrice"] else None
-            )
+            res[p["partNumber"]] = str(p["listPrice"]).strip() if p["listPrice"] else None
 
         return res
 
