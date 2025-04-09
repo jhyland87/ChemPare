@@ -1,3 +1,5 @@
+"""TypeProduct datatype"""
+
 import re
 from dataclasses import dataclass
 from typing import Any
@@ -5,6 +7,8 @@ from typing import Dict
 from typing import List
 from typing import NoReturn
 from typing import Union
+
+from chempare.datatypes.variant import TypeVariant
 
 
 @dataclass
@@ -78,8 +82,11 @@ class TypeProduct:
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    variants: List[Dict] = None
+    variants: List[TypeVariant] = None
     """List of variants for this product"""
+
+    formula: str = None
+    """Chemical formula"""
 
     def items(self) -> List:
         return self.__dict__.items()
@@ -94,7 +101,7 @@ class TypeProduct:
             self.__dict__.update(data)
 
     def set(self, key, value) -> NoReturn:
-        # self.__setattr__(key, value)
+        """Set a local attribute for this product"""
         setattr(self, key, value)
 
     def cast_properties(self, include_none: bool = False) -> Dict:

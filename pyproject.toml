@@ -2,7 +2,7 @@
 name = "chempare"
 version = "0.1"
 description = "Reagent search utility"
-requires-python = ">= 3.13"
+requires-python = ">= 3.12"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
 dependencies = [
     "currex",
@@ -22,6 +22,7 @@ dependencies = [
     "curl_cffi",
     "translate",
     "regex",
+    "pytest-cov"
 ]
 
 authors = [
@@ -53,8 +54,7 @@ test = [
     "pylint-pytest",
     "pytest-instafail",
     "pytest-timeout",
-    "pytest-pycodestyle",
-    #"pytest-codestyle",
+    "pytest-pycodestyle==1.0.6",
     "pytest-env",
     "pycodestyle==2.4.0",
     "flake8-pyproject"
@@ -104,11 +104,22 @@ where = [
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc"
+addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage --cov-report=term"
 testpaths = ["tests"]
 pythonpath = ["src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
-
+markers = [
+    "supplier: Supplier module",
+    "webtest: mark a test as a webtest.",
+    "first: Trigger 1st.",
+    "second: Trigger 2nd.",
+    "third: Trigger 3rd.",
+    "fourth: Trigger 4th.",
+    "fifth: Trigger 5th.",
+    "sixth: Trigger 6th.",
+    "seventh: Trigger 7th."
+]
+env = ["LOG_LEVEL=WARNING"]
 [tool.isort]
 py_version = 313
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
@@ -186,7 +197,7 @@ preview = false
 docstring-code-format = true
 
 [tool.mypy]
-python_version = "3.13"
+python_version = "3.12"
 ignore_missing_imports = true
 follow_imports = "silent"
 no_implicit_optional = false
@@ -239,3 +250,25 @@ extend-ignore = [
     # https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#slices
     "E203"
 ]
+
+[tool.coverage.paths]
+source = [
+    "src/chempare",
+    "src/chempare/datatypes",
+    "src/chempare/suppliers"
+]
+
+[tool.coverage.run]
+#disable_warnings = ["no-data-collected"]
+branch = true
+parallel = true
+source = [
+    "src/chempare",
+    "src/chempare/datatypes",
+    "src/chempare/suppliers"
+]
+omit = ["*tests*","*/__init__.py"]
+
+[tool.coverage.report]
+show_missing = true
+precision = 2

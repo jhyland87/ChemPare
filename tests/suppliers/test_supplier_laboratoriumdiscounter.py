@@ -7,7 +7,7 @@ from chempare.suppliers import SupplierLaboratoriumDiscounter as Supplier
 # Base test class
 @pytest.mark.supplier
 class TestClass:
-    _query = "water"
+    _query = "Camphorsulfonyl"
     _results = None
 
     @pytest.fixture

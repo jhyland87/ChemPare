@@ -21,17 +21,17 @@ ifeq ('$(BREW_OK)','')
 	@echo $(shell brew -v 2>&1)
 	@echo "-----------------"
 endif
-	@echo "Installing python.."
+	@echo "Installing python3.."
 	brew install pyenv python@3.13
 	pyenv install --skip-existing 3.13
 	pyenv local 3.13
 	pyenv shell 3.13
 	@echo "-----------------"
-	@echo $(shell python --version 2>&1)
+	@echo $(shell python3 --version 2>&1)
 	@echo "-----------------"
 endif
 	@echo $(shell brew -v 2>&1)
-	@echo $(shell python --version 2>&1)
+	@echo $(shell python3 --version 2>&1)
 
 # After the dependencies are installed/verified, this will actiate
 # the environment just using venv/bin/activate
@@ -68,7 +68,7 @@ install-test:
 # Enter the python3 environment, then install the packages in the
 # requirements/common.txtfile.
 venv/bin/activate:
-	python -m venv venv
+	python3 -m venv venv
 
 # Just a simple help output. Not sure this is even necessary
 help:

@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debugger: dev/custom-datatypes.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/dev/custom-datatypes.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Debugger: chempare_cli.py",
             "type": "debugpy",
             "request": "launch",
@@ -30,12 +37,12 @@
             ]
         },
         {
-            "name":"Run pycodestyle",
-            "type":"debugpy",
-            "request":"launch",
-            "program":"pycodestyle",
-            "console":"integratedTerminal",
-            "args":[
+            "name": "Run pycodestyle",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "pycodestyle",
+            "console": "integratedTerminal",
+            "args": [
                 "--config=pytest.ini",
                 "**/*.py",
                 "*.py"
@@ -43,33 +50,34 @@
         }
     ],
     "inputs": [
-    {
-      "id": "query",
-      "type": "promptString",
-      "description": "Reagent to query for",
-      "default": "water"
-    },
-    {
-        "id":"supplier",
-        "type":"pickString",
-        "description": "Select a supplier",
-        "options": [
-            "SearchFactory",
-            "SupplierBioFuranChem",
-            "SupplierLaballey",
-            "SupplierLabchem",
-            "SupplierChemsavers",
-            "SupplierOnyxmet",
-            "SupplierEsDrei",
-            "Supplier3SChem",
-            "SupplierSynthetika",
-            "SupplierTciChemicals",
-            "SupplierFtfScientific",
-            "SupplierLoudwolf",
-            "SupplierWarchem",
-            "SupplierLaboratoriumDiscounter",
-        ],
-        "default": "SearchFactory"
-    }
-  ]
+        {
+            "id": "query",
+            "type": "promptString",
+            "description": "Reagent to query for",
+            "default": "acid"
+        },
+        {
+            "id": "supplier",
+            "type": "pickString",
+            "description": "Select a supplier",
+            "options": [
+                "SearchFactory",
+                "SupplierCarolinaChemical",
+                "SupplierBioFuranChem",
+                "SupplierLaballey",
+                "SupplierLabchem",
+                "SupplierChemsavers",
+                "SupplierOnyxmet",
+                "SupplierEsDrei",
+                "Supplier3SChem",
+                "SupplierSynthetika",
+                "SupplierTciChemicals",
+                "SupplierFtfScientific",
+                "SupplierLoudwolf",
+                "SupplierWarchem",
+                "SupplierLaboratoriumDiscounter",
+            ],
+            "default": "SearchFactory"
+        }
+    ]
 }
