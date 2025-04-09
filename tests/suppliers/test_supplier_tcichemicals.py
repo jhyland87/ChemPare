@@ -5,7 +5,6 @@ from chempare.suppliers import SupplierTciChemicals as Supplier
 
 
 # Base test class
-@pytest.mark.supplier
 class TestClass:
     _query = "water"
     _results = None
@@ -25,14 +24,12 @@ class TestClass:
 class TestValidSearch(TestClass):
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
         assert isinstance(results.products[0], TypeProduct) is True
@@ -43,33 +40,30 @@ class TestInvalidSearch(TestClass):
     _query = "This_should_return_no_results"
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0
 
 
 # Test cases for a valid CAS search for this supplier
 class TestValidCASSearch(TestClass):
-    _query = "7440-23-5"  # Sodium
+    _query = "67-66-3"  # Chloroform
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
+        assert type(results.products[0]) == 'TypeProduct' is True
         assert isinstance(results.products[0], TypeProduct) is True
 
 
@@ -78,13 +72,11 @@ class TestInvalidCASSearch(TestClass):
     _query = "7782-77-6"  # Nitrous acid, too stable to be sold
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0

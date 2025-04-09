@@ -6,4 +6,7 @@ gitignore
 pyvenv.cfg
 __pycache__
 *.egg-info
+.DS_Store
 .coverage
+coverage
+venv

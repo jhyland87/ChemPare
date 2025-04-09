@@ -1,7 +1,7 @@
 .PHONY: init test install install-dev help clean install-dependencies
 
 PYTHON3_OK := $(shell python --version 2>&1)
-PYENV313_OK := $(shell pyenv versions | grep -q 3.13 2>&1)
+PYENV313_OK := $(shell pyenv versions | grep -q 3.12 2>&1)
 BREW_OK := $(shell brew -v 2>&1)
 
 #init: venv/bin/activate
@@ -22,10 +22,10 @@ ifeq ('$(BREW_OK)','')
 	@echo "-----------------"
 endif
 	@echo "Installing python3.."
-	brew install pyenv python@3.13
-	pyenv install --skip-existing 3.13
-	pyenv local 3.13
-	pyenv shell 3.13
+	brew install pyenv python@3.12
+	pyenv install --skip-existing 3.12
+	pyenv local 3.12
+	pyenv shell 3.12
 	@echo "-----------------"
 	@echo $(shell python3 --version 2>&1)
 	@echo "-----------------"
@@ -38,9 +38,9 @@ endif
 install:
 	make install-dependencies
 	make venv/bin/activate
-	pyenv install --skip-existing 3.13
-	pyenv local 3.13
-	pyenv shell 3.13
+	pyenv install --skip-existing 3.12
+	pyenv local 3.12
+	pyenv shell 3.12
 	./venv/bin/pip3 install --upgrade pip
 	./venv/bin/pip3 install -e .
 	make venv/bin/activate
@@ -48,9 +48,9 @@ install:
 install-dev:
 	make install-dependencies
 	make venv/bin/activate
-	pyenv install --skip-existing 3.13
-	pyenv local 3.13
-	pyenv shell 3.13
+	pyenv install --skip-existing 3.12
+	pyenv local 3.12
+	pyenv shell 3.12
 	./venv/bin/pip3 install --upgrade pip
 	./venv/bin/pip3 install -e .[dev]
 	make venv/bin/activate
@@ -58,9 +58,9 @@ install-dev:
 install-test:
 	make install-dependencies
 	make venv/bin/activate
-	pyenv install --skip-existing 3.13
-	pyenv local 3.13
-	pyenv shell 3.13
+	pyenv install --skip-existing 3.12
+	pyenv local 3.12
+	pyenv shell 3.12
 	./venv/bin/pip3 install --upgrade pip
 	./venv/bin/pip3 install -e .[test]
 	make venv/bin/activate

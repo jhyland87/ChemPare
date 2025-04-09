@@ -4,9 +4,9 @@ import re
 from dataclasses import dataclass
 from typing import Any
 from typing import Dict
+from typing import ItemsView
 from typing import List
-from typing import NoReturn
-from typing import Union
+from typing import Self
 
 from chempare.datatypes.variant import TypeVariant
 
@@ -15,83 +15,84 @@ from chempare.datatypes.variant import TypeVariant
 class TypeProduct:
     """Custom data class for products"""
 
-    uuid: Union[str, int] = None
-    """Unique identifier used by supplier"""
-
-    title: str = None
-    """Title of the product"""
-
-    name: str = None
-    """Product name (sometimes different than title)"""
-
-    description: str = None
-    """Product description"""
-
-    brand: str = None
-    """Brand of the product"""
-
-    grade: str = None
-    """Grade of reagent (ACS, reagent, USP, technical, etc)"""
-
-    url: str = None
-    """URL to direcet product (if availabe)"""
-
-    cas: str = None
-    """CAS Number"""
-
-    price: float = None
-    """Price of product"""
-
-    currency: str = None
-    """Currency the price is in"""
-
-    currency_code: str = None
-    """The currency code, if one can be determined from the currency symbol"""
-
-    quantity: float = None
-    """Quantity of listing"""
-
-    uom: str = None
-    """Unit of measurement for quantity"""
-
-    manufacturer: str = None
-    """Manufacturer name"""
-
-    mpn: str = None
-    """Manufacturer part number"""
-
-    sku: str = None
-    """Stock Keeping Unit - a unique code for a specific business"""
-
-    upc: str = None
-    """Universal Product Code - a globally recognized code"""
-
-    supplier: str = None
+    supplier: str
     """Supplier the product is provided by"""
 
-    is_restricted: bool = None
+    name: str | None = None
+    """Product name (sometimes different than title)"""
+
+    price: float | int | None = None
+    """Price of product"""
+
+    currency: str | None = None
+    """Currency the price is in"""
+
+    currency_code: str | None = None
+    """The currency code, if one can be determined from the currency symbol"""
+
+    quantity: float | int | None = None
+    """Quantity of listing"""
+
+    uom: str | None = None
+    """Unit of measurement for quantity"""
+
+    title: str | None = None
+    """Title of the product"""
+
+    uuid: str | int | None = None
+    """Unique identifier used by supplier"""
+
+    description: str | None = None
+    """Product description"""
+
+    brand: str | None = None
+    """Brand of the product"""
+
+    grade: str | None = None
+    """Grade of reagent (ACS, reagent, USP, technical, etc)"""
+
+    url: str | None = None
+    """URL to direcet product (if availabe)"""
+
+    cas: str | None = None
+    """CAS Number"""
+
+    manufacturer: str | None = None
+    """Manufacturer name"""
+
+    mpn: str | None = None
+    """Manufacturer part number"""
+
+    sku: str | None = None
+    """Stock Keeping Unit - a unique code for a specific business"""
+
+    upc: str | None = None
+    """Universal Product Code - a globally recognized code"""
+
+    is_restricted: bool | None = None
     """If there are any restrictions for this product, this should be true"""
 
-    restriction: str = None
+    restriction: str | None = None
     """String containing the value that the restriction was found in"""
 
-    residential: bool = None
+    residential: bool | None = None
     """Does the supplier sell to residential addresses?"""
 
-    individual: bool = None
+    individual: bool | None = None
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    variants: List[TypeVariant] = None
+    variants: List[TypeVariant] | None = None
     """List of variants for this product"""
 
-    formula: str = None
+    formula: str | None = None
     """Chemical formula"""
 
-    def items(self) -> List:
+    def items(self: Self) -> ItemsView[str, Any]:
+        """Return dict_items of product attributes"""
         return self.__dict__.items()
 
-    def update(self, data: Dict) -> NoReturn:
+    def update(self: Self, data: Dict) -> None:
         """Update the TypeProduct instance
 
         Args:
@@ -100,11 +101,11 @@ class TypeProduct:
         if data:
             self.__dict__.update(data)
 
-    def set(self, key, value) -> NoReturn:
+    def set(self: Self, key, value) -> None:
         """Set a local attribute for this product"""
         setattr(self, key, value)
 
-    def cast_properties(self, include_none: bool = False) -> Dict:
+    def cast_properties(self: Self, include_none: bool = False) -> Dict:
         """Cast the product attributes to the likely formats, and return them
         in a separate dictionary, excluding record with None value by default
 
@@ -124,12 +125,10 @@ class TypeProduct:
                 continue
 
             self.set(key, val)
-            # setattr(self, key, val)
-            # self.setarr(key, _val)
 
-        return self
+        return self.__dict__
 
-    def __cast_type(self, value: Any) -> Any:
+    def __cast_type(self: Self, value: Any) -> Any:
         """Cast a value to the proper type. This is mostly used for casting
         int/float/bool
 

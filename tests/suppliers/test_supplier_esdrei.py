@@ -5,7 +5,6 @@ from chempare.suppliers import SupplierEsDrei as Supplier
 
 
 # Base test class
-@pytest.mark.supplier
 class TestClass:
     _query = "Wasser"
     _results = None
@@ -25,14 +24,12 @@ class TestClass:
 class TestValidSearch(TestClass):
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
         assert isinstance(results.products[0], TypeProduct) is True
@@ -43,14 +40,12 @@ class TestInvalidSearch(TestClass):
     _query = "aaaaaaaaaaaaaaaaaaaaa"
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0
 
@@ -61,11 +56,11 @@ class TestInvalidSearch(TestClass):
 #     _query = "7732-18-5"
 #     _results = None
 
-#     @pytest.mark.first
+#     #@pytest.mark.first
 #     def test_query(self, results):
 #         assert isinstance(results, Exception) is False
 
-#     @pytest.mark.second
+#     #@pytest.mark.second
 #     def test_results(self, results):
 #         assert len(results) > 0
 
@@ -76,10 +71,10 @@ class TestInvalidSearch(TestClass):
 #     _query = "7782-77-6"  # Nitrous acid, too stable to be sold
 #     _results = None
 
-#     @pytest.mark.first
+#     #@pytest.mark.first
 #     def test_query(self, results):
 #         assert isinstance(results, Exception) is False
 
-#     @pytest.mark.second
+#     #@pytest.mark.second
 #     def test_results(self, results):
 #         assert len(results) == 0

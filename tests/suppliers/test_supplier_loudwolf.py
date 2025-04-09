@@ -5,7 +5,6 @@ from chempare.suppliers import SupplierLoudwolf as Supplier
 
 
 # Base test class
-@pytest.mark.supplier
 class TestClass:
     _query = "water"
     _results = None
@@ -25,14 +24,12 @@ class TestClass:
 class TestValidSearch(TestClass):
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
         assert isinstance(results.products[0], TypeProduct) is True
@@ -43,14 +40,12 @@ class TestInvalidSearch(TestClass):
     _query = "This_should_return_no_results"
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0
 
@@ -60,14 +55,12 @@ class TestValidCASSearch(TestClass):
     _query = "7440-44-0"  # Activated carbon
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0
         assert isinstance(results.products[0], TypeProduct) is True
@@ -78,13 +71,11 @@ class TestInvalidCASSearch(TestClass):
     _query = "7782-77-6"  # Nitrous acid, too stable to be sold
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
         assert type(results.products) is list
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0

@@ -89,6 +89,8 @@
             "source.organizeImports": "always"
         }
     },
+    //"python.experiments.optInto": ["pythonTestAdapter"],
+    "python.coveragepy.file":".coverage",
     "python.languageServer": "Pylance",
     "python.analysis.autoImportCompletions": false,
     "python.analysis.completeFunctionParens": false,
@@ -120,9 +122,20 @@
     ],
     "python.testing.pytestArgs": [
         //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
-        // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
+        // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --pycodestyle tests/test_class_utils.py
         //"-vvv",
-        "-c=pyproject.toml",
+        //"-c=pyproject.toml",
+        "-ra -q",
+        //"--capture=no",
+        //"--pycodestyle",
+        "--color=yes",
+        "--numprocesses=auto",
+        "--code-highlight=yes",
+        //"--doctest-modules",
+        "--cov=src/chempare",
+        //"--cov-report=html:coverage",
+        "--cov-report=term",
+        "tests"
         // "--capture=no",
         // //"--show-capture=all",
         // "-ra",
@@ -144,9 +157,17 @@
     "autoDocstring.quoteStyle": "\"\"\"",
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "off",
-    "python.defaultInterpreterPath": "python",
+    "python.defaultInterpreterPath": "python3",
     "yaml.schemas": {
         "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
+    },
+    "python.analysis.typeCheckingMode": "standard",
+    "testing.coverageToolbarEnabled": true,
+    "testing.coverageBarThresholds": {
+
+        "red": 0,
+        "yellow": 60,
+        "green": 90
     },
 }

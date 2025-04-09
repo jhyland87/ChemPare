@@ -28,7 +28,7 @@ class SupplierTciChemicals(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -42,7 +42,7 @@ class SupplierTciChemicals(SupplierBase):
         # HTML
         # https://www.tcichemicals.com/US/en/search/?text=benz'
         #
-        def __query_search_page(query: str, page_idx: int = 0) -> NoReturn:
+        def __query_search_page(query: str, page_idx: int = 0) -> None:
             """Handles the pagination on the search page
 
             Args:
@@ -98,7 +98,7 @@ class SupplierTciChemicals(SupplierBase):
 
         __query_search_page(query, 0)
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
         self._query_results and returns a list of TypeProduct objects.
 
@@ -108,7 +108,7 @@ class SupplierTciChemicals(SupplierBase):
         for product_elem in self._query_results:
             self.__parse_product(product_elem)
 
-    def __parse_product(self, product_obj: BeautifulSoup) -> NoReturn:
+    def __parse_product(self, product_obj: BeautifulSoup) -> None:
         """Parse single product and return single TypeProduct object
 
         Args:

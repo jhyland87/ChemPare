@@ -11,19 +11,20 @@ import time
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Optional
-from typing import Union
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
 
 import regex
 from abcplus import ABCMeta
 from abcplus import finalmethod
+from bs4 import BeautifulSoup
 from currex import CURRENCIES
 from currex import Currency
 from price_parser import Price
 
-import chempare
+
+# pylint: broad-exception-caught
+# import chempare
 
 
 class ClassUtils(metaclass=ABCMeta):
@@ -43,7 +44,7 @@ class ClassUtils(metaclass=ABCMeta):
     @finalmethod
     def _parse_price(
         self, value: str, symbol_to_code: bool = True
-    ) -> Optional[Dict]:
+    ) -> Dict | None:
         """Parse a string for a price value (currency and value)
 
         Args:
@@ -187,8 +188,10 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _to_usd(
-        self, from_currency: str = None, amount: Union[int, float, str] = None
-    ) -> Optional[float]:
+        self,
+        from_currency: str | None = None,
+        amount: int | float | str | None = None,
+    ) -> float | None:
         """Convert a no USD price to the USD price
 
         Args:
@@ -235,7 +238,7 @@ class ClassUtils(metaclass=ABCMeta):
             from_currency_obj = Currency(from_currency, amount)
             usd = from_currency_obj.to("USD")
             return round(float(usd.amount), 2)
-        except Exception as err:
+        except Exception:
             # print("Exception:", err)
             return None
 
@@ -275,7 +278,7 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> Optional[Dict]:
+    def _parse_quantity(self, value: str) -> Dict | None:
         """Parse a string for the quantity and unit of measurement
 
         Args:
@@ -356,7 +359,9 @@ class ClassUtils(metaclass=ABCMeta):
         return quantity_obj
 
     @finalmethod
-    def _get_param_from_url(self, url: str, param: str = None) -> Optional[Any]:
+    def _get_param_from_url(
+        self, url: str, param: str | None = None
+    ) -> Any | None:
         """Get a specific arameter from a GET URL
 
         Args:
@@ -423,7 +428,7 @@ class ClassUtils(metaclass=ABCMeta):
         return result
 
     @finalmethod
-    def _nested_arr_to_dict(self, arr: List[List]) -> Optional[Dict]:
+    def _nested_arr_to_dict(self, arr: List[List]) -> Dict | None:
         """Takes an array of arrays (ie: result from
         self._split_array_into_groups) and converts that into a dictionary.
 
@@ -470,7 +475,7 @@ class ClassUtils(metaclass=ABCMeta):
         return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
 
     @finalmethod
-    def _currency_code_from_symbol(self, symbol: str) -> Optional[str]:
+    def _currency_code_from_symbol(self, symbol: str) -> str | None:
         """Attempt to get the currency code for a given currency symbol
 
         Source:
@@ -566,7 +571,7 @@ class ClassUtils(metaclass=ABCMeta):
         return currency_codes.get(symbol, None)
 
     @finalmethod
-    def _currency_symbol_from_code(self, code: str) -> Optional[str]:
+    def _currency_symbol_from_code(self, code: str) -> str | None:
 
         if isinstance(code, str) is False:
             return None
@@ -690,7 +695,7 @@ class ClassUtils(metaclass=ABCMeta):
             return currency_symbols[code]
 
     @finalmethod
-    def _cast_type(self, value: Union[str, int, float, bool] = None) -> Any:
+    def _cast_type(self, value: str | int | float | bool | None = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting
         int/float/bool
 
@@ -739,7 +744,7 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _random_string(
-        self, length: Optional[int] = 10, include_special: bool = False
+        self, length: int | None = 10, include_special: bool = False
     ) -> str:
         """Generate random string
 
@@ -766,7 +771,7 @@ class ClassUtils(metaclass=ABCMeta):
         return "".join(random.choice(char_list) for _ in range(length))
 
     @finalmethod
-    def _find_cas(self, value: str) -> Optional[str]:
+    def _find_cas(self, value: str) -> str | None:
         """Parse a string for CAS values, return the first valid one
 
         Args:
@@ -861,7 +866,7 @@ class ClassUtils(metaclass=ABCMeta):
         texts: list,
         maximum_length: int = 3,
         minimum_repeat: int = 2,
-        stopwords: list = None,
+        stopwords: list | None = None,
     ) -> dict:
         stopwords = stopwords or []
         """Get the most common phrases out of a list of phrases.
@@ -937,7 +942,7 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _find_values_with_element(
-        self, source: Dict, element: Union[str, int]
+        self, source: Dict, element: str | int
     ) -> List:
         """
         Finds values in a dictionary that are tuples and contain a specific
@@ -973,5 +978,44 @@ class ClassUtils(metaclass=ABCMeta):
             or (isinstance(key, str) and element == key)
         ]
 
+    @finalmethod
+    def _strip_html(
+        self, content: str, separator: str | None = " "
+    ) -> str | None:
+        """Strip HTML from a simple string
 
-__all__ = list("ClassUtils")
+        Args:
+            content (str): Content to strip HTML from
+            separator (Optional[str], optional): Separator the html by this string. Defaults to " ".
+
+        Raises:
+            TypeError: If a string is not provided
+
+        Returns:
+            str | None: The HTML free string, or None if it was empty
+
+        Example:
+            self._strip_html("<b>Hello World</b>")
+            "Hello World"
+        """
+
+        if not content or not isinstance(content, str):
+            raise TypeError("Invalid type sent to _strip_html")
+
+        soup = BeautifulSoup(content, "html.parser")
+
+        if not soup:
+            return content
+
+        if separator:
+            result = soup.get_text(separator, strip=True)
+        else:
+            result = soup.get_text(strip=True)
+
+        if not result:
+            return None
+
+        return result
+
+
+# __all__ = list("ClassUtils")

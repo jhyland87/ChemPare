@@ -50,6 +50,7 @@ Repository = "https://github.com/YourHeatingMantle/ChemPare.git"
 test = [
     "pytest",
     "pytest-cov",
+    "coverage",
     "pytest-xdist",
     "pylint-pytest",
     "pytest-instafail",
@@ -105,9 +106,11 @@ where = [
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage --cov-report=term"
+# --cov-report=html:coverage --cov-report=term
 testpaths = ["tests"]
-pythonpath = ["src/chempare", "src/chempare/*"]
+pythonpath = ["src","src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
+console_output_style = "progress"
 markers = [
     "supplier: Supplier module",
     "webtest: mark a test as a webtest.",
@@ -119,7 +122,7 @@ markers = [
     "sixth: Trigger 6th.",
     "seventh: Trigger 7th."
 ]
-env = ["LOG_LEVEL=WARNING"]
+#env = ["LOG_LEVEL=WARNING"]
 [tool.isort]
 py_version = 313
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
@@ -139,62 +142,71 @@ force_single_line = true
 skip_glob = ["docs/*", "setup.py"]
 filter_files = true
 
+# [tool.ruff]
+# target-version = "py313"
+# line-length = 120
+# indent-width = 4
+# extend-exclude = ["docs", "test", "tests"]
+
+# [tool.ruff.lint]
+# select = ["F", "E"]
+# extend-select = ["W", "C90", "I", "N", "B", "A", "C4", "PERF", "RUF"]
+# ignore = ["I001"]
+# fixable = ["ALL"]
+# unfixable = []
+# preview = true
+# dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# [tool.ruff.lint.isort]
+# force-single-line = true
+# force-sort-within-sections = false
+# lines-after-imports = 2
+# known-first-party = []
+# known-local-folder = []
+# known-third-party = []
+# section-order = [
+#     "future",
+#     "standard-library",
+#     "third-party",
+#     "first-party",
+#     "local-folder",
+# ]
+
+# [tool.ruff.lint.mccabe]
+# max-complexity = 24
 [tool.ruff]
-target-version = "py313"
-line-length = 120
-indent-width = 4
-extend-exclude = ["docs", "test", "tests"]
+ignore = ["ALL"]
+# [tool.ruff.lint.pycodestyle]
+# ignore-overlong-task-comments = true
+# max-line-length = 81
+# max-doc-length = 150
+# statistics = true
+# #show-pep8 = true
+# #show-source = true
+# #exclude = "main.py,tests/*,dev/*"
+# #ignore = "E203,E121,E123,E126,E226,E24,E704,W503,W504"
+# #filename="*.py"
 
-[tool.ruff.lint]
-select = ["F", "E"]
-extend-select = ["W", "C90", "I", "N", "B", "A", "C4", "PERF", "RUF"]
-ignore = ["I001"]
-fixable = ["ALL"]
-unfixable = []
-preview = true
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+# [tool.ruff.lint.pydocstyle]
+# convention = "numpy"
 
-[tool.ruff.lint.isort]
-force-single-line = true
-force-sort-within-sections = false
-lines-after-imports = 2
-known-first-party = []
-known-local-folder = []
-known-third-party = []
-section-order = [
-    "future",
-    "standard-library",
-    "third-party",
-    "first-party",
-    "local-folder",
-]
+# [tool.ruff.lint.flake8-annotations]
+# allow-star-arg-any = true
+# ignore-fully-untyped = true
 
-[tool.ruff.lint.mccabe]
-max-complexity = 24
+# [tool.ruff.lint.pylint]
+# max-args = 5
+# max-branches = 12
+# max-locals = 15
+# max-statements = 50
 
-[tool.ruff.lint.pycodestyle]
-ignore-overlong-task-comments = true
-
-[tool.ruff.lint.pydocstyle]
-convention = "numpy"
-
-[tool.ruff.lint.flake8-annotations]
-allow-star-arg-any = true
-ignore-fully-untyped = true
-
-[tool.ruff.lint.pylint]
-max-args = 5
-max-branches = 12
-max-locals = 15
-max-statements = 50
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
-preview = false
-docstring-code-format = true
+# [tool.ruff.format]
+# quote-style = "double"
+# indent-style = "space"
+# skip-magic-trailing-comma = false
+# line-ending = "auto"
+# preview = false
+# docstring-code-format = true
 
 [tool.mypy]
 python_version = "3.12"
@@ -259,9 +271,9 @@ source = [
 ]
 
 [tool.coverage.run]
-#disable_warnings = ["no-data-collected"]
+disable_warnings = ["no-data-collected"]
 branch = true
-parallel = true
+#parallel = true
 source = [
     "src/chempare",
     "src/chempare/datatypes",
@@ -271,4 +283,5 @@ omit = ["*tests*","*/__init__.py"]
 
 [tool.coverage.report]
 show_missing = true
-precision = 2
+#precision = 2
+#[pytest]

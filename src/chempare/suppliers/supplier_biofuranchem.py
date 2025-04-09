@@ -10,12 +10,13 @@ from chempare.suppliers.supplier_base import SupplierBase
 # File: /suppliers/supplier_biofuranchem.py
 class SupplierBioFuranChem(SupplierBase):
 
-    _supplier: TypeSupplier = dict(
-        name="BioFuran Chem",
-        location=None,
-        base_url="https://www.biofuranchem.com",
-        api_url="https://www.biofuranchem.com",
-    )
+    _supplier: TypeSupplier = {
+        "name": "BioFuran Chem",
+        "location": None,
+        "base_url": "https://www.biofuranchem.com",
+        "api_url": "https://www.biofuranchem.com",
+    }  # type: ignore
+
     """Supplier specific data"""
 
     allow_cas_search: bool = True
@@ -28,7 +29,7 @@ class SupplierBioFuranChem(SupplierBase):
     #     super().__init__(id, query, limit)
     # Do extra stuff here
 
-    def _setup(self, query: str = None) -> NoReturn:
+    def _setup(self, query: str | None = None) -> None:
         # 1 Get the session binding from the initial request headers
         headers = self.http_get_headers(
             path="/shop",
@@ -219,7 +220,7 @@ class SupplierBioFuranChem(SupplierBase):
             uuid=product_obj["id"],
             name=product_obj["name"],
             title=product_obj["name"],
-            description=product_obj["description"],
+            description=self._strip_html(product_obj["description"]),
             url=f"https://www.biofuranchem.com/product-page/{product_obj["urlPart"]}",
             supplier=self._supplier["name"],
             currency="$",

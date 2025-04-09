@@ -28,7 +28,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
-def main(supplier="SearchFactory", query="water"):
+def main(supplier: str = "SearchFactory", query: str = "water"):
     print(f"Searching supplier {supplier} for {query}...")
 
     product_search = globals()[supplier](query=query)
@@ -73,7 +73,7 @@ def init():
 
     # try:
     if len(sys.argv) >= 3:
-        query_params = {"supplier": sys.argv[1], "query": sys.argv[2]}
+        query_params = {"supplier": str(sys.argv[1]), "query": str(sys.argv[2])}
     else:
         query_params = inquirer.prompt(questions)
 

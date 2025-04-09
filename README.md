@@ -35,7 +35,7 @@ make run
 
 ##### Manual setup
 
-1. Install Python 3.13.1
+1. Install Python 3.12
 
 2. Checkout this repo
 ```bash
@@ -124,8 +124,7 @@ The output should look simiar to the following:
 
 ## Suppliers To Add
 - https://www.jk-sci.com
-- https://www.chemworld.com/searchresults.asp?Search=potassium&Submit=
-- https://www.sciencecompany.com/Search?Keywords=acid&ManufacturerId=0&categoryId=670&PageSize=48
-- https://carolinachemical.com/
-    https://carolinachemical.com/wp-json/wp/v2/search?search=borohydride
-    https://carolinachemical.com/wp-json/wp/v2/product/6981
+- https://www.chemworld.com
+- https://www.sciencecompany.com
+- https://www.ambeed.com
+- https://www.icpms.com (Elementalscientific)

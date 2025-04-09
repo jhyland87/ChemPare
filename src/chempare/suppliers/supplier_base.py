@@ -33,7 +33,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     # def __init_subclass__(cls, **kwargs):
     #     super().__init_subclass__(**kwargs)
 
-    def __init__(self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 100) -> NoReturn:
+    def __init__(
+        self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 100
+    ) -> NoReturn:
         self.__init_logging()
 
         self._fuzz_ratio = fuzz_ratio
@@ -162,14 +164,28 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
                 ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
         """
-        if not self._products or isinstance(self._fuzz_ratio, int) is False or self._is_cas(self._query):
+        if (
+            not self._products
+            or isinstance(self._fuzz_ratio, int) is False
+            or self._is_cas(self._query)
+        ):
             return
 
         self._products = [
             product
             for product in self._products
-            if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
-            or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
+            if (
+                "name" in product
+                and fuzz.partial_ratio(self._query.lower(), product.name.lower())
+                >= self._fuzz_ratio
+            )
+            or (
+                "title" in product
+                and fuzz.partial_ratio(
+                    self._query.lower(), product.title.lower()
+                )
+                >= self._fuzz_ratio
+            )
         ]
 
     def __next__(self) -> TypeProduct:
@@ -202,7 +218,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return self._products
 
     @finalmethod
-    def http_get(self, path: str = None, params: Dict = None, cookies: Dict = None, headers: Dict = None) -> requests:
+    def http_get(
+        self,
+        path: str = None,
+        params: Dict = None,
+        cookies: Dict = None,
+        headers: Dict = None,
+    ) -> requests:
         """Base HTTP getter (not specific to data type).
 
         Args:
@@ -281,7 +303,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_post_json(
-        self, path: str = None, params: Dict = None, json: Dict = None, headers: Dict = None, cookies: Dict = None
+        self,
+        path: str = None,
+        params: Dict = None,
+        json: Dict = None,
+        headers: Dict = None,
+        cookies: Dict = None,
     ) -> Union[Dict, List]:
         """Post a JSON request and get a JSON response
 
@@ -302,7 +329,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             url = f"{url}/{path}"
 
         req = self.http_post(
-            url, params=params, json=json, cookies=cookies or self._cookies, headers=headers or self._headers
+            url,
+            params=params,
+            json=json,
+            cookies=cookies or self._cookies,
+            headers=headers or self._headers,
         )
         if req is None:
             return None

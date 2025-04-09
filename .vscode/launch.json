@@ -43,10 +43,16 @@
             "program": "pycodestyle",
             "console": "integratedTerminal",
             "args": [
-                "--config=pytest.ini",
+                "--config=pyproject.toml",
                 "**/*.py",
                 "*.py"
             ]
+        },
+        {
+            "name": "Python Debugger: Python File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}"
         }
     ],
     "inputs": [
@@ -75,7 +81,7 @@
                 "SupplierFtfScientific",
                 "SupplierLoudwolf",
                 "SupplierWarchem",
-                "SupplierLaboratoriumDiscounter",
+                "SupplierLaboratoriumDiscounter"
             ],
             "default": "SearchFactory"
         }

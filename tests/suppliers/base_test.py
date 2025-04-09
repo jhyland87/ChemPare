@@ -20,7 +20,6 @@ class SupplierBaseTest:
 
 
 # Base test class
-@pytest.mark.supplier
 class TestClass:
     _query = "clean"
     _results = None
