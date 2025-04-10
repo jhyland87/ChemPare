@@ -30,7 +30,7 @@ class TestValidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
@@ -48,7 +48,7 @@ class TestInvalidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
@@ -65,7 +65,7 @@ class TestValidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
@@ -83,7 +83,7 @@ class TestInvalidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
