@@ -1,7 +1,6 @@
 import re
 from typing import Dict
 from typing import List
-from typing import NoReturn
 from typing import Tuple
 
 from chempare.datatypes import TypeProduct
@@ -15,7 +14,7 @@ class SupplierSynthetika(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Synthetika",
         location="Eu",
         base_url="https://synthetikaeu.com",
@@ -27,14 +26,14 @@ class SupplierSynthetika(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
             query (str): Query string to use
         """
 
-        def __query_list(query: str, page: int = 1) -> NoReturn:
+        def __query_list(query: str, page: int = 1) -> None:
             """Query list of products on page
 
             Args:
@@ -42,7 +41,7 @@ class SupplierSynthetika(SupplierBase):
                 page (int, optional): Page number. Defaults to 1.
 
             Returns:
-                NoReturn: Nothing, just appends data to self._query_results and
+                None: Nothing, just appends data to self._query_results and
                           executes self.__query_list() again if needed
             """
 
@@ -78,7 +77,7 @@ class SupplierSynthetika(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
@@ -100,14 +99,14 @@ class SupplierSynthetika(SupplierBase):
               stores data about the same product but in different quantities.
               This could maybe be included?
         """
-        product = TypeProduct(
+        product = dict(
             uuid=product_obj["product_code"],
             name=product_obj["name"],
             title=product_obj["name"],
             price=product_obj["price"],
-            url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
+            url=f"{self._supplier.base_url}{product_obj["url"]}",
             manufacturer=product_obj["attributes"].get("producer_name", None),
-            supplier=self._supplier["name"],
+            supplier=self._supplier.name,
         )
 
         quantity_pattern = re.compile(
@@ -126,7 +125,9 @@ class SupplierSynthetika(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        return product
+        product = TypeProduct(**product)
+
+        return product.cast_properties()
 
 
 if __package__ == "suppliers":

@@ -1,5 +1,3 @@
-from typing import NoReturn
-
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
@@ -9,14 +7,14 @@ from chempare.suppliers.supplier_base import SupplierBase
 class Supplier3SChem(SupplierBase):
     _limit: int = 20
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="3S Chemicals LLC",
         location=None,
         base_url="https://3schemicalsllc.com",
     )
     """Supplier specific data"""
 
-    def _query_products(self, query) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -50,27 +48,32 @@ class Supplier3SChem(SupplierBase):
             : self._limit
         ]
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Parse products stored at self._query_results"""
         for product in self._query_results:
             # Skip unavailable
             if product["available"] is False:
                 continue
 
-            product_obj = TypeProduct(
+            product_obj = dict(
                 uuid=product["id"],
                 name=product["title"],
                 title=product["title"],
                 # price=product["price"],
-                url=self._supplier["base_url"] + product["url"],
-                supplier=self._supplier["name"],
+                url=self._supplier.base_url + product["url"],
+                supplier=self._supplier.name,
             )
 
             price = self._parse_price(product["price"])
 
+            if not price:
+                continue
+
             product_obj.update(price)
 
-            self._products.append(product_obj)
+            # print("product_obj:", product_obj)
+
+            self._products.append(TypeProduct(**product_obj))
 
 
 if __package__ == "suppliers":

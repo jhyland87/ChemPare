@@ -1,5 +1,4 @@
 import re
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -17,7 +16,7 @@ class SupplierTciChemicals(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="TCI Chemicals",
         # location = 'Eu',
         base_url="https://www.tcichemicals.com/",
@@ -28,7 +27,7 @@ class SupplierTciChemicals(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -42,7 +41,7 @@ class SupplierTciChemicals(SupplierBase):
         # HTML
         # https://www.tcichemicals.com/US/en/search/?text=benz'
         #
-        def __query_search_page(query: str, page_idx: int = 0) -> NoReturn:
+        def __query_search_page(query: str, page_idx: int = 0) -> None:
             """Handles the pagination on the search page
 
             Args:
@@ -51,7 +50,7 @@ class SupplierTciChemicals(SupplierBase):
                                           Defaults to 0.
 
             Returns:
-                NoReturn: Nothing, just adds new entries to self._query_results,
+                None: Nothing, just adds new entries to self._query_results,
                           and executes self.__query_search_page if needed.
             """
 
@@ -98,17 +97,17 @@ class SupplierTciChemicals(SupplierBase):
 
         __query_search_page(query, 0)
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
         self._query_results and returns a list of TypeProduct objects.
 
         Returns:
-            NoReturn: Nothing.
+            None: Nothing.
         """
         for product_elem in self._query_results:
             self.__parse_product(product_elem)
 
-    def __parse_product(self, product_obj: BeautifulSoup) -> NoReturn:
+    def __parse_product(self, product_obj: BeautifulSoup) -> None:
         """Parse single product and return single TypeProduct object
 
         Args:
@@ -134,15 +133,15 @@ class SupplierTciChemicals(SupplierBase):
 
         price_obj = self._parse_price(price.get_text(strip=True))
 
-        product = TypeProduct(
+        product_dict = dict(
             name=title.get_text(strip=True),
             quantity=quantity.get_text(strip=True),
-            supplier=self._supplier["name"],
-            url=self._supplier["base_url"] + title.attrs["href"],
+            supplier=self._supplier.name,
+            url=self._supplier.base_url + str(title.attrs["href"]),
         )
 
         if price_obj:
-            product.update(price_obj)
+            product_dict.update(price_obj)
 
         description_container = product_obj.find(
             "div", class_="product-description"
@@ -151,11 +150,11 @@ class SupplierTciChemicals(SupplierBase):
 
         for idx, d in enumerate(data):
             if d.get_text(strip=True) == "Product Number":
-                product.uuid = data[idx + 1].get_text(strip=True)
+                product_dict["uuid"] = data[idx + 1].get_text(strip=True)
                 continue
 
             if d.get_text(strip=True) == "CAS RN":
-                product.cas = data[idx + 1].get_text(strip=True)
+                product_dict["cas"] = data[idx + 1].get_text(strip=True)
                 continue
 
         quantity_pattern = re.compile(
@@ -164,16 +163,18 @@ class SupplierTciChemicals(SupplierBase):
                 r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$"
             )
         )
-        quantity_matches = quantity_pattern.search(product.quantity)
+        quantity_matches = quantity_pattern.search(product_dict["quantity"])
 
         if quantity_matches:
-            product.update(quantity_matches.groupdict())
+            product_dict.update(quantity_matches.groupdict())
 
         # price_pattern = re.compile(r"^(?P<currency>.)(?P<price>\d+\.\d+)$")
         # price_matches = price_pattern.search(product.price)
 
         # if price_matches:
         #     product.update(price_matches.groupdict())
+
+        product = TypeProduct(**product_dict)
 
         self._products.append(product.cast_properties())
 

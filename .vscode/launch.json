@@ -31,6 +31,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/chempare/cli/query_supplier.py",
             "console": "integratedTerminal",
+            "justMyCode": false,
             "args": [
                 "${input:supplier}",
                 "${input:query}"

@@ -1,6 +1,6 @@
 [project]
 name = "chempare"
-version = "0.1"
+version = "0.0"
 description = "Reagent search utility"
 requires-python = ">= 3.12"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
@@ -22,7 +22,7 @@ dependencies = [
     "curl_cffi",
     "translate",
     "regex",
-    "pytest-cov"
+    #"pytest-cov"
 ]
 
 authors = [
@@ -52,6 +52,7 @@ test = [
     "pytest-cov",
     "pytest-xdist",
     "pylint-pytest",
+    "coverage",
     "pytest-instafail",
     "pytest-timeout",
     "pytest-pycodestyle==1.0.6",
@@ -104,9 +105,9 @@ where = [
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage --cov-report=term"
+addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term"
 testpaths = ["tests"]
-pythonpath = ["src/chempare", "src/chempare/*"]
+pythonpath = ["src", "src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",
@@ -259,9 +260,9 @@ source = [
 ]
 
 [tool.coverage.run]
-#disable_warnings = ["no-data-collected"]
+disable_warnings = ["no-data-collected"]
 branch = true
-parallel = true
+#parallel = true
 source = [
     "src/chempare",
     "src/chempare/datatypes",
@@ -271,4 +272,4 @@ omit = ["*tests*","*/__init__.py"]
 
 [tool.coverage.report]
 show_missing = true
-precision = 2
+#precision = 2

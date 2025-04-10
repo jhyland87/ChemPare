@@ -59,7 +59,7 @@ class TestInvalidSearch(TestClass):
 # Test cases for a valid CAS search for this supplier
 # @pytest.mark.skip
 class TestValidCASSearch(TestClass):
-    _query = "7732-18-5"  # Water
+    _query = "64-19-7"  # acetic acid
     _results = None
 
     @pytest.mark.first
@@ -67,7 +67,7 @@ class TestValidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
@@ -86,7 +86,7 @@ class TestInvalidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):

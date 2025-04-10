@@ -1,6 +1,5 @@
 from typing import Dict
 from typing import List
-from typing import NoReturn
 from typing import Tuple
 
 from bs4 import BeautifulSoup
@@ -13,9 +12,8 @@ from chempare.suppliers.supplier_base import SupplierBase
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Chemsavers",
-        location=None,
         base_url="https://chemsavers.com",
         api_url="https://0ul35zwtpkx14ifhp-1.a1.typesense.net",
         api_key="iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd",
@@ -42,7 +40,7 @@ class SupplierChemsavers(SupplierBase):
     #     super().__init__(id, query, limit)
     # Do extra stuff here
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -53,7 +51,7 @@ class SupplierChemsavers(SupplierBase):
         # https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?
         #   x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd
         #
-        params = {"x-typesense-api-key": self._supplier["api_key"]}
+        params = {"x-typesense-api-key": self._supplier.api_key}
 
         body = {
             "searches": [
@@ -92,7 +90,7 @@ class SupplierChemsavers(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # if len(self._products) == self._limit:
             #    break
@@ -126,11 +124,10 @@ class SupplierChemsavers(SupplierBase):
             description=product_obj["description"],
             cas=product_obj.get("CAS", None),
             price=product_obj.get("price", None),
-            # url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
-            url=f"{self._supplier["base_url"]}{product_obj["url"]}",
+            url=f"{self._supplier.base_url}{product_obj["url"]}",
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
-            supplier=self._supplier["name"],
+            supplier=self._supplier.name,
         )
 
         # Since the description contains HTML, and it may contain restrictions,
@@ -145,11 +142,9 @@ class SupplierChemsavers(SupplierBase):
 
         if (
             restriction is not None
-            and (
-                "Restricted to qualified labs and businesses only "
-                "(no residences)"
-            )
-            in restriction.string
+            and hasattr(restriction, 'string') is True
+            and "Restricted to qualified labs and businesses only (no residences)"
+            in str(restriction.string)
         ):
             product.restriction = restriction.string
             product.is_restricted = True

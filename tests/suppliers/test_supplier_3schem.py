@@ -1,8 +1,10 @@
 import pytest
-from base_test import SupplierBaseTest
 
 from chempare.datatypes import TypeProduct
-from chempare.suppliers import Supplier3SChem as Supplier
+from chempare.suppliers import Supplier3SChem as Supplier  # type: ignore
+
+
+# from base_test import SupplierBaseTest
 
 
 # Base test class
@@ -31,7 +33,7 @@ class TestValidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):
@@ -49,7 +51,7 @@ class TestInvalidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert type(results.products) is list
+        assert isinstance(results.products, list) is True
 
     @pytest.mark.second
     def test_results(self, results):

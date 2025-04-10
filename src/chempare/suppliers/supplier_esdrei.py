@@ -1,5 +1,4 @@
 import re
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -11,14 +10,14 @@ from chempare.suppliers.supplier_base import SupplierBase
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="EsDrei",
         # location = '',
         base_url="https://shop.es-drei.de",
     )
     """Supplier specific data"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -44,7 +43,7 @@ class SupplierEsDrei(SupplierBase):
 
         self._query_results = search_result
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Parse product query results.
 
         Iterate over the products returned from self._query_products, creating
@@ -92,12 +91,12 @@ class SupplierEsDrei(SupplierBase):
         price_string = re.sub(r"\s+", r" ", price_string)
         price_data = self._parse_price(price_string)
 
-        product = TypeProduct(
+        product_data = dict(
             title=title_elem.attrs["title"],
             name=title_elem.attrs["title"],
             description=product_desc.get_text(strip=True),
             url=title_elem.attrs["href"],
-            supplier=self._supplier["name"],
+            supplier=self._supplier.name,
             cas=self._find_cas(product_desc.string.strip()),
         )
 
@@ -113,17 +112,17 @@ class SupplierEsDrei(SupplierBase):
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
         if quantity:
-            product.update(self._parse_quantity(quantity))
+            product_data.update(self._parse_quantity(quantity))
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space
         # product.price = re.sub(r"\s+", r" ", product.price)
         if price_data:
-            product.update(price_data)
+            product_data.update(price_data)
         elif price_string:
-            product.price = price_string
+            product_data["price"] = price_string
 
-        return product
+        return TypeProduct(**product_data)
 
 
 if __package__ == "suppliers":

@@ -1,8 +1,6 @@
 """Search factory"""
 
 from typing import List
-from typing import NoReturn
-from typing import Optional
 
 from abcplus import finalmethod
 from curl_cffi import requests
@@ -17,13 +15,13 @@ class SearchFactory(ClassUtils, object):
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 
-    __results: List = None
+    __results: List | None = None
     """Contains a list of all the product results"""
 
     __index: int = 0
     """Index used for __iter__ iterations"""
 
-    def __init__(self, query: str, limit: int = 3) -> NoReturn:
+    def __init__(self, query: str, limit: int = 3) -> None:
         """Factory method for executing a search in all suppliers automatically
 
         Args:
@@ -67,7 +65,7 @@ class SearchFactory(ClassUtils, object):
 
         return len(self.__results)
 
-    def __query(self, query: str, limit: int = None) -> NoReturn:
+    def __query(self, query: str, limit: int | None = None) -> None:
         """Iterates over the suppliers, running the query, then returning
         the results.
 
@@ -121,7 +119,7 @@ class SearchFactory(ClassUtils, object):
             # list with those products
             self.__results.extend(res.products)
 
-    def __get_cas(self, chem_name: str) -> Optional[str]:
+    def __get_cas(self, chem_name: str) -> str | None:
         """Search for the CAS value(s) given a chemical name
 
         Args:
@@ -182,7 +180,7 @@ class SearchFactory(ClassUtils, object):
         )  # Decode the bytes to a string
         name_lines = name_response.split("\n")  # Split by newline
 
-        highest_val = self._filter_highest_value(
+        highest_val = self._filter_highest_item_value(
             self._get_common_phrases(name_lines)
         )
 

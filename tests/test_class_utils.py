@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Any
 from typing import Literal
 
@@ -31,7 +32,9 @@ class TestClass(ClassUtils, object):
             "_parse_price: Invalid value",
         ],
     )
-    def test_parse_price(self, value, return_type, price, currency, currency_code):
+    def test_parse_price(
+        self, value, return_type, price, currency, currency_code
+    ):
         result = self._parse_price(value)
 
         if return_type is None:
@@ -82,6 +85,45 @@ class TestClass(ClassUtils, object):
             return
 
         assert result is not None
+
+    # _to_hundreths
+    @pytest.mark.parametrize(
+        ("value", "expected_result", "expected_instance"),
+        [
+            ("123", "123.00", Decimal),
+            (123, "123.00", Decimal),
+            ("123.0", "123.00", Decimal),
+            (123.0, "123.00", Decimal),
+            ("123.45", "123.45", Decimal),
+            (123.45, "123.45", Decimal),
+            ("123.45678", "123.46", Decimal),
+            (123.45678, "123.46", Decimal),
+            ("123.4511", "123.45", Decimal),
+            (123.4511, "123.45", Decimal),
+        ],
+        ids=[
+            "str('123') to '123.00'",
+            "int(123) to '123.00'",
+            "str('123.0') to '123.00'",
+            "int(123.0) to '123.00'",
+            "str('123.45') to '123.45'",
+            "int(123.45) to '123.45'",
+            "str('123.45678') to '123.46'",
+            "int(123.45678) to '123.46'",
+            "str('123.4511') to '123.45'",
+            "int(123.4511) to '123.45'",
+        ],
+    )
+    def test_to_hundreths(self, value, expected_result, expected_instance):
+        output = self._to_hundreths(value)
+
+        assert (
+            isinstance(output, expected_instance) is True
+        ), "Unexpected instance type returned from self._to_hundreths"
+
+        assert str(output) == str(
+            expected_result
+        ), "Output does not match expected result"
 
     @pytest.mark.parametrize(
         ("value", "quantity", "uom"),
@@ -134,8 +176,16 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("value", "param_name", "expected_result"),
         [
-            ("http://google.com?foo=bar&product_id=12345", None, {"foo": "bar", "product_id": "12345"}),
-            ("http://google.com?foo=bar&product_id=12345", "product_id", "12345"),
+            (
+                "http://google.com?foo=bar&product_id=12345",
+                None,
+                {"foo": "bar", "product_id": "12345"},
+            ),
+            (
+                "http://google.com?foo=bar&product_id=12345",
+                "product_id",
+                "12345",
+            ),
         ],
         ids=["no param_name", "with param_name"],
     )
@@ -157,7 +207,10 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("array", "expected_result"),
         [
-            (["Variant", "500 g", "CAS", "1762-95-4"], [["Variant", "500 g"], ["CAS", "1762-95-4"]]),
+            (
+                ["Variant", "500 g", "CAS", "1762-95-4"],
+                [["Variant", "500 g"], ["CAS", "1762-95-4"]],
+            ),
             (["name", "23", "address"], [["name", "23"], ["address"]]),
         ],
     )
@@ -165,7 +218,9 @@ class TestClass(ClassUtils, object):
         result = self._split_array_into_groups(array)
 
         if type(result) is not type(expected_result):
-            pytest.fail(f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'")
+            pytest.fail(
+                f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'"
+            )
 
         assert result == expected_result
         # if len(result) != 2:
@@ -198,7 +253,8 @@ class TestClass(ClassUtils, object):
         #     )
 
     @pytest.mark.parametrize(
-        ("array", "expected_result"), [([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"})]
+        ("array", "expected_result"),
+        [([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"})],
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
@@ -211,7 +267,15 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("char", "is_currency"),
-        [("$", True), ("¥", True), ("£", True), ("€", True), ("₽", True), ("A", False), ("Test", False)],
+        [
+            ("$", True),
+            ("¥", True),
+            ("£", True),
+            ("€", True),
+            ("₽", True),
+            ("A", False),
+            ("Test", False),
+        ],
         ids=[
             "_is_currency('$') is True",
             "_is_currency('¥') is True",
@@ -229,7 +293,13 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("cas", "valid_cas"),
-        [("7732-18-5", True), ("7664-93-9", True), ("123-34-34", False), ("321-2-1", False), ("a-1-333", False)],
+        [
+            ("7732-18-5", True),
+            ("7664-93-9", True),
+            ("123-34-34", False),
+            ("321-2-1", False),
+            ("a-1-333", False),
+        ],
         ids=[
             "_is_cas('7732-18-5') is True",
             "_is_cas('7664-93-9') is True",
@@ -265,8 +335,22 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("symbol", "expected_result"),
-        [("$", "USD"), ("₽", "RUB"), ("€", "EUR"), ("£", "GBP"), ("¥", "JPY"), ("ABCD", None)],
-        ids=["$ is USD", "₽ is RUB", "€ is EUR", "£ is GBP", "¥ is JPY", "ABCD is None"],
+        [
+            ("$", "USD"),
+            ("₽", "RUB"),
+            ("€", "EUR"),
+            ("£", "GBP"),
+            ("¥", "JPY"),
+            ("ABCD", None),
+        ],
+        ids=[
+            "$ is USD",
+            "₽ is RUB",
+            "€ is EUR",
+            "£ is GBP",
+            "¥ is JPY",
+            "ABCD is None",
+        ],
     )
     def test_currency_code_from_symbol(self, symbol, expected_result):
         result = self._currency_code_from_symbol(symbol)
@@ -278,8 +362,22 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("code", "expected_result"),
-        [("USD", "$"), ("RUB", "₽"), ("EUR", "€"), ("GBP", "£"), ("JPY", "¥"), ("ABCD", None)],
-        ids=["USD is $", "RUB is ₽", "EUR is €", "GBP is £", "JPY is ¥", "ABCD is None"],
+        [
+            ("USD", "$"),
+            ("RUB", "₽"),
+            ("EUR", "€"),
+            ("GBP", "£"),
+            ("JPY", "¥"),
+            ("ABCD", None),
+        ],
+        ids=[
+            "USD is $",
+            "RUB is ₽",
+            "EUR is €",
+            "GBP is £",
+            "JPY is ¥",
+            "ABCD is None",
+        ],
     )
     def test_currency_symbol_from_code(self, code, expected_result):
         result = self._currency_symbol_from_code(code)
@@ -299,7 +397,13 @@ class TestClass(ClassUtils, object):
             ("123.35", 123.35, float),
             # ('',None,None)
         ],
-        ids=["'1234' to 1234", "'test' to 'test'", "'false' to False", "'true' to True", "'123.35' to 123.35"],
+        ids=[
+            "'1234' to 1234",
+            "'test' to 'test'",
+            "'false' to False",
+            "'true' to True",
+            "'123.35' to 123.35",
+        ],
     )
     def test_cast_type(self, value, casted_value, value_type):
         result = self._cast_type(value)
@@ -343,11 +447,14 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("value", "expected_result"),
-        [({"foo": 123, "bar": 555}, {"bar": 555}), ({"foo": 999999, "bar": 123}, {"foo": 999999})],
+        [
+            ({"foo": 123, "bar": 555}, {"bar": 555}),
+            ({"foo": 999999, "bar": 123}, {"foo": 999999}),
+        ],
         ids=["Pulling bar from object", "Pulling foo from object"],
     )
-    def test_filter_highest_value(self, value, expected_result):
-        result = self._filter_highest_value(value)
+    def test_filter_highest_item_value(self, value, expected_result):
+        result = self._filter_highest_item_value(value)
         assert result == expected_result
 
     @pytest.mark.parametrize(
@@ -384,10 +491,50 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("values", "element", "expected_result"),
         [
-            ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, 1, ["a"]),
-            ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, 2, ["a", "b", "e"]),
-            ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, "hello", ["d"]),
-            ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, "test", []),
+            (
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
+                1,
+                ["a"],
+            ),
+            (
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
+                2,
+                ["a", "b", "e"],
+            ),
+            (
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
+                "hello",
+                ["d"],
+            ),
+            (
+                {
+                    (1, 2): "a",
+                    (2, 3): "b",
+                    (3, 4): "c",
+                    "hello": "d",
+                    (2, 5, 6): "e",
+                },
+                "test",
+                [],
+            ),
         ],
         ids=[
             "Search for element with one result",

@@ -1,5 +1,4 @@
 from threading import Thread
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -14,7 +13,7 @@ class SupplierWarchem(SupplierBase):
     _limit: int = 5
     """Maximum amount of allowed search results to be returned"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="WarChem",
         location=None,
         base_url="https://warchem.pl",
@@ -26,7 +25,7 @@ class SupplierWarchem(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _setup(self, query: str = None) -> NoReturn:
+    def _setup(self, query: str | None = None) -> None:
         """The setup for WarChem is to store a randomly generated string in the
         eGold cookie, then set the product return count to the max (36), which
         will be carried on to any request afterwords.
@@ -38,7 +37,7 @@ class SupplierWarchem(SupplierBase):
                                     hash generation logic. Defaults to None.
 
         Returns:
-            NoReturn: Nothing
+            None: Nothing
         """
 
         # This eGold cookie seems to be what they use to keep track of your
@@ -50,7 +49,7 @@ class SupplierWarchem(SupplierBase):
             path=f"szukaj.html/szukaj={query}", data=dict(ilosc_na_stronie=36)
         )
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -79,7 +78,7 @@ class SupplierWarchem(SupplierBase):
 
         self._query_results = product_elements[: self._limit]
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
         self._query_results and returns a list of TypeProduct objects.
         """
@@ -103,7 +102,7 @@ class SupplierWarchem(SupplierBase):
         for thread in threads:
             thread.join()
 
-    def __query_and_parse_product(self, href: str) -> NoReturn:
+    def __query_and_parse_product(self, href: str) -> None:
         """Query specific product page and parse results
 
         Args:
@@ -111,16 +110,16 @@ class SupplierWarchem(SupplierBase):
                         using BeautifulSoup
 
         Returns:
-            NoReturn: Nothing, just inserts a new TypeProduct into
+            None: Nothing, just inserts a new TypeProduct into
                       self._products (if successful).
         """
 
         product_page_html = self.http_get_html(href)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
 
-        product = TypeProduct(
+        product = dict(
             title=product_soup.find("h1").get_text(strip=True),
-            supplier=self._supplier["name"],
+            supplier=self._supplier.name,
             url=href,
         )
 
@@ -142,12 +141,13 @@ class SupplierWarchem(SupplierBase):
                 continue
 
             attr_key = translated_keys[attr.strip()]
-            product.set(attr_key, val)
+            product[attr_key] = val
 
         price_elem = product_soup.find("span", {"itemprop": "price"})
 
-        product.price = price_elem.attrs["content"]
-        product.currency = price_elem.get_text(strip=True).split(" ")[-1]
+        if price_elem:
+            product["price"] = str(price_elem.attrs["content"])
+            product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
         quantity_options = quantity_elem_container.find_all(
@@ -158,6 +158,7 @@ class SupplierWarchem(SupplierBase):
         if quantity:
             product.update(self._parse_quantity(quantity.get_text(strip=True)))
 
+        product = TypeProduct(**product)
         self._products.append(product.cast_properties())
 
 

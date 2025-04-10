@@ -1,5 +1,3 @@
-from typing import NoReturn
-
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
@@ -14,9 +12,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Laboratorium Discounter",
-        location=None,
         base_url="https://www.laboratoriumdiscounter.nl",
     )
     """Supplier specific data"""
@@ -25,14 +22,14 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
             query (str): Query string for search
 
         Returns:
-            NoReturn: Nothing
+            None: Nothing
         """
 
         # Example request url for Laboratorium Discounter
@@ -57,7 +54,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         for product in self._query_results:
             # Skip unavailable
             if product["available"] is False:
@@ -82,18 +79,19 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                     product["price"]["currency"]
                 ),
                 url=product["url"],
-                supplier=self._supplier["name"],
+                supplier=self._supplier.name,
                 # quantity=quantity["quantity"],
                 # uom=quantity["uom"],
             )
 
-            product_obj.update(quantity)
+            if quantity:
+                product_obj.update(quantity)
 
             self._products.append(product_obj)
 
     """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """
 
-    def _get_cas_from_variant(self, variant: str) -> NoReturn:
+    def _get_cas_from_variant(self, variant: str) -> None:
         """Get the CAS number from the variant, if applicable
 
         Args:

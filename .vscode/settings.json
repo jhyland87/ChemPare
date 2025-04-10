@@ -149,4 +149,7 @@
         "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
     },
+    "python.analysis.extraPaths": [
+        "./src/chempare"
+    ],
 }

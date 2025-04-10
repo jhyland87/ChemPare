@@ -1,5 +1,6 @@
+"""FTF Scientific Supplier Module"""
+
 from typing import Dict
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -10,8 +11,9 @@ from chempare.suppliers.supplier_base import SupplierBase
 
 # File: /suppliers/supplier_ftfscientific.py
 class SupplierFtfScientific(SupplierBase):
+    """FTF Scientific Supplier Class"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="FTF Scientific",
         location=None,
         base_url="https://www.ftfscientific.com",
@@ -30,7 +32,7 @@ class SupplierFtfScientific(SupplierBase):
     #     super().__init__(id, query, limit)
     # Do extra stuff here
 
-    def _setup(self, query: str = None) -> NoReturn:
+    def _setup(self, query: str | None = None) -> None:
         headers = self.http_get_headers()
         cookies = (
             list(v for k, v in headers.multi_items() if k == "set-cookie")
@@ -57,11 +59,14 @@ class SupplierFtfScientific(SupplierBase):
             "_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers
         )
 
+        # What can this be used for?
+        # https://www.ftfscientific.com/_api/v2/dynamicmodel
+
         self._headers["authorization"] = auth["apps"][
             "1484cb44-49cd-5b39-9681-75188ab429de"
         ]["instance"]
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -103,12 +108,17 @@ class SupplierFtfScientific(SupplierBase):
             "properties": [],
             "fuzzy": True,
             "fields": [
-                "description",
-                "title",
                 "id",
+                "title",
+                "description",
                 "currency",
                 "discountedPrice",
+                "discountedPriceNumeric",
                 "inStock",
+                "sku",
+                "infoSections",
+                "collections",
+                "onSale",
             ],
         }
 
@@ -123,12 +133,15 @@ class SupplierFtfScientific(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
             # TypeProduct object.
             product = self._parse_product(product_obj)
+
+            if not product:
+                continue
 
             # If the search was CAS specific, then verify this result has the
             # correect CAS
@@ -138,7 +151,7 @@ class SupplierFtfScientific(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Dict) -> TypeProduct:
+    def _parse_product(self, product_obj: Dict) -> TypeProduct | None:
         """Parse single product and return single TypeProduct object
 
         Args:
@@ -153,25 +166,48 @@ class SupplierFtfScientific(SupplierBase):
               This could maybe be included?
         """
 
+        # Try to get the CAS from the description (not always there)
+        product_cas = self._find_cas(product_obj["description"])
+
+        # If the cas is still not found, then try looking through the Product Info Infosection
+        if not product_cas:
+            last_info_section = None
+            for info_section in product_obj["infoSections"]:
+                if not last_info_section:
+                    last_info_section = info_section
+                    continue
+
+                if last_info_section != 'Product Info':
+                    last_info_section = None
+                    continue
+
+                product_cas = self._find_cas(info_section)
+                break
+
+        if self._is_cas(self._query):
+            if not product_cas or product_cas != self._query:
+                return
+
         product = TypeProduct(
             uuid=product_obj["id"],
             name=product_obj["title"],
             title=product_obj["title"],
             description=product_obj["description"],
             price=product_obj["discountedPrice"],
-            url="{0}{1}".format(self._supplier["base_url"], product_obj["url"]),
-            supplier=self._supplier["name"],
+            url=f"{self._supplier.base_url}{product_obj["url"]}",
+            supplier=self._supplier.name,
             currency=product_obj["currency"],
-            cas=self._find_cas(str(product_obj)),
+            cas=product_cas,
         )
 
-        product_info = self.__query_product_page(product_obj["url"])
-        if product_info:
-            product.update(product_info)
+        # product_info = self.__query_product_page(product_obj["url"])
+        # if product_info:
+        #     product.update(product_info)
 
-        price_obj = self._parse_price(product.price)
-        if price_obj:
-            product.update(price_obj)
+        price_obj = self._parse_price(str(product.price))
+
+        # if price_obj:
+        #     product.update(price_obj)
 
         return product
 
