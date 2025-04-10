@@ -1,3 +1,4 @@
+import os
 from typing import Dict
 from typing import List
 from typing import Tuple
@@ -22,11 +23,7 @@ class SupplierLaballey(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {
-        "currency": "$",
-        "currency_code": "USD",
-        "is_restricted": False,
-    }
+    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     def _query_products(self, query: str) -> None:
@@ -59,6 +56,11 @@ class SupplierLaballey(SupplierBase):
         #   &output=json
         #   &_=1740051794061
         #
+        epoch_ts = self._epoch
+
+        if os.environ.get("PYTEST_VERSION") is not None:
+            epoch_ts = 1234567890
+
         get_params = {
             # Setting the limit here to 1000, since the limit parameter should
             # apply to results returned from Supplier3SChem, not the rquests
@@ -82,7 +84,7 @@ class SupplierLaballey(SupplierBase):
             "vendorsMaxResults": 3,
             "tagsMaxResults": 3,
             "output": "json",
-            "_": self._epoch,
+            "_": epoch_ts,
         }
 
         search_result = self.http_get_json("getwidgets", params=get_params)
@@ -120,11 +122,7 @@ class SupplierLaballey(SupplierBase):
             uuid=product_obj["product_id"],
             name=product_obj["title"],
             title=product_obj["title"],
-            description=(
-                str(product_obj["description"]).strip()
-                if product_obj["description"]
-                else None
-            ),
+            description=(str(product_obj["description"]).strip() if product_obj["description"] else None),
             price=f"{float(product_obj['price']):.2f}",
             url="{0}{1}".format(self._supplier.base_url, product_obj["link"]),
             manufacturer=product_obj["vendor"],
