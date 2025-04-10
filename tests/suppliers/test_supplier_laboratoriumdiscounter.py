@@ -30,11 +30,13 @@ class TestValidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
-        assert len(results) > 0
+        assert len(results) > 0, "No product results found"
         assert isinstance(results.products[0], TypeProduct) is True
 
 
@@ -48,7 +50,9 @@ class TestInvalidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
@@ -65,11 +69,13 @@ class TestValidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
-        assert len(results) > 0
+        assert len(results) > 0, "No product results found"
         assert isinstance(results.products[0], TypeProduct) is True
 
 
@@ -83,7 +89,9 @@ class TestInvalidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
