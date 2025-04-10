@@ -1,3 +1,5 @@
+import math
+import time
 from decimal import Decimal
 from typing import Any
 from typing import Literal
@@ -262,8 +264,10 @@ class TestClass(ClassUtils, object):
         assert result == expected_result
 
     def test_epoch(self):
+        now = math.floor(time.time() * 1000) - 1
         result = self._epoch
         assert isinstance(result, int) is True
+        assert result > now
 
     @pytest.mark.parametrize(
         ("char", "is_currency"),
