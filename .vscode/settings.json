@@ -152,4 +152,11 @@
     "python.analysis.extraPaths": [
         "./src/chempare"
     ],
+    "python.analysis.inlayHints.pytestParameters": true,
+    "testing.coverageBarThresholds": {
+
+        "red": 0,
+        "yellow": 60,
+        "green": 90
+    },
 }
