@@ -194,10 +194,9 @@ class ClassUtils(metaclass=ABCMeta):
 
         # If no source currency type is provided, but we were given a string for the amount, then it may include
         # the currency type (eg: "$123.23"), and can be parsed
-
-        if isinstance(amount, str) is True:
+        if from_currency is None and isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not parsed_price:
+            if not isinstance(parsed_price, Dict):
                 _logger.debug(
                     "Unable to determine from currency from amount %s of type %s (expected Dict)",
                     parsed_price,
@@ -205,8 +204,7 @@ class ClassUtils(metaclass=ABCMeta):
                 )
                 return None
 
-            if not from_currency:
-                from_currency = parsed_price.currency_code
+            from_currency = parsed_price.currency_code
             amount = parsed_price.price
 
         # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
