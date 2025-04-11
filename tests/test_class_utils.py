@@ -364,12 +364,25 @@ class TestClass(ClassUtils, object):
 
     @pytest.mark.parametrize(
         ("array", "expected_result"),
-        [([["foo", "bar"], ["baz", "quux"]], {"foo": "bar", "baz": "quux"})],
+        [
+            # ([["a", "b"]], {"a": "b"}),
+            ([["c", "d"], ["e", "f"]], {"c": "d", "e": "f"}),
+            ([["foo"]], None),
+        ],
+        ids=[
+            # "[[a,b]] to {a:b}",
+            "[[c,d],[e,123]] to {c:d,e:123}",
+            "[[foo]] should return None",
+        ],
     )
     def test_nested_arr_to_dict(self, array, expected_result):
         result = self._nested_arr_to_dict(array)
-        assert isinstance(result, dict) is True
-        assert result == expected_result
+
+        if expected_result is None:
+            assert result is None
+        else:
+            assert result == expected_result
+            assert isinstance(result, dict) is True
 
     def test_epoch(self):
         now = math.floor(time.time() * 1000) - 1
