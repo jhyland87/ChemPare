@@ -261,6 +261,7 @@ extend-ignore = [
 
 [tool.coverage.paths]
 source = [
+    "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"
@@ -269,6 +270,7 @@ source = [
 [tool.coverage.run]
 disable_warnings = ["no-data-collected"]
 include = [
+    "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"
@@ -278,6 +280,7 @@ branch = true
 #parallel = true
 source = [
     ".",
+    "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"

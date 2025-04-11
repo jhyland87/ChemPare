@@ -115,6 +115,7 @@
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.coveragepy.file":".coverage",
     "python.autoComplete.extraPaths": [
+        "./src",
         "./src/chempare",
         "./src/chempare/suppliers",
         "./src/chempare/datatypes",
@@ -165,6 +166,7 @@
         "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
     },
     "python.analysis.extraPaths": [
+        "./src",
         "./src/chempare",
         "./src/chempare/datatypes",
         "./src/chempare/suppliers"
