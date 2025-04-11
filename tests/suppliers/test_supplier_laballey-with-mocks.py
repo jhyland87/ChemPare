@@ -7,6 +7,7 @@
 # pylint: disable=broad-exception-caught
 import os
 
+# import mock
 import pytest
 
 # import requests_mock
@@ -16,6 +17,12 @@ from pytest_mock import MockerFixture
 from chempare.datatypes import TypeProduct
 from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
 from definitions import mock_data_dir
+
+
+# from decimal import Decimal
+
+
+# from curl_cffi import requests
 
 
 # with open('tests/mock_data/laballey-get-getwidgets.json', 'r') as file:
@@ -68,14 +75,11 @@ class TestClass:
         return self._results
 
 
-# actual = call('https://searchserverapi.com/getwidgets', params={'api_key': '8B7o0X1o7c', 'q': 'acid', 'maxResults': 6, 'startIn...sMaxResults': 3, 'tagsMaxResults': 3, 'output': 'json', '_': 1234567890}, impersonate='chrome', cookies={}, headers={})
-
-
 # Test cases for a valid search for this supplier
 class TestValidSearch(TestClass):
     _results = None
 
-    @pytest.mark.first
+    # @mock_http(url="https://searchserverapi.com/getwidgets", params={}, response={})
     def test_query(self, mock_object_property, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
@@ -113,7 +117,6 @@ class TestValidSearch(TestClass):
             headers={},
         )
 
-    @pytest.mark.second
     def test_results(self, results):
         # assert results == "test"
         assert len(results) > 0, "No product results found"
@@ -125,7 +128,6 @@ class TestInvalidSearch(TestClass):
     _query = "This_should_return_no_results"
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
@@ -134,7 +136,6 @@ class TestInvalidSearch(TestClass):
             isinstance(results.products, list) is True
         ), "Return data is not instance of TypeProduct"
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0
 
@@ -144,7 +145,6 @@ class TestValidCASSearch(TestClass):
     _query = "7732-18-5"
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
@@ -153,7 +153,6 @@ class TestValidCASSearch(TestClass):
             isinstance(results.products, list) is True
         ), "Return data is not instance of TypeProduct"
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) > 0, "No product results found"
         assert isinstance(results.products[0], TypeProduct) is True
@@ -164,7 +163,6 @@ class TestInvalidCASSearch(TestClass):
     _query = "7782-77-6"  # Nitrous acid, too stable to be sold
     _results = None
 
-    @pytest.mark.first
     def test_query(self, results):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
@@ -173,6 +171,5 @@ class TestInvalidCASSearch(TestClass):
             isinstance(results.products, list) is True
         ), "Return data is not instance of TypeProduct"
 
-    @pytest.mark.second
     def test_results(self, results):
         assert len(results) == 0

@@ -113,20 +113,15 @@ env = [
     "PYTEST_COV = true"
 ]
 minversion = "7.0"
-addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term --capture=tee-sys"
+addopts = "-ra -n auto --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term --capture=tee-sys --show-capture=all"
+
+# "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests"]
 pythonpath = ["src", "src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",
-    "webtest: mark a test as a webtest.",
-    "first: Trigger 1st.",
-    "second: Trigger 2nd.",
-    "third: Trigger 3rd.",
-    "fourth: Trigger 4th.",
-    "fifth: Trigger 5th.",
-    "sixth: Trigger 6th.",
-    "seventh: Trigger 7th."
+    "webtest: mark a test as a webtest."
 ]
 [tool.isort]
 py_version = 313
@@ -294,3 +289,7 @@ show_missing = true
 
 [tool.lcov]
 output = "coverage.lcov"
+
+
+[tool.pyright]
+reportOptionalMemberAccess = false

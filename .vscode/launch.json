@@ -48,6 +48,13 @@
                 "**/*.py",
                 "*.py"
             ]
+        },
+        {
+            "name": "Python Debugger: Python File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "justMyCode": false,
         }
     ],
     "inputs": [
@@ -76,7 +83,7 @@
                 "SupplierFtfScientific",
                 "SupplierLoudwolf",
                 "SupplierWarchem",
-                "SupplierLaboratoriumDiscounter",
+                "SupplierLaboratoriumDiscounter"
             ],
             "default": "SearchFactory"
         }

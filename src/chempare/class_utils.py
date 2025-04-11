@@ -22,16 +22,17 @@ from abcplus import ABCMeta
 from abcplus import finalmethod
 from currex import CURRENCIES
 from currex import Currency
+from datatypes import DecimalLike
+from datatypes import PriceType
+from datatypes import QuantityType
 from price_parser import Price
 
-import chempare
+
+# import chempare
 
 
 _logger = logging.getLogger("chempare/class_utils")
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
-
-
-DecimalLike = int | float | Decimal
 
 
 class ClassUtils(metaclass=ABCMeta):
@@ -51,7 +52,7 @@ class ClassUtils(metaclass=ABCMeta):
     @finalmethod
     def _parse_price(
         self, value: str, symbol_to_code: bool = True
-    ) -> Dict | None:
+    ) -> PriceType | None:
         """Parse a string for a price value (currency and value)
 
         Args:
@@ -61,7 +62,7 @@ class ClassUtils(metaclass=ABCMeta):
                                    (defaults to True)
 
         Returns:
-            Dict: Returns a dictionary with 'currency' and 'price' values
+            PriceType: Returns a dictionary with 'currency' and 'price' values
 
         See:
             https://en.wikipedia.org/wiki/Currency_symbol
@@ -142,56 +143,26 @@ class ClassUtils(metaclass=ABCMeta):
 
         matches_str = matches.group()
         price = Price.fromstring(matches_str)
-        country_code = self._currency_code_from_symbol(price.currency)
+        currency_code = self._currency_code_from_symbol(price.currency)
 
         result = {
             "currency": price.currency,
             "price": float(price.amount),
-            "currency_code": country_code,
+            "currency_code": currency_code or price.currency,
         }
 
-        if country_code != "USD":
+        if (
+            currency_code != "USD"
+            and price.currency is not None
+            and price.currency != currency_code
+        ):
             usd_price = self._to_usd(
-                from_currency=country_code, amount=float(price.amount)
+                from_currency=currency_code, amount=float(price.amount)
             )
             if usd_price:
                 result["usd"] = usd_price
 
-        return result
-
-        # matches_dict = matches.groupdict()
-
-        # if self._is_currency_symbol(
-        #     matches_dict["currency"]
-        # ):  # If the currency is a symbol
-        #     matches_dict["currency_code"] = self._currency_code_from_symbol(
-        #         matches_dict["currency"]
-        #     )
-        # else:
-        #     matches_dict["currency_code"] = matches_dict["currency"]
-        #     matches_dict["currency"] = self._currency_symbol_from_code(
-        #         matches_dict["currency_code"]
-        #     )
-
-        # # If we are trying to convert the currency symbol to the country code,
-        # # then check that the "currency" matched is at least a currency symbol.
-        # # if symbol_to_code is True and self._is_currency_symbol(
-        # #     matches_dict["currency"]
-        # # ):
-        # #     # ... Then attempt to get the country code from it.
-        # #     country_code = self._currency_code_from_symbol(
-        # #         matches_dict["currency"]
-        # #     )
-        # #     if country_code:
-        # #         # If one was found, then override the "currency" property in
-        # #         # the result
-        # #         matches_dict["currency_code"] = country_code
-
-        # if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
-        #     price = str(matches_dict["price"]).replace(",", "")
-        #     matches_dict["price"] = f"{float(price):.2f}"
-
-        # return matches_dict
+        return PriceType(**result)
 
     @finalmethod
     def _to_usd(
@@ -214,15 +185,19 @@ class ClassUtils(metaclass=ABCMeta):
 
         Returns:
             Optional[float]: USD price (if one was found)
+
+        Example:
+            >>> self._to_usd()
         """
 
         # try:
 
         # If no source currency type is provided, but we were given a string for the amount, then it may include
         # the currency type (eg: "$123.23"), and can be parsed
-        if from_currency is None and isinstance(amount, str) is True:
+
+        if isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, Dict):
+            if not parsed_price:
                 _logger.debug(
                     "Unable to determine from currency from amount %s of type %s (expected Dict)",
                     parsed_price,
@@ -230,8 +205,9 @@ class ClassUtils(metaclass=ABCMeta):
                 )
                 return None
 
-            from_currency = parsed_price["currency_code"]
-            amount = parsed_price["price"]
+            if not from_currency:
+                from_currency = parsed_price.currency_code
+            amount = parsed_price.price
 
         # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
         # an exception
@@ -336,14 +312,14 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> Dict | None:
+    def _parse_quantity(self, value: str) -> QuantityType | None:
         """Parse a string for the quantity and unit of measurement
 
         Args:
             value (str): Suspected quantity string
 
         Returns:
-            Optional[Dict]: Returns a dictionary with the 'quantity' and
+            Optional[QuantityType]: Returns a dictionary with the 'quantity' and
                             'uom' values
         """
 
@@ -414,7 +390,7 @@ class ClassUtils(metaclass=ABCMeta):
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return quantity_obj
+        return QuantityType(**quantity_obj)
 
     @finalmethod
     def _get_param_from_url(
