@@ -5,6 +5,8 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=unused-argument
 # pylint: disable=broad-exception-caught
+import os
+
 import pytest
 
 # import requests_mock
@@ -13,9 +15,10 @@ from pytest_mock import MockerFixture
 
 from chempare.datatypes import TypeProduct
 from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
+from definitions import mock_data_dir
 
 
-# with open('tests/suppliers/mock/laballey-get-getwidgets.json', 'r') as file:
+# with open('tests/mock_data/laballey-get-getwidgets.json', 'r') as file:
 #     # mock_json = json.load(file)
 #     mock_json = file.read()
 #     print(mock_json)
@@ -38,11 +41,9 @@ from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
 @pytest.fixture
 def mock_object_property(mocker: MockerFixture):
     mock_get = mocker.patch("curl_cffi.requests.get")
-    with open(
-        file='tests/suppliers/mock/laballey-get-getwidgets.json',
-        mode='r',
-        encoding="utf-8",
-    ) as file:
+    filepath = os.path.join(mock_data_dir, "laballey-get-getwidgets.json")
+    # 'tests/mock_data/laballey-get-getwidgets.json',
+    with open(file=filepath, mode='r', encoding="utf-8") as file:
         # mock_json = json.load(file)
         mock_json = file.read()
     mock_get.return_value.status_code = 200

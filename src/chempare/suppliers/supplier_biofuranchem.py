@@ -30,7 +30,7 @@ class SupplierBioFuranChem(SupplierBase):
     def _setup(self, query: str | None = None) -> None:
         # 1 Get the session binding from the initial request headers
         headers = self.http_get_headers(
-            path="/shop",
+            "/shop",
             headers={
                 "sec-fetch-mode": "navigate",
                 "sec-fetch-dest": "document",
@@ -61,7 +61,7 @@ class SupplierBioFuranChem(SupplierBase):
 
         # 2 Get the XSRF id thingy
         xsrf_token_headers = self.http_get_headers(
-            path="_api/wix-laboratory-server/laboratory/conductAllInScope",
+            "_api/wix-laboratory-server/laboratory/conductAllInScope",
             params={"scope": "wix-one-app"},
             cookies=auth_cookies,
             headers=auth_headers,
@@ -179,7 +179,7 @@ class SupplierBioFuranChem(SupplierBase):
         }
 
         search_result = self.http_get_json(
-            path="_api/wix-ecommerce-storefront-web/api", params=query_params
+            "_api/wix-ecommerce-storefront-web/api", params=query_params
         )
 
         if not search_result:

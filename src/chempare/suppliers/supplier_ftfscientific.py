@@ -123,7 +123,7 @@ class SupplierFtfScientific(SupplierBase):
         }
 
         search_result = self.http_post_json(
-            path="_api/search-services-sitesearch/v1/search", json=body
+            "_api/search-services-sitesearch/v1/search", json=body
         )
 
         if not search_result:

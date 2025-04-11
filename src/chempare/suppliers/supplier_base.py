@@ -225,6 +225,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     def http_get(
         self,
         path: str | None = None,
+        /,
         params: Dict | None = None,
         cookies: Dict | None = None,
         headers: Dict | None = None,
@@ -259,6 +260,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     def http_post(
         self,
         path: str,
+        /,
         params: Dict | None = None,
         data: Any = None,
         json: Dict | List | None = None,
@@ -309,6 +311,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     def http_post_json(
         self,
         path: str | None = None,
+        /,
         params: Dict | None = None,
         json: Dict | None = None,
         headers: Dict | None = None,
@@ -346,7 +349,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_get_html(
-        self, path: str | None = None, params: Dict | None = None
+        self, path: str | None = None, /, params: Dict | None = None
     ) -> bytes:
         """HTTP getter (for HTML content).
 
@@ -370,7 +373,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_get_json(
-        self, path: str | None = None, **kwargs
+        self, path: str | None = None, /, **kwargs
     ) -> List | Dict | None:
         """HTTP getter (for JSON content).
 
