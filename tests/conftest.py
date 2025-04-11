@@ -1,8 +1,13 @@
 # from chempare import suppliers
+# import os
+
 import chempare
-import os
-from _pytest.fixtures import fixture
-import webbrowser
+
+
+# import webbrowser
+
+# from pytest.fixtures import fixture
+
 
 # def pytest_sessionfinish(session, exitstatus):
 #     print("\n--- Test session finished ---")
@@ -49,21 +54,21 @@ import webbrowser
 #     print("\n--- Test module teardown ---")
 
 
-def pytest_sessionfinish(session, exitstatus):
-    if os.environ.get('PYTEST_COV') == 'true':
-        # Code to run after all tests, specifically when coverage was measured
-        print("")
-        coverage_results = os.path.abspath("coverage-html/index.html")
-        print(f"Opening coerage file: {coverage_results}")
+# def pytest_sessionfinish(session, exitstatus):
+#     if os.environ.get('PYTEST_COV') == 'true':
+#         # Code to run after all tests, specifically when coverage was measured
+#         print("")
+#         coverage_results = os.path.abspath("coverage-html/index.html")
+#         print(f"Opening coerage file: {coverage_results}")
 
-        # try:
-        #     webbrowser.get("macosx").open(
-        #         f'file://{coverage_results}', new=0, autoraise=False
-        #     )  # "brave" might need adjustment based on OS and setup
-        # except webbrowser.Error:
-        #     print("Brave browser could not be found or opened.")
-        #     webbrowser.open(f'file://{coverage_results}', new=0, autoraise=False)
-        # # webbrowser.get('brave').open(f'file://{coverage_results}', new=0)
+#         # try:
+#         #     webbrowser.get("macosx").open(
+#         #         f'file://{coverage_results}', new=0, autoraise=False
+#         #     )  # "brave" might need adjustment based on OS and setup
+#         # except webbrowser.Error:
+#         #     print("Brave browser could not be found or opened.")
+#         #     webbrowser.open(f'file://{coverage_results}', new=0, autoraise=False)
+#         # # webbrowser.get('brave').open(f'file://{coverage_results}', new=0)
 
 
 def pytest_report_header(config):

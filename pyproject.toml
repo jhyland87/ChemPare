@@ -19,6 +19,7 @@ dependencies = [
     "dataclasses",
     "numpy",
     "pathlib",
+    "coverage",
     "curl_cffi",
     "translate",
     "regex",
@@ -30,6 +31,7 @@ authors = [
     { name = "Justin Hyland", email = "j@linux.com" },
     # Spuos
 ]
+
 
 maintainers = [
     # Maui3
@@ -57,7 +59,6 @@ test = [
     "pytest-env",
     "pytest-pycodestyle==1.0.6",
     "pycodestyle==2.4.0",
-    "coverage",
     "requests-mock",
     "pytest_mock",
     "flake8-pyproject"
@@ -267,9 +268,16 @@ source = [
 
 [tool.coverage.run]
 disable_warnings = ["no-data-collected"]
+include = [
+    "src/chempare",
+    "src/chempare/datatypes",
+    "src/chempare/suppliers"
+]
+command_line = "-m pytest"
 branch = true
 #parallel = true
 source = [
+    ".",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"
@@ -279,3 +287,7 @@ omit = ["*tests*","*/__init__.py"]
 [tool.coverage.report]
 show_missing = true
 #precision = 2
+
+
+[tool.lcov]
+output = "coverage.lcov"

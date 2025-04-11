@@ -1,12 +1,18 @@
+# pylint: disable=unused-import
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-argument
+# pylint: disable=broad-exception-caught
 import pytest
-import json
-import requests_mock
-from chempare.datatypes import TypeProduct
-from chempare.suppliers import SupplierLaballey as Supplier
-from curl_cffi import Headers
-from curl_cffi import Response
-from curl_cffi import requests
+
+# import requests_mock
+# from curl_cffi import requests
 from pytest_mock import MockerFixture
+
+from chempare.datatypes import TypeProduct
+from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
 
 
 # with open('tests/suppliers/mock/laballey-get-getwidgets.json', 'r') as file:
@@ -32,7 +38,11 @@ from pytest_mock import MockerFixture
 @pytest.fixture
 def mock_object_property(mocker: MockerFixture):
     mock_get = mocker.patch("curl_cffi.requests.get")
-    with open('tests/suppliers/mock/laballey-get-getwidgets.json', 'r') as file:
+    with open(
+        file='tests/suppliers/mock/laballey-get-getwidgets.json',
+        mode='r',
+        encoding="utf-8",
+    ) as file:
         # mock_json = json.load(file)
         mock_json = file.read()
     mock_get.return_value.status_code = 200
@@ -69,7 +79,9 @@ class TestValidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
         mock_object_property.assert_called_once_with(
             "https://searchserverapi.com/getwidgets",
@@ -102,7 +114,7 @@ class TestValidSearch(TestClass):
 
     @pytest.mark.second
     def test_results(self, results):
-        assert results == "test"
+        # assert results == "test"
         assert len(results) > 0, "No product results found"
         assert isinstance(results.products[0], TypeProduct) is True
 
@@ -117,7 +129,9 @@ class TestInvalidSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
@@ -134,7 +148,9 @@ class TestValidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):
@@ -152,7 +168,9 @@ class TestInvalidCASSearch(TestClass):
         assert isinstance(results, Exception) is False
         assert hasattr(results, "__iter__") is True
         assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
+        assert (
+            isinstance(results.products, list) is True
+        ), "Return data is not instance of TypeProduct"
 
     @pytest.mark.second
     def test_results(self, results):

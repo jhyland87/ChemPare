@@ -1,7 +1,7 @@
 import pytest
 
 from chempare.datatypes import TypeProduct
-from chempare.suppliers import SupplierLaballey as Supplier
+from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
 
 
 # Base test class
