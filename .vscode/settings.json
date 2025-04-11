@@ -123,6 +123,7 @@
         // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
         //"-vvv",
         "-c=pyproject.toml",
+        "--capture=tee-sys"
         // "--capture=no",
         // //"--show-capture=all",
         // "-ra",
@@ -159,4 +160,6 @@
         "yellow": 60,
         "green": 90
     },
+    "python.testing.pytestPath": "pytest",
+    "python.testing.autoTestDiscoverOnSaveEnabled": false,
 }

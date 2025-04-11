@@ -106,8 +106,13 @@ where = [
 ]
 
 [tool.pytest.ini_options]
+
+env = [
+    "LOG_LEVEL=WARNING",
+    "PYTEST_COV = true"
+]
 minversion = "7.0"
-addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term"
+addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term --capture=tee-sys"
 testpaths = ["tests"]
 pythonpath = ["src", "src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
@@ -122,7 +127,6 @@ markers = [
     "sixth: Trigger 6th.",
     "seventh: Trigger 7th."
 ]
-env = ["LOG_LEVEL=WARNING"]
 [tool.isort]
 py_version = 313
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
