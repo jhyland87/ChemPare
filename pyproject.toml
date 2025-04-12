@@ -19,11 +19,9 @@ dependencies = [
     "dataclasses",
     "numpy",
     "pathlib",
-    "coverage",
     "curl_cffi",
     "translate",
     "regex",
-    #"pytest-cov"
 ]
 
 authors = [
@@ -39,15 +37,6 @@ maintainers = [
     # Spuos
 ]
 
-[project.readme]
-file = "README.txt"
-content-type = "text/markdown"
-
-[project.urls]
-Homepage = "https://github.com/YourHeatingMantle/ChemPare"
-Documentation = "https://github.com/YourHeatingMantle/ChemPare/tree/main/documentation"
-Repository = "https://github.com/YourHeatingMantle/ChemPare.git"
-
 [project.optional-dependencies]
 test = [
     "pytest",
@@ -61,10 +50,22 @@ test = [
     "pycodestyle==2.4.0",
     "requests-mock",
     "pytest_mock",
-    "flake8-pyproject"
+    "flake8-pyproject",
+    #"coverage",
 ]
 dev = ["pycodestyle==2.4.0"]
 api = ["uvicorn","fastapi"]
+
+[project.readme]
+file = "README.txt"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "https://github.com/YourHeatingMantle/ChemPare"
+Documentation = "https://github.com/YourHeatingMantle/ChemPare/tree/main/documentation"
+Repository = "https://github.com/YourHeatingMantle/ChemPare.git"
+
+
 [project.scripts]
 chemparecli = "chempare.cli.chempare_cli:main"
 chemparemain = "chempare.cli.main:main"
@@ -99,7 +100,7 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    ".",
+    #".",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
@@ -109,15 +110,21 @@ where = [
 [tool.pytest.ini_options]
 
 env = [
-    "LOG_LEVEL=WARNING",
-    "PYTEST_COV = true"
+    "LOG_LEVEL=DEBUG",
+    "PYTEST_COV=true"
 ]
 minversion = "7.0"
-addopts = "-ra -n auto --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage-html --cov-report=term --capture=tee-sys --show-capture=all"
+addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
+#  --cov-report=term --capture=tee-sys --show-capture=all  --no-summary
 
 # "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests"]
-pythonpath = ["src", "src/chempare", "src/chempare/*"]
+pythonpath = [
+    "src",
+    "src/chempare",
+    "src/chempare/suppliers",
+    "src/chempare/datatypes",
+    ]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",
@@ -264,17 +271,17 @@ source = [
 
 [tool.coverage.run]
 disable_warnings = ["no-data-collected"]
-include = [
-    "src",
-    "src/chempare",
-    "src/chempare/datatypes",
-    "src/chempare/suppliers"
-]
-command_line = "-m pytest"
+# include = [
+#     "src",
+#     "src/chempare",
+#     "src/chempare/datatypes",
+#     "src/chempare/suppliers"
+# ]
+command_line = "pytest"
 branch = true
 #parallel = true
 source = [
-    ".",
+    #".",
     "src",
     "src/chempare",
     "src/chempare/datatypes",

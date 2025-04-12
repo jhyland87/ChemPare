@@ -1,0 +1,909 @@
+{
+  "results": [
+    {
+      "MOCK_DATA": true,
+      "facet_counts": [
+        {
+          "counts": [
+            {
+              "count": 18,
+              "highlighted": "122.59",
+              "value": "122.59"
+            },
+            {
+              "count": 14,
+              "highlighted": "264.86",
+              "value": "264.86"
+            },
+            {
+              "count": 12,
+              "highlighted": "0",
+              "value": "0"
+            },
+            {
+              "count": 9,
+              "highlighted": "49.95",
+              "value": "49.95"
+            },
+            {
+              "count": 8,
+              "highlighted": "36.11",
+              "value": "36.11"
+            },
+            {
+              "count": 7,
+              "highlighted": "80",
+              "value": "80"
+            },
+            {
+              "count": 7,
+              "highlighted": "35.9",
+              "value": "35.9"
+            },
+            {
+              "count": 7,
+              "highlighted": "99.95",
+              "value": "99.95"
+            },
+            {
+              "count": 7,
+              "highlighted": "93.42",
+              "value": "93.42"
+            },
+            {
+              "count": 7,
+              "highlighted": "69.95",
+              "value": "69.95"
+            }
+          ],
+          "field_name": "price",
+          "sampled": false,
+          "stats": {
+            "avg": 287.2202489706186,
+            "max": 15351.5,
+            "min": 0.0,
+            "sum": 392055.6398448944,
+            "total_values": 1034
+          }
+        }
+      ],
+      "found": 1365,
+      "hits": [
+        {
+          "document": {
+            "CAS": "67-56-1",
+            "calculatedPrice": 308,
+            "categories": [
+              "M"
+            ],
+            "description": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in water, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, Water 0.03 %  Max </b><br><br>",
+            "hasOptions": false,
+            "id": "47985",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47985/images/6675/logo_gfs__92166.1688413349.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47985/images/6675/logo_gfs__92166.1688413349.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "METHYL ALCOHOL, LOW WATER, REAGENT (ACS) - 4 X 4 L",
+            "price": 308.69,
+            "product_id": 47985,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "50384",
+            "sortOrder": 4079,
+            "upc": "",
+            "url": "/m/methyl-alcohol-low-water-4-x-4-l/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 X 4 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 X 4 L"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 X 4 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 X 4 L"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "CAS": "67-56-1",
+            "calculatedPrice": 108,
+            "categories": [
+              "M"
+            ],
+            "description": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in water, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, Water 0.03 %  Max </b><br><br>",
+            "hasOptions": false,
+            "id": "47984",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47984/images/6674/logo_gfs__65115.1688413349.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47984/images/6674/logo_gfs__65115.1688413349.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "METHYL ALCOHOL, LOW WATER, REAGENT (ACS) - 4 L",
+            "price": 108.99,
+            "product_id": 47984,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "50383",
+            "sortOrder": 4078,
+            "upc": "",
+            "url": "/m/methyl-alcohol-low-water-4-l/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 L"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 4 L"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "CAS": "67-56-1",
+            "calculatedPrice": 220,
+            "categories": [
+              "M"
+            ],
+            "description": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in water, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, Water 0.03 %  Max </b><br><br>",
+            "hasOptions": false,
+            "id": "47983",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47983/images/6673/logo_gfs__75358.1688413349.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47983/images/6673/logo_gfs__75358.1688413349.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "METHYL ALCOHOL, LOW WATER, REAGENT (ACS) - 6 X 1 L",
+            "price": 220.25,
+            "product_id": 47983,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "50382",
+            "sortOrder": 4077,
+            "upc": "",
+            "url": "/m/methyl-alcohol-low-water-6-x-1-l/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 6 X 1 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 6 X 1 L"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 6 X 1 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 6 X 1 L"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "CAS": "67-56-1",
+            "calculatedPrice": 54,
+            "categories": [
+              "M"
+            ],
+            "description": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in water, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, Water 0.03 %  Max </b><br><br>",
+            "hasOptions": false,
+            "id": "47982",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47982/images/6672/logo_gfs__37135.1688413348.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/47982/images/6672/logo_gfs__37135.1688413348.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "METHYL ALCOHOL, LOW WATER, REAGENT (ACS) - 1 L",
+            "price": 54.37,
+            "product_id": 47982,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "50381",
+            "sortOrder": 4076,
+            "upc": "",
+            "url": "/m/methyl-alcohol-low-water-1-l/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 1 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 1 L"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 1 L",
+              "value": "METHYL ALCOHOL, LOW <mark>WATER</mark>, REAGENT (ACS) - 1 L"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4,",
+              "value": "<b>CAS#: 67-56-1  |  Formula: CH3OH  |  Specifications: Acetaldehyde (%) 0.001 %  Max, Acetone 0.001 %  Max, Assay 99.8 % - Min, Color (APHA) 10   Max, Formaldehyde 0.001 %  Max, Residue after evaporation 0.001 %  Max, Solubility in <mark>water</mark>, Substances darkened by H2SO4, Substances reducing permanganate, Titrable acid 0.0003 meq/g  Max, Titrable base 0.0002 meq/g  Max, <mark>Water</mark> 0.03 %  Max </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "calculatedPrice": 275,
+            "categories": [
+              "S"
+            ],
+            "description": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in water w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>",
+            "hasOptions": false,
+            "id": "88795",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88795/images/12250/logo_gfs__70442.1688414115.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88795/images/12250/logo_gfs__70442.1688414115.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in WATER - 500 ML",
+            "price": 275.44,
+            "product_id": 88795,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "23027",
+            "sortOrder": 2166,
+            "upc": "",
+            "url": "/s/silicon-icp-10-000-ppm-w-500-ml/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML",
+              "value": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML",
+              "value": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "calculatedPrice": 111,
+            "categories": [
+              "S"
+            ],
+            "description": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in water w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>",
+            "hasOptions": false,
+            "id": "88794",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88794/images/12249/logo_gfs__38720.1688414115.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88794/images/12249/logo_gfs__38720.1688414115.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in WATER - 100 ML",
+            "price": 111.44,
+            "product_id": 88794,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "23026",
+            "sortOrder": 2165,
+            "upc": "",
+            "url": "/s/silicon-icp-10-000-ppm-w-100-ml/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML",
+              "value": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML",
+              "value": "SILICON, 10,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 9900 -  10100 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "calculatedPrice": 156,
+            "categories": [
+              "S"
+            ],
+            "description": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in water w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>",
+            "hasOptions": false,
+            "id": "88792",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88792/images/12248/logo_gfs__89446.1688414115.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88792/images/12248/logo_gfs__89446.1688414115.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in WATER - 500 ML",
+            "price": 156.42,
+            "product_id": 88792,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "23017",
+            "sortOrder": 2164,
+            "upc": "",
+            "url": "/s/silicon-icp-1-000-ppm-w-500-ml/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML",
+              "value": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML",
+              "value": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 500 ML"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "calculatedPrice": 72,
+            "categories": [
+              "S"
+            ],
+            "description": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in water w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>",
+            "hasOptions": false,
+            "id": "88791",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88791/images/12247/logo_gfs__09785.1688414115.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88791/images/12247/logo_gfs__09785.1688414115.200.200.png?c=2"
+              }
+            ],
+            "inventoryLevel": 0,
+            "inventory_level": 0,
+            "inventory_tracking": "none",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in WATER - 100 ML",
+            "price": 72.85,
+            "product_id": 88791,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "23016",
+            "sortOrder": 2163,
+            "upc": "",
+            "url": "/s/silicon-icp-1-000-ppm-w-100-ml/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            },
+            "name": {
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML",
+              "value": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "WATER"
+              ],
+              "snippet": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML",
+              "value": "SILICON, 1,000 ppm ICP STANDARD SOLUTION, in <mark>WATER</mark> - 100 ML"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "water"
+              ],
+              "snippet": "Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm),",
+              "value": "Specifications: Ag (ppm), Al (ppm), As (ppm), Au (ppm), B (ppm), Ba (ppm), Bi (ppm), Ca (ppm), Cd (ppm), Ce (ppm), Co (ppm), Concentration (as Si) 990 -  1010 ug/mL, Cr (ppm), Cs (ppm), Cu (ppm), Dy (ppm), Er (ppm), Eu (ppm), Fe (ppm), Ga (ppm), Gd (ppm), Ge (ppm), Hf (ppm), Hg (ppm), Ho (ppm), In (ppm), Ir (ppm), K (ppm), La (ppm), Li (ppm), Lu (ppm), Matrix: amm. fluorosilicate in <mark>water</mark> w/tr HF, Mg (ppm), Mn (ppm), Mo (ppm), Na (ppm), Nb (ppm), Nd (ppm), Ni (ppm), NIST Traceable, Os (ppm), P, Pb (ppm), Pd (ppm), Pr (ppm), Pt (ppm), Rb (ppm), Re (ppm), Rh (ppm), Ru (ppm), Sb (ppm), Sc (ppm), Se (ppm), Si (ppm), Sm (ppm), Sn (ppm), Sr (ppm), Ta (ppm), Tb (ppm), Te (ppm), Ti (ppm), Tl (ppm), Tm (ppm), V (ppm), W (ppm), Y (ppm), Yb (ppm), Zn (ppm) </b><br><br>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "CAS": "28631-66-5",
+            "calculatedPrice": 89,
+            "categories": [
+              "A"
+            ],
+            "description": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, Water Soluble, Reagent, 100g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>",
+            "hasOptions": false,
+            "id": "87058",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": false,
+                "sortOrder": 1,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/2392/IMG_6430__53929.1500320482.600.600.JPG?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/2392/IMG_6430__53929.1500320482.200.200.JPG?c=2"
+              },
+              {
+                "description": "",
+                "isThumbnail": false,
+                "sortOrder": 2,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/11469/logo_chemsavers__74061.1688414007.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/11469/logo_chemsavers__74061.1688414007.200.200.png?c=2"
+              },
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/2391/IMG_6433__85773.1500320481.600.600.JPG?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/87058/images/2391/IMG_6433__85773.1500320481.200.200.JPG?c=2"
+              }
+            ],
+            "inventoryLevel": 45,
+            "inventory_level": 45,
+            "inventory_tracking": "product",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "Aniline Blue, Water Soluble, Reagent, 100g",
+            "price": 89.95,
+            "product_id": 87058,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "ANBLWS100G",
+            "sortOrder": 0,
+            "upc": "",
+            "url": "/a/aniline-blue-water-soluble-reagent-100g/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g</strong></span><strong><br /> For",
+              "value": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>"
+            },
+            "name": {
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g",
+              "value": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g",
+              "value": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g</strong></span><strong><br /> For",
+              "value": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 100g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        },
+        {
+          "document": {
+            "CAS": "28631-66-5",
+            "calculatedPrice": 39,
+            "categories": [
+              "A"
+            ],
+            "description": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, Water Soluble, Reagent, 25g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>",
+            "hasOptions": false,
+            "id": "63757",
+            "images": [
+              {
+                "description": "",
+                "isThumbnail": false,
+                "sortOrder": 1,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/2390/IMG_6430__61406.1500320424.600.600.JPG?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/2390/IMG_6430__61406.1500320424.200.200.JPG?c=2"
+              },
+              {
+                "description": "",
+                "isThumbnail": false,
+                "sortOrder": 2,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/11017/logo_chemsavers__01380.1688413947.600.600.png?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/11017/logo_chemsavers__01380.1688413947.200.200.png?c=2"
+              },
+              {
+                "description": "",
+                "isThumbnail": true,
+                "sortOrder": 0,
+                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/2389/IMG_6432__38876.1500320424.600.600.JPG?c=2",
+                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/63757/images/2389/IMG_6432__38876.1500320424.200.200.JPG?c=2"
+              }
+            ],
+            "inventoryLevel": 182,
+            "inventory_level": 182,
+            "inventory_tracking": "product",
+            "mapPrice": 0,
+            "meta_description": "",
+            "meta_keywords": [],
+            "name": "Aniline Blue, Water Soluble, Reagent, 25g",
+            "price": 39.95,
+            "product_id": 63757,
+            "retailPrice": 0,
+            "salePrice": 0,
+            "sku": "ANBLWS25G",
+            "sortOrder": 0,
+            "upc": "",
+            "url": "/a/aniline-blue-water-soluble-reagent-25g/"
+          },
+          "highlight": {
+            "description": {
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g</strong></span><strong><br /> For",
+              "value": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>"
+            },
+            "name": {
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g",
+              "value": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g"
+            }
+          },
+          "highlights": [
+            {
+              "field": "name",
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g",
+              "value": "Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g"
+            },
+            {
+              "field": "description",
+              "matched_tokens": [
+                "Water"
+              ],
+              "snippet": "0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g</strong></span><strong><br /> For",
+              "value": "<table style=\"width: 640px;\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\"> <tbody> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><span style=\"color: #0000ff; font-size: x-large;\"><strong>Aniline Blue, <mark>Water</mark> Soluble, Reagent, 25g</strong></span><strong><br /> For Research &amp; Development<br /> Not for drug, human, animal, or food use</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #0000ff;\"><strong><span style=\"text-decoration: underline;\">Certificate of Analysis:</span></strong><strong><br /> Appearance (Color) Shiny brown <br /> Appearance (Form) Crystalline<br /> Absorption Max. 600 nm<br /> Visual Transition Interval pH 10.0 to pH 13.0 (Blue to Orange)</strong></span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>CAS:&nbsp;</strong>28631-66-5</span></p> </td> </tr> <tr> <td valign=\"top\" width=\"638\"> <p align=\"center\"><span style=\"font-family: 'times new roman', times; font-size: medium; color: #000000;\"><strong>FORMULA:</strong>&nbsp;<span>C<sub>32</sub>H<sub>25</sub>N<sub>3</sub>Na<sub>2</sub>O<sub>9</sub>S<sub>3</sub></span></span></p> </td> </tr> </tbody> </table>"
+            }
+          ],
+          "text_match": 578730123365187706,
+          "text_match_info": {
+            "best_field_score": "1108091338752",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123365187706",
+            "tokens_matched": 1,
+            "typo_prefix_score": 0
+          }
+        }
+      ],
+      "out_of": 39516,
+      "page": 1,
+      "request_params": {
+        "collection_name": "products",
+        "first_q": "water",
+        "per_page": 10,
+        "q": "water"
+      },
+      "search_cutoff": false,
+      "search_time_ms": 5
+    }
+  ]
+}

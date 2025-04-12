@@ -130,5 +130,4 @@ class SupplierSynthetika(SupplierBase):
         return product.cast_properties()
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierSynthetika

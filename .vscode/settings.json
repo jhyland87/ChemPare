@@ -113,7 +113,7 @@
     "notebook.diff.ignoreMetadata": true,
     "notebook.diff.ignoreOutputs": true,
     "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.coveragepy.file":".coverage",
+    //"python.coveragepy.file":".coverage",
     "python.autoComplete.extraPaths": [
         "./src",
         "./src/chempare",
@@ -121,7 +121,18 @@
         "./src/chempare/datatypes",
     ],
     "python.testing.pytestArgs": [
-        "-c=pyproject.toml"
+        "--config-file=pyproject.toml",
+        "--numprocesses=auto",
+        //"--cov=src/chempare",
+        "--cov=src",
+        //"--no-cov-on-fail",
+        "--cov-report=term-missing:skip-covered",
+        //"--rootdir=src/chempare",
+        //"--rootdir=/Users/justinhyland/Documents/projects/ChemPare",
+        "--doctest-modules",
+        "--ignore=src/chempare/api",
+        "--ignore=src/chempare/cli",
+        "--cov-append"
     ],
     //     //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
     //     // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
@@ -165,12 +176,11 @@
         "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
     },
-    "python.analysis.extraPaths": [
-        "./src",
-        "./src/chempare",
-        "./src/chempare/datatypes",
-        "./src/chempare/suppliers"
-    ],
+    // "python.analysis.extraPaths": [
+    //     "./src",
+    //     "./src/chempare",
+    //     "./src/chempare/suppliers"
+    // ],
     "python.analysis.inlayHints.pytestParameters": true,
     "testing.coverageBarThresholds": {
         "red": 0,
@@ -178,6 +188,14 @@
         "green": 90
     },
     "python.testing.pytestPath": "pytest",
-    "python.testing.autoTestDiscoverOnSaveEnabled": false,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "cmake.ctest.allowParallelJobs": false,
     "testing.coverageToolbarEnabled": true,
+    "python.experiments.enabled": false,
+    "openCoverage.coverageFilePath": "coverage-html/index.html",
+    "python.analysis.extraPaths": [
+        "./src/chempare",
+        "./src/chempare/suppliers",
+        "./src/chempare/datatypes"
+    ]
 }

@@ -247,6 +247,4 @@ class SupplierFtfScientific(SupplierBase):
 
         return product_info
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierFtfScientific

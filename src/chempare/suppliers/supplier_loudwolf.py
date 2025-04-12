@@ -267,6 +267,4 @@ class SupplierLoudwolf(SupplierBase):
         product = TypeProduct(**product)
         return product.cast_properties()
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierLoudwolf

@@ -136,6 +136,4 @@ class SupplierLaballey(SupplierBase):
 
         return product
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierLaballey

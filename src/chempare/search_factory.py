@@ -1,6 +1,6 @@
 """Search factory"""
 
-from typing import List
+from typing import List, Tuple
 
 from abcplus import finalmethod
 from curl_cffi import requests
@@ -9,9 +9,12 @@ from chempare import ClassUtils
 from chempare import suppliers
 from chempare.datatypes import TypeProduct
 
+#from chempare import suppliers
+from chempare.suppliers import *
+
 
 class SearchFactory(ClassUtils, object):
-    suppliers: List = suppliers.__all__
+    suppliers = suppliers.__all__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 

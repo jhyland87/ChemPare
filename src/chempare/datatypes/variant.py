@@ -3,7 +3,6 @@
 from dataclasses import dataclass
 from typing import Dict
 
-
 @dataclass(init=False, match_args=True, kw_only=True)
 class TypeVariant(Dict):
     """Custom data class for product variants"""

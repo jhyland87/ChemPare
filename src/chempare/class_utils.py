@@ -30,6 +30,8 @@ from price_parser import Price
 
 # import chempare
 
+__package__ = "chempare"
+__name__ = "chempare.class_utils"
 
 _logger = logging.getLogger("chempare/class_utils")
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))

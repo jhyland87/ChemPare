@@ -1,8 +1,12 @@
 # from chempare import suppliers
 # import os
 
-import chempare
+from decimal import Decimal
+#from price_parser import Price
+from pytest_mock import MockerFixture
 
+import chempare
+import pytest
 
 # import webbrowser
 
@@ -78,3 +82,37 @@ def pytest_report_header(config):
     if config.getoption("verbose") > 0:
         ret.extend([f"info1: Verbosity: {config.getoption('verbose')}"])
     return ret
+
+
+@pytest.fixture
+def mock_exchange_rate(mocker: MockerFixture):
+    """Mocks a call to the ExchangeRateAPI, which calls Paikama API
+    https://hexarate.paikama.co/api/rates/latest/EUR?target=USD
+    """
+    mock_get = mocker.patch("currex.ExchangeRateAPI.get_rate")
+    mock_get.return_value = Decimal("1.1266")
+    return mock_get
+
+
+# def my_decorator(func):
+#     def wrapper(*args, **kwargs):
+#         # Do something before calling the function
+#         print("Before calling function.")
+#         result = func(*args, **kwargs)
+#         # Do something after the function
+#         print("After calling function.")
+#         return result
+#     return wrapper
+
+
+
+
+# class _ParametrizeMarkDecorator(MarkDecorator):
+#     def __call__(  # type: ignore[override]
+#         self,
+#         argnames: Union[str, Sequence[str]],
+#         argvalues: Iterable[Union[ParameterSet, Sequence[object], object]],
+#         *,
+#         indirect: Union[bool, Sequence[str]] = ...,
+#         ids: Optional[] = ...
+#         ) -> MarkDecorator: ...

@@ -1,8 +1,16 @@
 import pytest
 
 from chempare.datatypes import TypeProduct
-from chempare.suppliers import SupplierChemsavers as Supplier
+from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
+from unittest.mock import patch, MagicMock
 
+# from curl_cffi import Headers
+# from curl_cffi import Response
+# from curl_cffi import requests
+
+from tests.mock_data.supplier_chemsavers.chemsavers_mocker import curl_cffi as mock_curl_cffi
+
+curl_cffi_post = MagicMock(wraps=mock_curl_cffi.post)
 
 # Base test class
 @pytest.mark.supplier
@@ -11,6 +19,7 @@ class TestClass:
     _results = None
 
     @pytest.fixture
+    @patch(target='curl_cffi.requests.post', new=curl_cffi_post)
     def results(self):
         if not self._results:
             try:
@@ -22,6 +31,7 @@ class TestClass:
 
 
 # Test cases for a valid search for this supplier
+
 class TestValidSearch(TestClass):
     _results = None
 

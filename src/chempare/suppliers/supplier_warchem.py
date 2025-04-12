@@ -161,6 +161,4 @@ class SupplierWarchem(SupplierBase):
         product = TypeProduct(**product)
         self._products.append(product.cast_properties())
 
-
-if __package__ == "suppliers":
-    __disabled__ = True
+__supplier_class = SupplierWarchem

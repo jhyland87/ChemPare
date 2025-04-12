@@ -8,7 +8,6 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
 
-
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
@@ -72,9 +71,9 @@ class SupplierChemsavers(SupplierBase):
                     # products may be filtered out based on no price listed or
                     # restrictions, hence requesting a large amount now and
                     # limiting it later.
-                    "max_facet_values": 100,
+                    "max_facet_values": 5,
                     "page": 1,
-                    "per_page": 100,
+                    "per_page": 5,
                 }
             ]
         }
@@ -167,6 +166,4 @@ class SupplierChemsavers(SupplierBase):
 
         return product.cast_properties()
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierChemsavers

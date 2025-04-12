@@ -76,5 +76,7 @@ class Supplier3SChem(SupplierBase):
             self._products.append(TypeProduct(**product_obj))
 
 
+__supplier_class = Supplier3SChem
+
 if __package__ == "suppliers":
     __disabled__ = False

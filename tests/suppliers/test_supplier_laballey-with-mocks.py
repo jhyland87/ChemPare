@@ -49,13 +49,12 @@ from definitions import mock_data_dir
 def mock_object_property(mocker: MockerFixture):
     mock_get = mocker.patch("curl_cffi.requests.get")
     filepath = os.path.join(mock_data_dir, "laballey-get-getwidgets.json")
-    # 'tests/mock_data/laballey-get-getwidgets.json',
     with open(file=filepath, mode='r', encoding="utf-8") as file:
-        # mock_json = json.load(file)
         mock_json = file.read()
     mock_get.return_value.status_code = 200
     mock_get.return_value.text = mock_json
     return mock_get
+
 
 
 # Base test class

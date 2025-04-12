@@ -418,5 +418,4 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
 
-if __package__ == "suppliers":
-    __disabled__ = True
+__disabled__ = True

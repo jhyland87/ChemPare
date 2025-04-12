@@ -206,5 +206,4 @@ class SupplierCarolinaChemical(SupplierBase):
         return product_page_data
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierCarolinaChemical

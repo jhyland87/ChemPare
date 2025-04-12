@@ -219,6 +219,4 @@ class SupplierLabchem(SupplierBase):
 
         return res
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierLabchem

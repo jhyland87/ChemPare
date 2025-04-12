@@ -15,7 +15,7 @@ import inquirer
 
 # from curl_cffi.requests.exceptions import ConnectionError
 from chempare import SearchFactory  # noqa: F401
-from chempare.suppliers import *  # noqa: F401,F403
+from chempare.suppliers import * # noqa: F401,F403
 
 
 def signal_handler(sig, frame):

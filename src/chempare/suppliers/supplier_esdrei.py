@@ -124,6 +124,4 @@ class SupplierEsDrei(SupplierBase):
 
         return TypeProduct(**product_data)
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierEsDrei

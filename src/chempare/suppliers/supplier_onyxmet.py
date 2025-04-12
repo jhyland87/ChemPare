@@ -187,5 +187,4 @@ class SupplierOnyxmet(SupplierBase):
         # self.__test_lock.release()
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierOnyxmet

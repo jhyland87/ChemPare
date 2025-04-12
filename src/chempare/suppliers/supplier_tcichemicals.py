@@ -178,6 +178,4 @@ class SupplierTciChemicals(SupplierBase):
 
         self._products.append(product.cast_properties())
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierTciChemicals

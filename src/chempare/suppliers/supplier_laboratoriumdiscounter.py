@@ -108,5 +108,4 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             return variant_dict["CAS"]
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierLaboratoriumDiscounter
