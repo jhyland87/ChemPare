@@ -7,7 +7,7 @@ import os
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Self
+from typing import Self, TypedDict
 
 from abcplus import ABCMeta
 from abcplus import abstractmethod

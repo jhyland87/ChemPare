@@ -22,6 +22,8 @@ dependencies = [
     "curl_cffi",
     "translate",
     "regex",
+    "inflection",
+    "isort"
 ]
 
 authors = [
@@ -100,14 +102,24 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    #".",
-    "src",
+    # ".",
+    # "src",
+    # "tests/mock_data",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
 ]
 
 [tool.pytest.ini_options]
+pythonpath = [
+    "tests/mock_data",
+    "src",
+    "src/chempare",
+    "src/chempare/datatypes",
+    "src/chempare/suppliers",
+    "tests/mock_data"
+]
+
 
 env = [
     "LOG_LEVEL=DEBUG",
@@ -119,12 +131,6 @@ addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doct
 
 # "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests"]
-pythonpath = [
-    "src",
-    "src/chempare",
-    "src/chempare/suppliers",
-    "src/chempare/datatypes",
-    ]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",

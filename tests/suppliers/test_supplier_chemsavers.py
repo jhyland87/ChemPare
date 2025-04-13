@@ -4,10 +4,6 @@ from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
 from unittest.mock import patch, MagicMock
 
-# from curl_cffi import Headers
-# from curl_cffi import Response
-# from curl_cffi import requests
-
 from tests.mock_data.supplier_chemsavers.chemsavers_mocker import curl_cffi as mock_curl_cffi
 
 curl_cffi_post = MagicMock(wraps=mock_curl_cffi.post)
@@ -67,7 +63,7 @@ class TestInvalidSearch(TestClass):
 
 # Test cases for a valid CAS search for this supplier
 class TestValidCASSearch(TestClass):
-    _query = "7732-18-5"
+    _query = "7664-93-9"
     _results = None
 
     def test_query(self, results):

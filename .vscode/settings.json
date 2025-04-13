@@ -115,6 +115,7 @@
     "python.terminal.activateEnvInCurrentTerminal": true,
     //"python.coveragepy.file":".coverage",
     "python.autoComplete.extraPaths": [
+        ".",
         "./src",
         "./src/chempare",
         "./src/chempare/suppliers",
@@ -194,8 +195,11 @@
     "python.experiments.enabled": false,
     "openCoverage.coverageFilePath": "coverage-html/index.html",
     "python.analysis.extraPaths": [
+        "./tests/mock_data",
+        "./src",
         "./src/chempare",
         "./src/chempare/suppliers",
         "./src/chempare/datatypes"
-    ]
+    ],
+    "editor.defaultFormatter": "ms-python.pylint"
 }
