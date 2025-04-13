@@ -34,7 +34,7 @@ class SupplierLaballey(SupplierBase):
         """
 
         # Example request url for Laboratorium Discounter
-        # https://searchserverapi.com/getwidgets?
+        # https://searchserverapi.com/getresults?
         #   api_key=8B7o0X1o7c
         #   &q=sulf
         #   &maxResults=6
@@ -70,12 +70,12 @@ class SupplierLaballey(SupplierBase):
             "maxResults": 6,
             "startIndex": 0,
             "items": True,
-            "pages": False,
-            "facets": False,
+            "pages": True,
+            "facets": True,
             "categories": True,
             "suggestions": True,
-            "vendors": False,
-            "tags": False,
+            "vendors": True,
+            "tags": True,
             "pageStartIndex": 0,
             "pagesMaxResults": 10,
             "categoryStartIndex": 0,
@@ -87,7 +87,7 @@ class SupplierLaballey(SupplierBase):
             "_": epoch_ts,
         }
 
-        search_result = self.http_get_json("getwidgets", params=get_params)
+        search_result = self.http_get_json("getresults", params=get_params)
 
         if not search_result:
             return
