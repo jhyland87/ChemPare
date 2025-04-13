@@ -1,10 +1,13 @@
+"""Chemsavers supplier test module"""
+from unittest.mock import patch
+from unittest.mock import MagicMock
 import pytest
 
 from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
-from unittest.mock import patch, MagicMock
 
 from tests.mock_data.supplier_chemsavers.chemsavers_mocker import curl_cffi as mock_curl_cffi
+
 
 curl_cffi_post = MagicMock(wraps=mock_curl_cffi.post)
 
