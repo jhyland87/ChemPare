@@ -1,6 +1,6 @@
 """Search factory"""
 
-from typing import List, Tuple
+from typing import List
 
 from abcplus import finalmethod
 from curl_cffi import requests
@@ -9,7 +9,8 @@ from chempare import ClassUtils
 from chempare import suppliers
 from chempare.datatypes import TypeProduct
 
-#from chempare import suppliers
+# pylint: disable=wildcard-import
+# pylint: disable=unused-wildcard-import
 from chempare.suppliers import *
 
 

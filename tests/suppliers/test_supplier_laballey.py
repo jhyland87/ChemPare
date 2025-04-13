@@ -1,8 +1,16 @@
+"""Laballey supplier test module"""
+from unittest.mock import patch
+from unittest.mock import MagicMock
 import pytest
 
 from chempare.datatypes import TypeProduct
 from chempare.suppliers import SupplierLaballey as Supplier  # type: ignore
 
+
+from tests.mock_data.supplier_laballey.laballey_mocker import curl_cffi as mock_curl_cffi
+
+
+curl_cffi_get = MagicMock(wraps=mock_curl_cffi.get)
 
 # Base test class
 @pytest.mark.supplier
@@ -11,6 +19,7 @@ class TestClass:
     _results = None
 
     @pytest.fixture
+    @patch(target='curl_cffi.requests.get', new=curl_cffi_get)
     def results(self):
         if not self._results:
             try:

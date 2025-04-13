@@ -57,7 +57,10 @@ class CurlRequestMocker(Dict):
 
         with open(self._mock_file_path, "r", encoding="utf-8") as fh:
             self._mock_file_content = fh.read()
-            self._json = json.loads(self._mock_file_content)
+            try:
+                self._json = json.loads(self._mock_file_content)
+            except json.JSONDecodeError:
+                pass
 
     @property
     def content(self):

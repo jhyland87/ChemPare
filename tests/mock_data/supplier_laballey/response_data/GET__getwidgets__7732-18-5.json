@@ -1,0 +1,968 @@
+{
+    "MOCK_DATA": true,
+    "totalItems": 13,
+    "startIndex": 0,
+    "itemsPerPage": 10,
+    "currentItemCount": 10,
+    "items": [
+        {
+            "product_id": "576718897211",
+            "original_product_id": "576718897211",
+            "title": "Ferroxyl Test Solution with Nitric Acid",
+            "description": "",
+            "link": "\/products\/ferroxy-test-solution-kit-with-nitric-acid",
+            "price": "60.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "KTFTSN-1L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3904b_large.jpg?v=1743754827",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "7218994118715",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218994118715",
+                    "sku": "KTFTSN-1L",
+                    "barcode": "",
+                    "price": "60.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3904b_large.jpg?v=1743754827",
+                    "image_alt": "Ferroxyl Test Solution with Nitric Acid",
+                    "quantity_total": "",
+                    "link": "\/products\/ferroxy-test-solution-kit-with-nitric-acid?variant=7218994118715"
+                },
+                {
+                    "variant_id": "12668032745531",
+                    "sku": "KTFTSN-4L",
+                    "barcode": "",
+                    "price": "170.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3904b_large.jpg?v=1743754827",
+                    "image_alt": "Ferroxyl Test Solution with Nitric Acid",
+                    "quantity_total": "",
+                    "link": "\/products\/ferroxy-test-solution-kit-with-nitric-acid?variant=12668032745531"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3904b_large.jpg?v=1743754827"
+            ],
+            "shopify_images_alt": [
+                "Ferroxyl Test Solution with Nitric Acid"
+            ],
+            "tags": "best_Industrial[:ATTR:]best_Petroleum[:ATTR:]best_Pharmaceutical[:ATTR:]best_Wastewater[:ATTR:]CBD[:ATTR:]Chemicals[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Other[:ATTR:]restricted-combo-na"
+        },
+        {
+            "product_id": "576708575291",
+            "original_product_id": "576708575291",
+            "title": "Buffer Solution, pH 10.0, Coded Blue",
+            "description": "",
+            "link": "\/products\/buffer-ph10-coded-blue",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C2279-PH10-500ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_669e7df9-a7d1-44de-a2e3-245cdbd316e2_large.png?v=1741687435",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7218961809467",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218961809467",
+                    "sku": "C2279-PH10-500ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph10-coded-blue?variant=7218961809467"
+                },
+                {
+                    "variant_id": "7218961743931",
+                    "sku": "C2279-PH10-1L",
+                    "barcode": "",
+                    "price": "51.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph10-coded-blue?variant=7218961743931"
+                },
+                {
+                    "variant_id": "7218961776699",
+                    "sku": "C2279-PH10-4L",
+                    "barcode": "",
+                    "price": "73.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph10-coded-blue?variant=7218961776699"
+                },
+                {
+                    "variant_id": "7218961711163",
+                    "sku": "C2279-PH10-19L",
+                    "barcode": "",
+                    "price": "146.3000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "19 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph10-coded-blue?variant=7218961711163"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_669e7df9-a7d1-44de-a2e3-245cdbd316e2_large.png?v=1741687435"
+            ],
+            "tags": "Biotechnology[:ATTR:]Buffer[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Industrial[:ATTR:]Master[:ATTR:]Size_1 Liter[:ATTR:]Size_19 Liters[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml"
+        },
+        {
+            "product_id": "576708673595",
+            "original_product_id": "576708673595",
+            "title": "Buffer Solution, pH 4.00, Coded Pink",
+            "description": "",
+            "link": "\/products\/buffer-ph4-coded-pink",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C2279-PH4-500ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_d5ca728f-dc48-4cbe-b9df-cad278df1478_large.png?v=1741687437",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7218962071611",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218962071611",
+                    "sku": "C2279-PH4-500ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Title": "500mL"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph4-coded-pink?variant=7218962071611"
+                },
+                {
+                    "variant_id": "7218962006075",
+                    "sku": "C2279-PH4-1L",
+                    "barcode": "",
+                    "price": "51.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Title": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph4-coded-pink?variant=7218962006075"
+                },
+                {
+                    "variant_id": "7218962038843",
+                    "sku": "C2279-PH4-4L",
+                    "barcode": "",
+                    "price": "75.9000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Title": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph4-coded-pink?variant=7218962038843"
+                },
+                {
+                    "variant_id": "7218961973307",
+                    "sku": "C2279-PH4-19L",
+                    "barcode": "",
+                    "price": "146.3000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Title": "19 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph4-coded-pink?variant=7218961973307"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_d5ca728f-dc48-4cbe-b9df-cad278df1478_large.png?v=1741687437"
+            ],
+            "tags": "Biotechnology[:ATTR:]Buffer[:ATTR:]Chemicals[:ATTR:]Cosmetics & Personal Care[:ATTR:]Food & Beverage[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Industrial[:ATTR:]Master[:ATTR:]Size_1 Liter[:ATTR:]Size_19 Liters[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml[:ATTR:]Wastewater"
+        },
+        {
+            "product_id": "576708739131",
+            "original_product_id": "576708739131",
+            "title": "Buffer Solution, pH 7.0, Coded Yellow",
+            "description": "",
+            "link": "\/products\/buffer-ph7-coded-yellow",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C2279-PH7-500ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_dc7b901c-3f9c-45d3-93f1-55ed258f4336_large.png?v=1741687441",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7218962333755",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218962333755",
+                    "sku": "C2279-PH7-500ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph7-coded-yellow?variant=7218962333755"
+                },
+                {
+                    "variant_id": "7218962268219",
+                    "sku": "C2279-PH7-1L",
+                    "barcode": "",
+                    "price": "51.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph7-coded-yellow?variant=7218962268219"
+                },
+                {
+                    "variant_id": "7218962300987",
+                    "sku": "C2279-PH7-4L",
+                    "barcode": "",
+                    "price": "75.9000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph7-coded-yellow?variant=7218962300987"
+                },
+                {
+                    "variant_id": "7218962235451",
+                    "sku": "C2279-PH7-19L",
+                    "barcode": "",
+                    "price": "178.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "19 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph7-coded-yellow?variant=7218962235451"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_dc7b901c-3f9c-45d3-93f1-55ed258f4336_large.png?v=1741687441"
+            ],
+            "tags": "Biotechnology[:ATTR:]Buffer[:ATTR:]Chemicals[:ATTR:]Cosmetics & Personal Care[:ATTR:]Food & Beverage[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Industrial[:ATTR:]Master[:ATTR:]Size_1 Liter[:ATTR:]Size_19 Liters[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml"
+        },
+        {
+            "product_id": "2276614045755",
+            "original_product_id": "2276614045755",
+            "title": "Water, LC\/MS Grade",
+            "description": "",
+            "link": "\/products\/water-lc-ms-grade",
+            "price": "84.7000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WALCMS-4L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "21149585735739",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "21149585735739",
+                    "sku": "WALCMS-4L",
+                    "barcode": "",
+                    "price": "84.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+                    "image_alt": "Water, LC\/MS Grade",
+                    "quantity_total": "",
+                    "link": "\/products\/water-lc-ms-grade?variant=21149585735739"
+                },
+                {
+                    "variant_id": "21149585768507",
+                    "sku": "WALCMS-4LCS",
+                    "barcode": "",
+                    "price": "338.8000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+                    "image_alt": "Water, LC\/MS Grade",
+                    "quantity_total": "",
+                    "link": "\/products\/water-lc-ms-grade?variant=21149585768507"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136"
+            ],
+            "shopify_images_alt": [
+                "Water, LC\/MS Grade"
+            ],
+            "tags": "autoship[:ATTR:]best_CBD[:ATTR:]Chemicals[:ATTR:]Grade_LC\/MS Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_Botanical[:ATTR:]Master[:ATTR:]Size_4 Liters[:ATTR:]Water"
+        },
+        {
+            "product_id": "7645688791195",
+            "original_product_id": "7645688791195",
+            "title": "Water, USP Grade",
+            "description": "",
+            "link": "\/products\/water-usp-grade",
+            "price": "157.5000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WAU-5GAL",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "43339134763163",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "43339134763163",
+                    "sku": "WAU-5GAL",
+                    "barcode": "",
+                    "price": "157.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/water-usp-grade?variant=43339134763163"
+                },
+                {
+                    "variant_id": "43339134795931",
+                    "sku": "WAU-55GAL",
+                    "barcode": "",
+                    "price": "495.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-55GAL_large.jpg?v=1744266458",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/water-usp-grade?variant=43339134795931"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-55GAL_large.jpg?v=1744266458"
+            ],
+            "shopify_images_alt": [
+                "",
+                ""
+            ],
+            "tags": "autoship[:ATTR:]best_CBD[:ATTR:]best_Pharmaceutical[:ATTR:]Chemicals[:ATTR:]Grade_HPLC Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_Botanical[:ATTR:]Master[:ATTR:]SEO[:ATTR:]Size_4 Liters[:ATTR:]Water"
+        },
+        {
+            "product_id": "576708411451",
+            "original_product_id": "576708411451",
+            "title": "Buffer Solution, pH 5.5",
+            "description": "",
+            "link": "\/products\/buffer-ph-5-5",
+            "price": "127.6000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C2274-500ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_00258528-384a-45a2-94c9-a2e111e37895_large.png?v=1741687439",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7218961317947",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218961317947",
+                    "sku": "C2274-500ml",
+                    "barcode": "",
+                    "price": "127.6000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph-5-5?variant=7218961317947"
+                },
+                {
+                    "variant_id": "7218961285179",
+                    "sku": "C2274-4L",
+                    "barcode": "",
+                    "price": "379.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph-5-5?variant=7218961285179"
+                },
+                {
+                    "variant_id": "7218961350715",
+                    "sku": "C2274-5gal",
+                    "barcode": "",
+                    "price": "369.6000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/buffer-ph-5-5?variant=7218961350715"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_00258528-384a-45a2-94c9-a2e111e37895_large.png?v=1741687439"
+            ],
+            "tags": "Buffer[:ATTR:]Chemicals[:ATTR:]Ideal Template[:ATTR:]Master[:ATTR:]Petroleum[:ATTR:]Size_4 Liters[:ATTR:]Size_5 Gallons[:ATTR:]Size_500ml",
+            "quantity_total": ""
+        },
+        {
+            "product_id": "576716439611",
+            "original_product_id": "576716439611",
+            "title": "Deionized Water Lab Grade, Kosher",
+            "description": "",
+            "link": "\/products\/deionized-water-lab-grade-astm-type-1",
+            "price": "33.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WAD-1L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "7218983141435",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218983141435",
+                    "sku": "WAD-1L",
+                    "barcode": "",
+                    "price": "33.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+                    "image_alt": "Deionized Water Lab Grade, 1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=7218983141435"
+                },
+                {
+                    "variant_id": "42902495920283",
+                    "sku": "WAD-1LCS",
+                    "barcode": "",
+                    "price": "81.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1LCS_large.jpg?v=1743681697",
+                    "image_alt": "Deionized Water Lab Grade, 4 x 1 Liter Case",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495920283"
+                },
+                {
+                    "variant_id": "7218983108667",
+                    "sku": "WAD-1GAL",
+                    "barcode": "",
+                    "price": "44.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                    "image_alt": "Deionized Water Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=7218983108667"
+                },
+                {
+                    "variant_id": "42902495953051",
+                    "sku": "WAD-1GALCS",
+                    "barcode": "",
+                    "price": "132.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Gallon Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                    "image_alt": "Deionized Water Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495953051"
+                },
+                {
+                    "variant_id": "42902496018587",
+                    "sku": "WAD-4L",
+                    "barcode": "",
+                    "price": "49.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                    "image_alt": "Deionized Water Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902496018587"
+                },
+                {
+                    "variant_id": "42902495985819",
+                    "sku": "WAD-4LCS",
+                    "barcode": "",
+                    "price": "126.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                    "image_alt": "Deionized Water Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495985819"
+                },
+                {
+                    "variant_id": "21112474402875",
+                    "sku": "WAD-5GAL",
+                    "barcode": "",
+                    "price": "99.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-5GAL_large.jpg?v=1743681693",
+                    "image_alt": "Deionized Water Lab Grade, 5 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=21112474402875"
+                },
+                {
+                    "variant_id": "21112691294267",
+                    "sku": "WAD-55GAL",
+                    "barcode": "",
+                    "price": "242.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-55GAL_large.jpg?v=1743681691",
+                    "image_alt": "Deionized Water, Lab Grade, 55 Gallon Poly Drum",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=21112691294267"
+                },
+                {
+                    "variant_id": "46043842019483",
+                    "sku": "WAD-275GAL",
+                    "barcode": "",
+                    "price": "1210.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "275 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/WAD-275GAL_large.jpg?v=1743681696",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=46043842019483"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1LCS_large.jpg?v=1743681697",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-5GAL_large.jpg?v=1743681693",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-55GAL_large.jpg?v=1743681691",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/WAD-275GAL_large.jpg?v=1743681696"
+            ],
+            "shopify_images_alt": [
+                "Deionized Water Lab Grade, 1 Liter",
+                "Deionized Water Lab Grade, 4 x 1 Liter Case",
+                "Deionized Water Lab Grade, 1 Gallon",
+                "Deionized Water Lab Grade, 4 Liters",
+                "Deionized Water Lab Grade, 5 Gallons",
+                "Deionized Water, Lab Grade, 55 Gallon Poly Drum",
+                ""
+            ],
+            "tags": "autoship[:ATTR:]best_Food & Beverage[:ATTR:]best_Government[:ATTR:]best_Healthcare[:ATTR:]best_Hospital\/Clinical[:ATTR:]best_Winery[:ATTR:]CBD[:ATTR:]Certified_Kosher[:ATTR:]Chemicals[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Other[:ATTR:]OVK[:ATTR:]Water"
+        },
+        {
+            "product_id": "576731054139",
+            "original_product_id": "576731054139",
+            "title": "Nitric Acid 3% in Methanol",
+            "description": "",
+            "link": "\/products\/nitric-acid-3-in-methanol",
+            "price": "97.9000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C5751-500ML",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_7d228812-dd25-4036-b65b-f28d3d5d4a54_large.png?v=1741688527",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "43976333885595",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "43976333885595",
+                    "sku": "C5751-500ML",
+                    "barcode": "",
+                    "price": "97.9000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/nitric-acid-3-in-methanol?variant=43976333885595"
+                },
+                {
+                    "variant_id": "43976333918363",
+                    "sku": "C5751-500MLCS",
+                    "barcode": "",
+                    "price": "322.3000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "6 x 500ml Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/nitric-acid-3-in-methanol?variant=43976333918363"
+                },
+                {
+                    "variant_id": "43976333951131",
+                    "sku": "C5751-2.5L",
+                    "barcode": "",
+                    "price": "110.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "2.5 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/nitric-acid-3-in-methanol?variant=43976333951131"
+                },
+                {
+                    "variant_id": "43976333983899",
+                    "sku": "C5751-2.5LCS",
+                    "barcode": "",
+                    "price": "478.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 2.5 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/nitric-acid-3-in-methanol?variant=43976333983899"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_7d228812-dd25-4036-b65b-f28d3d5d4a54_large.png?v=1741688527"
+            ],
+            "tags": "Acids[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Master[:ATTR:]Nitric Acid[:ATTR:]Percentage_3%[:ATTR:]R&D\/Lab[:ATTR:]restricted-combo-na[:ATTR:]Size_1 Liter"
+        },
+        {
+            "product_id": "576744751163",
+            "original_product_id": "576744751163",
+            "title": "Sodium Hydroxide 4%",
+            "description": "",
+            "link": "\/products\/sodium-hydroxide-4-solution",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C7488-500ML",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_a4b7aaec-1254-453c-bc2a-d4c4cb43391f_large.png?v=1741691070",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "40875721621659",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "40875721621659",
+                    "sku": "C7488-500ML",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sodium-hydroxide-4-solution?variant=40875721621659"
+                },
+                {
+                    "variant_id": "40875721654427",
+                    "sku": "C7488-500MLCS",
+                    "barcode": "",
+                    "price": "125.4000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "6 x 500ml Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sodium-hydroxide-4-solution?variant=40875721654427"
+                },
+                {
+                    "variant_id": "40875721687195",
+                    "sku": "C7488-1L",
+                    "barcode": "",
+                    "price": "51.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sodium-hydroxide-4-solution?variant=40875721687195"
+                },
+                {
+                    "variant_id": "40875721719963",
+                    "sku": "C7488-1LCS",
+                    "barcode": "",
+                    "price": "134.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sodium-hydroxide-4-solution?variant=40875721719963"
+                },
+                {
+                    "variant_id": "40875721752731",
+                    "sku": "C7488-4L",
+                    "barcode": "",
+                    "price": "101.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sodium-hydroxide-4-solution?variant=40875721752731"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_a4b7aaec-1254-453c-bc2a-d4c4cb43391f_large.png?v=1741691070"
+            ],
+            "tags": "Chemicals[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Inorganic[:ATTR:]Master[:ATTR:]Percentage_4%[:ATTR:]Size_1 Liter[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml[:ATTR:]Sodium"
+        }
+    ]
+}

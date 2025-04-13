@@ -387,7 +387,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         res = self.http_get(path, **kwargs)
 
-        if not res:
+        if res is None:
             return None
 
         return res.json()
