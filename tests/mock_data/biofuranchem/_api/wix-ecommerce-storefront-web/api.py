@@ -1,7 +1,6 @@
 from curl_cffi.requests.cookies import CookieTypes
 from curl_cffi.requests.headers import HeaderTypes
 
-
 cookies: CookieTypes = {
     "client-session-bind": "055a8b8b-38ee-4d1a-88b2-00d2f3f4036e",
     "server-session-bind": "055a8b8b-38ee-4d1a-88b2-00d2f3f4036e",

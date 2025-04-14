@@ -1,7 +1,6 @@
 from curl_cffi.requests.cookies import CookieTypes
 from curl_cffi.requests.headers import HeaderTypes
 
-
 cookies: CookieTypes = {
     "server-session-bind": "c34892b5-e564-49e1-b482-0f49101ca7ca",
     "ssr-caching": "cache#desc=hit#varnish=hit_miss#dc#desc=fastly_uw2-pub-1_g",

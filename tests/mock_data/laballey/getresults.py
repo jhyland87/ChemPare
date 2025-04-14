@@ -3,8 +3,12 @@ from curl_cffi.requests.headers import HeaderTypes
 
 
 """
-To generate output via bash, run the curl command:
-    query="acid"
+The below results were generated using the following bash script:
+
+    #!/usr/bin/env bash
+
+    query="${1:-acid}"
+    echo -e "Querying Laballey for: ${query}\n\n" >&2
     curl -s --get https://searchserverapi.com/getresults \
         --data "api_key=8B7o0X1o7c" \
         --data "maxResults=6" \
@@ -25,7 +29,7 @@ To generate output via bash, run the curl command:
         --data "tagsMaxResults=3" \
         --data "output=json" \
         --data "_=$(date +%s%3N)" \
-        --data "q=${query}" | jq -M --raw-output
+        --data "q=${query}" | jq --raw-output
 """
 
 # Valid text query for "acid"
