@@ -91,10 +91,10 @@ def request(
     **kwargs: Unpack[RequestParams],
 ) -> MockResponse:
     mock_cfg = getattr(request, 'mock_data', None)
-    if mock_cfg:
-        print(f"Running the CURL request for {mock_cfg=}")
+    # if mock_cfg:
+    #    print(f"Running the CURL request for {mock_cfg=}")
 
-    print(f"Calling request - {method=}, {url=}, {thread=}, {curl_options=}, {debug=}, {kwargs=}")
+    # print(f"Calling request - {method=}, {url=}, {thread=}, {curl_options=}, {debug=}, {kwargs=}")
 
     parsed_url = urlparse(url)
     path = parsed_url.path

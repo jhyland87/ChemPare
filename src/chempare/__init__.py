@@ -3,7 +3,9 @@ from chempare.search_factory import SearchFactory
 
 from . import suppliers
 
-#__package__ = "chempare"
+# __package__ = "chempare"
 
 called_from_test = False
-__all__ = ["SearchFactory", "suppliers", "ClassUtils"]
+
+
+__all__ = ["SearchFactory", "suppliers", "ClassUtils", "called_from_test"]

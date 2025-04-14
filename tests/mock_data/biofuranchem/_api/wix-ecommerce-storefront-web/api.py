@@ -135,12 +135,98 @@ query_water = {
 }
 
 
-query_7664_93_9 = {
+query_5949_29_1 = {
+    "data": {
+        "catalog": {
+            "category": {
+                "numOfProducts": 632,
+                "productsWithMetaData": {
+                    "totalCount": 1,
+                    "list": [
+                        {
+                            "id": "3e87ca61-d026-be20-a34f-11d6239e0c80",
+                            "options": [
+                                {
+                                    "id": "opt-20",
+                                    "key": "Size",
+                                    "title": "Size",
+                                    "optionType": "DROP_DOWN",
+                                    "selections": [
+                                        {"id": 1, "value": "25g", "description": "25g", "key": "25g", "inStock": None},
+                                        {"id": 2, "value": "50g", "description": "50g", "key": "50g", "inStock": None},
+                                        {
+                                            "id": 3,
+                                            "value": "100g",
+                                            "description": "100g",
+                                            "key": "100g",
+                                            "inStock": None,
+                                        },
+                                        {
+                                            "id": 4,
+                                            "value": "500g",
+                                            "description": "500g",
+                                            "key": "500g",
+                                            "inStock": None,
+                                        },
+                                        {"id": 5, "value": "1kg", "description": "1kg", "key": "1kg", "inStock": None},
+                                    ],
+                                }
+                            ],
+                            "productItems": [
+                                {
+                                    "id": "0960c421-cb5d-4f75-80fd-04f167f390d9",
+                                    "optionsSelections": [4],
+                                    "price": 76.0,
+                                    "formattedPrice": "$76.00",
+                                },
+                                {
+                                    "id": "1a146ad4-428b-4c89-b68f-684ae80b28eb",
+                                    "optionsSelections": [5],
+                                    "price": 114.0,
+                                    "formattedPrice": "$114.00",
+                                },
+                                {
+                                    "id": "d198cf89-b43d-49ba-8c78-4993b83d1fa7",
+                                    "optionsSelections": [1],
+                                    "price": 13.52,
+                                    "formattedPrice": "$13.52",
+                                },
+                                {
+                                    "id": "b964852c-7c83-4c06-9d09-926546811a07",
+                                    "optionsSelections": [2],
+                                    "price": 20.27,
+                                    "formattedPrice": "$20.27",
+                                },
+                                {
+                                    "id": "179e29e4-35cc-4626-a398-f43e9f1ba5a1",
+                                    "optionsSelections": [3],
+                                    "price": 30.4,
+                                    "formattedPrice": "$30.40",
+                                },
+                            ],
+                            "productType": "physical",
+                            "price": 13.52,
+                            "sku": "",
+                            "isInStock": True,
+                            "urlPart": "citric-acid-monohydrate-cas-5949-29-1",
+                            "formattedPrice": "$13.52",
+                            "name": "Citric acid monohydrate, CAS 5949-29-1",
+                            "description": "<p>Appearance: colorless crystalline powder</p><p>CAS: 5949-29-1</p><p>Product ID: CITH</p><p>Purity: 99%+</p><p>Formula: C6H10O8</p><p>MW: 210.14g/mol</p><p>MP: 135-152C</p><p>Solubility: alcohol soluble</p><p>HS Code: 291814</p><p>MDL: MFCD00149972</p><p>SMILES: O.OC(=O)CC(O)(CC(O)=O)C(O)=O</p><p>LD50 (rat, oral) &gt;3,000mg/kg</p><p>TSCA: Yes</p>",
+                            "brand": None,
+                        }
+                    ],
+                },
+            }
+        }
+    }
+}
+
+
+query_nonsense = {
     "data": {"catalog": {"category": {"numOfProducts": 632, "productsWithMetaData": {"totalCount": 0, "list": []}}}}
 }
 
 
-query_nonsense = {}
-
-
-query_9999_99_99 = {}
+query_9999_99_99 = {
+    "data": {"catalog": {"category": {"numOfProducts": 632, "productsWithMetaData": {"totalCount": 0, "list": []}}}}
+}

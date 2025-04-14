@@ -19,7 +19,7 @@ from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplie
 # Base test class
 
 
-@attributes(supplier="chemsavers", test="test_name_query_water")
+@attributes(supplier="chemsavers", json_content="query_water")
 def test_name_query():
     try:
         results = Supplier("water")
@@ -29,7 +29,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="chemsavers", test="test_cas_query_7664-93-9")
+@attributes(supplier="chemsavers", json_content="query_cas_sulfuric_acid")
 def test_cas_query():
     try:
         results = Supplier("7664-93-9")
@@ -39,7 +39,7 @@ def test_cas_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="chemsavers", test="test_nonsense_query")
+@attributes(supplier="chemsavers", json_content="query_nonsense")
 def test_nonsense_query():
     try:
         results = Supplier("this_should_return_no_search_result")
@@ -49,7 +49,7 @@ def test_nonsense_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="chemsavers", test="test_invalid_cas_query_9999-99-99")
+@attributes(supplier="chemsavers", json_content="query_cas_9999_99_99")
 def test_invalid_cas_query():
     try:
         results = Supplier("9999-99-99")

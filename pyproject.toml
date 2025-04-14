@@ -124,7 +124,8 @@ pythonpath = [
 
 
 env = [
-    "LOG_LEVEL=DEBUG",
+    # DEBUG, WARNING, ERROR, INFO
+    "LOG_LEVEL=ERROR",
     "PYTEST_COV=true"
 ]
 minversion = "7.0"

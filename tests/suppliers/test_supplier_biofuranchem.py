@@ -29,10 +29,10 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="biofuranchem", json_content="query_7664_93_9")
+@attributes(supplier="biofuranchem", json_content="query_5949_29_1")
 def test_cas_query():
     try:
-        results = Supplier("7664-93-9")
+        results = Supplier("5949-29-1")
     except Exception as e:
         results = e
 
