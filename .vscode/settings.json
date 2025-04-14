@@ -122,6 +122,7 @@
         "./src/chempare/datatypes",
     ],
     "python.testing.pytestArgs": [
+        "-s",
         "--config-file=pyproject.toml",
         "--numprocesses=auto",
         //"--cov=src/chempare",

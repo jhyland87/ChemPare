@@ -1,10 +1,10 @@
 """TypeVariant datatype"""
 
 from dataclasses import dataclass
-from typing import Dict
+
 
 @dataclass(init=False, match_args=True, kw_only=True)
-class TypeVariant(Dict):
+class TypeVariant():
     """Custom data class for product variants"""
 
     uuid: str | int | None = None

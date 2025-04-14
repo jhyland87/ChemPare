@@ -1,10 +1,10 @@
 """TypeSupplier datatype"""
 
 from dataclasses import dataclass
-from typing import Dict
+
 
 @dataclass
-class TypeSupplier(Dict):
+class TypeSupplier:
     """Custom data class for suppliers"""
 
     name: str

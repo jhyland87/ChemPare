@@ -7,7 +7,8 @@ import os
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Self, TypedDict
+from typing import Self
+from typing import TypedDict
 
 from abcplus import ABCMeta
 from abcplus import abstractmethod
@@ -37,9 +38,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     # def __init_subclass__(cls, **kwargs):
     #     super().__init_subclass__(**kwargs)
 
-    def __init__(
-        self, query: str, limit: int | None = None, fuzz_ratio: int = 100
-    ) -> None:
+    def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
 
         self._fuzz_ratio = fuzz_ratio
@@ -51,6 +50,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query = query
         self._cookies = {}
         self._headers = {}
+
+        self._debug_curl: bool = False
+
+        debug_env = os.getenv('DEBUG', 'false').lower()
+        if debug_env == 'true' or debug_env == '1':
+            self._debug_curl = True
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -168,28 +173,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
                 ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
         """
-        if (
-            not self._products
-            or isinstance(self._fuzz_ratio, int) is False
-            or self._is_cas(self._query)
-        ):
+        if not self._products or isinstance(self._fuzz_ratio, int) is False or self._is_cas(self._query):
             return
 
         self._products = [
             product
             for product in self._products
-            if (
-                product.name
-                and fuzz.partial_ratio(self._query.lower(), product.name.lower())
-                >= self._fuzz_ratio
-            )
-            or (
-                product.title
-                and fuzz.partial_ratio(
-                    self._query.lower(), product.title.lower()
-                )
-                >= self._fuzz_ratio
-            )
+            if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
+            or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
         ]
 
     def __next__(self) -> TypeProduct:
@@ -248,13 +239,20 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         elif api_url not in path:
             path = f"{api_url}/{path}"
 
-        return requests.get(
-            path,
-            params=params,
-            impersonate="chrome",
-            cookies=cookies or self._cookies,
-            headers=headers or self._headers,
-        )
+        try:
+            res = requests.get(
+                path,
+                params=params,
+                impersonate="chrome",
+                cookies=cookies or self._cookies,
+                headers=headers or self._headers,
+                debug=self._debug_curl,
+            )
+
+            return res
+        except AttributeError as ae:
+            print("ATTR ERROR:", ae)
+            return ae
 
     @finalmethod
     def http_post(
@@ -293,6 +291,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             data=data,
             headers=headers or self._headers,
             cookies=cookies or self._cookies,
+            debug=self._debug_curl,
         )
 
     @finalmethod
@@ -336,11 +335,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             url = f"{url}/{path}"
 
         req = self.http_post(
-            url,
-            params=params,
-            json=json,
-            cookies=cookies or self._cookies,
-            headers=headers or self._headers,
+            url, params=params, json=json, cookies=cookies or self._cookies, headers=headers or self._headers
         )
         if req is None:
             return None
@@ -348,9 +343,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return req.json()
 
     @finalmethod
-    def http_get_html(
-        self, path: str | None = None, /, params: Dict | None = None
-    ) -> bytes:
+    def http_get_html(self, path: str | None = None, /, params: Dict | None = None) -> bytes:
         """HTTP getter (for HTML content).
 
         Args:
@@ -372,9 +365,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.content
 
     @finalmethod
-    def http_get_json(
-        self, path: str | None = None, /, **kwargs
-    ) -> List | Dict | None:
+    def http_get_json(self, path: str | None = None, /, **kwargs) -> List | Dict | None:
         """HTTP getter (for JSON content).
 
         Args:

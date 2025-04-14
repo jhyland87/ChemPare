@@ -30,17 +30,9 @@ class SupplierBioFuranChem(SupplierBase):
     def _setup(self, query: str | None = None) -> None:
         # 1 Get the session binding from the initial request headers
         headers = self.http_get_headers(
-            "/shop",
-            headers={
-                "sec-fetch-mode": "navigate",
-                "sec-fetch-dest": "document",
-                "sec-fetch-site": "none",
-            },
+            "shop", headers={"sec-fetch-mode": "navigate", "sec-fetch-dest": "document", "sec-fetch-site": "none"}
         )
-        cookies = (
-            list(v for k, v in headers.multi_items() if k == "set-cookie")
-            or None
-        )
+        cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
 
         auth_cookies = {}
         auth_headers = {}
@@ -67,14 +59,7 @@ class SupplierBioFuranChem(SupplierBase):
             headers=auth_headers,
         )
 
-        xsrf_header_cookies = (
-            list(
-                v
-                for k, v in xsrf_token_headers.multi_items()
-                if k == "set-cookie"
-            )
-            or None
-        )
+        xsrf_header_cookies = list(v for k, v in xsrf_token_headers.multi_items() if k == "set-cookie") or None
 
         for xsrf_cookie in xsrf_header_cookies:
             segs = xsrf_cookie.split("=")
@@ -87,13 +72,9 @@ class SupplierBioFuranChem(SupplierBase):
                 break
 
         # 3 Get the website instance ID ("access tokens")
-        auth = self.http_get_json(
-            "_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers
-        )
+        auth = self.http_get_json("_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers)
 
-        self._headers["Authorization"] = auth["apps"][
-            "1380b703-ce81-ff05-f115-39571d94dfcd"
-        ]["instance"]
+        self._headers["Authorization"] = auth["apps"]["1380b703-ce81-ff05-f115-39571d94dfcd"]["instance"]
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -166,28 +147,18 @@ class SupplierBioFuranChem(SupplierBase):
                 "offset": 0,
                 "limit": 100,
                 "sort": None,
-                "filters": {
-                    "term": {
-                        "field": "name",
-                        "op": "CONTAINS",
-                        "values": [f"*'{self._query}'*"],
-                    }
-                },
+                "filters": {"term": {"field": "name", "op": "CONTAINS", "values": [f"*'{self._query}'*"]}},
                 "withOptions": True,
                 "withPriceRange": False,
             },
         }
 
-        search_result = self.http_get_json(
-            "_api/wix-ecommerce-storefront-web/api", params=query_params
-        )
+        search_result = self.http_get_json("_api/wix-ecommerce-storefront-web/api", params=query_params)
 
         if not search_result:
             return
 
-        self._query_results = search_result["data"]["catalog"]["category"][
-            "productsWithMetaData"
-        ]["list"]
+        self._query_results = search_result["data"]["catalog"]["category"]["productsWithMetaData"]["list"]
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
@@ -226,19 +197,16 @@ class SupplierBioFuranChem(SupplierBase):
             cas=self._find_cas(str(product_obj["name"])),
         )
 
-        qty = (
-            self._parse_quantity(
-                product_obj["options"][0]["selections"][0]["value"]
-            )
-            or {}
-        )
+        qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
-        price = (
-            self._parse_price(product_obj["productItems"][0]["formattedPrice"])
-            or {}
-        )
+        price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
 
-        product.update(dict(**qty, **price))
+        if qty is not None:
+            product.update(qty.__dict__)
+
+        if price is not None:
+            product.update(price.__dict__)
+
         product = TypeProduct(**product)
         return product.cast_properties()
 

@@ -40,7 +40,7 @@ class TestValidSearch(TestClass):
 
 # Test cases for invalid searches for this supplier
 class TestInvalidSearch(TestClass):
-    _query = "aaaaaaaaaaaaaaaaaaaaa"
+    _query = "This_should_return_no_results"
     _results = None
 
     def test_query(self, results):

@@ -125,7 +125,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product.update(product_data)
 
-        product = TypeProduct(product)
+        product = TypeProduct(**product)
 
         return product.cast_properties()
 

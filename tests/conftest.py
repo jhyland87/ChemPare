@@ -2,11 +2,54 @@
 # import os
 
 from decimal import Decimal
-#from price_parser import Price
+
+import curl_cffi.requests
+
+# import curl_cffi
+import pytest
+from mock_data import mock_curl_cffi
+
+# from price_parser import Price
 from pytest_mock import MockerFixture
 
 import chempare
-import pytest
+
+
+# from unittest.mock import MagicMock
+# from unittest.mock import patch
+
+
+# curl_cffi_post = MagicMock(wraps=mock_curl_cffi)
+
+
+# @pytest.fixture(autouse=True, scope="session", name="function requests mocker")
+# def monkeypatch_session():
+#     from _pytest.monkeypatch import MonkeyPatch
+
+#     monkeypatch = MonkeyPatch()
+#     monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+#     yield monkeypatch
+#     monkeypatch.undo()
+#     monkeypatch.delattr(curl_cffi.requests, "request")
+
+
+# @pytest.fixture(autouse=True, scope="function", name="requests mocker")
+# @pytest.fixture(scope="session", name="function requests mocker")
+# @pytest.fixture(autouse=True)
+# def setup_mock_curl_cffi(monkeypatch):
+#     monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+#     print("\n\n\nSetup setup_teardown\n\n\n")
+#     yield
+#     print("\n\n\nTeardown setup_teardown\n\n\n")
+#     monkeypatch.delattr(curl_cffi.requests, "request")
+
+
+@pytest.fixture(autouse=True)
+def setup_mock_curl_cffi_attrs(attr):
+    setattr(mock_curl_cffi.request, 'mock_data', attr)
+    yield
+    delattr(mock_curl_cffi.request, 'mock_data')
+
 
 # import webbrowser
 
@@ -103,8 +146,6 @@ def mock_exchange_rate(mocker: MockerFixture):
 #         print("After calling function.")
 #         return result
 #     return wrapper
-
-
 
 
 # class _ParametrizeMarkDecorator(MarkDecorator):

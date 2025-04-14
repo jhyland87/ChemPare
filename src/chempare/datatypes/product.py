@@ -14,7 +14,7 @@ from chempare.datatypes.variant import TypeVariant
 
 
 @dataclass
-class TypeProduct(Dict):
+class TypeProduct():
     """Custom data class for products"""
 
     name: str
@@ -96,11 +96,11 @@ class TypeProduct(Dict):
     usd: str | int | float | None = None
     """USD equivelant price (if price currency is not USD)"""
 
-    def __init__(self, **kwargs):
-        super().__init__(kwargs)
-        self.update(kwargs)
+    # def __init__(self, **kwargs):
+    #     super().__init__(**kwargs)
+    #     self.update(kwargs)
 
-    def update(self, data):
+    def update(self, data:Dict) -> None:
         self.__dict__.update(data)
 
     def __bool__(self) -> bool:
@@ -111,8 +111,8 @@ class TypeProduct(Dict):
         """This just allows us to use 'if not product'"""
         return True
 
-    # def items(self) -> ItemsView[str, Any]:
-    #     return self.__dict__.items()
+    def items(self) -> ItemsView[str, Any]:
+        return self.__dict__.items()
 
     def set(self, key, value) -> None:
         """Set a local attribute for this product"""

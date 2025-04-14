@@ -8,6 +8,7 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
 
+
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
