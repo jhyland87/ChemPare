@@ -99,37 +99,37 @@ def read_mock_file(file_path):
 
 def get_mock_response_module(supplier: str, req_path: str, test_name: str | None):
     cwd = os.path.dirname(os.path.abspath(__file__))
-    data_root = Path(f"{cwd}/{supplier}{req_path}")
+    data_root = Path(cwd + os.sep + supplier + req_path)
     if not os.path.isdir(data_root):
         return None
 
     alt_data_root = None
 
-    if test_name and os.path.isdir(f"{str(data_root)}/{test_name}"):
-        alt_data_root = Path(f"{str(data_root)}/{test_name}")
+    if test_name and os.path.isdir(str(data_root) + os.sep + test_name):
+        alt_data_root = Path(str(data_root) + os.sep + test_name)
 
     header_file = None
     cookie_file = None
     body_file = None
 
-    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/headers.json"):
-        header_file = f"{str(alt_data_root)}/headers.json"
-    elif os.path.exists(f"{str(data_root)}/headers.json"):
-        header_file = f"{str(data_root)}/headers.json"
+    if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "headers.json"):
+        header_file = str(alt_data_root) + os.sep + "headers.json"
+    elif os.path.exists(str(data_root) + os.sep + "headers.json"):
+        header_file = str(data_root) + os.sep + "headers.json"
 
-    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/cookies.json"):
-        cookie_file = f"{str(alt_data_root)}/cookies.json"
-    elif os.path.exists(f"{str(data_root)}/cookies.json"):
-        cookie_file = f"{str(data_root)}/cookies.json"
+    if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "cookies.json"):
+        cookie_file = str(alt_data_root) + os.sep + "cookies.json"
+    elif os.path.exists(str(data_root) + os.sep + "cookies.json"):
+        cookie_file = str(data_root) + os.sep + "cookies.json"
 
-    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/body.json"):
-        body_file = f"{str(alt_data_root)}/body.json"
-    elif os.path.exists(f"{str(data_root)}/body.json"):
-        body_file = f"{str(data_root)}/body.json"
-    elif alt_data_root and os.path.exists(f"{str(alt_data_root)}/body.html"):
-        body_file = f"{str(alt_data_root)}/body.html"
-    elif os.path.exists(f"{str(data_root)}/body.html"):
-        body_file = f"{str(data_root)}/body.html"
+    if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "body.json"):
+        body_file = str(alt_data_root) + os.sep + "body.json"
+    elif os.path.exists(str(data_root) + os.sep + "body.json"):
+        body_file = str(data_root) + os.sep + "body.json"
+    elif alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "body.html"):
+        body_file = str(alt_data_root) + os.sep + "body.html"
+    elif os.path.exists(str(data_root) + os.sep + "body.html"):
+        body_file = str(data_root) + os.sep + "body.html"
 
     result = {}
 
