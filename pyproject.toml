@@ -120,7 +120,7 @@ pythonpath = [
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
-    "tests/mock_data"
+    #"tests/mock_data"
 ]
 
 

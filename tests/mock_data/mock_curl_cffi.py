@@ -13,13 +13,13 @@ from typing import Unpack
 from urllib.parse import urlparse
 
 from curl_cffi.requests.cookies import Cookies
-from curl_cffi.requests.headers import Headers
 from curl_cffi.requests.cookies import CookieTypes
+from curl_cffi.requests.headers import Headers
 from curl_cffi.requests.headers import HeaderTypes
-
 from curl_cffi.requests.session import HttpMethod
 from curl_cffi.requests.session import RequestParams
 from curl_cffi.requests.session import ThreadType
+
 
 CWD = os.path.dirname(__file__)
 
@@ -37,11 +37,18 @@ class MockResponse:
     cookies: CookieTypes | None = None
 
     def json(self):
-        return self.json_content
+        # return self.json_content
+        if self.text is not None:
+            return json.load(self.text)
 
     @property
     def content(self):
-        return bytes(json.dumps(self.json_content), encoding="utf-8")  # or ascii?
+        if self.text is not None:
+            return bytes(self.text, encoding="utf-8")  # or ascii?
+        # if self.json_content is not None:
+        #     return bytes(json.dumps(self.json()), encoding="utf-8")  # or ascii?
+        # if self.body is not None:
+        #     return bytes(self.body)
 
 
 MockResponse.__name__ = "Response"
@@ -59,7 +66,7 @@ def determine_calling_supplier():
     )
 
 
-def read_json_file(file_path):
+def read_mock_file(file_path):
     """
     Reads a JSON file and returns the data as a Python dictionary.
 
@@ -70,8 +77,12 @@ def read_json_file(file_path):
       A Python dictionary representing the JSON data, or None if an error occurs.
     """
     try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
+        with open(file_path, 'r', encoding='utf-8') as file:
+            # if file_path.endswith('.json'):
+            #     data = json.load(file)
+            # else:
+            #     data = file.read()
+            data = file.read()
             return data
     except FileNotFoundError:
         print(f"Error: File not found: {file_path}")
@@ -110,17 +121,21 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
         body_file = f"{str(alt_data_root)}/body.json"
     elif os.path.exists(f"{str(data_root)}/body.json"):
         body_file = f"{str(data_root)}/body.json"
+    elif alt_data_root and os.path.exists(f"{str(alt_data_root)}/body.html"):
+        body_file = f"{str(alt_data_root)}/body.html"
+    elif os.path.exists(f"{str(data_root)}/body.html"):
+        body_file = f"{str(data_root)}/body.html"
 
     result = {}
 
     if header_file:
-        result['headers'] = read_json_file(header_file)
+        result['headers'] = read_mock_file(header_file)
 
     if cookie_file:
-        result['cookies'] = read_json_file(cookie_file)
+        result['cookies'] = read_mock_file(cookie_file)
 
     if body_file:
-        result['body'] = read_json_file(body_file)
+        result['text'] = read_mock_file(body_file)
 
     return result
     # mock_data_module_file = Path(f"{supplier}{req_path}.py")
@@ -154,7 +169,7 @@ def request(
             url,
             cookies=Cookies(mock_resp.get('cookies', {})),
             headers=Headers(mock_resp.get('headers', {})),
-            json_content=mock_resp.get('body', {}),
+            text=mock_resp.get('text', {}),
         )
 
     res = MockResponse(url, text="No mock data found")
