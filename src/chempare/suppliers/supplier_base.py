@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import json
 import os
 from typing import Any
 from typing import Dict
@@ -18,6 +19,8 @@ from curl_cffi import Response
 from curl_cffi import requests
 from fuzzywuzzy import fuzz
 
+from urllib.parse import urlparse
+import chempare
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
@@ -25,8 +28,6 @@ from chempare.exceptions import NoProductsFound
 
 
 # import chempare
-
-
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """SupplierBase module to be inherited by any supplier modules"""
 
@@ -54,12 +55,17 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query = query
         self._cookies = {}
         self._headers = {}
+        self.__save_responses = False
 
         self._debug_curl: bool = False
 
-        debug_env = os.getenv('DEBUG', 'false').lower()
-        if debug_env == 'true' or debug_env == '1':
+        DEBUG_ENV = os.getenv('DEBUG', 'false').lower()
+        if DEBUG_ENV == 'true' or DEBUG_ENV == '1':
             self._debug_curl = True
+
+        SAVE_RESPONSES = os.getenv('SAVE_RESPONSES', 'false').lower()
+        if SAVE_RESPONSES == 'true' or SAVE_RESPONSES == '1':
+            self.__save_responses = True
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -73,6 +79,42 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         # self._fuzz_filter()
 
+    @finalmethod
+    def _type(self):
+        return self.__class__.__name__
+
+    @finalmethod
+    def _supplier_dir(self):
+        return self.__class__.__module__.split('.')[-1]
+
+    @finalmethod
+    def __log_as_mock_data(self, response: Response) -> None:
+        try:
+            if not self.__save_responses or not chempare.called_from_test:
+                return
+
+            parsed_url = urlparse(response.url)
+            path = parsed_url.path
+            cwd = os.getcwd()
+            save_to = os.path.abspath(
+                os.path.join(
+                    os.path.dirname(__file__), '../../../', 'tests/mock_data', self._supplier_dir(), path.lstrip("/")
+                )
+            )
+            print(save_to)
+            os.makedirs(save_to, exist_ok=True)
+            with open(save_to + "/body.html", "w") as file:
+                file.write(response.text)
+
+            with open(save_to + "/cookies.json", "w") as file:
+                file.write(json.dumps(dict(response.cookies), indent=4))
+
+            with open(save_to + "/headers.json", "w") as file:
+                file.write(json.dumps(dict(response.headers), indent=4))
+        except Exception as e:
+            print("Exception in __log_as_mock_data:", e)
+
+    @finalmethod
     def __init_logging(self) -> None:
         """Create the logger specific to this class instance (child)
 
@@ -87,6 +129,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._logger = logging.getLogger(str(self.__class__.__name__))
         logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 
+    @finalmethod
     def _log(self, message: str) -> None:
         """Create a regular log entry
 
@@ -99,6 +142,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         self._logger.log(logging.INFO, message)
 
+    @finalmethod
     def _debug(self, message: str) -> None:
         """Create a debugger log entry
 
@@ -111,6 +155,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         self._logger.log(logging.DEBUG, message)
 
+    @finalmethod
     def _error(self, message: str) -> None:
         """Create an error log entry
 
@@ -123,6 +168,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         self._logger.log(logging.ERROR, message)
 
+    @finalmethod
     def _warn(self, message: str) -> None:
         """Create a warning log entry
 
@@ -162,6 +208,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return self
 
+    @finalmethod
     def _fuzz_filter(self) -> None:
         """Filter products for ones where the title has a partial fuzz ratio of
         90% or more.
@@ -253,6 +300,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 debug=self._debug_curl,
             )
 
+            self.__log_as_mock_data(res)
+
             return res
         except AttributeError as ae:
             return ae
@@ -286,7 +335,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if base_url not in path and (api_url is None or api_url not in path):
             path = f"{base_url}/{path}"
 
-        return requests.post(
+        res = requests.post(
             path,
             params=params,
             impersonate="chrome",
@@ -296,6 +345,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             cookies=cookies or self._cookies,
             debug=self._debug_curl,
         )
+
+        self.__log_as_mock_data(res)
+
+        return res
 
     @finalmethod
     def http_get_headers(self, *args, **kwargs) -> Headers:
