@@ -255,7 +255,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
             return res
         except AttributeError as ae:
-            print("ATTR ERROR:", ae)
             return ae
 
     @finalmethod
