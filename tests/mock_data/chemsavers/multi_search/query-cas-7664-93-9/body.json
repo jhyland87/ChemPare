@@ -1,0 +1,670 @@
+{
+    "results": [
+        {
+            "facet_counts": [],
+            "found": 120,
+            "hits": [
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 1039,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag, Al, Ammonium 0.00001 %  Max, Appearance  colorless, Arsenic 0.0000001 %  Max, Assay 95.0 -  98.0 %, Au, Ba, Be, Bi, Boron 0.0000001 %  Max, Ca, Cd, Ce, Chloride 0.00001 %  Max, Co, Cr, Cs, Cu, Dy, Er, Eu, Fe, Ga, Gd, Ge, Heavy metals 0.0000005 %  Max, Hf, Hg, Ho, In, Ir, K, La, Li, Lu, Mg, Mn, Mo, Na, Nd, Ni, Nitrate 0.00005 %  Max, Os, Pb, Pd, Pr, Pt, Rb, Reducing substances, Residue after ignition 0.0001 %  Max, Rh, Ru, Sb, Sc, Se, Sm, Sn, Sr, Tb, Te, Th, Ti, U, V, W, Y, Yb, Zn, Zr </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49813",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49813/images/7895/logo_gfs__37185.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49813/images/7895/logo_gfs__37185.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS DOUBLE DISTILLED from VYCOR - 2 L",
+                        "price": 1039.19,
+                        "product_id": 49813,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71703",
+                        "sortOrder": 5673,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-dd-vycor-2-l/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 336,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag, Al, Ammonium 0.00001 %  Max, Appearance  colorless, Arsenic 0.0000001 %  Max, Assay 95.0 -  98.0 %, Au, Ba, Be, Bi, Boron 0.0000001 %  Max, Ca, Cd, Ce, Chloride 0.00001 %  Max, Co, Cr, Cs, Cu, Dy, Er, Eu, Fe, Ga, Gd, Ge, Heavy metals 0.0000005 %  Max, Hf, Hg, Ho, In, Ir, K, La, Li, Lu, Mg, Mn, Mo, Na, Nd, Ni, Nitrate 0.00005 %  Max, Os, Pb, Pd, Pr, Pt, Rb, Reducing substances, Residue after ignition 0.0001 %  Max, Rh, Ru, Sb, Sc, Se, Sm, Sn, Sr, Tb, Te, Th, Ti, U, V, W, Y, Yb, Zn, Zr </b><br><br>",
+                        "hasOptions": false,
+                        "id": "88878",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88878/images/12279/logo_gfs__22888.1688414119.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/88878/images/12279/logo_gfs__22888.1688414119.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS DOUBLE DISTILLED from VYCOR - 500 ML",
+                        "price": 336.44,
+                        "product_id": 88878,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71702",
+                        "sortOrder": 5672,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-dd-vycor-500-ml/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 266,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag, Al, Ammonium 0.00001 %  Max, Appearance  colorless, Arsenic 0.0000001 %  Max, Assay 95.0 -  98.0 %, Au, Ba, Be, Bi, Boron 0.0000001 %  Max, Ca, Cd, Ce, Chloride 0.00001 %  Max, Co, Cr, Cs, Cu, Dy, Er, Eu, Fe, Ga, Gd, Ge, Heavy metals 0.0000005 %  Max, Hf, Hg, Ho, In, Ir, K, La, Li, Lu, Mg, Mn, Mo, Na, Nd, Ni, Nitrate 0.00005 %  Max, Os, Pb, Pd, Pr, Pt, Rb, Reducing substances, Residue after ignition 0.0001 %  Max, Rh, Ru, Sb, Sc, Se, Sm, Sn, Sr, Tb, Te, Th, Ti, U, V, W, Y, Yb, Zn, Zr </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49811",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49811/images/7894/logo_gfs__44027.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49811/images/7894/logo_gfs__44027.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS DOUBLE DISTILLED from VYCOR - 250 ML",
+                        "price": 266.19,
+                        "product_id": 49811,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71701",
+                        "sortOrder": 5671,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-dd-vycor-250-ml/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 677,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49810",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49810/images/7893/logo_gfs__45100.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49810/images/7893/logo_gfs__45100.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 4X2.5L PVC",
+                        "price": 677.38,
+                        "product_id": 49810,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71689",
+                        "sortOrder": 5670,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-4x2-5l-pvc/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 175,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49809",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49809/images/7892/logo_gfs__60350.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49809/images/7892/logo_gfs__60350.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 2.5 L PVC",
+                        "price": 175.45,
+                        "product_id": 49809,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71688",
+                        "sortOrder": 5669,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-2-5-l-pvc/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 650,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49808",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49808/images/7891/logo_gfs__60851.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49808/images/7891/logo_gfs__60851.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 4 X 2.5 L",
+                        "price": 650.29,
+                        "product_id": 49808,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71684",
+                        "sortOrder": 5668,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-4-x-2-5-l/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 169,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49807",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49807/images/7890/logo_gfs__51003.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49807/images/7890/logo_gfs__51003.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 2.5 L Glas",
+                        "price": 169.89,
+                        "product_id": 49807,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71683",
+                        "sortOrder": 5667,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-2-5-l/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 365,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49806",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49806/images/7889/logo_gfs__70579.1688413520.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49806/images/7889/logo_gfs__70579.1688413520.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 6 X 500 ML",
+                        "price": 365.01,
+                        "product_id": 49806,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71682",
+                        "sortOrder": 5666,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-6-x-500-ml/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 83,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Ag  1 ppb  Max, Al  2 ppb  Max, Ammonium 0.00005 %  Max, As  1 ppb  Max, Assay 95.0 -  98.0 %, Au  1 ppb  Max, B  1 ppb  Max, Ba  1 ppb  Max, Be  1 ppb  Max, Bi  1 ppb  Max, Ca  2 ppb  Max, Cd  1 ppb  Max, Chloride 0.00002 %  Max, Co  1 ppb  Max, Color (APHA) 10   Max, Cr  1 ppb  Max, Cu  1 ppb  Max, Fe  5 ppb  Max, Ga  1 ppb  Max, Ge  1 ppb  Max, Heavy Metals 0.00001 %  Max, K  2 ppb  Max, Li  1 ppb  Max, Mg  1 ppb  Max, Mn  1 ppb  Max, Mo  1 ppb  Max, Na  2 ppb  Max, Nb  1 ppb  Max, Ni  1 ppb  Max, Nitrate 0.00005 %  Max, Pb  1 ppb  Max, Residue after ignition 0.0005 %  Max, Sb  1 ppb  Max, Sn  1 ppb  Max, Sr  1 ppb  Max, Ta  1 ppb  Max, Ti  1 ppb  Max, Tl  1 ppb  Max, V  2 ppb  Max, Zn  2 ppb  Max, Zr  1 ppb  Max </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49805",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49805/images/7888/logo_gfs__92998.1688413519.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49805/images/7888/logo_gfs__92998.1688413519.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, VERITAS REDISTILLED - 500 ML",
+                        "price": 83.42,
+                        "product_id": 49805,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71681",
+                        "sortOrder": 5665,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-redist-500-ml/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7664-93-9",
+                        "calculatedPrice": 89,
+                        "categories": [
+                            "S"
+                        ],
+                        "description": "<b>CAS#: 7664-93-9  |  Formula: H2SO4  |  Specifications: Assay 90.5 -  92.7 %, Specific gravity @ 20 C 1.820 -  1.830, Suitability for Babcock test </b><br><br>",
+                        "hasOptions": false,
+                        "id": "49802",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49802/images/7887/logo_gfs__80125.1688413519.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/49802/images/7887/logo_gfs__80125.1688413519.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "SULFURIC ACID, REAGENT, FOR BABCOCK TEST - 2.5 L",
+                        "price": 89.33,
+                        "product_id": 49802,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "71653",
+                        "sortOrder": 5662,
+                        "upc": "",
+                        "url": "/s/sulfuric-acid-babcock-2-5-l/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7664-93"
+                            ],
+                            "snippet": "<mark>7664-93</mark>-9",
+                            "value": "<mark>7664-93</mark>-9"
+                        }
+                    ],
+                    "text_match": 578730089005449329,
+                    "text_match_info": {
+                        "best_field_score": "1108074561536",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730089005449329",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 1
+                    }
+                }
+            ],
+            "out_of": 39517,
+            "page": 1,
+            "request_params": {
+                "collection_name": "products",
+                "first_q": "7664939",
+                "per_page": 10,
+                "q": "7664-93-"
+            },
+            "search_cutoff": false,
+            "search_time_ms": 1
+        }
+    ]
+}

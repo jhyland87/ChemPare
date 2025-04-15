@@ -1,0 +1,1239 @@
+{
+  "totalItems": 31,
+  "startIndex": 0,
+  "itemsPerPage": 6,
+  "currentItemCount": 6,
+  "pageStartIndex": 0,
+  "totalPages": 1,
+  "vendorStartIndex": 0,
+  "totalVendors": 0,
+  "tagStartIndex": 0,
+  "totalTags": 0,
+  "suggestions": [
+    "7664-93-9 sulfuric acid",
+    "7664-93-9"
+  ],
+  "pages": [
+    {
+      "page_id": "86700163227",
+      "title": "How To Dispose Of Sulfuric Acid And Clean Up Spills",
+      "link": "/pages/sulfuric-acid-how-to-dispose-of-dilute-neutralize-clean-up",
+      "image_link": "",
+      "description": "Learn How To Safely Dispose Of Sulfuric Acid Waste Dilute and neutralize H2SO4 to clean up spills in homes and labs. Read about the proper way to dispose of sulfuric acid, here. Find out how to clean up sulfuric acid spills, here. Recommended procedures for chemical disposal are listed, here. To neutralize sulfuric acid, pour it into a solution of sodium hydroxide. Use sodium bicarbonate (or baking soda) to neutralize battery acid (sulfuric acid).      Learn how to clean up sulfuric acid spills, here. Dispose of the spent sulfuric acid and disposables contaminated with sulfuric acid as hazardous waste.  Sulfuric acid can be disposed of by being placed in sealed containers and by being absorbed in vermiculite, dry sand, or earth. ..."
+    }
+  ],
+  "vendors": [],
+  "tags": [],
+  "items": [
+    {
+      "product_id": "576749731899",
+      "original_product_id": "576749731899",
+      "title": "Sulfuric Acid 5% Solution",
+      "description": "This chemical compound is categorized as an inorganic acid with a very low pH, which requires precaution before using it as well as safe handling; Ideally, it should be physically stored away from materials such as water, organic materials, metals, amines, bases, and excess heat, since it can generate undesirable reactions.A 5% sulfuric acid solution is a relatively dilute form of sulfuric acid, which is commonly known as battery acid. Due to its lower concentration, it's used in various ...",
+      "link": "/products/sulfuric-acid-5",
+      "price": "33.0000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "SUAL5-500ML",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-500ML_large.jpg?v=1744268536",
+      "vendor": "Lab Alley",
+      "discount": "0",
+      "add_to_cart_id": "40875819499675",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "40875819499675",
+          "sku": "SUAL5-500ML",
+          "barcode": "",
+          "price": "33.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "500mL"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-500ML_large.jpg?v=1744268536",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=40875819499675"
+        },
+        {
+          "variant_id": "40875819532443",
+          "sku": "SUAL5-500MLCS",
+          "barcode": "",
+          "price": "133.1000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "6 x 500mL Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-500MLCS_large.jpg?v=1744268541",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=40875819532443"
+        },
+        {
+          "variant_id": "40875819565211",
+          "sku": "SUAL5-1L",
+          "barcode": "",
+          "price": "47.3000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Liter"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1L_large.jpg?v=1744268532",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=40875819565211"
+        },
+        {
+          "variant_id": "40875819597979",
+          "sku": "SUAL5-1LCS",
+          "barcode": "",
+          "price": "138.1900",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Liter Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1LCS_large.jpg?v=1744268540",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=40875819597979"
+        },
+        {
+          "variant_id": "43999390236827",
+          "sku": "SUAL5-1GAL",
+          "barcode": "",
+          "price": "64.9000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Gallon"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1GAL_large.jpg?v=1744268542",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390236827"
+        },
+        {
+          "variant_id": "43999390269595",
+          "sku": "SUAL5-1GALCS",
+          "barcode": "",
+          "price": "203.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Gallon Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1GAL_large.jpg?v=1744268542",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390269595"
+        },
+        {
+          "variant_id": "43999390335131",
+          "sku": "SUAL5-4L",
+          "barcode": "",
+          "price": "70.4000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-4L_large.jpg?v=1744268539",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390335131"
+        },
+        {
+          "variant_id": "43999390367899",
+          "sku": "SUAL5-4LCS",
+          "barcode": "",
+          "price": "231.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 4 Liters Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-4L_large.jpg?v=1744268539",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390367899"
+        },
+        {
+          "variant_id": "40875819630747",
+          "sku": "SUAL5-5GAL",
+          "barcode": "",
+          "price": "154.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "5 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-5GAL_large.jpg?v=1744268538",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=40875819630747"
+        },
+        {
+          "variant_id": "43999390400667",
+          "sku": "SUAL5-20L",
+          "barcode": "",
+          "price": "162.8000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "20 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-20L_large.jpg?v=1744268535",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390400667"
+        },
+        {
+          "variant_id": "43999390433435",
+          "sku": "SUAL5-55GAL",
+          "barcode": "",
+          "price": "968.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "55 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-55GAL_large.jpg?v=1744268534",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-5?variant=43999390433435"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-500ML_large.jpg?v=1744268536",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-500MLCS_large.jpg?v=1744268541",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1L_large.jpg?v=1744268532",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1LCS_large.jpg?v=1744268540",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-1GAL_large.jpg?v=1744268542",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-4L_large.jpg?v=1744268539",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-5GAL_large.jpg?v=1744268538",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-20L_large.jpg?v=1744268535",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/SUAL5-55GAL_large.jpg?v=1744268534"
+      ],
+      "shopify_images_alt": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "tags": "Acids[:ATTR:]autoship[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Percentage_5%[:ATTR:]Size_1 Liter[:ATTR:]Size_500ml[:ATTR:]Sulfuric Acid"
+    },
+    {
+      "product_id": "6584060674203",
+      "original_product_id": "6584060674203",
+      "title": "Sulfuric Acid 96% Solution, Semiconductor/Electronic Grade",
+      "description": "Sulfuric Acid, also known as Mattling Acid, is a mineral acid that is recognized as Oil of Vitriol. It is highly acidic and corrosive due to its low pH. It must be handled carefully and kept away from incompatible materials such as water, organic compounds, metals, amines, bases, and high temperatures. Solvents used for electronics production are known as Electronic Grade solvents. Heavy metal concentrations in these solvents are extremely low, measured in parts per billion or parts per ...",
+      "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96",
+      "price": "50.4000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "SUAS96-500ML",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-500ML_large.jpg?v=1744267182",
+      "vendor": "Lab Alley",
+      "discount": "0",
+      "add_to_cart_id": "40875817435291",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "40875817435291",
+          "sku": "SUAS96-500ML",
+          "barcode": "",
+          "price": "50.4000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "500mL"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-500ML_large.jpg?v=1744267182",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 500mL",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817435291"
+        },
+        {
+          "variant_id": "40875817468059",
+          "sku": "SUAS96-500MLCS",
+          "barcode": "",
+          "price": "250.2000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "6 x 500mL Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-500MLCS_large.jpg?v=1744267176",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 6 x 500mL Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817468059"
+        },
+        {
+          "variant_id": "40875817500827",
+          "sku": "SUAS96-1L",
+          "barcode": "",
+          "price": "67.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Liter"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1L_large.jpg?v=1744267183",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 1 Liter",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817500827"
+        },
+        {
+          "variant_id": "40875817533595",
+          "sku": "SUAS96-1LCS",
+          "barcode": "",
+          "price": "221.4000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Liter Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1LCS_large.jpg?v=1744267177",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 4 x 1 Liter Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817533595"
+        },
+        {
+          "variant_id": "40875817566363",
+          "sku": "SUAS96-1GAL",
+          "barcode": "",
+          "price": "101.7000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Gallon"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1GAL_large.jpg?v=1744267181",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 1 Gallon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817566363"
+        },
+        {
+          "variant_id": "40875817599131",
+          "sku": "SUAS96-1GALCS",
+          "barcode": "",
+          "price": "333.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Gallon Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1GAL_large.jpg?v=1744267181",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 1 Gallon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817599131"
+        },
+        {
+          "variant_id": "43042393063579",
+          "sku": "SUAS96-4L",
+          "barcode": "",
+          "price": "112.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-4L_large.jpg?v=1744267184",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=43042393063579"
+        },
+        {
+          "variant_id": "43042393096347",
+          "sku": "SUAS96-4LCS",
+          "barcode": "",
+          "price": "369.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 4 Liters Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-4L_large.jpg?v=1744267184",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=43042393096347"
+        },
+        {
+          "variant_id": "40875817631899",
+          "sku": "SUAS96-5GAL",
+          "barcode": "",
+          "price": "337.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "5 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-5GAL_large.jpg?v=1744267179",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 5 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817631899"
+        },
+        {
+          "variant_id": "45313579712667",
+          "sku": "SUAS96-20L",
+          "barcode": "",
+          "price": "354.6000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "20 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-5GAL_large.jpg?v=1744267179",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 5 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=45313579712667"
+        },
+        {
+          "variant_id": "40875817664667",
+          "sku": "SUAS96-55GAL",
+          "barcode": "",
+          "price": "2280.6000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "55 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-55GAL_large.jpg?v=1744267180",
+          "image_alt": "Sulfuric Acid 96% Solution, Semiconductor Grade, 55 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-electronic-grade-semiconductor-grade-96?variant=40875817664667"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-500ML_large.jpg?v=1744267182",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-500MLCS_large.jpg?v=1744267176",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1L_large.jpg?v=1744267183",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1LCS_large.jpg?v=1744267177",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-1GAL_large.jpg?v=1744267181",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-4L_large.jpg?v=1744267184",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-5GAL_large.jpg?v=1744267179",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAS96-55GAL_large.jpg?v=1744267180"
+      ],
+      "shopify_images_alt": [
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 500mL",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 6 x 500mL Case",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 1 Liter",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 4 x 1 Liter Case",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 1 Gallon",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 4 Liters",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 5 Gallons",
+        "Sulfuric Acid 96% Solution, Semiconductor Grade, 55 Gallons"
+      ],
+      "tags": "Acids[:ATTR:]autoship[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]Grade_Electronic/Semiconductor[:ATTR:]hazmat[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Percentage_96%[:ATTR:]SEO[:ATTR:]Size_1 Gallon[:ATTR:]Size_1 Pint[:ATTR:]Size_1 Quart[:ATTR:]Size_5 Gallons[:ATTR:]Size_55 Gallons[:ATTR:]Sulfuric Acid"
+    },
+    {
+      "product_id": "576701497403",
+      "original_product_id": "576701497403",
+      "title": "Acid Rain, 1 Liter",
+      "description": "Acid Rain, is a very dilute Sulfuric acid solution mainly used in schools for experiments and demonstrations.",
+      "link": "/products/acid-rain-1l",
+      "price": "51.7000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "C1118-1L",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/post-apple-generic-CORRECT_8b089181-3533-4926-8f82-7eb01ba90411_large.png?v=1741687083",
+      "vendor": "Post Apple",
+      "discount": "0",
+      "add_to_cart_id": "39788441796763",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "39788441796763",
+          "sku": "C1118-1L",
+          "barcode": "",
+          "price": "51.7000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "C1118-1L"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/acid-rain-1l?variant=39788441796763"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/post-apple-generic-CORRECT_8b089181-3533-4926-8f82-7eb01ba90411_large.png?v=1741687083"
+      ],
+      "tags": "Chemicals",
+      "quantity_total": ""
+    },
+    {
+      "product_id": "576749043771",
+      "original_product_id": "576749043771",
+      "title": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade",
+      "description": "This chemical compound is categorized as an inorganic acid with a very low pH, which requires precaution before using it as well as safe handling; Ideally, it should be physically stored away from materials such as water, organic materials, metals, amines, bases, and excess heat, since it can generate undesirable reactions.Sulfuric Acid 93% (92-94%) Solution, Lab Grade, is an exceptionally acidic chemical compound with a low pH. Therefore, one of the primary uses in the chemical industry is ...",
+      "link": "/products/sulfuric-acid-lab",
+      "price": "44.0000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "SUAL93-500ML",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-500ML_large.jpg?v=1743594605",
+      "vendor": "Lab Alley",
+      "discount": "0",
+      "add_to_cart_id": "40875821301915",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "40875821301915",
+          "sku": "SUAL93-500ML",
+          "barcode": "",
+          "price": "44.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "500mL"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-500ML_large.jpg?v=1743594605",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 500mL",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821301915"
+        },
+        {
+          "variant_id": "40875821334683",
+          "sku": "SUAL93-500MLCS",
+          "barcode": "",
+          "price": "133.1000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "6 x 500mL Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-500MLCS_large.jpg?v=1743594602",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 6 x 500mL Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821334683"
+        },
+        {
+          "variant_id": "40875821367451",
+          "sku": "SUAL93-1L",
+          "barcode": "",
+          "price": "52.8000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Liter"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1L_large.jpg?v=1743594596",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 1 Liter",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821367451"
+        },
+        {
+          "variant_id": "40875821400219",
+          "sku": "SUAL93-1LCS",
+          "barcode": "",
+          "price": "138.6000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Liter Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1LCS_large.jpg?v=1743594600",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 4 x 1 Liter Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821400219"
+        },
+        {
+          "variant_id": "43039571804315",
+          "sku": "SUAL93-1GAL",
+          "barcode": "",
+          "price": "74.8000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Gallon"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-4L_large.jpg?v=1743594603",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=43039571804315"
+        },
+        {
+          "variant_id": "43039571837083",
+          "sku": "SUAL93-1GALCS",
+          "barcode": "",
+          "price": "222.1600",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Gallon Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-4L_large.jpg?v=1743594603",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=43039571837083"
+        },
+        {
+          "variant_id": "40875821465755",
+          "sku": "SUAL93-4L",
+          "barcode": "",
+          "price": "78.1000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1GAL_large.jpg?v=1743594597",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 1 Galllon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821465755"
+        },
+        {
+          "variant_id": "43039577178267",
+          "sku": "SUAL93-4LCS",
+          "barcode": "",
+          "price": "256.3000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1GAL_large.jpg?v=1743594597",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 1 Galllon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=43039577178267"
+        },
+        {
+          "variant_id": "40875821498523",
+          "sku": "SUAL93-20L",
+          "barcode": "",
+          "price": "181.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "20 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-5GAL_large.jpg?v=1743594601",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 5 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821498523"
+        },
+        {
+          "variant_id": "43039594872987",
+          "sku": "SUAL93-5GAL",
+          "barcode": "",
+          "price": "170.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "5 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-5GAL_large.jpg?v=1743594601",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 5 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=43039594872987"
+        },
+        {
+          "variant_id": "40875821531291",
+          "sku": "SUAL93-55GAL",
+          "barcode": "",
+          "price": "1210.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "55 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-55GAL_large.jpg?v=1743594598",
+          "image_alt": "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 55 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-lab?variant=40875821531291"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-500ML_large.jpg?v=1743594605",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-500MLCS_large.jpg?v=1743594602",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1L_large.jpg?v=1743594596",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1LCS_large.jpg?v=1743594600",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-4L_large.jpg?v=1743594603",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-1GAL_large.jpg?v=1743594597",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-5GAL_large.jpg?v=1743594601",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAL93-55GAL_large.jpg?v=1743594598"
+      ],
+      "shopify_images_alt": [
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 500mL",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 6 x 500mL Case",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 1 Liter",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 4 x 1 Liter Case",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 4 Liters",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 1 Galllon",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 5 Gallons",
+        "Sulfuric Acid 93% (92-94%) Solution, Lab Grade, 55 Gallons"
+      ],
+      "tags": "Acids[:ATTR:]autoship[:ATTR:]best_Educational[:ATTR:]best_Individual[:ATTR:]best_Industrial[:ATTR:]best_Wastewater[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]Grade_Lab Grade[:ATTR:]hazmat[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_R&D/Lab[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Percentage_94%[:ATTR:]SEO[:ATTR:]Size_1 Liter[:ATTR:]Size_2.5 Liters[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml[:ATTR:]Sulfuric Acid"
+    },
+    {
+      "product_id": "576749076539",
+      "original_product_id": "576749076539",
+      "title": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4)",
+      "description": "This chemical compound is categorized as an inorganic acid with a very low pH, which requires precaution before using it as well as safe handling; Ideally, it should be physically stored away from materials such as water, organic materials, metals, amines, bases, and excess heat, since it can generate undesirable reactions.Sulfuric Acid ACS reagent is an exceptionally acidic chemical compound with a pH value of 0.3 (49 g/l, H₂O, 25 °C). Therefore, one of its primaries uses in the chemical ...",
+      "link": "/products/sulfuric-acid-acs-grade",
+      "price": "49.5000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "SUAA96-500ML",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-500ML_large.jpg?v=1743593245",
+      "vendor": "Lab Alley",
+      "discount": "0",
+      "add_to_cart_id": "40875821105307",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "40875821105307",
+          "sku": "SUAA96-500ML",
+          "barcode": "",
+          "price": "49.5000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "500mL"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-500ML_large.jpg?v=1743593245",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 500mL",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=40875821105307"
+        },
+        {
+          "variant_id": "40875821138075",
+          "sku": "SUAA96-500MLCS",
+          "barcode": "",
+          "price": "234.3000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "6 x 500mL Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-500MLCS_large.jpg?v=1743593255",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 6 x 500mL Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=40875821138075"
+        },
+        {
+          "variant_id": "43039438438555",
+          "sku": "SUAA96-1L",
+          "barcode": "",
+          "price": "66.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Liter"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1L_large.jpg?v=1743593248",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 1 Liter",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=43039438438555"
+        },
+        {
+          "variant_id": "43039438471323",
+          "sku": "SUAA96-1LCS",
+          "barcode": "",
+          "price": "201.1600",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Liter Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1LCS_large.jpg?v=1743593252",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 4 x 1 Liter Case",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=43039438471323"
+        },
+        {
+          "variant_id": "43039448924315",
+          "sku": "SUAA96-1GAL",
+          "barcode": "",
+          "price": "94.5800",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "1 Gallon"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1GAL_large.jpg?v=1743593246",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 1 Gallon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=43039448924315"
+        },
+        {
+          "variant_id": "43039448957083",
+          "sku": "SUAA96-1GALCS",
+          "barcode": "",
+          "price": "308.9100",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 1 Gallon Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1GAL_large.jpg?v=1743593246",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 1 Gallon",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=43039448957083"
+        },
+        {
+          "variant_id": "40875821203611",
+          "sku": "SUAA96-4L",
+          "barcode": "",
+          "price": "99.6600",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-4L_large.jpg?v=1743593251",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=40875821203611"
+        },
+        {
+          "variant_id": "43039457706139",
+          "sku": "SUAA96-4LCS",
+          "barcode": "",
+          "price": "346.1400",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 x 4 Liter Case"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-4L_large.jpg?v=1743593251",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 4 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=43039457706139"
+        },
+        {
+          "variant_id": "42860587876507",
+          "sku": "SUAA96-5GAL",
+          "barcode": "",
+          "price": "270.0000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "5 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-5GAL_large.jpg?v=1743593249",
+          "image_alt": "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 5 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=42860587876507"
+        },
+        {
+          "variant_id": "40875821236379",
+          "sku": "SUAA96-20L",
+          "barcode": "",
+          "price": "268.2000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "20 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-20L_large.jpg?v=1743593250",
+          "image_alt": "Sulfuric Acid, ACS Reagent Grade, 96%, 20 Liters",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=40875821236379"
+        },
+        {
+          "variant_id": "40875821269147",
+          "sku": "SUAA96-55GAL",
+          "barcode": "",
+          "price": "1900.8000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "55 Gallons"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-200L_large.jpg?v=1743593254",
+          "image_alt": "Sulfuric Acid, ACS Reagent Grade, 96%, 55 Gallons",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-acs-grade?variant=40875821269147"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-500ML_large.jpg?v=1743593245",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-500MLCS_large.jpg?v=1743593255",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1L_large.jpg?v=1743593248",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1LCS_large.jpg?v=1743593252",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-1GAL_large.jpg?v=1743593246",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-4L_large.jpg?v=1743593251",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/SUAA96-5GAL_large.jpg?v=1743593249",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-20L_large.jpg?v=1743593250",
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/products/C8040-200L_large.jpg?v=1743593254"
+      ],
+      "shopify_images_alt": [
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 500mL",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 6 x 500mL Case",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 1 Liter",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 4 x 1 Liter Case",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 1 Gallon",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 4 Liters",
+        "Sulfuric Acid 96% ACS Reagent Grade Solution (95-98%, Concentrated H2SO4), 5 Gallons",
+        "Sulfuric Acid, ACS Reagent Grade, 96%, 20 Liters",
+        "Sulfuric Acid, ACS Reagent Grade, 96%, 55 Gallons"
+      ],
+      "tags": "Acids[:ATTR:]autoship[:ATTR:]best_Educational[:ATTR:]best_Government[:ATTR:]best_Individual[:ATTR:]best_Industrial[:ATTR:]best_Other[:ATTR:]best_R&D/Lab[:ATTR:]best_Wastewater[:ATTR:]Chemicals[:ATTR:]Grade_ACS Grade[:ATTR:]hazmat[:ATTR:]Ideal Template[:ATTR:]in[:ATTR:]In-House[:ATTR:]Industry_R&D/Lab[:ATTR:]Master[:ATTR:]Percentage_96%[:ATTR:]SEO[:ATTR:]Size_2.5 Liters[:ATTR:]Size_20 Liters[:ATTR:]Size_30ml[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml[:ATTR:]Size_55 Gallons[:ATTR:]Sulfuric Acid"
+    },
+    {
+      "product_id": "576749174843",
+      "original_product_id": "576749174843",
+      "title": "Sulfuric Acid 70% Solution, Reagent Grade",
+      "description": "",
+      "link": "/products/sulfuric-acid-70",
+      "price": "73.7000",
+      "list_price": "0.0000",
+      "quantity": "1",
+      "product_code": "C8041A-4L",
+      "image_link": "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/post-apple-generic-CORRECT_88cd6352-8a69-4716-b6df-a7f705a03624_large.png?v=1741691311",
+      "vendor": "Post Apple",
+      "discount": "0",
+      "add_to_cart_id": "40875820941467",
+      "total_reviews": "0",
+      "reviews_average_score": "0",
+      "shopify_variants": [
+        {
+          "variant_id": "40875820941467",
+          "sku": "C8041A-4L",
+          "barcode": "",
+          "price": "73.7000",
+          "list_price": "0.0000",
+          "taxable": "1",
+          "options": {
+            "Model": "4 Liters"
+          },
+          "available": "1",
+          "search_variant_metafields_data": [],
+          "filter_variant_metafields_data": [],
+          "image_link": "",
+          "image_alt": "",
+          "quantity_total": "",
+          "link": "/products/sulfuric-acid-70?variant=40875820941467"
+        }
+      ],
+      "shopify_images": [
+        "https://cdn.shopify.com/s/files/1/0003/3406/9819/files/post-apple-generic-CORRECT_88cd6352-8a69-4716-b6df-a7f705a03624_large.png?v=1741691311"
+      ],
+      "tags": "Acids[:ATTR:]Chemicals[:ATTR:]Grade_Reagent/Analytical Reagent[:ATTR:]hazmat[:ATTR:]Master[:ATTR:]Percentage_70%[:ATTR:]Size_4 Liters[:ATTR:]Sulfuric Acid"
+    }
+  ],
+  "facets": [
+    {
+      "title": "Price",
+      "default_title": "Price",
+      "attribute": "price",
+      "type": "slider",
+      "data_type": "float",
+      "data": [],
+      "desktop_view": "open",
+      "show_on_mobile": "Y",
+      "buckets": [
+        {
+          "value": "33.0000,145.2000",
+          "title": "33.0000 - 145.2000",
+          "from": "33.0000",
+          "left": "33.0000",
+          "right": "145.2000",
+          "to": "145.2000",
+          "count": "31"
+        }
+      ]
+    },
+    {
+      "title": "Collections",
+      "default_title": "Collections",
+      "attribute": "collections",
+      "type": "select",
+      "appearance": "default",
+      "more_count": "50",
+      "desktop_view": "open",
+      "show_on_mobile": "Y",
+      "buckets": [
+        {
+          "value": "Acids",
+          "count": 30
+        },
+        {
+          "value": "ACS Grade",
+          "count": 1
+        },
+        {
+          "value": "ACS Reagent Grade Chemicals",
+          "count": 1
+        },
+        {
+          "value": "All products",
+          "count": 31
+        },
+        {
+          "value": "Best Selling Educational Products",
+          "count": 2
+        },
+        {
+          "value": "Best Selling Government Products",
+          "count": 1
+        },
+        {
+          "value": "Best Selling Industrial Products",
+          "count": 2
+        },
+        {
+          "value": "Best Selling Products",
+          "count": 31
+        },
+        {
+          "value": "Best Selling Research & Development Products",
+          "count": 1
+        },
+        {
+          "value": "Best Selling Wastewater Products",
+          "count": 2
+        },
+        {
+          "value": "Bulk Industrial, Specialty, Organic & Lab Chemicals",
+          "count": 2
+        },
+        {
+          "value": "Cases",
+          "count": 31
+        },
+        {
+          "value": "Common Industrial And Household Chemicals",
+          "count": 30
+        },
+        {
+          "value": "Concentrated Sulfuric Acid",
+          "count": 29
+        },
+        {
+          "value": "Essential Chemicals",
+          "count": 1
+        },
+        {
+          "value": "Essential Chemicals & Ingredients",
+          "count": 4
+        },
+        {
+          "value": "Haz collection",
+          "count": 9
+        },
+        {
+          "value": "High Purity Chemicals",
+          "count": 2
+        },
+        {
+          "value": "Lab Alley In-House Products",
+          "count": 4
+        },
+        {
+          "value": "Lab Chemicals",
+          "count": 31
+        },
+        {
+          "value": "Lab Grade",
+          "count": 3
+        },
+        {
+          "value": "Lab Grade Chemicals",
+          "count": 3
+        },
+        {
+          "value": "Semiconductor/Electronic Grade",
+          "count": 1
+        },
+        {
+          "value": "Top Sell Cannabis",
+          "count": 1
+        },
+        {
+          "value": "Top Sell Individual",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "title": "Rating",
+      "default_title": "Rating",
+      "attribute": "reviews_average_score_titles",
+      "type": "select",
+      "appearance": "default",
+      "more_count": "50",
+      "desktop_view": "open",
+      "show_on_mobile": "Y",
+      "buckets": [
+        {
+          "value": "fivestar",
+          "count": 0
+        },
+        {
+          "value": "fourstar",
+          "count": 0
+        },
+        {
+          "value": "threestar",
+          "count": 0
+        },
+        {
+          "value": "twostar",
+          "count": 0
+        },
+        {
+          "value": "onestar",
+          "count": 0
+        },
+        {
+          "value": "nostar",
+          "count": 31
+        }
+      ]
+    }
+  ]
+}

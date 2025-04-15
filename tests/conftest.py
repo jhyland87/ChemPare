@@ -46,9 +46,9 @@ def monkeypatch_session():
 
 @pytest.fixture(autouse=True)
 def setup_mock_curl_cffi_attrs(attr):
-    setattr(mock_curl_cffi.request, 'mock_data', attr)
+    setattr(mock_curl_cffi.request, 'mock_cfg', attr)
     yield
-    delattr(mock_curl_cffi.request, 'mock_data')
+    delattr(mock_curl_cffi.request, 'mock_cfg')
 
 
 # import webbrowser

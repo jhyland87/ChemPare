@@ -104,8 +104,8 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    # ".",
-    # "src",
+    ".",
+    "src",
     # "tests/mock_data",
     "src/chempare",
     "src/chempare/datatypes",
@@ -114,7 +114,8 @@ where = [
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "tests/mock_data",
+    #".",
+    #"tests/mock_data",
     "src",
     "src/chempare",
     "src/chempare/datatypes",

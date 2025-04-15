@@ -21,7 +21,8 @@ from fuzzywuzzy import fuzz
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
-import chempare
+
+# import chempare
 
 
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
@@ -390,9 +391,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         headers and stores some cookies
         """
 
-    @staticmethod
-    def is_in_test():
-        return chempare.called_from_test
+    # @staticmethod
+    # def is_in_test():
+    #     return chempare.called_from_test
 
     @abstractmethod
     def _query_products(self, query: str) -> None:

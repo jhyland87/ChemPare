@@ -1,0 +1,22 @@
+{
+    "content-type": "application/json;charset=utf-8",
+    "etag": "W/\"e2c7bcd69db0bf519d57b89f8b4dee85\"",
+    "x-envoy-upstream-service-time": "57",
+    "age": "0",
+    "x-wix-request-id": "1744606569.71859319029063953267",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "server": "Pepyaka",
+    "x-content-type-options": "nosniff",
+    "content-encoding": "br",
+    "accept-ranges": "bytes",
+    "date": "Mon, 14 Apr 2025 04:56:09 GMT",
+    "x-served-by": "cache-bur-kbur8200128-BUR",
+    "x-cache": "MISS",
+    "vary": "Accept-Encoding",
+    "server-timing": "cache;desc=miss, varnish;desc=miss_miss, dc;desc=fastly_uw2-pub-1_g",
+    "set-cookie": "client-session-bind=055a8b8b-38ee-4d1a-88b2-00d2f3f4036e; Path=/; Secure; SameSite=Lax;, server-session-bind=055a8b8b-38ee-4d1a-88b2-00d2f3f4036e; Path=/; Secure; SameSite=Lax; HttpOnly;",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,T7xPrjRFKDMHVv938PYVfx9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLgusAIMgWk1Brq+Ibw9VA8kG/hKs8AeY1T4OIbgnD+yx,2d58ifebGbosy5xc+FRalmYjQjlVvnxyj3Gd1PFJj2jymsdglN1UE/8d/7c688ag2mfjnHH7ZVYPa7oyjEKT4g==,2UNV7KOq4oGjA5+PKsX47NvcbHKbYhM0YAEePb/2IAkG/hKs8AeY1T4OIbgnD+yx,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=",
+    "via": "1.1 google",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+}

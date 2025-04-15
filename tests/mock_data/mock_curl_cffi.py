@@ -13,22 +13,13 @@ from typing import Unpack
 from urllib.parse import urlparse
 
 from curl_cffi.requests.cookies import Cookies
+from curl_cffi.requests.headers import Headers
 from curl_cffi.requests.cookies import CookieTypes
 from curl_cffi.requests.headers import HeaderTypes
 
-# from curl_cffi.requests.session import Response
-from curl_cffi.requests.session import Headers
 from curl_cffi.requests.session import HttpMethod
 from curl_cffi.requests.session import RequestParams
 from curl_cffi.requests.session import ThreadType
-from curl_request_mocker import CurlRequestMocker
-from curl_request_mocker import get_nested_value
-from curl_request_mocker import query_to_filename
-
-
-# HeaderType = MutableMapping[str, Optional[str]]
-# CookieType = MutableMapping[str, str]
-
 
 CWD = os.path.dirname(__file__)
 
@@ -37,7 +28,6 @@ CWD = os.path.dirname(__file__)
 class MockResponse:
     # Must return: url, content, text, status_code, reason, ok, headers, cookies,
     url: str
-    # content: bytes = b""
     text: str | None = None
     json_content: Any = None
     status_code: int = 200
@@ -51,7 +41,7 @@ class MockResponse:
 
     @property
     def content(self):
-        return bytes(json.dumps(self.json_content), encoding="utf-8")
+        return bytes(json.dumps(self.json_content), encoding="utf-8")  # or ascii?
 
 
 MockResponse.__name__ = "Response"
@@ -69,17 +59,80 @@ def determine_calling_supplier():
     )
 
 
-def get_mock_response_module(supplier: str, req_path: str):
-    mock_data_module_file = Path(f"{supplier}{req_path}.py")
-    mock_data_module_name = str(mock_data_module_file.with_suffix('')).replace(os.sep, '.')
-    mock_data_abs_file = os.path.dirname(os.path.abspath(__file__)) + "/" + str(mock_data_module_file)
+def read_json_file(file_path):
+    """
+    Reads a JSON file and returns the data as a Python dictionary.
 
-    module_spec = importlib.util.spec_from_file_location(mock_data_module_name, mock_data_abs_file)
-    mock_module = importlib.util.module_from_spec(module_spec)
-    sys.modules[mock_data_module_name] = mock_module
-    module_spec.loader.exec_module(mock_module)
+    Args:
+      file_path: The path to the JSON file.
 
-    return mock_module
+    Returns:
+      A Python dictionary representing the JSON data, or None if an error occurs.
+    """
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"Error: File not found: {file_path}")
+        return None
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON format in: {file_path}")
+        return None
+
+
+def get_mock_response_module(supplier: str, req_path: str, test_name: str | None):
+    cwd = os.path.dirname(os.path.abspath(__file__))
+    data_root = Path(f"{cwd}/{supplier}{req_path}")
+    if not os.path.isdir(data_root):
+        return None
+
+    alt_data_root = None
+
+    if test_name and os.path.isdir(f"{str(data_root)}/{test_name}"):
+        alt_data_root = Path(f"{str(data_root)}/{test_name}")
+
+    header_file = None
+    cookie_file = None
+    body_file = None
+
+    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/headers.json"):
+        header_file = f"{str(alt_data_root)}/headers.json"
+    elif os.path.exists(f"{str(data_root)}/headers.json"):
+        header_file = f"{str(data_root)}/headers.json"
+
+    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/cookies.json"):
+        cookie_file = f"{str(alt_data_root)}/cookies.json"
+    elif os.path.exists(f"{str(data_root)}/cookies.json"):
+        cookie_file = f"{str(data_root)}/cookies.json"
+
+    if alt_data_root and os.path.exists(f"{str(alt_data_root)}/body.json"):
+        body_file = f"{str(alt_data_root)}/body.json"
+    elif os.path.exists(f"{str(data_root)}/body.json"):
+        body_file = f"{str(data_root)}/body.json"
+
+    result = {}
+
+    if header_file:
+        result['headers'] = read_json_file(header_file)
+
+    if cookie_file:
+        result['cookies'] = read_json_file(cookie_file)
+
+    if body_file:
+        result['body'] = read_json_file(body_file)
+
+    return result
+    # mock_data_module_file = Path(f"{supplier}{req_path}.py")
+    # mock_data_module_name = str(mock_data_module_file.with_suffix('')).replace(os.sep, '.')
+    # mock_data_abs_file = os.path.dirname(os.path.abspath(__file__)) + "/" + str(mock_data_module_file)
+
+    # module_spec = importlib.util.spec_from_file_location(mock_data_module_name, mock_data_abs_file)
+    # mock_module = importlib.util.module_from_spec(module_spec)
+    # sys.modules[mock_data_module_name] = mock_module
+    # module_spec.loader.exec_module(mock_module)
+
+    # return mock_module
 
 
 def request(
@@ -90,73 +143,23 @@ def request(
     debug: Optional[bool] = None,
     **kwargs: Unpack[RequestParams],
 ) -> MockResponse:
-    mock_cfg = getattr(request, 'mock_data', None)
-    # if mock_cfg:
-    #    print(f"Running the CURL request for {mock_cfg=}")
-
-    # print(f"Calling request - {method=}, {url=}, {thread=}, {curl_options=}, {debug=}, {kwargs=}")
+    mock_cfg = getattr(request, 'mock_cfg', None)
 
     parsed_url = urlparse(url)
     path = parsed_url.path
     if hasattr(mock_cfg, 'supplier'):
-        mock_resp = get_mock_response_module(mock_cfg.supplier, path)
-
-        cookies_attr = 'cookies'
-        headers_attr = 'headers'
-        json_content_attr = 'json_content'
-
-        if hasattr(mock_cfg, json_content_attr) and hasattr(mock_resp, getattr(mock_cfg, json_content_attr)):
-            json_content_attr = getattr(mock_cfg, json_content_attr)
-
-        # # Are there any overrides configured for this test?
-        # cookies_attr = getattr(mock_cfg, 'cookies', 'cookies')
-        # headers_attr = getattr(mock_cfg, 'headers', 'headers')
-        # json_content_attr = getattr(mock_cfg, 'json_content', 'json_content')
-
-        # Do the overrie(s) exist? If not, go back to the defaults
-        # if not hasattr(mock_resp, json_content_attr):
-        #     json_content_attr = 'json_content'
+        mock_resp = get_mock_response_module(mock_cfg.supplier, path, getattr(mock_cfg, 'mock_data', None))
 
         return MockResponse(
             url,
-            cookies=Cookies(getattr(mock_resp, cookies_attr, None)),
-            headers=Headers(getattr(mock_resp, headers_attr, None)),
-            json_content=getattr(mock_resp, json_content_attr, None),
+            cookies=Cookies(mock_resp.get('cookies', {})),
+            headers=Headers(mock_resp.get('headers', {})),
+            json_content=mock_resp.get('body', {}),
         )
 
-    res = MockResponse(url, content=b"FOOO")
+    res = MockResponse(url, text="No mock data found")
 
     return res
 
-    # Must return: url, content, text, status_code, reason, ok, headers, cookies,
 
-
-# def request(*args, **kwargs) -> Response:
-#     calling_supplier = determine_calling_supplier()
-#     print(f"{calling_supplier=}")
-#     print(f"Calling request - {args=}, {kwargs=}")
-
-
-def post(path, *args, **kwargs):
-    calling_supplier = determine_calling_supplier()
-    print(f"{calling_supplier=}")
-    if not path.endswith('/multi_search') or 'json' not in kwargs or "searches" not in kwargs["json"]:
-        return None
-
-    query = get_nested_value(kwargs, ["json", "searches", 0, "q"])
-
-    if not query:
-        return None
-
-    fname = query_to_filename(query)
-
-    mock_response_file = f"supplier_chemsavers/response_data/POST__multi_search__{fname}.json"
-
-    return CurlRequestMocker(file=mock_response_file)
-
-
-def get(path, *args, **kwargs):
-    pass
-
-
-__all__ = ["get", "post", "request"]
+__all__ = ["request"]

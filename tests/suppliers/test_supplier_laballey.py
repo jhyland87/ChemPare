@@ -19,7 +19,7 @@ from chempare.suppliers.supplier_laballey import SupplierLaballey as Supplier
 # Base test class
 
 
-@attributes(supplier="laballey", json_content="query_acid")
+@attributes(supplier="laballey", mock_data="query-acid")
 def test_name_query():
     try:
         results = Supplier("acid")
@@ -29,7 +29,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laballey", json_content="query_cas_sulfuric_acid")
+@attributes(supplier="laballey", mock_data="query-cas-7664-93-9")
 def test_cas_query():
     try:
         results = Supplier("7664-93-9")
@@ -39,7 +39,7 @@ def test_cas_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laballey", json_content="query_nonsense")
+@attributes(supplier="laballey", mock_data="query-nonsense")
 def test_nonsense_query():
     try:
         results = Supplier("this_should_return_no_search_result")
@@ -49,10 +49,10 @@ def test_nonsense_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laballey", json_content="query_cas_9999_99_99")
+@attributes(supplier="laballey", mock_data="query-cas-9999-99-9")
 def test_invalid_cas_query():
     try:
-        results = Supplier("9999-99-99")
+        results = Supplier("9999-99-9")
     except Exception as e:
         results = e
 
