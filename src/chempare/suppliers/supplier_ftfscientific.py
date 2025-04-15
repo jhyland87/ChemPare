@@ -34,10 +34,7 @@ class SupplierFtfScientific(SupplierBase):
 
     def _setup(self, query: str | None = None) -> None:
         headers = self.http_get_headers()
-        cookies = (
-            list(v for k, v in headers.multi_items() if k == "set-cookie")
-            or None
-        )
+        cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
 
         auth_cookies = {}
         auth_headers = {}
@@ -55,16 +52,12 @@ class SupplierFtfScientific(SupplierBase):
                 auth_headers["client-binding"] = val.split(";")[0]
                 continue
 
-        auth = self.http_get_json(
-            "_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers
-        )
+        auth = self.http_get_json("_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers)
 
         # What can this be used for?
         # https://www.ftfscientific.com/_api/v2/dynamicmodel
 
-        self._headers["authorization"] = auth["apps"][
-            "1484cb44-49cd-5b39-9681-75188ab429de"
-        ]["instance"]
+        self._headers["authorization"] = auth["apps"]["1484cb44-49cd-5b39-9681-75188ab429de"]["instance"]
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -88,18 +81,8 @@ class SupplierFtfScientific(SupplierBase):
             "includeSeoHidden": False,
             "facets": {
                 "clauses": [
-                    {
-                        "aggregation": {
-                            "name": "discountedPriceNumeric",
-                            "aggregation": "MIN",
-                        }
-                    },
-                    {
-                        "aggregation": {
-                            "name": "discountedPriceNumeric",
-                            "aggregation": "MAX",
-                        }
-                    },
+                    {"aggregation": {"name": "discountedPriceNumeric", "aggregation": "MIN"}},
+                    {"aggregation": {"name": "discountedPriceNumeric", "aggregation": "MAX"}},
                     {"term": {"name": "collections", "limit": 999}},
                 ]
             },
@@ -122,9 +105,7 @@ class SupplierFtfScientific(SupplierBase):
             ],
         }
 
-        search_result = self.http_post_json(
-            "_api/search-services-sitesearch/v1/search", json=body
-        )
+        search_result = self.http_post_json("_api/search-services-sitesearch/v1/search", json=body)
 
         if not search_result:
             return
@@ -224,18 +205,14 @@ class SupplierFtfScientific(SupplierBase):
 
         product_page_html = self.http_get_html(url)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
-        product_container = product_soup.find(
-            "div", {"data-hook": "product-page"}
-        )
+        product_container = product_soup.find("div", {"data-hook": "product-page"})
         product_info = {}
 
-        product_info["price"] = product_container.find(
-            "span", {"data-hook": "formatted-primary-price"}
-        ).get_text(strip=True)
-
-        description = product_soup.find(
-            "div", {"data-hook": "info-section-description"}
+        product_info["price"] = product_container.find("span", {"data-hook": "formatted-primary-price"}).get_text(
+            strip=True
         )
+
+        description = product_soup.find("div", {"data-hook": "info-section-description"})
 
         bullet_points = description.find_all("li")
 
@@ -246,5 +223,6 @@ class SupplierFtfScientific(SupplierBase):
                 break
 
         return product_info
+
 
 __supplier_class = SupplierFtfScientific

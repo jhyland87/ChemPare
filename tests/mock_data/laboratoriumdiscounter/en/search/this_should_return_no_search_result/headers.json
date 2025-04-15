@@ -1,0 +1,23 @@
+{
+    "date": "Tue, 15 Apr 2025 14:13:16 GMT",
+    "content-type": "application/json",
+    "p3p": "CP=\"ALL PUR DSP CUR ADMi DEVi CONi OUR COR IND\"",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-ua-compatible": "IE=Edge,chrome=1",
+    "x-xss-protection": "1; mode=block",
+    "set-cookie": "session_id=a68e15191a7a3e248388c936f41cc004; expires=Tue, 15-Apr-2025 14:43:10 GMT; Max-Age=1795; path=/; secure; HttpOnly; SameSite=none, COOKIELAW=optin; expires=Wed, 15-Apr-2026 14:13:16 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_SOCIAL=1; expires=Wed, 15-Apr-2026 14:13:16 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_STATS=1; expires=Wed, 15-Apr-2026 14:13:16 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_ADS=1; expires=Wed, 15-Apr-2026 14:13:16 GMT; Max-Age=31536000; path=/; secure; SameSite=none, __cf_bm=deleted; expires=Mon, 14-Apr-2025 14:13:16 GMT; Max-Age=0; path=/; secure; SameSite=none",
+    "x-developer": "Page: 884.6ms, Render: 3.4ms, Mem: 4,096kB, Cache: 0Q (0.0ms), DB: 4Q (4.6ms), Prop: 0Q (0.0ms)",
+    "x-runtime": "0.892583",
+    "x-shop-id": "286851",
+    "cache-control": "no-cache",
+    "content-encoding": "gzip",
+    "vary": "Accept-Encoding",
+    "x-request-id": "4ab4beea0af746cba67133d8e7cfa48a",
+    "x-envoy-upstream-service-time": "904",
+    "cf-cache-status": "DYNAMIC",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "server": "cloudflare",
+    "cf-ray": "930c0ae4fee5279a-LAX",
+    "alt-svc": "h3=\": 443\"; ma=86400"
+}

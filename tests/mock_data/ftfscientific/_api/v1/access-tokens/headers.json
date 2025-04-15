@@ -1,0 +1,22 @@
+{
+    "content-type": "application/json; charset=utf-8",
+    "access-control-allow-origin": "*",
+    "strict-transport-security": "max-age=86400",
+    "age": "303675",
+    "x-wix-request-id": "1744687198.3976353815034841293, 1744687198.3976353815034841293",
+    "set-cookie": "XSRF-TOKEN=1744687198|pplbfvQLnL55; Path=/; Domain=www.ftfscientific.com; Secure; SameSite=None, hs=-2079840620; Path=/; Domain=www.ftfscientific.com; Secure; HTTPOnly, svSession=bd6f0a09df1a90f008bb19ab301dbd3bc76b6aca4ea2d6cfb5ac54946e917e0c9e96cc5b0f107a3e7618508af2b804041e60994d53964e647acf431e4f798bcdf6672d0db73b1627cc4b3d38a90acb2edbf6c2534507dbf50d2ba0f77662d4e2debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; Max-Age=63072000; Expires=Thu, 15 Apr 2027 03:19:58 GMT; Path=/; Domain=www.ftfscientific.com; Secure; HTTPOnly; SameSite=None, client-session-bind=1c834548-3675-4a0a-89e3-1c9a2f61dc4d; Path=/; Secure; SameSite=Lax;, server-session-bind=1c834548-3675-4a0a-89e3-1c9a2f61dc4d; Path=/; Secure; SameSite=Lax; HttpOnly;",
+    "cache-control": "private,no-cache,no-store",
+    "server": "Pepyaka",
+    "x-content-type-options": "nosniff",
+    "content-encoding": "br",
+    "accept-ranges": "bytes",
+    "date": "Tue, 15 Apr 2025 03:19:58 GMT",
+    "x-served-by": "cache-bur-kbur8200155-BUR",
+    "x-cache": "MISS",
+    "vary": "Accept-Encoding",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_miss, dc;desc=fastly_uw2-pub-1_g",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,ui2Pjuc3zC1HEw7V2qXeyh9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLq3jElfYKAj0tYTlNvhLceQG/hKs8AeY1T4OIbgnD+yx,2d58ifebGbosy5xc+FRalj4vnI6m1GJaJTACUwk3pSckXeQtBaWopUZZU92/MwQTX87xhh9turkx1ZdYqwd9VQ==,2UNV7KOq4oGjA5+PKsX47PGnwEa4ahDGUcZoML+4h9BjPZTuGyYqVhtmEIgJUb4w",
+    "via": "1.1 google",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "alt-svc": "h3=\": 443\"; ma=2592000,h3-29=\": 443\"; ma=2592000"
+}

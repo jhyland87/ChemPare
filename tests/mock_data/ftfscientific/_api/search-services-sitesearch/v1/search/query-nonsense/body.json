@@ -1,0 +1,26 @@
+{
+    "documents": [],
+    "nextPage": {
+        "total": 0,
+        "skip": 12,
+        "limit": 12
+    },
+    "facets": [
+        {
+            "minAggregation": {
+                "facet": "discountedPriceNumeric"
+            }
+        },
+        {
+            "maxAggregation": {
+                "facet": "discountedPriceNumeric"
+            }
+        },
+        {
+            "terms": {
+                "facet": "collections",
+                "facets": []
+            }
+        }
+    ]
+}

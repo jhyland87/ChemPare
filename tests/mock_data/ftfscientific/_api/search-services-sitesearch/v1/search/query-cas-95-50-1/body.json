@@ -1,0 +1,480 @@
+{
+    "documents": [
+        {
+            "_score": 204.8664,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:20.841Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>99+% Purity</li>\n\t<li>Boiling point - 180.19&nbsp;Celsius</li>\n\t<li>MW - 147.01&nbsp;G/MOL</li>\n\t<li>CAS No - 95-50-1</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "title": [
+                    "<mark>1,2</mark>-Dichlorobenzene"
+                ]
+            },
+            "url": "/product-page/1-2-dichlorobenzene",
+            "documentImage": {
+                "name": "b44a5c_effaf03e39bb47adac30984e5b42070a~mv2.png",
+                "height": 1534.0,
+                "width": 1534.0
+            },
+            "description": "High Boiling point solventIdeal for thermal\u00a0rearrangement reactionsSafety-Data-Sheet",
+            "discountedPrice": "$55.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 55.0,
+            "onSale": false,
+            "id": "10735bdd-e1fa-2e68-c1b3-abe9db70e910",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "1,2-Dichlorobenzene"
+        },
+        {
+            "_score": 95.4275,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.577Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>This will be shipped to you in approximately 3-5 business days from the time the order is placed. Free shipping on this item.</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 4-6&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "description": [
+                    "<ul>\t<li>CAS# <mark>17639</mark>-93-9</li>\t<li>Purity <mark>95</mark>+%&nbsp;</li></ul>"
+                ],
+                "title": [
+                    "Methyl 2-Chloropropionate <mark>95</mark>%"
+                ]
+            },
+            "url": "/product-page/methyl-2-chloropropionate-95",
+            "documentImage": {
+                "name": "bb01fa_5d61b0cbb6ad472b8a3eace0c26b484a~mv2.png",
+                "height": 921.0,
+                "width": 940.0
+            },
+            "description": "CAS# 17639-93-9Purity 95&#43;%\u00a0",
+            "discountedPrice": "$190.00",
+            "collections": [
+                "Additional Products"
+            ],
+            "discountedPriceNumeric": 190.0,
+            "onSale": false,
+            "id": "16beef01-4b76-c328-dfa9-a7e9c1659128",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Methyl 2-Chloropropionate 95%"
+        },
+        {
+            "_score": 79.119354,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:20.892Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>95-98%</li>\n\t<li>ACS grade</li>\n\t<li>MW - 98.079&nbsp;G/MOL</li>\n\t<li>Cas No - 7664-93-9</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "title": [
+                    "Sulfuric Acid <mark>95</mark>-98% ACS"
+                ]
+            },
+            "url": "/product-page/sulfuric-acid-95-98-acs",
+            "documentImage": {
+                "name": "b44a5c_6e915cdb102f462ea78df171f60406ad~mv2.png",
+                "height": 3000.0,
+                "width": 3000.0
+            },
+            "description": "Common strong acidCommonly used in many applications\u00a0within chemistryPackaged in amber glass bottleSafety-Data-Sheet",
+            "discountedPrice": "$50.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 50.0,
+            "onSale": false,
+            "id": "26da382a-3d50-9382-4576-42ffcb04851c",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Sulfuric Acid 95-98% ACS"
+        },
+        {
+            "_score": 66.59276,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.186Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>This will be shipped to you in approximately 3-5 business days from the time the order is placed. Free shipping on this item.</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 4-6&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "description": [
+                    "<ul>\t<li>CAS# 68957-94-8</li>\t<li>Density <mark>1.068</mark>&nbsp;G/ML</li></ul>"
+                ],
+                "title": [
+                    "<mark>1</mark>-Propanephosphonic anhydride <mark>50</mark>% in Ethyl acetate"
+                ]
+            },
+            "url": "/product-page/1-propanephosphonic-anhydride-50-in-ethyl-acetate",
+            "documentImage": {
+                "name": "bb01fa_5d61b0cbb6ad472b8a3eace0c26b484a~mv2.png",
+                "height": 921.0,
+                "width": 940.0
+            },
+            "description": "CAS# 68957-94-8Density 1.068\u00a0G/ML",
+            "discountedPrice": "$190.00",
+            "collections": [
+                "Additional Products"
+            ],
+            "discountedPriceNumeric": 190.0,
+            "onSale": false,
+            "id": "abb048a6-9df2-70fb-3845-ace6e3ae4a78",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "1-Propanephosphonic anhydride 50% in Ethyl acetate"
+        },
+        {
+            "_score": 48.27234,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.407Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>This will be shipped to you in approximately 3-5 business days from the time the order is placed. Free shipping on this item.</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 4-6 business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "description": [
+                    "<ul>\t<li>CAS# - 87413-09-0</li>\t<li>Purity - <mark>95</mark>%</li></ul>"
+                ]
+            },
+            "url": "/product-page/dess-martin-periodinane",
+            "documentImage": {
+                "name": "bb01fa_5d61b0cbb6ad472b8a3eace0c26b484a~mv2.png",
+                "height": 921.0,
+                "width": 940.0
+            },
+            "description": "CAS# - 87413-09-0Purity - 95%",
+            "discountedPrice": "$85.00",
+            "collections": [
+                "Additional Products"
+            ],
+            "discountedPriceNumeric": 85.0,
+            "onSale": false,
+            "id": "49042b1b-c79c-82dd-91d1-91de6743b59c",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Dess-Martin periodinane"
+        },
+        {
+            "_score": 46.674145,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.306Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>Purity - &lt;= 100%</li>\n\t<li>MW - 60.08&nbsp;G/MOL</li>\n\t<li>Melting point 1713&nbsp;Celsius</li>\n\t<li>CAS No - 14808-60-7</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "title": [
+                    "Chromatography sand <mark>50</mark>-70 Mesh"
+                ]
+            },
+            "url": "/product-page/chromatography-sand-50-70-mesh",
+            "documentImage": {
+                "name": "b44a5c_2ddf75af8c4045c884e9c7fbdb29e43d~mv2.png",
+                "height": 3000.0,
+                "width": 3000.0
+            },
+            "description": "Also known as Silicon DioxideIdeal for column chromatography\u00a0Safety-Data-Sheet",
+            "discountedPrice": "$50.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 50.0,
+            "onSale": false,
+            "id": "f53db8a3-002e-700f-a396-43a84f6dd219",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Chromatography sand 50-70 Mesh"
+        },
+        {
+            "_score": 44.50763,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.116Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>This will be shipped to you in approximately 3-5 business days from the time the order is placed. Free shipping on this item.</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 4-6&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "description": [
+                    "<ul>\t<li>CAS# - 98-<mark>95</mark>-3</li>\t<li>Purity - 99.5+%</li>\t<li>Density <mark>1.196</mark>&nbsp;G/ML</li>\t<li><mark>100</mark> Grams"
+                ]
+            },
+            "url": "/product-page/nitrobenzene",
+            "documentImage": {
+                "name": "bb01fa_5d61b0cbb6ad472b8a3eace0c26b484a~mv2.png",
+                "height": 921.0,
+                "width": 940.0
+            },
+            "description": "CAS# - 98-95-3Purity - 99.5&#43;%Density 1.196\u00a0G/ML100 Grams is approximately 80 ML",
+            "discountedPrice": "$75.00",
+            "collections": [
+                "Additional Products"
+            ],
+            "discountedPriceNumeric": 75.0,
+            "onSale": false,
+            "id": "1a4d9898-34f9-35ce-32ed-d5b98d768691",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Nitrobenzene"
+        },
+        {
+            "_score": 38.1304,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.149Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>99+% (ACS) Purity</li>\n\t<li>Boiling point - 202-204&nbsp;Celsius</li>\n\t<li>MW - 99.13&nbsp;G/MOL</li>\n\t<li>CAS No - 872-50-4</li>\n\t<li>Density - 1.028&nbsp;G/ML</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "_highlights": {
+                "title": [
+                    "<mark>1</mark>-Methyl-2-pyrrolidinone"
+                ]
+            },
+            "url": "/product-page/1-methyl-2-pyrrolidinone",
+            "documentImage": {
+                "name": "b44a5c_020455f5e215480b896dfdb282766a65~mv2.png",
+                "height": 1386.0,
+                "width": 1386.0
+            },
+            "description": "Polar aprotic solventHigh solubility powerACS gradeAlso known as NMPSafety-Data-Sheet",
+            "discountedPrice": "$30.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 30.0,
+            "onSale": false,
+            "id": "7ffd94ce-3607-bda8-b233-d5b2d97175cf",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "1-Methyl-2-pyrrolidinone"
+        },
+        {
+            "_score": 35.8705,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:20.874Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>Purity - 99+%</li>\n\t<li>MW - 107.156&nbsp;G/MOL</li>\n\t<li>Boiling point 200-202&nbsp;Celsius</li>\n\t<li>Density 1.004 G/ML</li>\n\t<li>CAS No - 95-53-4</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>&nbsp;</p>\n\n<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "url": "/product-page/o-toluidine",
+            "documentImage": {
+                "name": "b44a5c_51e70f4ecf374a7f8220aada9ae5c125~mv2.png",
+                "height": 1386.0,
+                "width": 1386.0
+            },
+            "description": "ArylamineUseful for determination of glucosePrecursor to herbicidesSafety-Data-Sheet",
+            "discountedPrice": "$60.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 60.0,
+            "onSale": false,
+            "id": "11a44651-5dc8-88e6-8848-43c4c0b7c4fb",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "O-toluidine"
+        },
+        {
+            "_score": 35.8705,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.133Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>Purity - 99+%</li>\n\t<li>MW - 24.30&nbsp;G/MOL</li>\n\t<li>Melting point 650&nbsp;Celsius</li>\n\t<li>CAS No - 7439-95-4</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "url": "/product-page/magnesium-turnings",
+            "documentImage": {
+                "name": "b44a5c_599d88c262394f27b58cb3ad7512eb0a~mv2.png",
+                "height": 1288.0,
+                "width": 1288.0
+            },
+            "description": "Ideal for Grignard reagent preparationMild reducing agentSafety-Data-Sheet",
+            "discountedPrice": "$45.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 45.0,
+            "onSale": false,
+            "id": "428a497e-a8de-c39c-a6d2-2c624c4ec2f5",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Magnesium Turnings"
+        },
+        {
+            "_score": 35.8705,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.373Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>98%+ Purity</li>\n\t<li>MW - 120.977&nbsp;G/MOL</li>\n\t<li>CAS No - 106-95-6</li>\n\t<li>Density - 1.398&nbsp;G/ML</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "url": "/product-page/allyl-bromide",
+            "documentImage": {
+                "name": "b44a5c_d18cbc6b04474c94982ec36929a2aac3~mv2.png",
+                "height": 1386.0,
+                "width": 1386.0
+            },
+            "description": "Organic synthesis builiding blockAlkylating agentIdeal for adding an allyl group to a\u00a0 desired compoundSafety-Data-Sheet",
+            "discountedPrice": "$220.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 220.0,
+            "onSale": false,
+            "id": "e1e789fe-4d48-1ba7-5824-1fcb05971669",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "Allyl Bromide"
+        },
+        {
+            "_score": 35.8705,
+            "inStock": true,
+            "_updated": "2025-04-13T17:07:21.390Z",
+            "sku": null,
+            "infoSections": [
+                "Product Info",
+                "<ul>\n\t<li>Purity - 98+%</li>\n\t<li>MW - 127.57&nbsp;G/MOL</li>\n\t<li>Boiling point 208-210&nbsp;Celsius</li>\n\t<li>Density 1.213&nbsp;G/ML</li>\n\t<li>CAS No - 95-51-2</li>\n</ul>\n",
+                "Return & Refund Policy",
+                "<p>We accept all returns within 30 days of purchase that have not been opened. The customer is responsible to pay the return shipping fee. We sometimes will accept products that have been opened but this is on a case by case basis. Please email us and let us know the reason for return and we will work best with you to figure out the best solution.</p>\n",
+                "Shipping Info",
+                "<p>-Free shipping</p>\n\n<p>-Ships in 1-2&nbsp;business days&nbsp;</p>\n",
+                "Disclaimer",
+                "<p>By making a purchase from our company you agree to the disclaimer below.</p>\n\n<ul>\n\t<li>\n\t<p>I, the buyer am at least of 21 years of age.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer will follow all local, state and federal laws with any chemical product I purchase.</p>\n\t</li>\n\t<li>\n\t<p>I , the buyer Assume full responsibility for any risks or loss, personal injury, property damage or injury of any and all individuals that may happen by me or any other individuals, or any loss or damage to properly owned by me or others as a result of a chemical purchased from FTF Scientific LLC and use of any chemical compound, whether this is caused by negligence of the buyer or otherwise.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am properly trained and have the knowledge to properly store, handle and utilize chemicals that have been purchased from FTF Scientific LLC.</p>\n\t</li>\n\t<li>\n\t<p>I, the buyer am aware that all chemicals purchased from FTF Scientific LLC are for research and development purposes only. The chemicals are not to be used in food, drug, human, animal or cosmetic use.</p>\n\t</li>\n\t<li>\n\t<p>I, The buyer understand that FTF Scientific LLC website, logos, and phrases are copyrighted and not to be used without permission by FTF Scientific LLC.</p>\n\t</li>\n</ul>\n"
+            ],
+            "url": "/product-page/2-chloroaniline",
+            "documentImage": {
+                "name": "b44a5c_9c6e2b2254804f94a544e29bb9e60009~mv2.png",
+                "height": 1386.0,
+                "width": 1386.0
+            },
+            "description": "Used in polymer,rubber,pharmaecutical and dye industriesHalogenated anilineSafety-Data-Sheet",
+            "discountedPrice": "$65.00",
+            "collections": [
+                "Prepackaged products"
+            ],
+            "discountedPriceNumeric": 65.0,
+            "onSale": false,
+            "id": "520ccf53-7793-c6eb-3294-d317031a4c3f",
+            "documentType": "public/stores/products",
+            "currency": "USD",
+            "title": "2-Chloroaniline"
+        }
+    ],
+    "nextPage": {
+        "total": 195,
+        "skip": 12,
+        "limit": 12
+    },
+    "facets": [
+        {
+            "minAggregation": {
+                "facet": "discountedPriceNumeric",
+                "minValue": 30.0
+            }
+        },
+        {
+            "maxAggregation": {
+                "facet": "discountedPriceNumeric",
+                "maxValue": 360.0
+            }
+        },
+        {
+            "terms": {
+                "facet": "collections",
+                "facets": [
+                    {
+                        "facetValue": "Prepackaged products",
+                        "count": 126
+                    },
+                    {
+                        "facetValue": "Additional Products",
+                        "count": 69
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -21,6 +21,7 @@ from fuzzywuzzy import fuzz
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
+from chempare.exceptions import NoProductsFound
 
 
 # import chempare

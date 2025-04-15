@@ -1,0 +1,5 @@
+{
+    "ssr-caching": "cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g",
+    "client-session-bind": "1c834548-3675-4a0a-89e3-1c9a2f61dc4d",
+    "server-session-bind": "1c834548-3675-4a0a-89e3-1c9a2f61dc4d"
+}

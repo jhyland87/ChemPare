@@ -39,16 +39,20 @@ class MockResponse:
     def json(self):
         # return self.json_content
         if self.text is not None:
-            return json.load(self.text)
+            return json.loads(self.text)
 
     @property
     def content(self):
+
         if self.text is not None:
-            return bytes(self.text, encoding="utf-8")  # or ascii?
+            if isinstance(self.text, bytes):
+                return self.text
+            return bytes(str(self.text), encoding="utf-8")  # or ascii?
         # if self.json_content is not None:
         #     return bytes(json.dumps(self.json()), encoding="utf-8")  # or ascii?
         # if self.body is not None:
         #     return bytes(self.body)
+        return b""
 
 
 MockResponse.__name__ = "Response"
@@ -78,12 +82,12 @@ def read_mock_file(file_path):
     """
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
-            # if file_path.endswith('.json'):
-            #     data = json.load(file)
-            # else:
-            #     data = file.read()
-            data = file.read()
-            return data
+            try:
+                data = json.load(file)
+                return data
+            except json.JSONDecodeError:
+                data = file.read()
+                return data
     except FileNotFoundError:
         print(f"Error: File not found: {file_path}")
         return None
@@ -135,7 +139,11 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
         result['cookies'] = read_mock_file(cookie_file)
 
     if body_file:
+        # text? Or responseText?
         result['text'] = read_mock_file(body_file)
+        if result['text']:
+            if isinstance(result['text'], dict) or isinstance(result['text'], list):
+                result['text'] = bytes(json.dumps(result['text']), encoding="utf-8")
 
     return result
     # mock_data_module_file = Path(f"{supplier}{req_path}.py")
@@ -165,12 +173,15 @@ def request(
     if hasattr(mock_cfg, 'supplier'):
         mock_resp = get_mock_response_module(mock_cfg.supplier, path, getattr(mock_cfg, 'mock_data', None))
 
-        return MockResponse(
+        res = MockResponse(
             url,
             cookies=Cookies(mock_resp.get('cookies', {})),
             headers=Headers(mock_resp.get('headers', {})),
-            text=mock_resp.get('text', {}),
+            # text=bytes(json.dumps(mock_resp.get('text', None)), encoding="utf-8")
+            text=mock_resp.get('text', b""),
         )
+
+        return res
 
     res = MockResponse(url, text="No mock data found")
 
