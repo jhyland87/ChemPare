@@ -28,7 +28,7 @@ CWD = os.path.dirname(__file__)
 class MockResponse:
     # Must return: url, content, text, status_code, reason, ok, headers, cookies,
     url: str
-    text: str | None = None
+    responseText: str | None = None
     json_content: Any = None
     status_code: int = 200
     reason: str = "OK"
@@ -38,16 +38,16 @@ class MockResponse:
 
     def json(self):
         # return self.json_content
-        if self.text is not None:
-            return json.loads(self.text)
+        if self.responseText is not None:
+            return json.loads(self.responseText)
 
     @property
     def content(self):
 
-        if self.text is not None:
-            if isinstance(self.text, bytes):
-                return self.text
-            return bytes(str(self.text), encoding="utf-8")  # or ascii?
+        if self.responseText is not None:
+            if isinstance(self.responseText, bytes):
+                return self.responseText
+            return bytes(str(self.responseText), encoding="utf-8")  # or ascii?
         # if self.json_content is not None:
         #     return bytes(json.dumps(self.json()), encoding="utf-8")  # or ascii?
         # if self.body is not None:
@@ -82,12 +82,13 @@ def read_mock_file(file_path):
     """
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
+            data = None
             try:
-                data = json.load(file)
-                return data
-            except json.JSONDecodeError:
                 data = file.read()
+                return json.loads(data)
+            except json.JSONDecodeError as e:
                 return data
+                # return e.doc
     except FileNotFoundError:
         print(f"Error: File not found: {file_path}")
         return None
@@ -140,10 +141,10 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
 
     if body_file:
         # text? Or responseText?
-        result['text'] = read_mock_file(body_file)
-        if result['text']:
-            if isinstance(result['text'], dict) or isinstance(result['text'], list):
-                result['text'] = bytes(json.dumps(result['text']), encoding="utf-8")
+        result['responseText'] = read_mock_file(body_file)
+        if result['responseText']:
+            if isinstance(result['responseText'], dict) or isinstance(result['responseText'], list):
+                result['responseText'] = bytes(json.dumps(result['responseText']), encoding="utf-8")
 
     return result
     # mock_data_module_file = Path(f"{supplier}{req_path}.py")
@@ -178,12 +179,12 @@ def request(
             cookies=Cookies(mock_resp.get('cookies', {})),
             headers=Headers(mock_resp.get('headers', {})),
             # text=bytes(json.dumps(mock_resp.get('text', None)), encoding="utf-8")
-            text=mock_resp.get('text', b""),
+            responseText=mock_resp.get('responseText', b""),
         )
 
         return res
 
-    res = MockResponse(url, text="No mock data found")
+    res = MockResponse(url, responseText="No mock data found")
 
     return res
 
