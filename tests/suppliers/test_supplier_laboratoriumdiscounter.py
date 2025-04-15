@@ -43,7 +43,7 @@ def test_nonsense_query():
 
         assert (
             str(notfound_error.value)
-            == f"No products found at supplier {Supplier._supplier.name} for query this_should_return_no_search_result"
+            == f"No products found at supplier {Supplier._supplier.name} for 'this_should_return_no_search_result"
         )
     except Exception as e:
         results = e
@@ -58,9 +58,7 @@ def test_invalid_cas_query():
         with pytest.raises(NoProductsFound) as notfound_error:
             results = Supplier("9999-99-9")
 
-        assert (
-            str(notfound_error.value) == f"No products found at supplier {Supplier._supplier.name} for query 9999-99-9"
-        )
+        assert str(notfound_error.value) == f"No products found at supplier {Supplier._supplier.name} for '9999-99-9'"
     except Exception as e:
         results = e
 
