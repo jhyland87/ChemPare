@@ -119,15 +119,38 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 )
             )
 
-            os.makedirs(save_to, exist_ok=True)
-            with open(save_to + os.sep + "body." + file_ext, "w", encoding="utf-8") as file:
-                file.write(response.text)
+            metadata = {
+                # ["ok","status_code","charset","charset_encoding","default_encoding","encoding","infos","reason"]
+                "ok": response.ok,
+                "status_code": response.status_code,
+                "charset": response.charset,
+                "charset_encoding": response.charset_encoding,
+                "default_encoding": response.default_encoding,
+                "encoding": response.encoding,
+                "infos": response.infos,
+                "reason": response.reason,
+            }
 
+            os.makedirs(save_to, exist_ok=True)
+
+            # Save the response body
+            with open(save_to + os.sep + "body." + file_ext, "w", encoding="utf-8") as file:
+                if file_ext == 'json':
+                    file.write(json.dumps(json.loads(response.text), indent=4))
+                else:
+                    file.write(response.text)
+
+            # Save the cookies
             with open(save_to + os.sep + "cookies.json", "w", encoding="utf-8") as file:
                 file.write(json.dumps(dict(response.cookies), indent=4))
 
+            # Save the headers
             with open(save_to + os.sep + "headers.json", "w", encoding="utf-8") as file:
                 file.write(json.dumps(dict(response.headers), indent=4))
+
+            # Save misc metadata
+            with open(save_to + os.sep + "metadata.json", "w", encoding="utf-8") as file:
+                file.write(json.dumps(metadata, indent=4))
         except Exception as e:
             print("Exception in __log_as_mock_data:", e)
 

@@ -128,7 +128,7 @@ env = [
     # DEBUG, WARNING, ERROR, INFO
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
-    "SAVE_RESPONSES=false"
+    "SAVE_RESPONSES=true"
 ]
 minversion = "7.0"
 addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
