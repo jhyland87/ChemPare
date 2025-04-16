@@ -3,9 +3,11 @@ from chempare.search_factory import SearchFactory
 
 from . import suppliers
 
+
 # __package__ = "chempare"
 
 called_from_test = False
+test_monkeypatching = False
 
 
 __all__ = ["SearchFactory", "suppliers", "ClassUtils", "called_from_test"]

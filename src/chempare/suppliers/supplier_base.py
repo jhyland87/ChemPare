@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-import logging
 import json
+import logging
 import os
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Self
 from typing import TypedDict
+from urllib.parse import urlparse
 
 from abcplus import ABCMeta
 from abcplus import abstractmethod
@@ -19,7 +20,6 @@ from curl_cffi import Response
 from curl_cffi import requests
 from fuzzywuzzy import fuzz
 
-from urllib.parse import urlparse
 import chempare
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
@@ -55,7 +55,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query = query
         self._cookies = {}
         self._headers = {}
-        self.__save_responses = False
+        self._save_responses = False
 
         self._debug_curl: bool = False
 
@@ -65,7 +65,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         SAVE_RESPONSES = os.getenv('SAVE_RESPONSES', 'false').lower()
         if SAVE_RESPONSES == 'true' or SAVE_RESPONSES == '1':
-            self.__save_responses = True
+            self._save_responses = True
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -90,26 +90,43 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @finalmethod
     def __log_as_mock_data(self, response: Response) -> None:
         try:
-            if not self.__save_responses or not chempare.called_from_test:
+            # Only permit saving data for mock responses if..
+            if (
+                # 1) Were supposed to
+                self._save_responses is False
+                # 2) We aren't already monkeypatching (otherwords were just re-saving mock data)
+                or chempare.test_monkeypatching is True
+                # 3) We're being called from a mock test (Not sure how critical this one is)
+                or chempare.called_from_test is False
+            ):
                 return
+
+            content_type = str(dict(response.headers).get('content-type'))
+
+            if 'json' in content_type:
+                file_ext = 'json'
+            elif 'html' in content_type:
+                file_ext = 'html'
+            else:
+                file_ext = 'txt'
 
             parsed_url = urlparse(response.url)
             path = parsed_url.path
-            cwd = os.getcwd()
+
             save_to = os.path.abspath(
                 os.path.join(
-                    os.path.dirname(__file__), '../../../', 'tests/mock_data', self._supplier_dir(), path.lstrip("/")
+                    os.path.dirname(__file__), "../../../", "tests/mock_data", self._supplier_dir(), path.lstrip("/")
                 )
             )
-            print(save_to)
+
             os.makedirs(save_to, exist_ok=True)
-            with open(save_to + "/body.html", "w") as file:
+            with open(save_to + os.sep + "body." + file_ext, "w", encoding="utf-8") as file:
                 file.write(response.text)
 
-            with open(save_to + "/cookies.json", "w") as file:
+            with open(save_to + os.sep + "cookies.json", "w", encoding="utf-8") as file:
                 file.write(json.dumps(dict(response.cookies), indent=4))
 
-            with open(save_to + "/headers.json", "w") as file:
+            with open(save_to + os.sep + "headers.json", "w", encoding="utf-8") as file:
                 file.write(json.dumps(dict(response.headers), indent=4))
         except Exception as e:
             print("Exception in __log_as_mock_data:", e)

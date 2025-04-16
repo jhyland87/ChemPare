@@ -28,9 +28,11 @@ import chempare
 
 #     monkeypatch = MonkeyPatch()
 #     monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+#     chempare.test_monkeypatching = True
 #     yield monkeypatch
 #     monkeypatch.undo()
 #     monkeypatch.delattr(curl_cffi.requests, "request")
+#     chempare.test_monkeypatching = False
 
 
 # @pytest.fixture(autouse=True, scope="function", name="requests mocker")
