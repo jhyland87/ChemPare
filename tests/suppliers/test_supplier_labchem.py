@@ -30,16 +30,10 @@ def test_nonsense_query():
 
 @attributes(supplier="supplier_labchem", mock_data="captcha-firewall")
 def test_captcha_firewall():
-    results = None
-    try:
-        with pytest.raises(CaptchaEncountered) as captcha_error:
-            results = Supplier("acid")
+    with pytest.raises(CaptchaEncountered) as captcha_error:
+        Supplier("acid")
 
-        assert str(captcha_error.value.captcha_type) == "cloudflare", "Expected CloudFlare firewall"
-    except Exception as e:
-        results = e
-
-    assert results is None, "Expected results to be empty"
+    assert str(captcha_error.value.captcha_type) == "cloudflare", "Expected CloudFlare firewall"
 
 
 # # Base test class
