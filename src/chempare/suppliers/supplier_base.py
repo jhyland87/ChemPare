@@ -109,15 +109,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             ):
                 return
 
-            # content_type = str(dict(response.headers).get('content-type'))
-
-            # if 'json' in content_type:
-            #     file_ext = 'json'
-            # elif 'html' in content_type:
-            #     file_ext = 'html'
-            # else:
-            #     file_ext = 'txt'
-
             parsed_url = urlparse(response.url)
             path = parsed_url.path
 
@@ -137,20 +128,37 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 )
             )
 
-            mock_file_json = {
-                # ["ok","status_code","charset","charset_encoding","default_encoding","encoding","infos","reason"]
-                "ok": response.ok,
-                "status_code": response.status_code,
-                "charset": response.charset,
-                "charset_encoding": response.charset_encoding,
-                "default_encoding": response.default_encoding,
-                "encoding": response.encoding,
-                "infos": response.infos,
-                "reason": response.reason,
-                "content": str(response.content),
-                "headers": dict(response.headers),
-                "cookies": dict(response.cookies),
-            }
+            keys_to_extract = [
+                "content",
+                "status_code",
+                "reason",
+                "ok",
+                "headers",
+                "cookies",
+                "elapsed",
+                "default_encoding",
+                "redirect_count",
+                "redirect_url",
+                "http_version",
+                "primary_ip",
+                "primary_port",
+                "local_ip",
+                "local_port",
+                "infos",
+                "encoding",
+            ]
+
+            mock_file_json = {}
+            for key in keys_to_extract:
+                if key in response.__dict__:
+                    if hasattr(response.__dict__[key], "__dict__"):
+                        mock_file_json[key] = dict(response.__dict__[key])
+                    elif isinstance(response.__dict__[key], bytes):
+                        mock_file_json[key] = response.__dict__[key].decode(
+                            getattr(response, "encoding", "utf-8-sig"), errors="replace"
+                        )
+                    else:
+                        mock_file_json[key] = response.__dict__[key]
 
             parent_dir = os.path.dirname(save_to)
             os.makedirs(parent_dir, exist_ok=True)

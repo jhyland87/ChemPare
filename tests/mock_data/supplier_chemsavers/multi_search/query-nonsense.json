@@ -1,0 +1,24 @@
+{
+    "content": "{\"results\":[{\"facet_counts\":[{\"counts\":[],\"field_name\":\"price\",\"sampled\":false,\"stats\":{\"total_values\":0}}],\"found\":0,\"hits\":[],\"out_of\":39517,\"page\":1,\"request_params\":{\"collection_name\":\"products\",\"first_q\":\"this_should_return_no_search_result\",\"per_page\":5,\"q\":\"this_should_return_no_search_result\"},\"search_cutoff\":false,\"search_time_ms\":1}]}",
+    "status_code": 200,
+    "reason": "",
+    "ok": true,
+    "headers": {
+        "access-control-allow-origin": "*",
+        "content-type": "application/json; charset=utf-8",
+        "content-encoding": "gzip",
+        "vary": "accept-encoding",
+        "accept-ranges": "none"
+    },
+    "cookies": {},
+    "elapsed": 0.251568,
+    "default_encoding": "utf-8",
+    "redirect_count": 0,
+    "redirect_url": "",
+    "http_version": 3,
+    "primary_ip": "34.222.137.227",
+    "primary_port": 443,
+    "local_ip": "192.168.0.253",
+    "local_port": 58797,
+    "infos": {}
+}
