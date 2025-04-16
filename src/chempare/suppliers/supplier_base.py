@@ -78,7 +78,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # product properties
         self._parse_products()
 
-        # self._fuzz_filter()
+        self._fuzz_filter()
+
+        if len(self._products) == 0:
+            raise NoProductsFound(supplier=self._supplier.name, query=self._query)
 
     @finalmethod
     def _type(self):

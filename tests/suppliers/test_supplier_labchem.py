@@ -33,6 +33,7 @@ def test_captcha_firewall():
     with pytest.raises(CaptchaEncountered) as captcha_error:
         Supplier("acid")
 
+    assert captcha_error.errisinstance(CaptchaEncountered) is True, "Expected to encounter a captcha, but did not"
     assert str(captcha_error.value.captcha_type) == "cloudflare", "Expected CloudFlare firewall"
 
 

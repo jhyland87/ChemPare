@@ -37,16 +37,15 @@ def test_cas_query():
 @attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-nonsense")
 def test_nonsense_query():
     results = None
-    try:
-        with pytest.raises(NoProductsFound) as notfound_error:
-            results = Supplier("this_should_return_no_search_result")
+    with pytest.raises(NoProductsFound) as notfound_error:
+        results = Supplier("this_should_return_no_search_result")
 
-        assert (
-            str(notfound_error.value)
-            == f"No products found at supplier {Supplier._supplier.name} for 'this_should_return_no_search_result"
-        )
-    except Exception as e:
-        results = e
+    assert notfound_error.errisinstance(NoProductsFound) is True, "Did not trigger expected NoProductsFound error"
+    assert results is None, "Unexpected products found"
+    assert (
+        str(notfound_error.value)
+        == f"No products found at supplier {Supplier._supplier.name} for 'this_should_return_no_search_result'"
+    )
 
     # assert isinstance(results, Exception) is False, "query returned an exception"
 
@@ -54,13 +53,12 @@ def test_nonsense_query():
 @attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-9999-99-9")
 def test_invalid_cas_query():
     results = None
-    try:
-        with pytest.raises(NoProductsFound) as notfound_error:
-            results = Supplier("9999-99-9")
+    with pytest.raises(NoProductsFound) as notfound_error:
+        results = Supplier("9999-99-9")
 
-        assert str(notfound_error.value) == f"No products found at supplier {Supplier._supplier.name} for '9999-99-9'"
-    except Exception as e:
-        results = e
+    assert notfound_error.errisinstance(NoProductsFound) is True, "Did not counter expected NoProductsFound error"
+    assert str(notfound_error.value) == f"No products found at supplier {Supplier._supplier.name} for '9999-99-9'"
+    assert results is None, "Unexpected products returned"
 
 
 """

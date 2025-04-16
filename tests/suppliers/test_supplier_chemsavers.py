@@ -5,7 +5,7 @@
 
 import pytest
 from pytest_attributes import attributes
-
+from chempare.exceptions import NoProductsFound
 from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplier
 
@@ -51,12 +51,12 @@ def test_nonsense_query():
 
 @attributes(supplier="supplier_chemsavers", mock_data="query-cas-9999-99-99")
 def test_invalid_cas_query():
-    try:
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("9999-99-99")
-    except Exception as e:
-        results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for bad CAS search"
 
 
 # class TestClass:
