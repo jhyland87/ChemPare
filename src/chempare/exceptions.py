@@ -8,12 +8,13 @@ class NoProductsFound(Exception):
 
 
 class CaptchaEncountered(Exception):
-    def __init__(self, supplier, query):
+    def __init__(self, supplier, url, captcha_type=None):
         self.supplier = supplier
-        self.query = query
+        self.url = url
+        self.captcha_type = captcha_type
 
     def __str__(self):
-        return f"Encountered a captcha when querying {self.supplier} for '{self.query}'"
+        return f"Encountered a captcha when querying supplier {self.supplier} at address {self.url}"
 
 
 class NoMockDataFound(Exception):

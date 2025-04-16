@@ -1,8 +1,10 @@
 """EsDrei supplier test module"""
 
+import pytest
 from pytest_attributes import attributes
 
 from chempare.datatypes import TypeProduct
+from chempare.exceptions import CaptchaEncountered
 from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
 
 
@@ -28,12 +30,16 @@ def test_nonsense_query():
 
 @attributes(supplier="supplier_labchem", mock_data="captcha-firewall")
 def test_captcha_firewall():
+    results = None
     try:
-        results = Supplier("acid")
+        with pytest.raises(CaptchaEncountered) as captcha_error:
+            results = Supplier("acid")
+
+        assert str(captcha_error.value.captcha_type) == "cloudflare", "Expected CloudFlare firewall"
     except Exception as e:
         results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert results is None, "Expected results to be empty"
 
 
 # # Base test class

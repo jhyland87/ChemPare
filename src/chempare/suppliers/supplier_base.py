@@ -24,6 +24,7 @@ import chempare
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
+from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
 
 
@@ -340,21 +341,21 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         elif api_url not in path:
             path = f"{api_url}/{path}"
 
-        try:
-            res = requests.get(
-                path,
-                params=params,
-                impersonate="chrome",
-                cookies=cookies or self._cookies,
-                headers=headers or self._headers,
-                debug=self._debug_curl,
-            )
+        res = requests.get(
+            path,
+            params=params,
+            impersonate="chrome",
+            cookies=cookies or self._cookies,
+            headers=headers or self._headers,
+            debug=self._debug_curl,
+        )
 
-            self.__log_as_mock_data(res)
+        self.__log_as_mock_data(res)
 
-            return res
-        except AttributeError as ae:
-            return ae
+        if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
+            raise CaptchaEncountered(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
+
+        return res
 
     @finalmethod
     def http_post(

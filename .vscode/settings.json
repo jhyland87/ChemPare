@@ -202,5 +202,8 @@
         "./src/chempare/suppliers",
         "./src/chempare/datatypes"
     ],
-    "editor.defaultFormatter": "ms-python.pylint"
+    "editor.defaultFormatter": "ms-python.pylint",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    }
 }
