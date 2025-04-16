@@ -14,3 +14,11 @@ class CaptchaEncountered(Exception):
 
     def __str__(self):
         return f"Encountered a captcha when querying {self.supplier} for '{self.query}'"
+
+
+class NoMockDataFound(Exception):
+    def __init__(self, url):
+        self.url = url
+
+    def __str__(self):
+        return f"No mock data found when querying URL {self.url}"

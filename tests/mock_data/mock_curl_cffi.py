@@ -20,6 +20,8 @@ from curl_cffi.requests.session import HttpMethod
 from curl_cffi.requests.session import RequestParams
 from curl_cffi.requests.session import ThreadType
 
+from chempare.exceptions import NoMockDataFound
+
 
 CWD = os.path.dirname(__file__)
 
@@ -35,6 +37,9 @@ class MockResponse:
     ok: bool = True
     headers: HeaderTypes | None = None
     cookies: CookieTypes | None = None
+
+    def update(self, data: Dict) -> None:
+        self.__dict__.update(data)
 
     def json(self):
         # return self.json_content
@@ -113,17 +118,27 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
     header_file = None
     cookie_file = None
     body_file = None
+    metadata_file = None
 
+    # Grab the headers if any are present
     if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "headers.json"):
         header_file = str(alt_data_root) + os.sep + "headers.json"
     elif os.path.exists(str(data_root) + os.sep + "headers.json"):
         header_file = str(data_root) + os.sep + "headers.json"
 
+    # Cookies
     if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "cookies.json"):
         cookie_file = str(alt_data_root) + os.sep + "cookies.json"
     elif os.path.exists(str(data_root) + os.sep + "cookies.json"):
         cookie_file = str(data_root) + os.sep + "cookies.json"
 
+    # Metadata (http response code, etc)
+    if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "metadata.json"):
+        metadata_file = str(alt_data_root) + os.sep + "metadata.json"
+    elif os.path.exists(str(data_root) + os.sep + "metadata.json"):
+        metadata_file = str(data_root) + os.sep + "metadata.json"
+
+    # Body content (json, html or txt)
     if alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "body.json"):
         body_file = str(alt_data_root) + os.sep + "body.json"
     elif os.path.exists(str(data_root) + os.sep + "body.json"):
@@ -132,6 +147,10 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
         body_file = str(alt_data_root) + os.sep + "body.html"
     elif os.path.exists(str(data_root) + os.sep + "body.html"):
         body_file = str(data_root) + os.sep + "body.html"
+    elif alt_data_root and os.path.exists(str(alt_data_root) + os.sep + "body.txt"):
+        body_file = str(alt_data_root) + os.sep + "body.txt"
+    elif os.path.exists(str(data_root) + os.sep + "body.txt"):
+        body_file = str(data_root) + os.sep + "body.txt"
 
     result = {}
 
@@ -140,6 +159,9 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
 
     if cookie_file:
         result['cookies'] = read_mock_file(cookie_file)
+
+    if metadata_file:
+        result['metadata'] = read_mock_file(metadata_file)
 
     if body_file:
         # text? Or text?
@@ -169,26 +191,30 @@ def request(
     debug: Optional[bool] = None,
     **kwargs: Unpack[RequestParams],
 ) -> MockResponse:
-    mock_cfg = getattr(request, 'mock_cfg', None)
+    mock_cfg = getattr(request, "mock_cfg", None)
 
     parsed_url = urlparse(url)
     path = parsed_url.path
-    if hasattr(mock_cfg, 'supplier'):
-        mock_resp = get_mock_response_module(mock_cfg.supplier, path, getattr(mock_cfg, 'mock_data', None))
+    if hasattr(mock_cfg, "supplier") is False:
+        raise NoMockDataFound(url=url)
 
-        res = MockResponse(
-            url,
-            cookies=Cookies(mock_resp.get('cookies', {})),
-            headers=Headers(mock_resp.get('headers', {})),
-            # text=bytes(json.dumps(mock_resp.get('text', None)), encoding="utf-8")
-            text=mock_resp.get('text', b""),
-        )
+    mock_resp = get_mock_response_module(mock_cfg.supplier, path, getattr(mock_cfg, "mock_data", None))
 
-        return res
+    res = MockResponse(
+        url,
+        cookies=Cookies(mock_resp.get("cookies", {})),
+        headers=Headers(mock_resp.get("headers", {})),
+        # text=bytes(json.dumps(mock_resp.get('text', None)), encoding="utf-8")
+        text=mock_resp.get("text", b""),
+    )
 
-    res = MockResponse(url, text="No mock data found")
+    res.update(mock_resp.get("metadata", {}))
 
     return res
+
+    # res = MockResponse(url, text="No mock data found")
+
+    # return res
 
 
 __all__ = ["request"]

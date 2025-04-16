@@ -22,17 +22,33 @@ import chempare
 # curl_cffi_post = MagicMock(wraps=mock_curl_cffi)
 
 
-# @pytest.fixture(autouse=True, scope="session", name="function requests mocker")
-# def monkeypatch_session():
-#     from _pytest.monkeypatch import MonkeyPatch
+# @pytest.fixture(autouse=True)
+# def setup_mock_curl_cffi_attrs(attr):
+#     setattr(mock_curl_cffi.request, 'mock_cfg', attr)
+#     yield
+#     delattr(mock_curl_cffi.request, 'mock_cfg')
 
-#     monkeypatch = MonkeyPatch()
-#     monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
-#     chempare.test_monkeypatching = True
-#     yield monkeypatch
-#     monkeypatch.undo()
-#     monkeypatch.delattr(curl_cffi.requests, "request")
-#     chempare.test_monkeypatching = False
+
+@pytest.fixture(autouse=True)
+def setup_mock_cfg_to_curl_cffi_attrs(attr):
+    setattr(mock_curl_cffi.request, 'mock_cfg', attr)
+    setattr(curl_cffi.requests.Response, 'mock_cfg', attr)
+    yield
+    delattr(mock_curl_cffi.request, 'mock_cfg')
+    delattr(curl_cffi.requests.Response, 'mock_cfg')
+
+
+@pytest.fixture(autouse=True, scope="session", name="function requests mocker")
+def monkeypatch_session():
+    from _pytest.monkeypatch import MonkeyPatch
+
+    monkeypatch = MonkeyPatch()
+    monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+    chempare.test_monkeypatching = True
+    yield monkeypatch
+    monkeypatch.undo()
+    monkeypatch.delattr(curl_cffi.requests, "request")
+    chempare.test_monkeypatching = False
 
 
 # @pytest.fixture(autouse=True, scope="function", name="requests mocker")
@@ -44,13 +60,6 @@ import chempare
 #     yield
 #     print("\n\n\nTeardown setup_teardown\n\n\n")
 #     monkeypatch.delattr(curl_cffi.requests, "request")
-
-
-@pytest.fixture(autouse=True)
-def setup_mock_curl_cffi_attrs(attr):
-    setattr(mock_curl_cffi.request, 'mock_cfg', attr)
-    yield
-    delattr(mock_curl_cffi.request, 'mock_cfg')
 
 
 # import webbrowser

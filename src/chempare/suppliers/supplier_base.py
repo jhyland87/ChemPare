@@ -113,9 +113,19 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             parsed_url = urlparse(response.url)
             path = parsed_url.path
 
+            # For the tests where mock_data is specified, grab that and use it as the last folder in the path.
+            suffix = ''
+            if hasattr(response, 'mock_cfg') and hasattr(response.mock_cfg, 'mock_data'):  # type: ignore
+                suffix = response.mock_cfg.mock_data  # type: ignore
+
             save_to = os.path.abspath(
                 os.path.join(
-                    os.path.dirname(__file__), "../../../", "tests/mock_data", self._supplier_dir(), path.lstrip("/")
+                    os.path.dirname(__file__),
+                    "../../../",
+                    "tests/mock_data",
+                    self._supplier_dir(),
+                    path.lstrip("/"),
+                    suffix,
                 )
             )
 
