@@ -32,9 +32,11 @@ import chempare
 @pytest.fixture(autouse=True)
 def setup_mock_cfg_to_curl_cffi_attrs(attr):
     setattr(mock_curl_cffi.request, 'mock_cfg', attr)
+    setattr(mock_curl_cffi.MockResponse, 'mock_cfg', attr)
     setattr(curl_cffi.requests.Response, 'mock_cfg', attr)
     yield
     delattr(mock_curl_cffi.request, 'mock_cfg')
+    delattr(mock_curl_cffi.MockResponse, 'mock_cfg')
     delattr(curl_cffi.requests.Response, 'mock_cfg')
 
 

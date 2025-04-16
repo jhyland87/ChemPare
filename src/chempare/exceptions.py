@@ -59,16 +59,25 @@ class NoMockDataFound(Exception):
 
     Attributes:
         url (str): URL the unit test called.
+        supplier (str | None, optional): Supplier module/name. Defaults to None.
+        details (str | None, optional): Optional string with any extra details. Defaults to None.
     """
 
-    def __init__(self, url: str):
+    def __init__(self, url: str, supplier: str | None = None, details: str | None = None):
         """
         Initializes the NoMockDataFound exception
 
         Args:
             url (str): URL the unit test called.
+            supplier (str | None, optional): Supplier module/name. Defaults to None.
+            details (str | None, optional): Optional string with any extra details.
         """
         self.url = url
+        self.details = details
+        self.supplier = supplier
 
     def __str__(self):
-        return f"No mock data found when querying URL {self.url}"
+        ret = f"No mock data found when querying URL {self.url}"
+        if self.details:
+            ret += " - {self.details}"
+        return ret

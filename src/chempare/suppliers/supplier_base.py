@@ -89,7 +89,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return self.__class__.__module__.split('.')[-1]
 
     @finalmethod
-    def __log_as_mock_data(self, response: Response) -> None:
+    def __save_as_mock_data(self, response: Response) -> None:
+        """
+        Save HTTP response in a way it can be used as mock data for unit tests
+
+        Args:
+            response (Response): HTTP response from curl_cffi or requests module
+        """
+
         try:
             # Only permit saving data for mock responses if..
             if (
@@ -102,14 +109,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             ):
                 return
 
-            content_type = str(dict(response.headers).get('content-type'))
+            # content_type = str(dict(response.headers).get('content-type'))
 
-            if 'json' in content_type:
-                file_ext = 'json'
-            elif 'html' in content_type:
-                file_ext = 'html'
-            else:
-                file_ext = 'txt'
+            # if 'json' in content_type:
+            #     file_ext = 'json'
+            # elif 'html' in content_type:
+            #     file_ext = 'html'
+            # else:
+            #     file_ext = 'txt'
 
             parsed_url = urlparse(response.url)
             path = parsed_url.path
@@ -130,7 +137,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 )
             )
 
-            metadata = {
+            mock_file_json = {
                 # ["ok","status_code","charset","charset_encoding","default_encoding","encoding","infos","reason"]
                 "ok": response.ok,
                 "status_code": response.status_code,
@@ -140,30 +147,20 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 "encoding": response.encoding,
                 "infos": response.infos,
                 "reason": response.reason,
+                "content": str(response.content),
+                "headers": dict(response.headers),
+                "cookies": dict(response.cookies),
             }
 
-            os.makedirs(save_to, exist_ok=True)
+            parent_dir = os.path.dirname(save_to)
+            os.makedirs(parent_dir, exist_ok=True)
 
             # Save the response body
-            with open(save_to + os.sep + "body." + file_ext, "w", encoding="utf-8") as file:
-                if file_ext == 'json':
-                    file.write(json.dumps(json.loads(response.text), indent=4))
-                else:
-                    file.write(response.text)
+            with open(f"{save_to}.json", "w", encoding="utf-8") as file:
+                file.write(json.dumps(mock_file_json, indent=4))
 
-            # Save the cookies
-            with open(save_to + os.sep + "cookies.json", "w", encoding="utf-8") as file:
-                file.write(json.dumps(dict(response.cookies), indent=4))
-
-            # Save the headers
-            with open(save_to + os.sep + "headers.json", "w", encoding="utf-8") as file:
-                file.write(json.dumps(dict(response.headers), indent=4))
-
-            # Save misc metadata
-            with open(save_to + os.sep + "metadata.json", "w", encoding="utf-8") as file:
-                file.write(json.dumps(metadata, indent=4))
         except Exception as e:
-            print("Exception in __log_as_mock_data:", e)
+            print("Exception in __save_as_mock_data:", e)
 
     @finalmethod
     def __init_logging(self) -> None:
@@ -350,7 +347,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             debug=self._debug_curl,
         )
 
-        self.__log_as_mock_data(res)
+        self.__save_as_mock_data(res)
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
             raise CaptchaEncountered(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
@@ -397,7 +394,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             debug=self._debug_curl,
         )
 
-        self.__log_as_mock_data(res)
+        self.__save_as_mock_data(res)
 
         return res
 

@@ -14,7 +14,7 @@ from chempare.datatypes.variant import TypeVariant
 
 
 @dataclass
-class TypeProduct():
+class TypeProduct:
     """Custom data class for products"""
 
     name: str
@@ -100,8 +100,13 @@ class TypeProduct():
     #     super().__init__(**kwargs)
     #     self.update(kwargs)
 
-    def update(self, data:Dict) -> None:
+    def update(self, data: Dict) -> None:
+        """Append a dictionary data to the product"""
         self.__dict__.update(data)
+
+    def setdefault(self, key: str, val: Any) -> None:
+        """Set the default value of a property"""
+        self.__dict__.setdefault(key, val)
 
     def __bool__(self) -> bool:
         """This just allows us to use 'if not product'"""

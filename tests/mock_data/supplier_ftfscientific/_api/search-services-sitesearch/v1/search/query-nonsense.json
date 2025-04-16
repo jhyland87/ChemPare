@@ -1,0 +1,31 @@
+{
+    "ok": true,
+    "status_code": 200,
+    "charset": "utf-8",
+    "charset_encoding": "utf-8",
+    "default_encoding": "utf-8",
+    "encoding": "utf-8",
+    "infos": {},
+    "reason": "",
+    "content": "{\"documents\":[],\"nextPage\":{\"total\":0,\"skip\":12,\"limit\":12},\"facets\":[{\"minAggregation\":{\"facet\":\"discountedPriceNumeric\"}},{\"maxAggregation\":{\"facet\":\"discountedPriceNumeric\"}},{\"terms\":{\"facet\":\"collections\",\"facets\":[]}}]}",
+    "headers": {
+        "content-type": "application/json;charset=utf-8",
+        "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server",
+        "x-wix-request-id": "1744810003.67568983685532522067",
+        "set-cookie": "_wixAB3=4215528#1; Max-Age=15724800; Expires=Wed, 15 Oct 2025 13:26:43 GMT; Path=/_api/search-services-sitesearch/v1/search; Domain=.wix.com, XSRF-TOKEN=1744810003|tOCjAJVXk1Rv; Path=/; Domain=www.ftfscientific.com; Secure; SameSite=None",
+        "server": "Pepyaka",
+        "x-content-type-options": "nosniff",
+        "accept-ranges": "bytes",
+        "date": "Wed, 16 Apr 2025 13:26:43 GMT",
+        "x-served-by": "cache-bur-kbur8200048-BUR",
+        "x-cache": "MISS",
+        "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,ui2Pjuc3zC1HEw7V2qXeyh9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLvwo5ohzDg7YlLLgR+E8FvUG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4UKuRWnZXfYhzHm+Xy8uD9YOIv81siZFFg8Zg0+ti17jppURLKyCjlt+Pr9W0+H3pg==,R8nVwPJv9QJL1m78OROO+EOuTTPRBBS++PRaxs794ZE=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIyvqT5yGGR0r4KZVL0z7EmpdqiF5x8M68v30btTqxOKWhSqcUZ8X2HINnXnKxjfUvTg=,056Ktf5eQEZQsH6m6bpgrU7Z+Pg5L+PXmfMGsOZ9eW1EQfi00LSS7LJu7sdkoLsD6ItJsdB+MrMjDsqiotdW8g==,//VbsS0LoZbpJpx5iMSc6M86LNnWLJO19kVrffL7nZFWIBlUM0AmGsa7JQ9OSdxRE1HRuZlRMB7u5s4mQ/yM8Q==,//VbsS0LoZbpJpx5iMSc6ISoX+7IDCcFvPwDKgqrd8HD3wP81vaDFb1VaAMlJ95AV/lwbK/G6QJVurWx7D+I0w==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA0/EN7jnEZjqo2cxtj9QMPUrJiSnb4yM3LHWbJTe4YPY4hV6verFdIiSs4F/MOPzGg=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVTRaD+AArBiNlMfLt50Y/Lv3FjW8X7GbVlq/Med0z3ueViB5QmpRe2J37zq9nDD6cs=",
+        "content-length": "225",
+        "via": "1.1 google",
+        "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    },
+    "cookies": {
+        "XSRF-TOKEN": "1744810003|tOCjAJVXk1Rv"
+    }
+}

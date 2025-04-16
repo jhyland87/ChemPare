@@ -1,0 +1,24 @@
+{
+    "ok": true,
+    "status_code": 200,
+    "charset": "UTF-8",
+    "charset_encoding": "UTF-8",
+    "default_encoding": "utf-8",
+    "encoding": "UTF-8",
+    "infos": {},
+    "reason": "",
+    "content": "{\"totalItems\":0,\"startIndex\":0,\"itemsPerPage\":15,\"currentItemCount\":0,\"pageStartIndex\":0,\"totalPages\":0,\"vendorStartIndex\":0,\"totalVendors\":0,\"tagStartIndex\":0,\"totalTags\":0,\"suggestions\":[],\"pages\":[],\"vendors\":[],\"tags\":[],\"items\":[],\"facets\":[{\"title\":\"Price\",\"default_title\":\"Price\",\"attribute\":\"price\",\"type\":\"slider\",\"data_type\":\"float\",\"data\":[],\"desktop_view\":\"open\",\"show_on_mobile\":\"Y\",\"buckets\":[{\"value\":\"-\",\"title\":\"\",\"from\":\"\",\"left\":\"\",\"right\":\"\",\"to\":\"\",\"count\":0}]}]}",
+    "headers": {
+        "server": "nginx",
+        "date": "Wed, 16 Apr 2025 13:26:32 GMT",
+        "content-type": "text/javascript;charset=UTF-8",
+        "cache-control": "private",
+        "expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+        "last-modified": "Wed, 16 Apr 2025 13:26:32 GMT",
+        "se-host": "searchengine23-001.searchanise:8000",
+        "x-proccessor": "(null)",
+        "access-control-allow-origin": "*",
+        "content-encoding": "gzip"
+    },
+    "cookies": {}
+}
