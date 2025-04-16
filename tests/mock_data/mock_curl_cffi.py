@@ -166,21 +166,10 @@ def get_mock_response_module(supplier: str, req_path: str, test_name: str | None
     if body_file:
         # text? Or text?
         result['text'] = read_mock_file(body_file)
-        if result['text']:
-            if isinstance(result['text'], dict) or isinstance(result['text'], list):
-                result['text'] = bytes(json.dumps(result['text']), encoding="utf-8")
+        if result['text'] and (isinstance(result['text'], dict) or isinstance(result['text'], list)):
+            result['text'] = bytes(json.dumps(result['text']), encoding="utf-8")
 
     return result
-    # mock_data_module_file = Path(f"{supplier}{req_path}.py")
-    # mock_data_module_name = str(mock_data_module_file.with_suffix('')).replace(os.sep, '.')
-    # mock_data_abs_file = os.path.dirname(os.path.abspath(__file__)) + "/" + str(mock_data_module_file)
-
-    # module_spec = importlib.util.spec_from_file_location(mock_data_module_name, mock_data_abs_file)
-    # mock_module = importlib.util.module_from_spec(module_spec)
-    # sys.modules[mock_data_module_name] = mock_module
-    # module_spec.loader.exec_module(mock_module)
-
-    # return mock_module
 
 
 def request(

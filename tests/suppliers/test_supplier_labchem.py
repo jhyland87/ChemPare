@@ -3,7 +3,7 @@
 import pytest
 from pytest_attributes import attributes
 
-from chempare.datatypes import TypeProduct
+
 from chempare.exceptions import CaptchaEncountered
 from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
 
