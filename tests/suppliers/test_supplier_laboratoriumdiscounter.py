@@ -6,7 +6,7 @@ from chempare.suppliers.supplier_base import NoProductsFound
 from chempare.suppliers.supplier_laboratoriumdiscounter import SupplierLaboratoriumDiscounter as Supplier
 
 
-@attributes(supplier="laboratoriumdiscounter", mock_data="query-acid")
+@attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-acid")
 def test_name_query():
     try:
         results = Supplier("acid")
@@ -20,7 +20,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laboratoriumdiscounter", mock_data="query-7664-93-9")
+@attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-7664-93-9")
 def test_cas_query():
     try:
         results = Supplier("7664-93-9")
@@ -34,7 +34,7 @@ def test_cas_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laboratoriumdiscounter", mock_data="query-nonsense")
+@attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-nonsense")
 def test_nonsense_query():
     results = None
     try:
@@ -51,7 +51,7 @@ def test_nonsense_query():
     # assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="laboratoriumdiscounter", mock_data="query-9999-99-9")
+@attributes(supplier="supplier_laboratoriumdiscounter", mock_data="query-9999-99-9")
 def test_invalid_cas_query():
     results = None
     try:

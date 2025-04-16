@@ -6,7 +6,7 @@ from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_esdrei import SupplierEsDrei as Supplier
 
 
-@attributes(supplier="esdrei", mock_data="query-wasser")
+@attributes(supplier="supplier_esdrei", mock_data="query-wasser")
 def test_name_query():
     try:
         results = Supplier("Wasser")
@@ -16,7 +16,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="esdrei", mock_data="query-nonsense")
+@attributes(supplier="supplier_esdrei", mock_data="query-nonsense")
 def test_nonsense_query():
     try:
         results = Supplier("this_should_return_no_search_result")

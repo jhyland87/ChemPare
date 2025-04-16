@@ -1,0 +1,18 @@
+{
+    "content-type": "application/json;charset=utf-8",
+    "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server",
+    "x-wix-request-id": "1744772656.286672821113121182968",
+    "set-cookie": "XSRF-TOKEN=1744772656|Dbp-8Q3419TB; Path=/; Domain=www.ftfscientific.com; Secure; SameSite=None",
+    "server": "Pepyaka",
+    "x-content-type-options": "nosniff",
+    "content-encoding": "br",
+    "accept-ranges": "bytes",
+    "date": "Wed, 16 Apr 2025 03:04:16 GMT",
+    "x-served-by": "cache-lax-kwhp1940141-LAX",
+    "x-cache": "MISS",
+    "vary": "Accept-Encoding",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,jdDt270t0fniy2BugWKBrXCZUssOmfcD8s7SlK4c7+4OIv81siZFFg8Zg0+ti17jJIJ4h2QLLpgOwq9NunbWvA==,R8nVwPJv9QJL1m78OROO+EOuTTPRBBS++PRaxs794ZE=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIyvqT5yGGR0r4KZVL0z7EmpdqiF5x8M68v30btTqxOKWhSqcUZ8X2HINnXnKxjfUvTg=,k6fcPCielvPFHeks80wlY/BsIoELosmi5iMUrFMD7zdEQfi00LSS7LJu7sdkoLsDdo6lXQ3//+1mH9eonXP09A==,//VbsS0LoZbpJpx5iMSc6ISoX+7IDCcFvPwDKgqrd8HD3wP81vaDFb1VaAMlJ95AV/lwbK/G6QJVurWx7D+I0w==,//VbsS0LoZbpJpx5iMSc6OUAe8TGZ9D1xOD0QeEbY2O8I+ZsfNKVdquFhtGhS0OrSiTKSzP7iYy6+W3ZJx2t7g==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA3VI1iuCcugy8R8ErYBU7D/i2bn7qiDk+SbSd89CBZRxL6F3IFD6WeN5tacXzH+35o=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVQ9zTQDVs+17hviNdCCsopd6my+gPoowB/R5ZUgVvBA4liB5QmpRe2J37zq9nDD6cs=",
+    "via": "1.1 google",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+}

@@ -5,7 +5,7 @@ from pytest_attributes import attributes
 from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
 
 
-@attributes(supplier="ftfscientific", mock_data="query-water")
+@attributes(supplier="supplier_ftfscientific", mock_data="query-water")
 def test_name_query():
     try:
         results = Supplier("water")
@@ -15,7 +15,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="ftfscientific", mock_data="query-cas-95-50-1")
+@attributes(supplier="supplier_ftfscientific", mock_data="query-cas-95-50-1")
 def test_cas_query():
     try:
         results = Supplier("95-50-1")
@@ -25,7 +25,7 @@ def test_cas_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="ftfscientific", mock_data="query-nonsense")
+@attributes(supplier="supplier_ftfscientific", mock_data="query-nonsense")
 def test_nonsense_query():
     try:
         results = Supplier("This_should_return_no_results")
@@ -35,7 +35,7 @@ def test_nonsense_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@attributes(supplier="ftfscientific", mock_data="query-cas-7782-77-6")
+@attributes(supplier="supplier_ftfscientific", mock_data="query-cas-7782-77-6")
 def test_invalid_cas_query():
     try:
         results = Supplier("7782-77-6")
