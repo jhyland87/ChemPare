@@ -23,16 +23,11 @@ from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem as Sup
 
 @attributes(supplier="supplier_biofuranchem", mock_data="query-water")
 def test_name_query():
-    try:
-        results = Supplier("water")
-        assert isinstance(results, Exception) is False
-        assert hasattr(results, "__iter__") is True
-        assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
-    except Exception as e:
-        results = e
-
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    results = Supplier("water")
+    assert isinstance(results, Exception) is False
+    assert hasattr(results, "__iter__") is True
+    assert hasattr(results, "products") is True
+    assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
 
 
 @attributes(supplier="supplier_biofuranchem", mock_data="query-5949-29-1")

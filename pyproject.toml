@@ -23,7 +23,7 @@ dependencies = [
     "translate",
     "regex",
     "inflection",
-    "isort"
+    "requests-cache"
 ]
 
 authors = [
@@ -55,6 +55,7 @@ test = [
     "requests-mock",
     "pytest_mock",
     "flake8-pyproject",
+    "isort"
     #"coverage",
 ]
 dev = ["pycodestyle==2.4.0"]
@@ -128,7 +129,7 @@ env = [
     # DEBUG, WARNING, ERROR, INFO
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
-    "SAVE_RESPONSES=false"
+    "SAVE_RESPONSES=true"
 ]
 minversion = "7.0"
 addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "

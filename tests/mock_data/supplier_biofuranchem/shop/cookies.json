@@ -1,5 +1,0 @@
-{
-    "client-session-bind": "ed66c81d-bcd7-462a-8e99-e4d5b11cef63",
-    "server-session-bind": "ed66c81d-bcd7-462a-8e99-e4d5b11cef63",
-    "ssr-caching": "cache#desc=miss#varnish=miss_miss#dc#desc=fastly_uw2-pub-1_g"
-}

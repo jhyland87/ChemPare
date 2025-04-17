@@ -1,0 +1,49 @@
+{
+  "_content": "",
+  "cookies": {
+    "XSRF-TOKEN": "1744901232|Plqu8kFSZRzW"
+  },
+  "created_at": "2025-04-17T14:47:12.689367+00:00",
+  "elapsed": 0.210395,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "cache-control": "no-cache",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Thu, 17 Apr 2025 14:47:12 GMT",
+    "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "set-cookie": "_wixAB3=1292391#1|4195310#2|4217282#1; Max-Age=15724800; Expires=Thu, 16 Oct 2025 14:47:12 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1744901232|Plqu8kFSZRzW; Path=/; Domain=www.biofuranchem.com; Secure; SameSite=None",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "MISS",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,xIKq3IotbbLp4+7DTTMx8R9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLo8CJZFp5+V7VR/WYDn10bQG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4f47nr+lm8TWf4IsNYbgvm0OIv81siZFFg8Zg0+ti17jMwkFZVrvVHhKgrkZr6ZXjw==,R8nVwPJv9QJL1m78OROO+EOuTTPRBBS++PRaxs794ZE=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5cO3v9r1Kj1Eqy37/tu6CyHXqCdais99w+Bu7ipfHEzcliB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-lax-kwhp1940062-LAX",
+    "x-wix-request-id": "1744901232.61172893173083679116"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "server-session-bind": "413c46c5-9219-4eb7-995d-4b3153c9ec0b"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=413c46c5-9219-4eb7-995d-4b3153c9ec0b",
+      "User-Agent": "python-requests/2.32.3",
+      "client-binding": "413c46c5-9219-4eb7-995d-4b3153c9ec0b"
+    },
+    "method": "HEAD",
+    "url": "https://www.biofuranchem.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"
+  },
+  "status_code": 200,
+  "url": "https://www.biofuranchem.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"
+}

@@ -2,8 +2,9 @@
 
 from typing import List
 
+# from curl_cffi import requests
+import requests
 from abcplus import finalmethod
-from curl_cffi import requests
 
 from chempare import ClassUtils
 from chempare import suppliers
@@ -92,10 +93,7 @@ class SearchFactory(ClassUtils, object):
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
 
-            if (
-                query_is_cas is True
-                and supplier_module.allow_cas_search is False
-            ):
+            if query_is_cas is True and supplier_module.allow_cas_search is False:
                 if __debug__:
                     print(f"Skipping {supplier_module.__name__} CAS search")
                 continue
@@ -136,9 +134,7 @@ class SearchFactory(ClassUtils, object):
         cas = None
         try:
             # Send a GET request to the API
-            cas_request = requests.get(
-                f"https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas"
-            )
+            cas_request = requests.get(f"https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas")
             # Check if the request was successful
             if cas_request.status_code != 200:
                 return None
@@ -171,22 +167,16 @@ class SearchFactory(ClassUtils, object):
             str: The most frequently found name
         """
         # Send a GET request to the API
-        name_request = requests.get(
-            f"https://cactus.nci.nih.gov/chemical/structure/{query}/names"
-        )
+        name_request = requests.get(f"https://cactus.nci.nih.gov/chemical/structure/{query}/names")
 
         # Check if the request was successful
         if name_request.status_code != 200:
             raise SystemError(f"Error: {name_request.status_code}")
 
-        name_response = name_request.content.decode(
-            "utf-8"
-        )  # Decode the bytes to a string
+        name_response = name_request.content.decode("utf-8")  # Decode the bytes to a string
         name_lines = name_response.split("\n")  # Split by newline
 
-        highest_val = self._filter_highest_item_value(
-            self._get_common_phrases(name_lines)
-        )
+        highest_val = self._filter_highest_item_value(self._get_common_phrases(name_lines))
 
         keys = list(highest_val.keys())
         return keys[0][0]

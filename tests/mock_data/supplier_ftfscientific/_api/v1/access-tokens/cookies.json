@@ -1,8 +1,0 @@
-{
-    "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-    "server-session-bind": "4cea9e66-6c01-472a-9548-8fe062b8e7ec",
-    "client-session-bind": "4cea9e66-6c01-472a-9548-8fe062b8e7ec",
-    "XSRF-TOKEN": "1744772656|2h1wAhBeG481",
-    "hs": "-458958110",
-    "svSession": "1495c961f29a954accac6e86c7c62468cda1996db710b1c28d5a22efd3456d19cc4f683bfc6b362f2581019ab6d9786a1e60994d53964e647acf431e4f798bcd147216a3f7f455d62c9d8ac3e712b15bbf0ab1c7c6c5a26922f5e527097f5f97debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
-}

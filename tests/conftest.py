@@ -1,13 +1,18 @@
 # from chempare import suppliers
 # import os
 
+import os
 from decimal import Decimal
-
-import curl_cffi.requests
 
 # import curl_cffi
 import pytest
-from mock_data import mock_curl_cffi
+
+# import curl_cffi.requests
+import requests
+from _pytest.monkeypatch import MonkeyPatch
+
+# from mock_data import mock_curl_cffi
+from mock_data import mock_request_cache
 
 # from price_parser import Price
 from pytest_mock import MockerFixture
@@ -31,26 +36,52 @@ import chempare
 
 @pytest.fixture(autouse=True)
 def setup_mock_cfg_to_curl_cffi_attrs(attr):
-    setattr(mock_curl_cffi.request, 'mock_cfg', attr)
-    setattr(mock_curl_cffi.MockResponse, 'mock_cfg', attr)
-    setattr(curl_cffi.requests.Response, 'mock_cfg', attr)
-    yield
-    delattr(mock_curl_cffi.request, 'mock_cfg')
-    delattr(mock_curl_cffi.MockResponse, 'mock_cfg')
-    delattr(curl_cffi.requests.Response, 'mock_cfg')
-
-
-@pytest.fixture(autouse=True, scope="session", name="function requests mocker")
-def monkeypatch_session():
-    from _pytest.monkeypatch import MonkeyPatch
-
     monkeypatch = MonkeyPatch()
-    monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+    # setattr(mock_request_cache, 'mock_cfg', attr)
+    mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(attr.supplier)
+
+    monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
+    monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
+    monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
     chempare.test_monkeypatching = True
     yield monkeypatch
     monkeypatch.undo()
-    monkeypatch.delattr(curl_cffi.requests, "request")
     chempare.test_monkeypatching = False
+
+    # setattr(mock_curl_cffi.MockResponse, 'mock_cfg', attr)
+    # setattr(curl_cffi.requests.Response, 'mock_cfg', attr)
+    # yield
+    # delattr(mock_request_cache, 'mock_cfg')
+    # delattr(mock_curl_cffi.request, 'mock_cfg')
+    # delattr(mock_curl_cffi.MockResponse, 'mock_cfg')
+    # delattr(curl_cffi.requests.Response, 'mock_cfg')
+
+
+# @pytest.fixture(autouse=True, scope="session", name="function requests mocker")
+# def monkeypatch_session():
+#     save_responses = os.environ.get('SAVE_RESPONSES')
+
+#     if save_responses != 'true' and save_responses != '1':
+#         return
+#     print('SAVING RESPONSES')
+#     from _pytest.monkeypatch import MonkeyPatch
+
+#     monkeypatch = MonkeyPatch()
+#     # monkeypatch.setattr(curl_cffi.requests, "request", mock_curl_cffi.request)
+#     # monkeypatch.setattr(curl_cffi.requests, "get", mock_request_cache.requests.get)
+#     # monkeypatch.setattr(curl_cffi.requests, "post", mock_request_cache.requests.post)
+
+#     monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
+#     monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
+#     monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
+#     chempare.test_monkeypatching = True
+#     yield monkeypatch
+#     monkeypatch.undo()
+#     #    monkeypatch.delattr(curl_cffi.requests, "request")
+#     # monkeypatch.delattr(requests, "get")
+#     # monkeypatch.delattr(requests, "post")
+#     # monkeypatch.delattr(requests, "head")
+#     chempare.test_monkeypatching = False
 
 
 # @pytest.fixture(autouse=True, scope="function", name="requests mocker")
