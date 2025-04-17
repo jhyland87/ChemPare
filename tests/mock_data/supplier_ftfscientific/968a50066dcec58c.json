@@ -1,0 +1,49 @@
+{
+  "cookies": {
+    "ssr-caching": "cache#desc=hit#varnish=hit_miss#dc#desc=fastly_uw2-pub-1_g"
+  },
+  "created_at": "2025-04-17T19:19:13.828933+00:00",
+  "elapsed": 0.193292,
+  "encoding": "UTF-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "5701",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-language": "en-US",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Thu, 17 Apr 2025 19:19:13 GMT",
+    "etag": "W/\"d8705aea00e9ab210104af104a9bef17\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "html-cacheable": "true",
+    "link": "<https://static.parastorage.com/>; rel=preconnect; crossorigin;,<https://static.parastorage.com/>; rel=preconnect;,<https://static.wixstatic.com/>; rel=preconnect; crossorigin;,<https://static.wixstatic.com/>; rel=preconnect;,<https://siteassets.parastorage.com>; rel=preconnect; crossorigin;,",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_miss, dc;desc=fastly_uw2-pub-1_g",
+    "set-cookie": "ssr-caching=cache#desc=hit#varnish=hit_miss#dc#desc=fastly_uw2-pub-1_g; max-age=20",
+    "strict-transport-security": "max-age=86400",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "MISS",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,1ev8u3tblITHmgXkyGXE9h9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLt4IRtmbVvKklG4Zpf3E4eIG/hKs8AeY1T4OIbgnD+yx,2d58ifebGbosy5xc+FRaljXLmwh2w8e7iLwmw06XvUaoRoz9P32Qob+LPcv5ZNbsA8pAUC+bF4cTS8TkFuQ/4w==,2UNV7KOq4oGjA5+PKsX47Od8pJsJ3jkw5CvsMm34pRJjPZTuGyYqVhtmEIgJUb4w",
+    "x-served-by": "cache-bur-kbur8200050-BUR",
+    "x-wix-request-id": "1744917553.820736995765163411090"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "HEAD",
+    "url": "https://www.ftfscientific.com/"
+  },
+  "status_code": 200,
+  "url": "https://www.ftfscientific.com/",
+  "_decoded_content": ""
+}

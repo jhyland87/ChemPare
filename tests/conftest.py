@@ -48,14 +48,6 @@ def setup_mock_cfg_to_curl_cffi_attrs(attr):
     monkeypatch.undo()
     chempare.test_monkeypatching = False
 
-    # setattr(mock_curl_cffi.MockResponse, 'mock_cfg', attr)
-    # setattr(curl_cffi.requests.Response, 'mock_cfg', attr)
-    # yield
-    # delattr(mock_request_cache, 'mock_cfg')
-    # delattr(mock_curl_cffi.request, 'mock_cfg')
-    # delattr(mock_curl_cffi.MockResponse, 'mock_cfg')
-    # delattr(curl_cffi.requests.Response, 'mock_cfg')
-
 
 # @pytest.fixture(autouse=True, scope="session", name="function requests mocker")
 # def monkeypatch_session():

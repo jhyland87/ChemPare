@@ -34,25 +34,22 @@ class SupplierFtfScientific(SupplierBase):
 
     def _setup(self, query: str | None = None) -> None:
         headers = self.http_get_headers()
-        cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
 
-        auth_cookies = {}
-        auth_headers = {}
+        cookies = self._split_set_cookie(headers.get('set-cookie', ''))
 
-        for cookie in cookies:
-            segs = cookie.split("=")
-            name = segs[0]
-            val = "=".join(segs[1:-1])
+        if cookies:
+            for cookie in cookies:
+                cookie_data = self._parse_cookie(cookie)
 
-            if name == "ssr-caching" or name == "server-session-bind":
-                auth_cookies[name] = val.split(";")[0]
-                continue
+                if cookie_data.get("name") == "ssr-caching" or cookie_data.get("name") == "server-session-bind":
+                    self._cookies[cookie_data.get("name")] = cookie_data.get("value")
+                    continue
 
-            if name == "client-session-bind":
-                auth_headers["client-binding"] = val.split(";")[0]
-                continue
+                if cookie_data.get("name") == "client-session-bind":
+                    self._headers["client-binding"] = cookie_data.get("value")
+                    continue
 
-        auth = self.http_get_json("_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers)
+        auth = self.http_get_json("_api/v1/access-tokens", cookies=self._cookies, headers=self._headers)
 
         # What can this be used for?
         # https://www.ftfscientific.com/_api/v2/dynamicmodel

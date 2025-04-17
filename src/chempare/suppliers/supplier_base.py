@@ -10,6 +10,7 @@ from typing import Dict
 from typing import List
 from typing import Self
 from typing import TypedDict
+from collections.abc import Iterable
 from urllib.parse import urlparse
 
 # from curl_cffi import Headers
@@ -27,7 +28,7 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
-from chempare.utils import dict_hash
+from chempare.utils import dict_hash, replace_dict_values_by_value
 
 
 # import chempare
@@ -235,7 +236,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @property
     @finalmethod
-    def products(self) -> List[TypeProduct]:
+    def products(self) -> Iterable[TypeProduct]:
         """Product title getter
 
         Returns:
@@ -249,9 +250,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self,
         path: str | None = None,
         /,
-        params: Dict | None = None,
-        cookies: Dict | None = None,
-        headers: Dict | None = None,
+        params: dict | None = None,
+        cookies: dict | None = None,
+        headers: dict | None = None,
     ):
         """Base HTTP getter (not specific to data type).
 
@@ -271,7 +272,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         elif api_url not in path:
             path = f"{api_url}/{path}"
 
+        # request-cache seems to have issues if the parameters contain dictionaries or lists.
+        # Look for any and convert them to json strings
         if isinstance(params, dict):
+            params = replace_dict_values_by_value(params, True, 'true')
+            params = replace_dict_values_by_value(params, False, 'false')
+            params = replace_dict_values_by_value(params, None, 'null')
+
             for k, v in params.items():
                 if isinstance(v, list) or isinstance(v, dict):
                     params[k] = json.dumps(v)
@@ -295,11 +302,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self,
         path: str,
         /,
-        params: Dict | None = None,
+        params: dict | None = None,
         data: Any = None,
-        json: Dict | List | None = None,
-        cookies: Dict | None = None,
-        headers: Dict | None = None,
+        json: Iterable | None = None,
+        cookies: dict | None = None,
+        headers: dict | None = None,
     ):
         """Base HTTP poster (not specific to data type).
 
@@ -333,7 +340,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res
 
     @finalmethod
-    def http_get_headers(self, path, *args, **kwargs):
+    def http_get_headers(self, path: str | None = None, *args, **kwargs):
         """Get the response headers for a GET request
 
         Returns:
@@ -354,11 +361,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self,
         path: str | None = None,
         /,
-        params: Dict | None = None,
-        json: Dict | None = None,
-        headers: Dict | None = None,
-        cookies: Dict | None = None,
-    ) -> Dict | List | None:
+        params: dict | None = None,
+        json: dict | None = None,
+        headers: dict | None = None,
+        cookies: dict | None = None,
+    ) -> Dict | dict | None:
         """Post a JSON request and get a JSON response
 
         Args:
@@ -386,7 +393,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return req.json()
 
     @finalmethod
-    def http_get_html(self, path: str | None = None, /, params: Dict | None = None) -> bytes:
+    def http_get_html(self, path: str | None = None, /, params: dict | None = None) -> bytes:
         """HTTP getter (for HTML content).
 
         Args:
@@ -408,7 +415,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.content
 
     @finalmethod
-    def http_get_json(self, path: str | None = None, /, **kwargs) -> List | Dict | None:
+    def http_get_json(self, path: str, /, params: dict | None = None, **kwargs) -> dict | None:
         """HTTP getter (for JSON content).
 
         Args:
@@ -419,7 +426,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             JSON object from response body
         """
 
-        res = self.http_get(path, **kwargs)
+        res = self.http_get(path, params=params, **kwargs)
 
         if res is None:
             return None

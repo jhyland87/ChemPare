@@ -278,6 +278,7 @@ source = [
     "src",
     "src/chempare",
     "src/chempare/datatypes",
+    "src/chempare/exceptions",
     "src/chempare/suppliers"
 ]
 
@@ -297,6 +298,7 @@ source = [
     "src",
     "src/chempare",
     "src/chempare/datatypes",
+    "src/chempare/exceptions",
     "src/chempare/suppliers"
 ]
 omit = ["*tests*","*/__init__.py"]

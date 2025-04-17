@@ -21,10 +21,7 @@ from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplie
 
 @attributes(supplier="supplier_chemsavers", mock_data="query-water")
 def test_name_query():
-    try:
-        results = Supplier("water")
-    except Exception as e:
-        results = e
+    results = Supplier("water")
 
     assert isinstance(results, Exception) is False, "query returned an exception"
 
