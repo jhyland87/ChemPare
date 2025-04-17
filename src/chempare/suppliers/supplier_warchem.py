@@ -14,10 +14,7 @@ class SupplierWarchem(SupplierBase):
     """Maximum amount of allowed search results to be returned"""
 
     _supplier: TypeSupplier = TypeSupplier(
-        name="WarChem",
-        location=None,
-        base_url="https://warchem.pl",
-        api_url="https://warchem.pl",
+        name="WarChem", location=None, base_url="https://warchem.pl", api_url="https://warchem.pl"
     )
     """Supplier specific data"""
 
@@ -45,9 +42,7 @@ class SupplierWarchem(SupplierBase):
         self._cookies["eGold"] = self._random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
-        self.http_post(
-            f"szukaj.html/szukaj={query}", data=dict(ilosc_na_stronie=36)
-        )
+        self.http_post(f"szukaj.html/szukaj={query}", data=dict(ilosc_na_stronie=36))
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -64,9 +59,7 @@ class SupplierWarchem(SupplierBase):
         )
 
         search_result_soup = BeautifulSoup(search_result, "html.parser")
-        product_container = search_result_soup.find(
-            "div", class_="ListingWierszeKontener"
-        )
+        product_container = search_result_soup.find("div", class_="ListingWierszeKontener")
 
         if not product_container:
             return
@@ -91,10 +84,7 @@ class SupplierWarchem(SupplierBase):
             # a TypeProduct object.
 
             link = product_elem.find("h3").find("a")
-            thread = Thread(
-                target=self.__query_and_parse_product,
-                kwargs=dict(href=link.attrs["href"]),
-            )
+            thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=link.attrs["href"]))
             threads.append(thread)
             thread.start()
 
@@ -117,15 +107,9 @@ class SupplierWarchem(SupplierBase):
         product_page_html = self.http_get_html(href)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
 
-        product = dict(
-            title=product_soup.find("h1").get_text(strip=True),
-            supplier=self._supplier.name,
-            url=href,
-        )
+        product = dict(title=product_soup.find("h1").get_text(strip=True), supplier=self._supplier.name, url=href)
 
-        details = product_soup.find(
-            "div", class_="DodatkowyProduktuOpis"
-        ).find_all("tr")
+        details = product_soup.find("div", class_="DodatkowyProduktuOpis").find_all("tr")
 
         # The details table has some useful values. Add the key in the table
         # and its assocaited key in the product object below, and it will get
@@ -150,9 +134,7 @@ class SupplierWarchem(SupplierBase):
             product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
-        quantity_options = quantity_elem_container.find_all(
-            "div", class_="PoleWyboruCechy"
-        )
+        quantity_options = quantity_elem_container.find_all("div", class_="PoleWyboruCechy")
 
         quantity = quantity_options[0].find("label").find("span")
         if quantity:
@@ -160,5 +142,6 @@ class SupplierWarchem(SupplierBase):
 
         product = TypeProduct(**product)
         self._products.append(product.cast_properties())
+
 
 __supplier_class = SupplierWarchem

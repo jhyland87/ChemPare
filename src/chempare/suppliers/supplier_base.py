@@ -26,6 +26,7 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
+from chempare.utils import dict_hash
 
 
 # import chempare
@@ -286,12 +287,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if not self._products or isinstance(self._fuzz_ratio, int) is False or self._is_cas(self._query):
             return
 
-        self._products = [
+        x = [
             product
             for product in self._products
             if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
             or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
         ]
+
+        self._products = x
 
     def __next__(self) -> TypeProduct:
         """next magic method

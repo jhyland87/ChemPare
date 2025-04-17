@@ -23,8 +23,8 @@ from abcplus import finalmethod
 from currex import CURRENCIES
 from currex import Currency
 from datatypes import DecimalLike
-from datatypes import PriceType
-from datatypes import QuantityType
+from datatypes import TypePrice
+from datatypes import TypeQuantity
 from price_parser import Price
 
 
@@ -52,9 +52,7 @@ class ClassUtils(metaclass=ABCMeta):
         return math.floor(time.time() * 1000)
 
     @finalmethod
-    def _parse_price(
-        self, value: str, symbol_to_code: bool = True
-    ) -> PriceType | None:
+    def _parse_price(self, value: str, symbol_to_code: bool = True) -> TypePrice | None:
         """Parse a string for a price value (currency and value)
 
         Args:
@@ -64,7 +62,7 @@ class ClassUtils(metaclass=ABCMeta):
                                    (defaults to True)
 
         Returns:
-            PriceType: Returns a dictionary with 'currency' and 'price' values
+            TypePrice: Returns a dictionary with 'currency' and 'price' values
 
         See:
             https://en.wikipedia.org/wiki/Currency_symbol
@@ -153,25 +151,15 @@ class ClassUtils(metaclass=ABCMeta):
             "currency_code": currency_code or price.currency,
         }
 
-        if (
-            currency_code != "USD"
-            and price.currency is not None
-            and price.currency != currency_code
-        ):
-            usd_price = self._to_usd(
-                from_currency=currency_code, amount=float(price.amount)
-            )
+        if currency_code != "USD" and price.currency is not None and price.currency != currency_code:
+            usd_price = self._to_usd(from_currency=currency_code, amount=float(price.amount))
             if usd_price:
                 result["usd"] = usd_price
 
-        return PriceType(**result)
+        return TypePrice(**result)
 
     @finalmethod
-    def _to_usd(
-        self,
-        from_currency: str | None = None,
-        amount: int | float | str | None = None,
-    ) -> DecimalLike | None:
+    def _to_usd(self, from_currency: str | None = None, amount: int | float | str | None = None) -> DecimalLike | None:
         """Convert a no USD price to the USD price
 
         Args:
@@ -213,9 +201,7 @@ class ClassUtils(metaclass=ABCMeta):
         # an exception
         if not from_currency or isinstance(from_currency, str) is False:
             _logger.debug(
-                "Source currency '%s' (type %s) either not provided or wrong type",
-                from_currency,
-                type(from_currency),
+                "Source currency '%s' (type %s) either not provided or wrong type", from_currency, type(from_currency)
             )
             return None
 
@@ -228,11 +214,7 @@ class ClassUtils(metaclass=ABCMeta):
         amount = self._cast_type(amount)
 
         if not isinstance(amount, DecimalLike):
-            _logger.debug(
-                "Amount of '%s' is either invalid type or not provided (%s)",
-                amount,
-                type(amount),
-            )
+            _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
 
         # if not amount:
         #     raise ValueError("No amount provided or found")
@@ -312,14 +294,14 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> QuantityType | None:
+    def _parse_quantity(self, value: str) -> TypeQuantity | None:
         """Parse a string for the quantity and unit of measurement
 
         Args:
             value (str): Suspected quantity string
 
         Returns:
-            Optional[QuantityType]: Returns a dictionary with the 'quantity' and
+            Optional[TypeQuantity]: Returns a dictionary with the 'quantity' and
                             'uom' values
         """
 
@@ -328,31 +310,12 @@ class ClassUtils(metaclass=ABCMeta):
         # keys, then it's substituted with the value.
         uom_cases = {
             ("liter", "liters", "litres", "l"): "L",
-            (
-                "ml",
-                "mls",
-                "millilitre",
-                "millilitres",
-                "milliliter",
-                "milliliters",
-            ): "mL",
+            ("ml", "mls", "millilitre", "millilitres", "milliliter", "milliliters"): "mL",
             ("g", "gram", "grams"): "g",
             ("lb", "lbs", "pound", "pounds"): "lb",
             ("kg", "kgs", "killogram", "killograms"): "kg",
-            (
-                "mm",
-                "millimeter",
-                "millimeters",
-                "millimetre",
-                "millimetres",
-            ): "mm",
-            (
-                "cm",
-                "centimeter",
-                "centimeters",
-                "centimetre",
-                "centimetres",
-            ): "cm",
+            ("mm", "millimeter", "millimeters", "millimetre", "millimetres"): "mm",
+            ("cm", "centimeter", "centimeters", "centimetre", "centimetres"): "cm",
             ("m", "meter", "meters", "metre", "metres"): "m",
             ("oz", "ounce", "ounces"): "oz",
             ("gal", "gallon", "gallons"): "gal",
@@ -383,19 +346,15 @@ class ClassUtils(metaclass=ABCMeta):
         quantity_obj = matches.groupdict()
 
         # Look for any proper substitution UOM's
-        proper_uom = self._find_values_with_element(
-            uom_cases, str(quantity_obj["uom"]).lower()
-        )
+        proper_uom = self._find_values_with_element(uom_cases, str(quantity_obj["uom"]).lower())
 
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return QuantityType(**quantity_obj)
+        return TypeQuantity(**quantity_obj)
 
     @finalmethod
-    def _get_param_from_url(
-        self, url: str, param: str | None = None
-    ) -> Any | None:
+    def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:
         """Get a specific arameter from a GET URL
 
         Args:
@@ -420,9 +379,7 @@ class ClassUtils(metaclass=ABCMeta):
         parsed_query = parse_qs(parsed_url.query)
 
         # Replace any ['values'] with just 'values'
-        parsed_query = {
-            k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()
-        }
+        parsed_query = {k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()}
 
         if not param:
             return parsed_query
@@ -776,9 +733,7 @@ class ClassUtils(metaclass=ABCMeta):
         # return value
 
     @finalmethod
-    def _random_string(
-        self, max_length: int = 10, include_special: bool = False
-    ) -> str:
+    def _random_string(self, max_length: int = 10, include_special: bool = False) -> str:
         """Generate random string
 
         Args:
@@ -881,10 +836,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         # value='1234-56-6'
         # https://regex101.com/r/xPF1Yp/2
-        cas_pattern_check = re.match(
-            r"^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$",
-            value,
-        )
+        cas_pattern_check = re.match(r"^(?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])$", value)
 
         if cas_pattern_check is None:
             return False
@@ -898,10 +850,7 @@ class ClassUtils(metaclass=ABCMeta):
         cas_chars = list(cas_dict["seg_a"] + cas_dict["seg_b"])
         # cas_chars = ["1","2","3","4","5","6"]
 
-        checksum = (
-            sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])])
-            % 10
-        )
+        checksum = sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])]) % 10
         # checksum = 6
 
         return int(checksum) == int(cas_dict["checksum"])
@@ -930,11 +879,7 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _get_common_phrases(
-        self,
-        texts: list,
-        maximum_length: int = 3,
-        minimum_repeat: int = 2,
-        stopwords: list | None = None,
+        self, texts: list, maximum_length: int = 3, minimum_repeat: int = 2, stopwords: list | None = None
     ) -> dict:
         """Get the most common phrases out of a list of phrases.
 
@@ -997,9 +942,7 @@ class ClassUtils(metaclass=ABCMeta):
 
                 # If the entire phrase is found in a longer tuple...
                 # ... and their frequency overlaps by 75% or more, we'll drop it
-                difference = (
-                    phrases[phrase] - longest_phrases[l_phrase]
-                ) / longest_phrases[l_phrase]
+                difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
                 if difference < 0.25:
                     found = True
                     break
@@ -1009,9 +952,7 @@ class ClassUtils(metaclass=ABCMeta):
         return longest_phrases
 
     @finalmethod
-    def _find_values_with_element(
-        self, source: Dict, element: str | int | None
-    ) -> List:
+    def _find_values_with_element(self, source: Dict, element: str | int | None) -> List:
         """
         Finds values in a dictionary that are tuples and contain a specific
         element.
@@ -1042,8 +983,7 @@ class ClassUtils(metaclass=ABCMeta):
         return [
             source[key]
             for key in source
-            if (isinstance(key, tuple) and element in key)
-            or (isinstance(key, str) and element == key)
+            if (isinstance(key, tuple) and element in key) or (isinstance(key, str) and element == key)
         ]
 
 

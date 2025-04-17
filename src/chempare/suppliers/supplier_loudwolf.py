@@ -3,6 +3,7 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 
+from chempare.datatypes import TypePrice
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
@@ -22,9 +23,7 @@ class SupplierLoudwolf(SupplierBase):
     """Max results to store"""
 
     _supplier: TypeSupplier = TypeSupplier(
-        name="Loudwolf Scientific",
-        location="US",
-        base_url="https://www.loudwolf.com/",
+        name="Loudwolf Scientific", location="US", base_url="https://www.loudwolf.com/"
     )
     """Supplier specific data"""
 
@@ -61,9 +60,7 @@ class SupplierLoudwolf(SupplierBase):
             if self._is_cas(query) is True:
                 get_params["description"] = True
 
-            search_result = self.http_get_html(
-                "storefront/index.php", params=get_params
-            )
+            search_result = self.http_get_html("storefront/index.php", params=get_params)
 
             if not search_result:
                 return
@@ -72,9 +69,7 @@ class SupplierLoudwolf(SupplierBase):
 
             # Since we know the element is a <h3 class=product-price /> element,
             # search for H3's
-            product_elements = product_soup.find_all(
-                "div", class_="product-layout"
-            )
+            product_elements = product_soup.find_all("div", class_="product-layout")
 
             if product_elements is None:
                 # No product wrapper found
@@ -100,13 +95,9 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(
-                    product_href.strip()
-                )
+                product_href_params = self._get_param_from_url(product_href.strip())
 
-                if not product_href_params or not product_href_params.get(
-                    "product_id", None
-                ):
+                if not product_href_params or not product_href_params.get("product_id", None):
                     continue
 
                 product_id = product_href_params.get("product_id", None)
@@ -130,10 +121,7 @@ class SupplierLoudwolf(SupplierBase):
         threads = []
 
         for product_href in self.__product_pages.values():
-            thread = Thread(
-                target=self.__query_and_parse_product,
-                kwargs=dict(href=product_href),
-            )
+            thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=product_href))
             threads.append(thread)
             thread.start()
 
@@ -223,6 +211,8 @@ class SupplierLoudwolf(SupplierBase):
         # Attempt to parse the price out to get the currency and price
         price_data = self._parse_price(price_txt)
 
+        # if isinstance(price_data, TypePrice):
+        # if isinstance(price_data, TypePrice) and price_data:
         if price_data:
             product.update(price_data)
         else:
@@ -266,5 +256,6 @@ class SupplierLoudwolf(SupplierBase):
 
         product = TypeProduct(**product)
         return product.cast_properties()
+
 
 __supplier_class = SupplierLoudwolf

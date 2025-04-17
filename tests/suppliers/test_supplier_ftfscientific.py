@@ -1,6 +1,8 @@
+import pytest
 from pytest_attributes import attributes
 
-# import pytest
+from chempare.exceptions import NoProductsFound
+
 # from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific as Supplier
 
@@ -27,22 +29,22 @@ def test_cas_query():
 
 @attributes(supplier="supplier_ftfscientific", mock_data="query-nonsense")
 def test_nonsense_query():
-    try:
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("This_should_return_no_results")
-    except Exception as e:
-        results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for nonsense query"
 
 
 @attributes(supplier="supplier_ftfscientific", mock_data="query-cas-7782-77-6")
 def test_invalid_cas_query():
-    try:
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("7782-77-6")
-    except Exception as e:
-        results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for nonsense query"
 
 
 # # Base test class

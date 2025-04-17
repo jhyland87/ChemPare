@@ -136,4 +136,5 @@ class SupplierLaballey(SupplierBase):
 
         return product
 
+
 __supplier_class = SupplierLaballey

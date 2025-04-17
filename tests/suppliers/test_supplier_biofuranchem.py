@@ -3,8 +3,10 @@
 # from unittest.mock import MagicMock
 # from unittest.mock import patch
 
-# import pytest
+import pytest
 from pytest_attributes import attributes
+
+from chempare.exceptions import NoProductsFound
 
 # from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem as Supplier
@@ -49,27 +51,19 @@ def test_cas_query():
 
 @attributes(supplier="supplier_biofuranchem", mock_data="query-nonsense")
 def test_nonsense_query():
-    try:
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("this_should_return_no_search_result")
-        assert isinstance(results, Exception) is False
-        assert hasattr(results, "__iter__") is True
-        assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
-    except Exception as e:
-        results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for nonsense query"
 
 
-@attributes(supplier="supplier_biofuranchem", mock_data="query-9999-99-99")
+@attributes(supplier="supplier_biofuranchem", mock_data="query-9999-99-9")
 def test_invalid_cas_query():
-    try:
-        results = Supplier("9999-99-99")
-        assert isinstance(results, Exception) is False
-        assert hasattr(results, "__iter__") is True
-        assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
-    except Exception as e:
-        results = e
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
+        results = Supplier("9999-99-9")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for bad CAS query"

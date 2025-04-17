@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass
+from dataclasses import fields
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any

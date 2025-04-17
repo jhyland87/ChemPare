@@ -202,10 +202,10 @@ class SupplierBioFuranChem(SupplierBase):
         price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
 
         if qty is not None:
-            product.update(qty.__dict__)
+            product.update(qty)
 
         if price is not None:
-            product.update(price.__dict__)
+            product.update(price)
 
         product = TypeProduct(**product)
         return product.cast_properties()

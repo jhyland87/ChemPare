@@ -19,6 +19,7 @@ from curl_cffi.requests.session import RequestParams
 from curl_cffi.requests.session import ThreadType
 
 from chempare.exceptions import NoMockDataFound
+from chempare.utils import dict_hash
 
 
 CWD = os.path.dirname(__file__)
