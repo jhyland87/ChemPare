@@ -62,12 +62,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         self._debug_curl: bool = False
 
-        DEBUG_ENV = os.getenv('DEBUG', 'false').lower()
-        if DEBUG_ENV == 'true' or DEBUG_ENV == '1':
+        DEBUG_ENV = os.getenv("DEBUG", "false").lower()
+        if DEBUG_ENV == "true" or DEBUG_ENV == "1":
             self._debug_curl = True
 
-        SAVE_RESPONSES = os.getenv('SAVE_RESPONSES', 'false').lower()
-        if SAVE_RESPONSES == 'true' or SAVE_RESPONSES == '1':
+        SAVE_RESPONSES = os.getenv("SAVE_RESPONSES", "false").lower()
+        if SAVE_RESPONSES == "true" or SAVE_RESPONSES == "1":
             self._save_responses = True
 
         if hasattr(self, "_setup"):
@@ -91,89 +91,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def _supplier_dir(self):
-        return self.__class__.__module__.split('.')[-1]
-
-    # @finalmethod
-    # def __save_as_mock_data(self, response: Response) -> None:
-    #     """
-    #     Save HTTP response in a way it can be used as mock data for unit tests
-
-    #     Args:
-    #         response (Response): HTTP response from curl_cffi or requests module
-    #     """
-
-    #     try:
-    #         # Only permit saving data for mock responses if..
-    #         if (
-    #             # 1) Were supposed to
-    #             self._save_responses is False
-    #             # 2) We aren't already monkeypatching (otherwords were just re-saving mock data)
-    #             or chempare.test_monkeypatching is True
-    #             # 3) We're being called from a mock test (Not sure how critical this one is)
-    #             or chempare.called_from_test is False
-    #         ):
-    #             return
-
-    #         parsed_url = urlparse(response.url)
-    #         path = parsed_url.path
-
-    #         # For the tests where mock_data is specified, grab that and use it as the last folder in the path.
-    #         suffix = ''
-    #         if hasattr(response, 'mock_cfg') and hasattr(response.mock_cfg, 'mock_data'):  # type: ignore
-    #             suffix = response.mock_cfg.mock_data  # type: ignore
-
-    #         save_to = os.path.abspath(
-    #             os.path.join(
-    #                 os.path.dirname(__file__),
-    #                 "../../../",
-    #                 "tests/mock_data",
-    #                 self._supplier_dir(),
-    #                 path.lstrip("/"),
-    #                 suffix,
-    #             )
-    #         )
-
-    #         keys_to_extract = [
-    #             "content",
-    #             "status_code",
-    #             "reason",
-    #             "ok",
-    #             "headers",
-    #             "cookies",
-    #             "elapsed",
-    #             "default_encoding",
-    #             "redirect_count",
-    #             "redirect_url",
-    #             "http_version",
-    #             "primary_ip",
-    #             "primary_port",
-    #             "local_ip",
-    #             "local_port",
-    #             "infos",
-    #             "encoding",
-    #         ]
-
-    #         mock_file_json = {}
-    #         for key in keys_to_extract:
-    #             if key in response.__dict__:
-    #                 if hasattr(response.__dict__[key], "__dict__"):
-    #                     mock_file_json[key] = dict(response.__dict__[key])
-    #                 elif isinstance(response.__dict__[key], bytes):
-    #                     mock_file_json[key] = response.__dict__[key].decode(
-    #                         getattr(response, "encoding", "utf-8-sig"), errors="replace"
-    #                     )
-    #                 else:
-    #                     mock_file_json[key] = response.__dict__[key]
-
-    #         parent_dir = os.path.dirname(save_to)
-    #         os.makedirs(parent_dir, exist_ok=True)
-
-    #         # Save the response body
-    #         with open(f"{save_to}.json", "w", encoding="utf-8") as file:
-    #             file.write(json.dumps(mock_file_json, indent=4))
-
-    #     except Exception as e:
-    #         print("Exception in __save_as_mock_data:", e)
+        return self.__class__.__module__.split(".")[-1]
 
     @finalmethod
     def __init_logging(self) -> None:
@@ -367,8 +285,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # debug=self._debug_curl,
         )
 
-        # self.__save_as_mock_data(res)
-
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
             raise CaptchaEncountered(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
 
@@ -413,8 +329,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             cookies=cookies or self._cookies,
             # debug=self._debug_curl,
         )
-
-        # self.__save_as_mock_data(res)
 
         return res
 
