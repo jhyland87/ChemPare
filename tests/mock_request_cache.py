@@ -4,20 +4,16 @@ from requests_cache import CachedSession
 from requests_cache import FileCache
 
 
-mock_cfg = None
-
-CWD = os.path.dirname(os.path.abspath(__file__))
-
 _cache_sessions = {}
 
-
-requests = None
+CWD = os.path.dirname(os.path.abspath(__file__))
 
 
 def set_supplier_cache_session(supplier: str = 'default'):
     if supplier not in _cache_sessions:
+        save_to = os.path.join(CWD, "mock_data", supplier)
         _cache_sessions[supplier] = CachedSession(
-            cache_name=f'{CWD}/{supplier}',
+            cache_name=save_to,
             backend='filesystem',
             serializer='json',
             always_revalidate=False,
@@ -42,4 +38,4 @@ def set_supplier_cache_session(supplier: str = 'default'):
 # )
 
 
-__all__ = ["requests"]
+__all__ = ["set_supplier_cache_session"]

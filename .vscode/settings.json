@@ -197,6 +197,7 @@
     "openCoverage.coverageFilePath": "coverage-html/index.html",
     "python.analysis.extraPaths": [
         "./tests/mock_data",
+        //"./tests/unit",
         "./src",
         "./src/chempare",
         "./src/chempare/suppliers",

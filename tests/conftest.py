@@ -11,13 +11,13 @@ import pytest
 import requests
 from _pytest.monkeypatch import MonkeyPatch
 
-# from mock_data import mock_curl_cffi
-from mock_data import mock_request_cache
-
 # from price_parser import Price
 from pytest_mock import MockerFixture
 
 import chempare
+
+# from mock_data import mock_curl_cffi
+from tests import mock_request_cache
 
 
 # from unittest.mock import MagicMock

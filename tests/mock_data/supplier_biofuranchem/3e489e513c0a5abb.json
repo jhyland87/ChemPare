@@ -1,0 +1,177 @@
+{
+  "created_at": "2025-04-17T15:01:57.110089+00:00",
+  "elapsed": 0.099654,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "2678",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Thu, 17 Apr 2025 15:01:57 GMT",
+    "etag": "W/\"e2c7bcd69db0bf519d57b89f8b4dee85\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,1ev8u3tblITHmgXkyGXE9h9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLvwo5ohzDg7YlLLgR+E8FvUG/hKs8AeY1T4OIbgnD+yx,2d58ifebGbosy5xc+FRalhBPSXBLXf/SZAgPdx9gg7nW43YkiW761J2Mn4VGsY2GY1KLq5dOWk2WAOlmqbc+Vg==,2UNV7KOq4oGjA5+PKsX47NoP9ImTZp7EGowz+sg6PHMG/hKs8AeY1T4OIbgnD+yx",
+    "x-served-by": "cache-lax-kwhp1940064-LAX",
+    "x-wix-request-id": "1744902117.153030934982445195"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "server-session-bind": "413c46c5-9219-4eb7-995d-4b3153c9ec0b",
+      "XSRF-TOKEN": "1744901232|Plqu8kFSZRzW"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=413c46c5-9219-4eb7-995d-4b3153c9ec0b; XSRF-TOKEN=1744901232|Plqu8kFSZRzW",
+      "User-Agent": "python-requests/2.32.3",
+      "XSRF-TOKEN": "1744901232|Plqu8kFSZRzW",
+      "client-binding": "413c46c5-9219-4eb7-995d-4b3153c9ec0b"
+    },
+    "method": "GET",
+    "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Awater%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D"
+  },
+  "status_code": 200,
+  "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Awater%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D",
+  "_decoded_content": {
+    "data": {
+      "catalog": {
+        "category": {
+          "numOfProducts": 632,
+          "productsWithMetaData": {
+            "totalCount": 1,
+            "list": [
+              {
+                "id": "904ea4b8-5cc2-c400-d43e-2ed93fa1e71f",
+                "options": [
+                  {
+                    "id": "opt-20",
+                    "key": "Size",
+                    "title": "Size",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 1,
+                        "value": "100G",
+                        "description": "100G",
+                        "key": "100G",
+                        "inStock": null
+                      },
+                      {
+                        "id": 2,
+                        "value": "500g",
+                        "description": "500g",
+                        "key": "500g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 3,
+                        "value": "1kg",
+                        "description": "1kg",
+                        "key": "1kg",
+                        "inStock": null
+                      },
+                      {
+                        "id": 4,
+                        "value": "5kg",
+                        "description": "5kg",
+                        "key": "5kg",
+                        "inStock": null
+                      },
+                      {
+                        "id": 5,
+                        "value": "10kg",
+                        "description": "10kg",
+                        "key": "10kg",
+                        "inStock": null
+                      },
+                      {
+                        "id": 6,
+                        "value": "15kg",
+                        "description": "15kg",
+                        "key": "15kg",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "22c85282-0a22-4e5c-bb02-9b26e47d2443",
+                    "optionsSelections": [
+                      4
+                    ],
+                    "price": 429.29,
+                    "formattedPrice": "$429.29"
+                  },
+                  {
+                    "id": "dbbce921-61fe-4288-be04-6a091d5eb09c",
+                    "optionsSelections": [
+                      5
+                    ],
+                    "price": 643.94,
+                    "formattedPrice": "$643.94"
+                  },
+                  {
+                    "id": "fea267a9-6353-4cea-b99d-f8a249b34f3f",
+                    "optionsSelections": [
+                      6
+                    ],
+                    "price": 1094.69,
+                    "formattedPrice": "$1,094.69"
+                  },
+                  {
+                    "id": "65e38095-1599-4d7b-870e-df21476ea3ee",
+                    "optionsSelections": [
+                      1
+                    ],
+                    "price": 23.36,
+                    "formattedPrice": "$23.36"
+                  },
+                  {
+                    "id": "d2440fc7-a0dc-4266-9d40-2847b1a0338b",
+                    "optionsSelections": [
+                      2
+                    ],
+                    "price": 81.77,
+                    "formattedPrice": "$81.77"
+                  },
+                  {
+                    "id": "1491a0e0-3ce3-4ed7-9cc1-d67bb8a08b0b",
+                    "optionsSelections": [
+                      3
+                    ],
+                    "price": 122.65,
+                    "formattedPrice": "$122.65"
+                  }
+                ],
+                "productType": "physical",
+                "price": 23.36,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "potassium-oleate-paste-in-water-cas-143-18-0",
+                "formattedPrice": "$23.36",
+                "name": "Potassium oleate paste in water, CAS 143-18-0",
+                "description": "<p>Appearance: yellowish, viscous liquid or paste</p><p>CAS: 143-18-0</p><p>Product ID: OLE14P</p><p>Purity: 80%+</p><p>Formula: C18H33KO2</p><p>MW: 320.55g/mol</p><p>pH: 9-12 (10wt% aqueous solution)</p><p>Density: 1.0g/mL+</p><p>Solubility: water / alcohol soluble</p><p>HS Code: 291615</p><p>MDL: MFCD00064243</p><p>SMILES: [K+].[H]C(CCCCCCCC)=C(/[H])CCCCCCCC([O-])=O</p><p>LD50 (rat, oral) &gt; 5,000mg/kg</p>",
+                "brand": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -136,7 +136,7 @@ addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doct
 #  --cov-report=term --capture=tee-sys --show-capture=all  --no-summary
 
 # "--capture=tee-sys" "--show-capture=all",
-testpaths = ["tests"]
+testpaths = ["tests/unit"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",
