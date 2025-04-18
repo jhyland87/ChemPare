@@ -19,9 +19,9 @@ from chempare.suppliers.supplier_chemsavers import SupplierChemsavers as Supplie
 # Base test class
 
 
-@attributes(supplier="supplier_chemsavers", mock_data="query-water")
+@attributes(supplier="supplier_chemsavers", mock_data="query-acid")
 def test_name_query():
-    results = Supplier("water")
+    results = Supplier("acid")
 
     assert isinstance(results, Exception) is False, "query returned an exception"
 
@@ -38,12 +38,12 @@ def test_cas_query():
 
 @attributes(supplier="supplier_chemsavers", mock_data="query-nonsense")
 def test_nonsense_query():
-    try:
+    results = None
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("this_should_return_no_search_result")
-    except Exception as e:
-        results = e
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert results is None, "Results found for nonsense query"
 
 
 @attributes(supplier="supplier_chemsavers", mock_data="query-cas-9999-99-99")

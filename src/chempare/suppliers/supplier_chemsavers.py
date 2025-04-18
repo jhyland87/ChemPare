@@ -27,11 +27,7 @@ class SupplierChemsavers(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {
-        "currency": "$",
-        "currency_code": "USD",
-        "is_restricted": False,
-    }
+    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     # If any extra init logic needs to be called... uncmment the below and add
@@ -60,10 +56,7 @@ class SupplierChemsavers(SupplierBase):
                     # meta_description, meta_keywords',
                     "query_by": "name, CAS",
                     "sort_by": "price:asc",
-                    "highlight_full_fields": (
-                        "name, CAS, description, sku, "
-                        "meta_description, meta_keywords"
-                    ),
+                    "highlight_full_fields": ("name, CAS, description, sku, " "meta_description, meta_keywords"),
                     "collection": "products",
                     "q": query,
                     "facet_by": "price",
@@ -74,14 +67,12 @@ class SupplierChemsavers(SupplierBase):
                     # limiting it later.
                     "max_facet_values": 5,
                     "page": 1,
-                    "per_page": 5,
+                    "per_page": 100,
                 }
             ]
         }
 
-        search_result = self.http_post_json(
-            "multi_search", json=body, params=params
-        )
+        search_result = self.http_post_json("multi_search", json=body, params=params)
 
         if not search_result:
             return
@@ -132,9 +123,7 @@ class SupplierChemsavers(SupplierBase):
 
         # Since the description contains HTML, and it may contain restrictions,
         # use BS
-        description_soup = BeautifulSoup(
-            product_obj["description"], "html.parser"
-        )
+        description_soup = BeautifulSoup(product_obj["description"], "html.parser")
 
         # The restrictions always seem to be shown in
         # <strong style="color: red;"></strong> tags
@@ -143,8 +132,7 @@ class SupplierChemsavers(SupplierBase):
         if (
             restriction is not None
             and hasattr(restriction, 'string') is True
-            and "Restricted to qualified labs and businesses only (no residences)"
-            in str(restriction.string)
+            and "Restricted to qualified labs and businesses only (no residences)" in str(restriction.string)
         ):
             product.restriction = restriction.string
             product.is_restricted = True
@@ -153,9 +141,7 @@ class SupplierChemsavers(SupplierBase):
         desc = description_soup.find_all(["b", "p", "strong", "font"])
 
         if desc and desc is not None:
-            desc_parts = [
-                d.string.strip() if d.string and d.string else None for d in desc
-            ]
+            desc_parts = [d.string.strip() if d.string and d.string else None for d in desc]
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))
 
@@ -166,5 +152,6 @@ class SupplierChemsavers(SupplierBase):
                 product.description = "; ".join(desc_parts)
 
         return product.cast_properties()
+
 
 __supplier_class = SupplierChemsavers
