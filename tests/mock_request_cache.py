@@ -8,41 +8,21 @@ _cache_sessions = {}
 
 requests = None
 
+SAVE_RESPONSES = os.getenv("SAVE_RESPONSES", "false").lower()
+save_responses = SAVE_RESPONSES == "true" or SAVE_RESPONSES == "1"
+
 
 def set_supplier_cache_session(supplier: str = "default"):
     if supplier not in _cache_sessions:
         print(f"Supplier ${supplier} does not have a mock_data directory - creating it")
         save_to = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_data", supplier)
+
         _cache_sessions[supplier] = CachedSession(
             cache_name=save_to,
+            only_if_cached=not save_responses,
+            force_refresh=save_responses,
             backend="filesystem",
             serializer="json",
-            # ignored_parameters=(
-            #     'Authorization',
-            #     "session-1",
-            #     "session-2",
-            #     "session-3",
-            #     "session-4",
-            #     "session-5",
-            #     'X-API-KEY',
-            #     'access_token',
-            #     "Content-Length",
-            #     "created_at",
-            #     'api_key',
-            #     "Alt-Svc",
-            #     "client-session-bind",
-            #     "session-session-bind",
-            #     "age",
-            #     "date",
-            #     "Set-Cookie",
-            #     "ssr-caching",
-            #     "Expires",
-            #     "etag",
-            #     "glb-x-seen-by",
-            #     "x-seen-by",
-            #     "x-served-by",
-            #     "x-wix-request-id",
-            # ),
             always_revalidate=False,
             cache_control=False,
             urls_expire_after=None,

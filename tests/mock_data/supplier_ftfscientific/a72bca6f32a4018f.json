@@ -1,23 +1,23 @@
 {
-  "created_at": "2025-04-18T03:52:03.225701+00:00",
-  "elapsed": 0.209399,
+  "created_at": "2025-04-18T04:50:39.927312+00:00",
+  "elapsed": 0.181595,
   "encoding": "utf-8",
   "headers": {
-    "Alt-Svc": "REDACTED",
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
     "Transfer-Encoding": "chunked",
     "accept-ranges": "bytes",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "REDACTED",
-    "glb-x-seen-by": "REDACTED",
+    "date": "Fri, 18 Apr 2025 04:50:39 GMT",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "REDACTED",
-    "x-served-by": "REDACTED",
-    "x-wix-request-id": "REDACTED",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,9WD8GAcpJgs/Ng1WkD2i0h9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLgusAIMgWk1Brq+Ibw9VA8kG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4Sv4sPHT/8kFxyoNnCGd5SAOIv81siZFFg8Zg0+ti17jFYT5uJ4O9d8Mt0I05zS7qA==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIyvqT5yGGR0r4KZVL0z7EmpdqiF5x8M68v30btTqxOKWhSqcUZ8X2HINnXnKxjfUvTg=,fGftfgZfl2Z7hFMKfqF01GUzurYPGLO8evLMxNQ4D12XWvSfA6ixEaxDQF/ywcGHCCG22tSG9CEeHlS04MuU0otVILhK+PONGuuu6UZdWe0=,056Ktf5eQEZQsH6m6bpgrZT4M3bYJPG/nyVOldNOZAdEQfi00LSS7LJu7sdkoLsDAktU/gXP78Ve1nBFPYhf7A==,056Ktf5eQEZQsH6m6bpgrVFHHnsVHFq72Wmr4tpDJi9EQfi00LSS7LJu7sdkoLsDqiWoicBLlskUREpHpuYW0w==,//VbsS0LoZbpJpx5iMSc6ISoX+7IDCcFvPwDKgqrd8HD3wP81vaDFb1VaAMlJ95AV/lwbK/G6QJVurWx7D+I0w==,//VbsS0LoZbpJpx5iMSc6OUAe8TGZ9D1xOD0QeEbY2O8I+ZsfNKVdquFhtGhS0OrSiTKSzP7iYy6+W3ZJx2t7g==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA0NaWm9zVfKjdqdyM6mjtP5/82a32Ge/Fnv43diwjn+qAN0pGE0zdbXjCFcMzd8ugo=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVTEpQSV5ze4+BCAFxazUEnUMQRvF2GFpFsNF0meeTphLw==",
+    "x-served-by": "cache-lax-kwhp1940071-LAX",
+    "x-wix-request-id": "1744951839.82175235753553518688",
     "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server"
   },
   "reason": "OK",
@@ -25,19 +25,19 @@
     "body": "dm?0SV|8t1Zgf<6aAhJoAR=&eVr*$+FLQKna%FQbaB^>Cbz^jMA}k;xW?^GxbaNs)AbTQXY+-eCWpg4rAX|GPVP|J@WoKb@X>V>KIv{%@ZeeX@B03-<WNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=LBXL4m{VRUJ4ZX!A$B27t7B7J=<AbTQVXJ>L{XJK?{Z*C$wAbTQiVQpn1Iv^rsX>((5b#8QJWKeQxV`WZtZDn$4V<IddB4KA|a%E>>bZKvHB03-<O+i>9eSIt-dm?mYa&00yAbTQiVQpn1Iv^rrZ)|L3V{~b6ZgV0mAR=sOZE18OIv_bYIemRyeJmg%W@%+?WOE`qAX_47WFjmeB6MkVY-J)WAR=UCb7OL8aCB*JZXzroB4c%Oa%FB~c_J(zB4lZEV{dhCbY)~va%p2_A}k;xWNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=jQQ*>`*Ya%QlB6DkXA}k;xX>Mk3Q)OdxX>V?GA}k;xV{dG1Wn*+{Z*FrUEFdCpZc|}wWg=ZHAR=aUdU|;xIv{j%b!99dB57`8Y;|O1Q)O>RX=G$&ZX!A$W?^h|Wh@{fY+-I^bzx^^B03-<Wo{xYAR=#aWMy(`Zf7DoAbTQja%5$4X>MmCIv`tJeJmg%aA9X@Zf7DoAbTQnYiV#IIv_ACAR=sOZE18OIv_DJeJmg%aB^>OWpZ?BWpg4rAX{B5AR=*fWpa5UIv^r<VRU73B7F",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "XSRF-TOKEN": "1744948322|N7V37RYWPDJq",
-      "hs": "1090265095",
-      "svSession": "684c9dc3ffab81f3f39921589b3cadf3e2520b8bda29272e80c79810fce9cfcabf0ae205701edcd869afd4c58b20f5881e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee80f0cc56e7ffcce5e8e1d072e197c04bedebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
+      "XSRF-TOKEN": "1744951839|jtPUD74nXoxm",
+      "hs": "-334586760",
+      "svSession": "f28d0942f59636db62d5280244c17013a15d5e46f081cb0fdf9794a6be3c4a0cfe1868c75aadda94b18e2a8fa2400adc1e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f375106485acd25d385a540e21065116ccb8f51a8debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Content-Length": "REDACTED",
+      "Content-Length": "586",
       "Content-Type": "application/json",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744948322|N7V37RYWPDJq; hs=1090265095; svSession=684c9dc3ffab81f3f39921589b3cadf3e2520b8bda29272e80c79810fce9cfcabf0ae205701edcd869afd4c58b20f5881e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee80f0cc56e7ffcce5e8e1d072e197c04bedebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744951839|jtPUD74nXoxm; hs=-334586760; svSession=f28d0942f59636db62d5280244c17013a15d5e46f081cb0fdf9794a6be3c4a0cfe1868c75aadda94b18e2a8fa2400adc1e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f375106485acd25d385a540e21065116ccb8f51a8debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
       "User-Agent": "python-requests/2.32.3",
-      "authorization": "WP9ZKPFelXeTiIhzx99EgOTkQi23rwEaaf8-M8AUlHw.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDAzOjUyOjAyLjk3MFoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6ImQ0MThkNDQ0LTkxOTktNDM0Zi05OWU1LTI4Y2U5ZGVmNDg0YiIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
+      "authorization": "bykRn3D2roCQ1xvaGXLy6FjE91l8Rc23tjZRMst30nE.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDA0OjUwOjM5LjcxOVoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6ImQ5YzNjYWUyLTQ0OTEtNGIwNy1hNDNjLWRkOTIzNDU4ZTQyZiIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
     },
     "method": "POST",
     "url": "https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search"
@@ -47,7 +47,7 @@
   "_decoded_content": {
     "documents": [
       {
-        "_score": 197.83138,
+        "_score": 197.80606,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.221Z",
         "sku": null,
@@ -80,7 +80,7 @@
         "title": "(2,4-Dinitrophenyl)hydrazine 30-40% water"
       },
       {
-        "_score": 180.10301,
+        "_score": 180.08029,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.688Z",
         "sku": null,
@@ -113,7 +113,7 @@
         "title": "Hydroxy ethyl cellulose 100,000 cp @ 2% water solution"
       },
       {
-        "_score": 129.20525,
+        "_score": 129.20059,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.602Z",
         "sku": null,
@@ -146,7 +146,7 @@
         "title": "N,N-Diethylmethylamine"
       },
       {
-        "_score": 119.34018,
+        "_score": 119.336784,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.905Z",
         "sku": null,
@@ -179,7 +179,7 @@
         "title": "Sodium Borohydride"
       },
       {
-        "_score": 83.92703,
+        "_score": 83.93756,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.177Z",
         "sku": null,
@@ -212,7 +212,7 @@
         "title": "Ethyl Acetate ACS"
       },
       {
-        "_score": 83.129974,
+        "_score": 83.14035,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.439Z",
         "sku": null,
@@ -245,7 +245,7 @@
         "title": "tert-Butyl methyl ether ACS"
       },
       {
-        "_score": 78.99277,
+        "_score": 78.98892,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.177Z",
         "sku": null,
@@ -278,7 +278,7 @@
         "title": "Phosphorus Pentoxide ACS"
       },
       {
-        "_score": 78.810486,
+        "_score": 78.807045,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.280Z",
         "sku": null,

@@ -1,6 +1,6 @@
 {
-  "created_at": "2025-04-18T03:51:35.441249+00:00",
-  "elapsed": 0.31396,
+  "created_at": "2025-04-18T04:50:39.953407+00:00",
+  "elapsed": 0.083092,
   "encoding": "utf-8",
   "headers": {
     "Connection": "keep-alive",
@@ -18,7 +18,7 @@
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Content-Length": "REDACTED",
+      "Content-Length": "270",
       "Content-Type": "application/json",
       "User-Agent": "python-requests/2.32.3"
     },
@@ -6598,7 +6598,7 @@
           "q": "7664-93-9"
         },
         "search_cutoff": false,
-        "search_time_ms": 9
+        "search_time_ms": 8
       }
     ]
   }

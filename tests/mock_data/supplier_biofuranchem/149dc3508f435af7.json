@@ -1,10 +1,10 @@
 {
   "_content": "",
   "cookies": {
-    "XSRF-TOKEN": "1744950169|KkTU0-oC2RvT"
+    "XSRF-TOKEN": "1744951839|PonVoZHidHDY"
   },
-  "created_at": "2025-04-18T04:22:49.469605+00:00",
-  "elapsed": 0.105944,
+  "created_at": "2025-04-18T04:50:39.631446+00:00",
+  "elapsed": 0.188205,
   "encoding": "utf-8",
   "headers": {
     "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
@@ -13,34 +13,36 @@
     "cache-control": "no-cache",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "Fri, 18 Apr 2025 04:22:49 GMT",
+    "date": "Fri, 18 Apr 2025 04:50:39 GMT",
     "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
     "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
-    "set-cookie": "_wixAB3=1292391#1|4195310#2|4217282#1; Max-Age=15724800; Expires=Fri, 17 Oct 2025 04:22:49 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1744950169|KkTU0-oC2RvT; Path=/; Domain=www.biofuranchem.com; Secure; SameSite=None",
+    "set-cookie": "_wixAB3=1292391#1|4195310#1|4217282#2; Max-Age=15724800; Expires=Fri, 17 Oct 2025 04:50:39 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1744951839|PonVoZHidHDY; Path=/; Domain=www.biofuranchem.com; Secure; SameSite=None",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,xIKq3IotbbLp4+7DTTMx8R9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLrqaBeSD0wx65EKugKS/8wEG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4UNxt2nS6guFrad78lu1AFAOIv81siZFFg8Zg0+ti17j/yD3Uw9wqIzO576K758zPg==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5eddAG9hwhkf35vjAoSunma/mec4/DaMW+a62IRw/5E6B9slopJdhD+WySraMrpIY8=",
-    "x-served-by": "cache-bur-kbur8200119-BUR",
-    "x-wix-request-id": "1744950169.496751452450103743999, 1744950169.496751452450103743999"
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,xIKq3IotbbLp4+7DTTMx8R9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLtD7UR9DjEn5OUyPRFn5Auom++C2XkuTvnlRFg2XiSDL,qYxvFa0bBL43z6b6TutC4XsERpVw89kgtSZAA9jUR7YOIv81siZFFg8Zg0+ti17jH9BwOUnb+dKJV5hBn/ZKmQ==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5cO3v9r1Kj1Eqy37/tu6CyHXqCdais99w+Bu7ipfHEzcliB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-lax-kwhp1940079-LAX",
+    "x-wix-request-id": "1744951839.60375224860863661893",
+    "x-wixaspect-00-_wixab3": "1292391#1|4195310#1|4217282#2",
+    "x-wixaspect-00-x-wix-petri-cookie-domain": ".wix.com"
   },
   "reason": "OK",
   "request": {
     "body": "",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "client-session-bind": "71d9493c-d53c-49e3-91d5-fac3b974ae05",
-      "server-session-bind": "71d9493c-d53c-49e3-91d5-fac3b974ae05"
+      "client-session-bind": "9f6ce288-f19d-4425-b8df-1d1c91b07588",
+      "server-session-bind": "9f6ce288-f19d-4425-b8df-1d1c91b07588"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=71d9493c-d53c-49e3-91d5-fac3b974ae05; server-session-bind=71d9493c-d53c-49e3-91d5-fac3b974ae05; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=71d9493c-d53c-49e3-91d5-fac3b974ae05",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=9f6ce288-f19d-4425-b8df-1d1c91b07588; server-session-bind=9f6ce288-f19d-4425-b8df-1d1c91b07588; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=9f6ce288-f19d-4425-b8df-1d1c91b07588",
       "User-Agent": "python-requests/2.32.3",
-      "client-binding": "71d9493c-d53c-49e3-91d5-fac3b974ae05"
+      "client-binding": "9f6ce288-f19d-4425-b8df-1d1c91b07588"
     },
     "method": "HEAD",
     "url": "https://www.biofuranchem.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"

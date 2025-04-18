@@ -1,23 +1,23 @@
 {
   "cookies": {
-    "session_id": "671bf21f69376b6145934b02c403a2a2",
+    "session_id": "ad751abfa8a47381006a23dded54b076",
     "COOKIELAW": "optin",
     "COOKIELAW_SOCIAL": "1",
     "COOKIELAW_STATS": "1",
     "COOKIELAW_ADS": "1"
   },
-  "created_at": "2025-04-18T03:52:04.627344+00:00",
-  "elapsed": 1.109743,
+  "created_at": "2025-04-18T04:50:41.414715+00:00",
+  "elapsed": 1.161944,
   "encoding": "utf-8",
   "headers": {
-    "CF-RAY": "9321350d8ec252fb-LAX",
+    "CF-RAY": "93218ae8fa54f7ad-LAX",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
-    "Date": "Fri, 18 Apr 2025 03:52:04 GMT",
+    "Date": "Fri, 18 Apr 2025 04:50:41 GMT",
     "Server": "cloudflare",
-    "Set-Cookie": "REDACTED",
+    "Set-Cookie": "session_id=ad751abfa8a47381006a23dded54b076; expires=Fri, 18-Apr-2025 05:20:35 GMT; Max-Age=1795; path=/; secure; HttpOnly; SameSite=none, COOKIELAW=optin; expires=Sat, 18-Apr-2026 04:50:41 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_SOCIAL=1; expires=Sat, 18-Apr-2026 04:50:41 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_STATS=1; expires=Sat, 18-Apr-2026 04:50:41 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_ADS=1; expires=Sat, 18-Apr-2026 04:50:41 GMT; Max-Age=31536000; path=/; secure; SameSite=none, __cf_bm=deleted; expires=Thu, 17-Apr-2025 04:50:41 GMT; Max-Age=0; path=/; secure; SameSite=none",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
     "Transfer-Encoding": "chunked",
     "alt-svc": "h3=\":443\"; ma=86400",
@@ -25,11 +25,11 @@
     "p3p": "CP=\"ALL PUR DSP CUR ADMi DEVi CONi OUR COR IND\"",
     "vary": "Accept-Encoding",
     "x-content-type-options": "nosniff",
-    "x-developer": "Page: 749.0ms, Render: 2.4ms, Mem: 10,240kB, Cache: 0Q (0.0ms), DB: 6Q (4.3ms), Prop: 0Q (0.0ms)",
-    "x-envoy-upstream-service-time": "767",
+    "x-developer": "Page: 801.8ms, Render: 2.8ms, Mem: 10,240kB, Cache: 0Q (0.0ms), DB: 6Q (5.3ms), Prop: 0Q (0.0ms)",
+    "x-envoy-upstream-service-time": "825",
     "x-frame-options": "SAMEORIGIN",
-    "x-request-id": "eb32cc0a4b003f8d02905ee8a851df2e",
-    "x-runtime": "0.755692",
+    "x-request-id": "a874b75c5e4ea7565898a6648ff36ee7",
+    "x-runtime": "0.809878",
     "x-shop-id": "286851",
     "x-ua-compatible": "IE=Edge,chrome=1",
     "x-xss-protection": "1; mode=block"
@@ -38,13 +38,13 @@
   "request": {
     "body": "",
     "cookies": {
-      "__cf_bm": "FmcPmfdOZl79SN7iUYlof9uKGXllxX3M_YLnXjloi8k-1744948323-1.0.1.1-Cxp9LH2NZBoHl6arApfGg0L4mSNxI.vXUiTBemThG_6aJJnx_.byJ7a3R8UpZyt0ayu2YhxU16fw0IxwyEEAdxAa43jWfBRJhdzjpAct.EM"
+      "__cf_bm": "FVXr_uyz3eyLS5enBAhKbpooMIBOIve8i_FqVLYqQcA-1744951840-1.0.1.1-4CbjCfe6lhA5wHeQ4pVjUVddo2dEGeVR7gKT0caTVL5VwUD5NhkOdRxPAVGvL54BV8ttvzA7eYBtIDAiGwY1U4sUKxqS2GGCIJej6liKlrg"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "__cf_bm=FmcPmfdOZl79SN7iUYlof9uKGXllxX3M_YLnXjloi8k-1744948323-1.0.1.1-Cxp9LH2NZBoHl6arApfGg0L4mSNxI.vXUiTBemThG_6aJJnx_.byJ7a3R8UpZyt0ayu2YhxU16fw0IxwyEEAdxAa43jWfBRJhdzjpAct.EM",
+      "Cookie": "__cf_bm=FVXr_uyz3eyLS5enBAhKbpooMIBOIve8i_FqVLYqQcA-1744951840-1.0.1.1-4CbjCfe6lhA5wHeQ4pVjUVddo2dEGeVR7gKT0caTVL5VwUD5NhkOdRxPAVGvL54BV8ttvzA7eYBtIDAiGwY1U4sUKxqS2GGCIJej6liKlrg",
       "User-Agent": "python-requests/2.32.3"
     },
     "method": "GET",
@@ -56,7 +56,7 @@
     "page": {
       "search": "7664-93-9",
       "session_id": "",
-      "key": "25f3c8754e111a8d172b5310fd6ec7be",
+      "key": "ed45921041fe32bcaa615373c7e2c39f",
       "title": "Search results for 7664-93-9",
       "breadcrumbs": [
         {

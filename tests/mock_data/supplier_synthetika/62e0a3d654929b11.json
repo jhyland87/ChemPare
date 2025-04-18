@@ -1,12 +1,12 @@
 {
-  "created_at": "2025-04-18T03:52:05.177450+00:00",
-  "elapsed": 2.650853,
+  "created_at": "2025-04-18T04:50:42.024488+00:00",
+  "elapsed": 2.494915,
   "encoding": "utf-8",
   "headers": {
     "Connection": "keep-alive",
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
-    "Date": "Fri, 18 Apr 2025 03:52:05 GMT",
+    "Date": "Fri, 18 Apr 2025 04:50:41 GMT",
     "Keep-Alive": "timeout=20",
     "Server": "DCSaaS/httpd",
     "Transfer-Encoding": "chunked",
@@ -32,7 +32,7 @@
     "pages": 3,
     "page": 1,
     "count": 11,
-    "max_score": 179709.9,
+    "max_score": 179767.44,
     "list": [
       {
         "id": "108",
@@ -57,7 +57,7 @@
             "value": "5906288608912"
           }
         ],
-        "score": 179709.9,
+        "score": 179767.44,
         "rate": "0",
         "options_stock": false,
         "attributes": {
@@ -94,7 +94,7 @@
             "value": "5906288608936"
           }
         ],
-        "score": 179709.9,
+        "score": 179767.44,
         "rate": "0",
         "options_stock": false,
         "attributes": {
@@ -131,7 +131,7 @@
             "value": "5906288608899"
           }
         ],
-        "score": 179709.9,
+        "score": 179767.44,
         "rate": "0",
         "options_stock": false,
         "attributes": {
@@ -168,7 +168,7 @@
             "value": "5906288608905"
           }
         ],
-        "score": 179709.9,
+        "score": 179767.44,
         "rate": "0",
         "options_stock": false,
         "attributes": {
@@ -205,7 +205,7 @@
             "value": "5906288608929"
           }
         ],
-        "score": 179709.9,
+        "score": 179767.44,
         "rate": "0",
         "options_stock": false,
         "attributes": {

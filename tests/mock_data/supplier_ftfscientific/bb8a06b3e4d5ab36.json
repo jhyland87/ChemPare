@@ -1,23 +1,24 @@
 {
-  "created_at": "2025-04-18T03:52:03.408688+00:00",
-  "elapsed": 0.398133,
+  "created_at": "2025-04-18T04:50:40.169208+00:00",
+  "elapsed": 0.427221,
   "encoding": "utf-8",
   "headers": {
-    "Alt-Svc": "REDACTED",
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
     "Transfer-Encoding": "chunked",
     "accept-ranges": "bytes",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "REDACTED",
-    "glb-x-seen-by": "REDACTED",
+    "date": "Fri, 18 Apr 2025 04:50:40 GMT",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "REDACTED",
-    "x-served-by": "REDACTED",
-    "x-wix-request-id": "REDACTED",
+    "x-envoy-upstream-service-time": "349",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,1ev8u3tblITHmgXkyGXE9h9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLjJcNOW2BKP3BIbSfLv0E2kG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4XsERpVw89kgtSZAA9jUR7YOIv81siZFFg8Zg0+ti17jH9BwOUnb+dKJV5hBn/ZKmQ==,R8nVwPJv9QJL1m78OROO+EOuTTPRBBS++PRaxs794ZE=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIys6dC2r4PF8p8yTRb2hMkFUqiF5x8M68v30btTqxOKWhaT05Y5datH8fM7hzyztCME=,fGftfgZfl2Z7hFMKfqF01GUzurYPGLO8evLMxNQ4D116hvBY/+up/MCTlgl97R4MgydTqyuuOeG9AApeHpGo0Q7FSSGNeeHG6pQaoZkzlWM=,056Ktf5eQEZQsH6m6bpgrWXjL5MA/ZqF4/TUYomH63hEQfi00LSS7LJu7sdkoLsDKWfNC72pGjtETG6s7DmbEQ==,056Ktf5eQEZQsH6m6bpgrV6QHZdxpKiaOSsqK7kQx4tEQfi00LSS7LJu7sdkoLsD1LzMat9V7YWEx65fg3h6xw==,//VbsS0LoZbpJpx5iMSc6M86LNnWLJO19kVrffL7nZFWIBlUM0AmGsa7JQ9OSdxRE1HRuZlRMB7u5s4mQ/yM8Q==,//VbsS0LoZbpJpx5iMSc6H4t3fJaKDOI1XK11+HW/5CgTJIEma4JqXvoNLd9cL03Rq/KTuQvrfpWufCzqvg+2A==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA0NaWm9zVfKjdqdyM6mjtP5/82a32Ge/Fnv43diwjn+qAN0pGE0zdbXjCFcMzd8ugo=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVSrwMICMdVtAVtUly5XjkycYsqZAVrjxU5nkgRfs5s1HFiB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-bur-kbur8200150-BUR",
+    "x-wix-request-id": "1744951839.81575226877973703881",
     "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server"
   },
   "reason": "OK",
@@ -25,19 +26,19 @@
     "body": "dm?0SV|8t1Zgf<6aAhJoAR=&eVr*$+FLQKna%FQbaB^>Cbz^jMA}k;xW?^GxbaNs)AbTQXY+-eCWpg4rAX|GPVP|J@WoKb@X>V>KIv{%@ZeeX@B03-<WNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=LBXL4m{VRUJ4ZX!A$B27t7B7J=<AbTQVXJ>L{XJK?{Z*C$wAbTQiVQpn1Iv^rsX>((5b#8QJWKeQxV`WZtZDn$4V<IddB4KA|a%E>>bZKvHB03-<O+i>9eSIt-dm?mYa&00yAbTQiVQpn1Iv^rrZ)|L3V{~b6ZgV0mAR=sOZE18OIv_bYIemRyeJmg%W@%+?WOE`qAX_47WFjmeB6MkVY-J)WAR=UCb7OL8aCB*JZXzroB4c%Oa%FB~c_J(zB4lZEV{dhCbY)~va%p2_A}k;xWNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=jQQ*>`*Ya%QlB6DkXA}k;xX>Mk3Q)OdxX>V?GA}k;xV{dG1Wn*+{Z*FrUEFdCpZc|}wWg=ZHAR=aUdU|;xIv{j%b!99dB57`8Y;|O1Q)O>RX=G$&ZX!A$W?^h|Wh@{fY+-I^bzx^^B03-<Wo{xYAR=#aWMy(`Zf7DoAbTQja%5$4X>MmCIv`tJeJmg%aA9X@Zf7DoAbTQnYiV#IIv_ACAR=sOZE18OIv_DJeJmg%aB^>OWpZ?BWpg4rAX{B5AR=*fWpa5UIv^rcXlZj_b7*gMY-C?@Wps6NZeMP1Uvg!0b!>EVB7F",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "XSRF-TOKEN": "1744948322|GVFCkGHBAStB",
-      "hs": "-269794801",
-      "svSession": "c2057e79721ab7821ad53df41aadda79543bbdd4d25f404b4ae7a0e16ef879aefc4185026d36388cc6fd8c4ccf1169ca1e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee8d61fcfcc7477d835347bc124f5611a9bdebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
+      "XSRF-TOKEN": "1744951839|BD0TMtdf-Ibd",
+      "hs": "1487688446",
+      "svSession": "5262f6eea76c59c9c3a3174a3704a7f8976c6ab2ef32aec23ab8fa89ad0d25bf720522407e1956a79f0e624519b682921e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f37510648afc85feaa475987b4e1084f7cf96ec77debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Content-Length": "REDACTED",
+      "Content-Length": "610",
       "Content-Type": "application/json",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744948322|GVFCkGHBAStB; hs=-269794801; svSession=c2057e79721ab7821ad53df41aadda79543bbdd4d25f404b4ae7a0e16ef879aefc4185026d36388cc6fd8c4ccf1169ca1e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee8d61fcfcc7477d835347bc124f5611a9bdebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744951839|BD0TMtdf-Ibd; hs=1487688446; svSession=5262f6eea76c59c9c3a3174a3704a7f8976c6ab2ef32aec23ab8fa89ad0d25bf720522407e1956a79f0e624519b682921e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f37510648afc85feaa475987b4e1084f7cf96ec77debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
       "User-Agent": "python-requests/2.32.3",
-      "authorization": "hIjTwsfTbW85oNJWT6RKGGBMTy-_rM99NNWOXLPINjo.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDAzOjUyOjAyLjk3MVoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6ImEyMWQyNWIxLTVkMGUtNDdlNC04OWE1LWE1MzIyM2NjODM4ZSIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
+      "authorization": "6PteHLYvMrt_xMUl8vFL33g9_aM_DRzrbVSznl4Sryk.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDA0OjUwOjM5LjcwNVoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6Ijc1MzE4YWMzLTlkZjUtNGFmYi04NTIzLWIxMThiNmY0ZTlmNSIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
     },
     "method": "POST",
     "url": "https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search"

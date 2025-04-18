@@ -1,11 +1,11 @@
 {
   "cookies": {
-    "OCSESSID": "688ed22001037274a1e95149d1",
+    "OCSESSID": "b3834d0f540b4b2799e881bf85",
     "language": "en-gb",
     "currency": "EUR"
   },
-  "created_at": "2025-04-18T03:52:05.735786+00:00",
-  "elapsed": 0.650628,
+  "created_at": "2025-04-18T04:50:44.033753+00:00",
+  "elapsed": 0.653535,
   "encoding": "UTF-8",
   "headers": {
     "Connection": "Keep-Alive",
@@ -14,9 +14,9 @@
     "content-encoding": "gzip",
     "content-length": "22",
     "content-type": "text/html; charset=UTF-8",
-    "date": "REDACTED",
+    "date": "Fri, 18 Apr 2025 04:50:43 GMT",
     "server": "LiteSpeed",
-    "set-cookie": "OCSESSID=688ed22001037274a1e95149d1; path=/; secure, language=en-gb; expires=Sun, 18-May-2025 03:52:05 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure, currency=EUR; expires=Sun, 18-May-2025 03:52:05 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure",
+    "set-cookie": "OCSESSID=b3834d0f540b4b2799e881bf85; path=/; secure, language=en-gb; expires=Sun, 18-May-2025 04:50:43 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure, currency=EUR; expires=Sun, 18-May-2025 04:50:43 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure",
     "vary": "Accept-Encoding,User-Agent"
   },
   "reason": "OK",

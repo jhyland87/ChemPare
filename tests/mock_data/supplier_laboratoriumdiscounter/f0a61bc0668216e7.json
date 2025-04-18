@@ -1,19 +1,23 @@
 {
   "cookies": {
-    "session_id": "a5f3871eee5f8d7b82c2ede01555d33a"
+    "session_id": "adb38b5b3e1a91322e70de2b9c4a4b40",
+    "COOKIELAW": "optin",
+    "COOKIELAW_SOCIAL": "1",
+    "COOKIELAW_STATS": "1",
+    "COOKIELAW_ADS": "1"
   },
-  "created_at": "2025-04-18T03:52:06.986694+00:00",
-  "elapsed": 1.075364,
+  "created_at": "2025-04-18T04:50:41.323706+00:00",
+  "elapsed": 1.072542,
   "encoding": "utf-8",
   "headers": {
-    "CF-RAY": "9321351c8c6ef7cf-LAX",
+    "CF-RAY": "93218ae90fb22eae-LAX",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
-    "Date": "Fri, 18 Apr 2025 03:52:06 GMT",
+    "Date": "Fri, 18 Apr 2025 04:50:41 GMT",
     "Server": "cloudflare",
-    "Set-Cookie": "REDACTED",
+    "Set-Cookie": "session_id=adb38b5b3e1a91322e70de2b9c4a4b40; expires=Fri, 18-Apr-2025 05:20:35 GMT; Max-Age=1795; path=/; secure; HttpOnly; SameSite=none, COOKIELAW=optin; expires=Sat, 18-Apr-2026 04:50:40 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_SOCIAL=1; expires=Sat, 18-Apr-2026 04:50:40 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_STATS=1; expires=Sat, 18-Apr-2026 04:50:40 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_ADS=1; expires=Sat, 18-Apr-2026 04:50:40 GMT; Max-Age=31536000; path=/; secure; SameSite=none, __cf_bm=deleted; expires=Thu, 17-Apr-2025 04:50:40 GMT; Max-Age=0; path=/; secure; SameSite=none",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
     "Transfer-Encoding": "chunked",
     "alt-svc": "h3=\":443\"; ma=86400",
@@ -21,11 +25,11 @@
     "p3p": "CP=\"ALL PUR DSP CUR ADMi DEVi CONi OUR COR IND\"",
     "vary": "Accept-Encoding",
     "x-content-type-options": "nosniff",
-    "x-developer": "Page: 725.4ms, Render: 2.4ms, Mem: 10,240kB, Cache: 0Q (0.0ms), DB: 4Q (4.6ms), Prop: 0Q (0.0ms)",
-    "x-envoy-upstream-service-time": "744",
+    "x-developer": "Page: 714.9ms, Render: 2.3ms, Mem: 8,192kB, Cache: 0Q (0.0ms), DB: 4Q (5.3ms), Prop: 0Q (0.0ms)",
+    "x-envoy-upstream-service-time": "736",
     "x-frame-options": "SAMEORIGIN",
-    "x-request-id": "f4c3a7143d77317f1504b8be6c8acacd",
-    "x-runtime": "0.732497",
+    "x-request-id": "38c800a97f70a05c25c8d63bced11cf9",
+    "x-runtime": "0.722541",
     "x-shop-id": "286851",
     "x-ua-compatible": "IE=Edge,chrome=1",
     "x-xss-protection": "1; mode=block"
@@ -34,18 +38,13 @@
   "request": {
     "body": "",
     "cookies": {
-      "__cf_bm": "A7QkZgJSBsi0DSJfue8Fj7YvWU05tJhJqz7SOC40DkM-1744948323-1.0.1.1-pWtOqTSSeKtwH4Z5BRtQ0e7HkWKLlyWzfzal5oIp.dzmtdfm2_59YEqLmCh1zGUhEuVeIPZqF3QBVM4EBVmnsut_c5eJEbobCjLTyfSZk7c",
-      "session_id": "a5f3871eee5f8d7b82c2ede01555d33a",
-      "COOKIELAW": "optin",
-      "COOKIELAW_SOCIAL": "1",
-      "COOKIELAW_STATS": "1",
-      "COOKIELAW_ADS": "1"
+      "__cf_bm": "hlZTIOvJ5GgIAbR9qRdaQBG8SH.CNe0STBNUj55zWw8-1744951840-1.0.1.1-0s4IxjypCEFDaPPqfsjcm0rVsJlgJMzMiyWKlsweHfCs8Qy_Kgcnh.I0PLmYEN.f_yNYgj.eVeMyz3BDcMcqH0.T4n7gnr3rfFwdTTBU6OE"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "__cf_bm=A7QkZgJSBsi0DSJfue8Fj7YvWU05tJhJqz7SOC40DkM-1744948323-1.0.1.1-pWtOqTSSeKtwH4Z5BRtQ0e7HkWKLlyWzfzal5oIp.dzmtdfm2_59YEqLmCh1zGUhEuVeIPZqF3QBVM4EBVmnsut_c5eJEbobCjLTyfSZk7c; session_id=a5f3871eee5f8d7b82c2ede01555d33a; COOKIELAW=optin; COOKIELAW_SOCIAL=1; COOKIELAW_STATS=1; COOKIELAW_ADS=1",
+      "Cookie": "__cf_bm=hlZTIOvJ5GgIAbR9qRdaQBG8SH.CNe0STBNUj55zWw8-1744951840-1.0.1.1-0s4IxjypCEFDaPPqfsjcm0rVsJlgJMzMiyWKlsweHfCs8Qy_Kgcnh.I0PLmYEN.f_yNYgj.eVeMyz3BDcMcqH0.T4n7gnr3rfFwdTTBU6OE",
       "User-Agent": "python-requests/2.32.3"
     },
     "method": "GET",
@@ -57,7 +56,7 @@
     "page": {
       "search": "9999-99-9",
       "session_id": "",
-      "key": "371548e28c756175f0125228b91eb768",
+      "key": "6b35975211bae4951c01bcd82e76059b",
       "title": "Search results for 9999-99-9",
       "breadcrumbs": [
         {
@@ -1190,12 +1189,12 @@
       "b2b": true,
       "cookies": {
         "allow": true,
-        "toolbar": false,
-        "strict": true,
+        "toolbar": true,
+        "strict": false,
         "message": "",
-        "analytics": true,
-        "social": true,
-        "ads": true
+        "analytics": false,
+        "social": false,
+        "ads": false
       },
       "domains": {
         "main": "webshopapp.com",

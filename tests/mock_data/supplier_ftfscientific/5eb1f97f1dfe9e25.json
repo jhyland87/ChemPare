@@ -1,23 +1,23 @@
 {
-  "created_at": "2025-04-18T03:52:03.563433+00:00",
-  "elapsed": 0.29896,
+  "created_at": "2025-04-18T04:50:40.251222+00:00",
+  "elapsed": 0.287046,
   "encoding": "utf-8",
   "headers": {
-    "Alt-Svc": "REDACTED",
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
     "Transfer-Encoding": "chunked",
     "accept-ranges": "bytes",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "REDACTED",
-    "glb-x-seen-by": "REDACTED",
+    "date": "Fri, 18 Apr 2025 04:50:40 GMT",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "REDACTED",
-    "x-served-by": "REDACTED",
-    "x-wix-request-id": "REDACTED",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,ui2Pjuc3zC1HEw7V2qXeyh9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLtD7UR9DjEn5OUyPRFn5Auom++C2XkuTvnlRFg2XiSDL,qYxvFa0bBL43z6b6TutC4bV7WC0B1xikGgsDgpO47D4OIv81siZFFg8Zg0+ti17ja+Y7DfFJH6Vwq3OIX9R3Zg==,R8nVwPJv9QJL1m78OROO+CRn6qICGwWfp3GqOGds7es=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIys6dC2r4PF8p8yTRb2hMkFUqiF5x8M68v30btTqxOKWhaT05Y5datH8fM7hzyztCME=,fGftfgZfl2Z7hFMKfqF01GUzurYPGLO8evLMxNQ4D12gz63JRJDRGYMI1yRGOYxqOne1NQL7xUiomy6MldMwP4IdkXX/gGeUCPu+Ow5GUyw=,056Ktf5eQEZQsH6m6bpgref3E/jeDKVM1H66FYJua/lEQfi00LSS7LJu7sdkoLsDPoCN2revU1WlZHx+h8YdRQ==,056Ktf5eQEZQsH6m6bpgrcRbkoQD4pc25CpAnzvY2rxEQfi00LSS7LJu7sdkoLsD7BWNNT8CZgUlHWGW1YNuNQ==,//VbsS0LoZbpJpx5iMSc6KdJ2YQTLTN9jS3UtVBDp8TcaGJGf7i3KwB2U0j1GUk8yLLFQiU+Qpzu/R5Jfx9KYg==,//VbsS0LoZbpJpx5iMSc6G4ZxcRnSeIM0jr0r70QBlIpLpcrKiot2QDTFQEHGmmZW1rC4OrWpk8Krc9uUh6mWQ==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA0NaWm9zVfKjdqdyM6mjtP5/82a32Ge/Fnv43diwjn+qAN0pGE0zdbXjCFcMzd8ugo=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVTqncTbk7IAwzkmwQk3I5mSle1xQsU332M+RgMsmAkY+FiB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-lax-kwhp1940138-LAX",
+    "x-wix-request-id": "1744951840.036752246061143661897",
     "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server"
   },
   "reason": "OK",
@@ -25,19 +25,19 @@
     "body": "dm?0SV|8t1Zgf<6aAhJoAR=&eVr*$+FLQKna%FQbaB^>Cbz^jMA}k;xW?^GxbaNs)AbTQXY+-eCWpg4rAX|GPVP|J@WoKb@X>V>KIv{%@ZeeX@B03-<WNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=LBXL4m{VRUJ4ZX!A$B27t7B7J=<AbTQVXJ>L{XJK?{Z*C$wAbTQiVQpn1Iv^rsX>((5b#8QJWKeQxV`WZtZDn$4V<IddB4KA|a%E>>bZKvHB03-<O+i>9eSIt-dm?mYa&00yAbTQiVQpn1Iv^rrZ)|L3V{~b6ZgV0mAR=sOZE18OIv_bYIemRyeJmg%W@%+?WOE`qAX_47WFjmeB6MkVY-J)WAR=UCb7OL8aCB*JZXzroB4c%Oa%FB~c_J(zB4lZEV{dhCbY)~va%p2_A}k;xWNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=jQQ*>`*Ya%QlB6DkXA}k;xX>Mk3Q)OdxX>V?GA}k;xV{dG1Wn*+{Z*FrUEFdCpZc|}wWg=ZHAR=aUdU|;xIv{j%b!99dB57`8Y;|O1Q)O>RX=G$&ZX!A$W?^h|Wh@{fY+-I^bzx^^B03-<Wo{xYAR=#aWMy(`Zf7DoAbTQja%5$4X>MmCIv`tJeJmg%aA9X@Zf7DoAbTQnYiV#IIv_ACAR=sOZE18OIv_DJeJmg%aB^>OWpZ?BWpg4rAX{B5AR=*fWpa5UIv^rBH7zwTEioc}",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "XSRF-TOKEN": "1744948322|N7V37RYWPDJq",
-      "hs": "1090265095",
-      "svSession": "684c9dc3ffab81f3f39921589b3cadf3e2520b8bda29272e80c79810fce9cfcabf0ae205701edcd869afd4c58b20f5881e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee80f0cc56e7ffcce5e8e1d072e197c04bedebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
+      "XSRF-TOKEN": "1744951839|jtPUD74nXoxm",
+      "hs": "-334586760",
+      "svSession": "f28d0942f59636db62d5280244c17013a15d5e46f081cb0fdf9794a6be3c4a0cfe1868c75aadda94b18e2a8fa2400adc1e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f375106485acd25d385a540e21065116ccb8f51a8debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Content-Length": "REDACTED",
+      "Content-Length": "588",
       "Content-Type": "application/json",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744948322|N7V37RYWPDJq; hs=1090265095; svSession=684c9dc3ffab81f3f39921589b3cadf3e2520b8bda29272e80c79810fce9cfcabf0ae205701edcd869afd4c58b20f5881e60994d53964e647acf431e4f798bcd7dc4842826d0ad9f82cf1e9a457bfee80f0cc56e7ffcce5e8e1d072e197c04bedebc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1744951839|jtPUD74nXoxm; hs=-334586760; svSession=f28d0942f59636db62d5280244c17013a15d5e46f081cb0fdf9794a6be3c4a0cfe1868c75aadda94b18e2a8fa2400adc1e60994d53964e647acf431e4f798bcd8044ac36aab28748fad6036f375106485acd25d385a540e21065116ccb8f51a8debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
       "User-Agent": "python-requests/2.32.3",
-      "authorization": "WP9ZKPFelXeTiIhzx99EgOTkQi23rwEaaf8-M8AUlHw.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDAzOjUyOjAyLjk3MFoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6ImQ0MThkNDQ0LTkxOTktNDM0Zi05OWU1LTI4Y2U5ZGVmNDg0YiIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
+      "authorization": "bykRn3D2roCQ1xvaGXLy6FjE91l8Rc23tjZRMst30nE.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE4VDA0OjUwOjM5LjcxOVoiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6ImQ5YzNjYWUyLTQ0OTEtNGIwNy1hNDNjLWRkOTIzNDU4ZTQyZiIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
     },
     "method": "POST",
     "url": "https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search"
@@ -47,7 +47,7 @@
   "_decoded_content": {
     "documents": [
       {
-        "_score": 161.31621,
+        "_score": 161.28566,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.446Z",
         "sku": null,
@@ -80,7 +80,7 @@
         "title": "1,2-Dichlorobenzene"
       },
       {
-        "_score": 120.81599,
+        "_score": 120.81588,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.306Z",
         "sku": null,
@@ -113,7 +113,7 @@
         "title": "Sulfuric Acid 95-98% ACS"
       },
       {
-        "_score": 94.40051,
+        "_score": 94.40459,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.269Z",
         "sku": null,
@@ -146,7 +146,7 @@
         "title": "Chromatography sand 50-70 Mesh"
       },
       {
-        "_score": 93.51771,
+        "_score": 93.521576,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.869Z",
         "sku": null,
@@ -179,7 +179,7 @@
         "title": "Methyl 2-Chloropropionate 95%"
       },
       {
-        "_score": 73.328964,
+        "_score": 73.32873,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.775Z",
         "sku": null,
@@ -212,7 +212,7 @@
         "title": "1-Phenyl-1-Propanone"
       },
       {
-        "_score": 70.34214,
+        "_score": 70.34186,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.355Z",
         "sku": null,
@@ -245,7 +245,7 @@
         "title": "1-Dimethylamino-2-propanol"
       },
       {
-        "_score": 68.436516,
+        "_score": 68.4399,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.177Z",
         "sku": null,
@@ -278,7 +278,7 @@
         "title": "1-Propanephosphonic anhydride 50% in Ethyl acetate"
       },
       {
-        "_score": 67.694855,
+        "_score": 67.694534,
         "inStock": true,
         "_updated": "2025-04-13T17:07:17.903Z",
         "sku": null,
@@ -311,7 +311,7 @@
         "title": "Benzotriazole-1-yl-oxy-trispyrrolidinophosphonium hexafluorophosphate"
       },
       {
-        "_score": 67.6831,
+        "_score": 67.682785,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.306Z",
         "sku": null,
@@ -344,7 +344,7 @@
         "title": "Aluminum oxide, Activated, Neutral, Brockmann 1"
       },
       {
-        "_score": 55.705383,
+        "_score": 55.705486,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.040Z",
         "sku": null,
@@ -377,7 +377,7 @@
         "title": "3-(1,3-Benzodioxol-5-yl)-2-methylpropanal"
       },
       {
-        "_score": 51.372604,
+        "_score": 51.372707,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.826Z",
         "sku": null,
@@ -410,7 +410,7 @@
         "title": "Isopropyl Alcohol ACS"
       },
       {
-        "_score": 51.337128,
+        "_score": 51.33723,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.775Z",
         "sku": null,

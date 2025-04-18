@@ -1,9 +1,9 @@
 {
   "cookies": {
-    "OCSESSID": "57ddff983c180628cd42cfbffb"
+    "OCSESSID": "01835a5948822cf0ec984ed3d7"
   },
-  "created_at": "2025-04-18T03:52:07.557899+00:00",
-  "elapsed": 0.776108,
+  "created_at": "2025-04-18T04:50:44.195599+00:00",
+  "elapsed": 0.75055,
   "encoding": "utf-8",
   "headers": {
     "Connection": "Keep-Alive",
@@ -12,10 +12,10 @@
     "cache-control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
     "content-encoding": "gzip",
     "content-type": "text/html; charset=utf-8",
-    "date": "REDACTED",
+    "date": "Fri, 18 Apr 2025 04:50:44 GMT",
     "pragma": "no-cache",
     "server": "LiteSpeed",
-    "set-cookie": "OCSESSID=57ddff983c180628cd42cfbffb; path=/; secure",
+    "set-cookie": "OCSESSID=01835a5948822cf0ec984ed3d7; path=/; secure",
     "transfer-encoding": "chunked",
     "vary": "Accept-Encoding,User-Agent"
   },
@@ -23,7 +23,7 @@
   "request": {
     "body": "",
     "cookies": {
-      "OCSESSID": "57ddff983c180628cd42cfbffb",
+      "OCSESSID": "01835a5948822cf0ec984ed3d7",
       "language": "en-gb",
       "currency": "EUR"
     },
@@ -31,7 +31,7 @@
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "OCSESSID=57ddff983c180628cd42cfbffb; language=en-gb; currency=EUR",
+      "Cookie": "OCSESSID=01835a5948822cf0ec984ed3d7; language=en-gb; currency=EUR",
       "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
     },
     "method": "GET",

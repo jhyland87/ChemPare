@@ -288,9 +288,15 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                     params[k] = json.dumps(v)
 
         args = dict(headers=headers or self._headers, cookies=cookies or self._cookies, timeout=self._request_timeout)
-        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-            # if chempare.test_monkeypatching and chempare.called_from_test:
-            args["only_if_cached"] = self._save_responses
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
+        #     # if chempare.test_monkeypatching and chempare.called_from_test:
+        #     args["only_if_cached"] = self._save_responses
+        # args["only_if_cached"] = True
+
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        #     print("Saving responses to cache")
+        #     args["only_if_cached"] = False
+        #     args["force_refresh"] = True
 
         res = requests.get(
             path,
@@ -345,8 +351,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             cookies=cookies or self._cookies,
             timeout=self._request_timeout,
         )
-        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-            args["only_if_cached"] = self._save_responses
+
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        #     print("Saving responses to cache")
+        #     args["only_if_cached"] = False
+        #     args["force_refresh"] = True
 
         res = requests.post(
             path,
@@ -378,8 +387,16 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         args = dict()
 
-        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-            args["only_if_cached"] = self._save_responses
+        # args["only_if_cached"] = True
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
+        #     args["only_if_cached"] = self._save_responses
+        #     # force_refresh
+        # args["only_if_cached"] = self._save_responses
+
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        #     print("Saving responses to cache")
+        #     args["only_if_cached"] = False
+        #     args["force_refresh"] = True
 
         # resp = self.http_get(*args, **kwargs)
         resp = requests.head(url, timeout=self._request_timeout, **args, **kwargs)
