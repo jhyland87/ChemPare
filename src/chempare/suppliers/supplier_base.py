@@ -290,7 +290,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         args = dict(headers=headers or self._headers, cookies=cookies or self._cookies, timeout=self._request_timeout)
         if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
             # if chempare.test_monkeypatching and chempare.called_from_test:
-            args["only_if_cached"] = True
+            args["only_if_cached"] = self._save_responses
 
         res = requests.get(
             path,
@@ -346,7 +346,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             timeout=self._request_timeout,
         )
         if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-            args["only_if_cached"] = True
+            args["only_if_cached"] = self._save_responses
 
         res = requests.post(
             path,
@@ -379,7 +379,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         args = dict()
 
         if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-            args["only_if_cached"] = True
+            args["only_if_cached"] = self._save_responses
 
         # resp = self.http_get(*args, **kwargs)
         resp = requests.head(url, timeout=self._request_timeout, **args, **kwargs)

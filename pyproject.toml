@@ -129,7 +129,7 @@ env = [
     # DEBUG, WARNING, ERROR, INFO
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
-    "SAVE_RESPONSES=true",
+    "SAVE_RESPONSES=false",
     "TIMEOUT=2000"
 ]
 minversion = "7.0"
