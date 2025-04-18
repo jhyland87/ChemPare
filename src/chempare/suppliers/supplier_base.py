@@ -28,7 +28,6 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
-from chempare.utils import dict_hash
 from chempare.utils import replace_dict_values_by_value
 
 
