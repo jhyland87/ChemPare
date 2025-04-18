@@ -30,13 +30,9 @@ class SupplierEsDrei(SupplierBase):
         # https://shop.es-drei.de/search/index/sSearch/mercury?p=1&n=48
         # https://shop.es-drei.de/search?sSearch=mercury&p=1&n=48
         #
-        get_params = {
-            "sSearch": query,
-            "p": 1,  # Page number
-            "n": 48,  # Must be one of: 12, 24, 36, 48
-        }
+        get_params = {"sSearch": query, "p": 1, "n": 48}  # Page number  # Must be one of: 12, 24, 36, 48
 
-        search_result = self.http_get_html("search", get_params)
+        search_result = self.http_get_html("search", params=get_params)
 
         if not search_result:
             return
@@ -55,9 +51,7 @@ class SupplierEsDrei(SupplierBase):
         """
 
         product_page_soup = BeautifulSoup(self._query_results, "html.parser")
-        product_containers = product_page_soup.find_all(
-            "div", class_="product--info"
-        )
+        product_containers = product_page_soup.find_all("div", class_="product--info")
 
         for product_elem in product_containers[: self._limit]:
             self._products.append(self._parse_product(product_elem))
@@ -123,5 +117,6 @@ class SupplierEsDrei(SupplierBase):
             product_data["price"] = price_string
 
         return TypeProduct(**product_data)
+
 
 __supplier_class = SupplierEsDrei
