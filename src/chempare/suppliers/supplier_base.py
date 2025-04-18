@@ -47,7 +47,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     # def __init_subclass__(cls, **kwargs):
     #     super().__init_subclass__(**kwargs)
-    _headers = None
+    _headers = {}
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -346,7 +346,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res
 
     @finalmethod
-    def http_get_headers(self, path: str | None, *args, **kwargs):
+    def http_get_headers(self, path: str | None = None, *args, **kwargs):
         """Get the response headers for a GET request
 
         Returns:
@@ -399,7 +399,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return req.json()
 
     @finalmethod
-    def http_get_html(self, path: str, /, **kwargs) -> bytes:
+    def http_get_html(self, path: str, /, *args, **kwargs) -> bytes:
         """HTTP getter (for HTML content).
 
         Args:
@@ -416,7 +416,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if path and api_url not in path:
             path = f"{api_url}/{path}"
 
-        res = self.http_get(path, **kwargs)
+        res = self.http_get(path, *args, **kwargs)
 
         return res.content
 

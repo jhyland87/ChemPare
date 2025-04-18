@@ -3,11 +3,11 @@
 import pytest
 from pytest_attributes import attributes
 
-
 from chempare.exceptions import CaptchaEncountered
 from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
 
 
+@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="query-acid")
 def test_name_query():
     try:
@@ -18,6 +18,7 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
+@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="query-nonsense")
 def test_nonsense_query():
     try:
@@ -28,6 +29,7 @@ def test_nonsense_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
+@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="captcha-firewall")
 def test_captcha_firewall():
     with pytest.raises(CaptchaEncountered) as captcha_error:

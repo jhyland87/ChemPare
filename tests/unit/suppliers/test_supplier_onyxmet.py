@@ -1,4 +1,4 @@
-"""EsDrei supplier test module"""
+"""OnyxMet supplier test module"""
 
 import pytest
 from pytest_attributes import attributes

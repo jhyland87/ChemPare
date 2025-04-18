@@ -1,0 +1,164 @@
+{
+  "created_at": "2025-04-18T03:22:12.871373+00:00",
+  "elapsed": 0.050581,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "46075",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Fri, 18 Apr 2025 03:22:12 GMT",
+    "etag": "W/\"5a29a73bea64b346ca120463db7153d2\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,9WD8GAcpJgs/Ng1WkD2i0h9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLpN8O46b22tu1au2ej/WbTkG/hKs8AeY1T4OIbgnD+yx,2d58ifebGbosy5xc+FRalgdbkQrf125HK+fw9AYX+vPSbBrxQ6lOobm49yQYDvmgsZa5rYJctNyRerhUSxPpGg==,2UNV7KOq4oGjA5+PKsX47NoP9ImTZp7EGowz+sg6PHMG/hKs8AeY1T4OIbgnD+yx",
+    "x-served-by": "cache-lax-kwhp1940065-LAX",
+    "x-wix-request-id": "1744946532.916891065761532959"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "hs": "-790778232",
+      "svSession": "de1f7cc09967b8057055c6791096143ac12f9d5683a2ff9c2e08d65f08481fdc2f1453e74533968e058e6fdb4cd586741e60994d53964e647acf431e4f798bcdd6d6cec016854cbd394a9a298973d49cc2d7b9b55e00820283ac37aeca52d307a6c2028264e3552acdee1c375c0b8f21c8b26bd20f8b0acbd067c030aba8e8553446555bdb3c443e6ebbb1aa16b781f1",
+      "ssr-caching": "cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g",
+      "server-session-bind": "b95a4b48-4bfb-4a38-a293-90a4b1a96c11",
+      "XSRF-TOKEN": "1744946479|4qMNcS4mbSy1"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
+      "Connection": "keep-alive",
+      "Cookie": "hs=-790778232; svSession=de1f7cc09967b8057055c6791096143ac12f9d5683a2ff9c2e08d65f08481fdc2f1453e74533968e058e6fdb4cd586741e60994d53964e647acf431e4f798bcdd6d6cec016854cbd394a9a298973d49cc2d7b9b55e00820283ac37aeca52d307a6c2028264e3552acdee1c375c0b8f21c8b26bd20f8b0acbd067c030aba8e8553446555bdb3c443e6ebbb1aa16b781f1; ssr-caching=cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g; server-session-bind=b95a4b48-4bfb-4a38-a293-90a4b1a96c11; XSRF-TOKEN=1744946479|4qMNcS4mbSy1",
+      "User-Agent": "python-requests/2.32.3",
+      "XSRF-TOKEN": "1744946479|4qMNcS4mbSy1",
+      "client-binding": "b95a4b48-4bfb-4a38-a293-90a4b1a96c11"
+    },
+    "method": "GET",
+    "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2A5949-29-1%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D"
+  },
+  "status_code": 200,
+  "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2A5949-29-1%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D",
+  "_decoded_content": {
+    "data": {
+      "catalog": {
+        "category": {
+          "numOfProducts": 632,
+          "productsWithMetaData": {
+            "totalCount": 1,
+            "list": [
+              {
+                "id": "3e87ca61-d026-be20-a34f-11d6239e0c80",
+                "options": [
+                  {
+                    "id": "opt-20",
+                    "key": "Size",
+                    "title": "Size",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 1,
+                        "value": "25g",
+                        "description": "25g",
+                        "key": "25g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 2,
+                        "value": "50g",
+                        "description": "50g",
+                        "key": "50g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 3,
+                        "value": "100g",
+                        "description": "100g",
+                        "key": "100g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 4,
+                        "value": "500g",
+                        "description": "500g",
+                        "key": "500g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 5,
+                        "value": "1kg",
+                        "description": "1kg",
+                        "key": "1kg",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "0960c421-cb5d-4f75-80fd-04f167f390d9",
+                    "optionsSelections": [
+                      4
+                    ],
+                    "price": 76.0,
+                    "formattedPrice": "$76.00"
+                  },
+                  {
+                    "id": "1a146ad4-428b-4c89-b68f-684ae80b28eb",
+                    "optionsSelections": [
+                      5
+                    ],
+                    "price": 114.0,
+                    "formattedPrice": "$114.00"
+                  },
+                  {
+                    "id": "d198cf89-b43d-49ba-8c78-4993b83d1fa7",
+                    "optionsSelections": [
+                      1
+                    ],
+                    "price": 13.52,
+                    "formattedPrice": "$13.52"
+                  },
+                  {
+                    "id": "b964852c-7c83-4c06-9d09-926546811a07",
+                    "optionsSelections": [
+                      2
+                    ],
+                    "price": 20.27,
+                    "formattedPrice": "$20.27"
+                  },
+                  {
+                    "id": "179e29e4-35cc-4626-a398-f43e9f1ba5a1",
+                    "optionsSelections": [
+                      3
+                    ],
+                    "price": 30.4,
+                    "formattedPrice": "$30.40"
+                  }
+                ],
+                "productType": "physical",
+                "price": 13.52,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "citric-acid-monohydrate-cas-5949-29-1",
+                "formattedPrice": "$13.52",
+                "name": "Citric acid monohydrate, CAS 5949-29-1",
+                "description": "<p>Appearance: colorless crystalline powder</p><p>CAS: 5949-29-1</p><p>Product ID: CITH</p><p>Purity: 99%+</p><p>Formula: C6H10O8</p><p>MW: 210.14g/mol</p><p>MP: 135-152C</p><p>Solubility: alcohol soluble</p><p>HS Code: 291814</p><p>MDL: MFCD00149972</p><p>SMILES: O.OC(=O)CC(O)(CC(O)=O)C(O)=O</p><p>LD50 (rat, oral) &gt;3,000mg/kg</p><p>TSCA: Yes</p>",
+                "brand": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

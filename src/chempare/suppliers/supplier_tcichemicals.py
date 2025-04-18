@@ -19,7 +19,7 @@ class SupplierTciChemicals(SupplierBase):
     _supplier: TypeSupplier = TypeSupplier(
         name="TCI Chemicals",
         # location = 'Eu',
-        base_url="https://www.tcichemicals.com/",
+        base_url="https://www.tcichemicals.com",
     )
     """Supplier specific data"""
 
@@ -63,9 +63,7 @@ class SupplierTciChemicals(SupplierBase):
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html(
-                "US/en/search/", params=get_params
-            )
+            search_result = self.http_get_html("US/en/search", params=get_params)
 
             if not search_result:
                 return
@@ -80,9 +78,7 @@ class SupplierTciChemicals(SupplierBase):
                 # No product wrapper found
                 return
 
-            self._query_results.extend(
-                product_basic.find_all("div", class_="prductlist")
-            )
+            self._query_results.extend(product_basic.find_all("div", class_="prductlist"))
 
             if self._limit == len(self._query_results):
                 return
@@ -143,9 +139,7 @@ class SupplierTciChemicals(SupplierBase):
         if price_obj:
             product_dict.update(price_obj)
 
-        description_container = product_obj.find(
-            "div", class_="product-description"
-        )
+        description_container = product_obj.find("div", class_="product-description")
         data = description_container.find_all("td")
 
         for idx, d in enumerate(data):
@@ -158,10 +152,7 @@ class SupplierTciChemicals(SupplierBase):
                 continue
 
         quantity_pattern = re.compile(
-            (
-                r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|"
-                r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$"
-            )
+            (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
         )
         quantity_matches = quantity_pattern.search(product_dict["quantity"])
 
@@ -177,5 +168,6 @@ class SupplierTciChemicals(SupplierBase):
         product = TypeProduct(**product_dict)
 
         self._products.append(product.cast_properties())
+
 
 __supplier_class = SupplierTciChemicals
