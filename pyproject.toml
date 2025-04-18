@@ -6,7 +6,7 @@ requires-python = ">= 3.12"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
 dependencies = [
     "currex",
-    "requests",
+    "requests>=2.4.2",
     "price_parser",
     "inquirer",
     "bs4",
@@ -19,7 +19,7 @@ dependencies = [
     "dataclasses",
     "numpy",
     "pathlib",
-    "curl_cffi",
+    #"curl_cffi",
     "translate",
     "regex",
     "inflection",
@@ -129,7 +129,8 @@ env = [
     # DEBUG, WARNING, ERROR, INFO
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
-    "SAVE_RESPONSES=true"
+    "SAVE_RESPONSES=true",
+    "TIMEOUT=2000"
 ]
 minversion = "7.0"
 addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "

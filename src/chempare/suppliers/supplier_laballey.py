@@ -119,17 +119,17 @@ class SupplierLaballey(SupplierBase):
 
         product = TypeProduct(
             **self.__defaults,
-            uuid=product_obj["product_id"],
-            name=product_obj["title"],
-            title=product_obj["title"],
-            description=(str(product_obj["description"]).strip() if product_obj["description"] else None),
-            price=f"{float(product_obj['price']):.2f}",
-            url="{0}{1}".format(self._supplier.base_url, product_obj["link"]),
-            manufacturer=product_obj["vendor"],
+            uuid=product_obj.get("product_id"),
+            name=product_obj.get("title"),
+            title=product_obj.get("title"),
+            description=str(product_obj.get("description", "")).strip() or None,
+            price=f"{float(product_obj.get("price")):.2f}",
+            url="{0}{1}".format(self._supplier.base_url, product_obj.get("link")),
+            manufacturer=product_obj.get("vendor"),
             supplier=self._supplier.name,
         )
 
-        quantity_matches = self._parse_quantity(product_obj["product_code"])
+        quantity_matches = self._parse_quantity(product_obj.get("product_code"))
 
         if quantity_matches:
             product.update(quantity_matches)

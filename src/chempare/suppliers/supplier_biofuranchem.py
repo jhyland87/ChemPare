@@ -183,7 +183,7 @@ class SupplierBioFuranChem(SupplierBase):
         }
 
         query_params["q"] = regex.sub(r'\n?\s*', '', query_params["q"])
-        # query_params["v"] = json.dumps(query_params["v"])
+        query_params["v"] = json.dumps(query_params["v"])
         search_result = self.http_get_json(
             "_api/wix-ecommerce-storefront-web/api", params=query_params, headers=self._headers, cookies=self._cookies
         )

@@ -1,23 +1,23 @@
 {
   "cookies": {
-    "session_id": "848ab75f479b75d1662d72bfa72459d7",
+    "session_id": "6a491d16cdb07ce9dfb535ed00e1e0e8",
     "COOKIELAW": "optin",
     "COOKIELAW_SOCIAL": "1",
     "COOKIELAW_STATS": "1",
     "COOKIELAW_ADS": "1"
   },
-  "created_at": "2025-04-17T19:12:14.085371+00:00",
-  "elapsed": 1.28255,
+  "created_at": "2025-04-18T01:53:47.428962+00:00",
+  "elapsed": 1.223135,
   "encoding": "utf-8",
   "headers": {
-    "CF-RAY": "931e3b8cc8a72b5d-LAX",
+    "CF-RAY": "932087c4b9757bec-LAX",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
-    "Date": "Thu, 17 Apr 2025 19:12:13 GMT",
+    "Date": "Fri, 18 Apr 2025 01:53:46 GMT",
     "Server": "cloudflare",
-    "Set-Cookie": "session_id=848ab75f479b75d1662d72bfa72459d7; expires=Thu, 17-Apr-2025 19:42:07 GMT; Max-Age=1795; path=/; secure; HttpOnly; SameSite=none, COOKIELAW=optin; expires=Fri, 17-Apr-2026 19:12:13 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_SOCIAL=1; expires=Fri, 17-Apr-2026 19:12:13 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_STATS=1; expires=Fri, 17-Apr-2026 19:12:13 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_ADS=1; expires=Fri, 17-Apr-2026 19:12:13 GMT; Max-Age=31536000; path=/; secure; SameSite=none, __cf_bm=deleted; expires=Wed, 16-Apr-2025 19:12:13 GMT; Max-Age=0; path=/; secure; SameSite=none",
+    "Set-Cookie": "session_id=6a491d16cdb07ce9dfb535ed00e1e0e8; expires=Fri, 18-Apr-2025 02:23:40 GMT; Max-Age=1795; path=/; secure; HttpOnly; SameSite=none, COOKIELAW=optin; expires=Sat, 18-Apr-2026 01:53:46 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_SOCIAL=1; expires=Sat, 18-Apr-2026 01:53:46 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_STATS=1; expires=Sat, 18-Apr-2026 01:53:46 GMT; Max-Age=31536000; path=/; secure; SameSite=none, COOKIELAW_ADS=1; expires=Sat, 18-Apr-2026 01:53:46 GMT; Max-Age=31536000; path=/; secure; SameSite=none, __cf_bm=deleted; expires=Thu, 17-Apr-2025 01:53:46 GMT; Max-Age=0; path=/; secure; SameSite=none",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
     "Transfer-Encoding": "chunked",
     "alt-svc": "h3=\":443\"; ma=86400",
@@ -25,11 +25,11 @@
     "p3p": "CP=\"ALL PUR DSP CUR ADMi DEVi CONi OUR COR IND\"",
     "vary": "Accept-Encoding",
     "x-content-type-options": "nosniff",
-    "x-developer": "Page: 931.9ms, Render: 2.5ms, Mem: 10,240kB, Cache: 0Q (0.0ms), DB: 6Q (5.0ms), Prop: 0Q (0.0ms)",
-    "x-envoy-upstream-service-time": "952",
+    "x-developer": "Page: 866.1ms, Render: 3.3ms, Mem: 2,048kB, Cache: 0Q (0.0ms), DB: 6Q (5.8ms), Prop: 0Q (0.0ms)",
+    "x-envoy-upstream-service-time": "891",
     "x-frame-options": "SAMEORIGIN",
-    "x-request-id": "10f5bd3192a0707576d964542196cc16",
-    "x-runtime": "0.939448",
+    "x-request-id": "50623518321cee1274311061d92fd455",
+    "x-runtime": "0.875243",
     "x-shop-id": "286851",
     "x-ua-compatible": "IE=Edge,chrome=1",
     "x-xss-protection": "1; mode=block"
@@ -38,13 +38,13 @@
     {
       "_content": "",
       "cookies": {
-        "__cf_bm": "jyz4M_w8NakfTtlRIeSvgGCwNLpcEDpx8.IknscufO8-1744917132-1.0.1.1-kZ.UujjTO0owx5ly90a0nB636THF.tqAYjMq63gJOr.3jmHQw5u8Yrpeu6RKZG.pfhn5om7XeJ0ch4W4GRbvWgICdHdfJRESYS7D8O9L4iw"
+        "__cf_bm": "q079hyoNfde.weC3kB9Fa2vydNEjn8CJb20DqbQQ2eI-1744941225-1.0.1.1-7E6w6FnmeQmTVNUaXWUrPoBxiHqGbYwbYd2dmfDUnNn8ZbOVxxNBa.TWWkRjWboQ1Nb0juh79xKWHWC.mRsyclEbl1gMFRcUQiYqP_3Tq7Q"
       },
-      "created_at": "2025-04-17T19:12:14.085459+00:00",
-      "elapsed": 0.763757,
+      "created_at": "2025-04-18T01:53:47.429108+00:00",
+      "elapsed": 0.824007,
       "encoding": "utf-8",
       "headers": {
-        "Date": "Thu, 17 Apr 2025 19:12:12 GMT",
+        "Date": "Fri, 18 Apr 2025 01:53:45 GMT",
         "Content-Type": "text/html;charset=utf-8",
         "Transfer-Encoding": "chunked",
         "Connection": "keep-alive",
@@ -54,18 +54,18 @@
         "x-ua-compatible": "IE=Edge,chrome=1",
         "x-xss-protection": "1; mode=block",
         "location": "/en/search/acid/?format=json&limit=20",
-        "x-developer": "Page: 4.7ms, Render: 0.0ms, Mem: 2,048kB, Cache: 0Q (0.0ms), DB: 0Q (0.0ms), Prop: 0Q (0.0ms)",
-        "x-runtime": "0.004729",
+        "x-developer": "Page: 5.5ms, Render: 0.0ms, Mem: 2,048kB, Cache: 0Q (0.0ms), DB: 0Q (0.0ms), Prop: 0Q (0.0ms)",
+        "x-runtime": "0.005599",
         "x-shop-id": "",
         "Cache-Control": "no-cache",
         "vary": "Accept-Encoding",
-        "x-request-id": "03a5749ed70d4517e43999226045a030",
-        "x-envoy-upstream-service-time": "9",
+        "x-request-id": "2a633f69d71f96b8e966f497b25fd4b4",
+        "x-envoy-upstream-service-time": "10",
         "cf-cache-status": "DYNAMIC",
-        "Set-Cookie": "__cf_bm=jyz4M_w8NakfTtlRIeSvgGCwNLpcEDpx8.IknscufO8-1744917132-1.0.1.1-kZ.UujjTO0owx5ly90a0nB636THF.tqAYjMq63gJOr.3jmHQw5u8Yrpeu6RKZG.pfhn5om7XeJ0ch4W4GRbvWgICdHdfJRESYS7D8O9L4iw; path=/; expires=Thu, 17-Apr-25 19:42:12 GMT; domain=.www.laboratoriumdiscounter.nl; HttpOnly; Secure; SameSite=None",
+        "Set-Cookie": "__cf_bm=q079hyoNfde.weC3kB9Fa2vydNEjn8CJb20DqbQQ2eI-1744941225-1.0.1.1-7E6w6FnmeQmTVNUaXWUrPoBxiHqGbYwbYd2dmfDUnNn8ZbOVxxNBa.TWWkRjWboQ1Nb0juh79xKWHWC.mRsyclEbl1gMFRcUQiYqP_3Tq7Q; path=/; expires=Fri, 18-Apr-25 02:23:45 GMT; domain=.www.laboratoriumdiscounter.nl; HttpOnly; Secure; SameSite=None",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
         "Server": "cloudflare",
-        "CF-RAY": "931e3b89bd612b5d-LAX",
+        "CF-RAY": "932087c12dc07bec-LAX",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "reason": "Moved Permanently",
@@ -88,13 +88,13 @@
   "request": {
     "body": "",
     "cookies": {
-      "__cf_bm": "jyz4M_w8NakfTtlRIeSvgGCwNLpcEDpx8.IknscufO8-1744917132-1.0.1.1-kZ.UujjTO0owx5ly90a0nB636THF.tqAYjMq63gJOr.3jmHQw5u8Yrpeu6RKZG.pfhn5om7XeJ0ch4W4GRbvWgICdHdfJRESYS7D8O9L4iw"
+      "__cf_bm": "q079hyoNfde.weC3kB9Fa2vydNEjn8CJb20DqbQQ2eI-1744941225-1.0.1.1-7E6w6FnmeQmTVNUaXWUrPoBxiHqGbYwbYd2dmfDUnNn8ZbOVxxNBa.TWWkRjWboQ1Nb0juh79xKWHWC.mRsyclEbl1gMFRcUQiYqP_3Tq7Q"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "__cf_bm=jyz4M_w8NakfTtlRIeSvgGCwNLpcEDpx8.IknscufO8-1744917132-1.0.1.1-kZ.UujjTO0owx5ly90a0nB636THF.tqAYjMq63gJOr.3jmHQw5u8Yrpeu6RKZG.pfhn5om7XeJ0ch4W4GRbvWgICdHdfJRESYS7D8O9L4iw",
+      "Cookie": "__cf_bm=q079hyoNfde.weC3kB9Fa2vydNEjn8CJb20DqbQQ2eI-1744941225-1.0.1.1-7E6w6FnmeQmTVNUaXWUrPoBxiHqGbYwbYd2dmfDUnNn8ZbOVxxNBa.TWWkRjWboQ1Nb0juh79xKWHWC.mRsyclEbl1gMFRcUQiYqP_3Tq7Q",
       "User-Agent": "python-requests/2.32.3"
     },
     "method": "GET",
@@ -106,7 +106,7 @@
     "page": {
       "search": "acid",
       "session_id": "",
-      "key": "991716d17f984307c83c246ba6355dff",
+      "key": "7a952eba4e97b1de887d744be82d2c83",
       "title": "Search results for acid",
       "breadcrumbs": [
         {
@@ -2277,8 +2277,8 @@
           "body": "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\r\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\r\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\r\n'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\r\n})(window,document,'script','dataLayer','GTM-MVX4DLVS');",
           "location": "head"
         },
-        "17830353": {
-          "id": 17830353,
+        "17839768": {
+          "id": 17839768,
           "secure": true,
           "src": "https://vies.cmdcbv.app/public/vies-933.js?v=5",
           "body": null,

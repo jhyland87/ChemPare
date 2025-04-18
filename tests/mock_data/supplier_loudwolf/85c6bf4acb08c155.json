@@ -1,11 +1,11 @@
 {
   "cookies": {
-    "PHPSESSID": "y3stbjTXJ-vuj1c8QfHTX0",
+    "PHPSESSID": "dKyKruYjGwrEvOk5JhTGI1",
     "language": "en",
     "currency": "USD"
   },
-  "created_at": "2025-04-17T19:12:23.982862+00:00",
-  "elapsed": 1.689455,
+  "created_at": "2025-04-18T01:53:53.985540+00:00",
+  "elapsed": 1.720088,
   "encoding": "utf-8",
   "headers": {
     "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
@@ -14,12 +14,12 @@
     "Content-Length": "6148",
     "Content-Security-Policy": "upgrade-insecure-requests;",
     "Content-Type": "text/html; charset=utf-8",
-    "Date": "Thu, 17 Apr 2025 19:12:22 GMT",
+    "Date": "Fri, 18 Apr 2025 01:53:52 GMT",
     "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
     "Keep-Alive": "timeout=5, max=100",
     "Pragma": "no-cache",
     "Server": "Apache",
-    "Set-Cookie": "PHPSESSID=y3stbjTXJ-vuj1c8QfHTX0; path=/; HttpOnly, language=en; expires=Sat, 17-May-2025 19:12:23 GMT; Max-Age=2592000; path=/; domain=www.loudwolf.com, currency=USD; expires=Sat, 17-May-2025 19:12:23 GMT; Max-Age=2592000; path=/; domain=www.loudwolf.com",
+    "Set-Cookie": "PHPSESSID=dKyKruYjGwrEvOk5JhTGI1; path=/; HttpOnly, language=en; expires=Sun, 18-May-2025 01:53:53 GMT; Max-Age=2592000; path=/; domain=www.loudwolf.com, currency=USD; expires=Sun, 18-May-2025 01:53:53 GMT; Max-Age=2592000; path=/; domain=www.loudwolf.com",
     "Upgrade": "h2",
     "Vary": "Accept-Encoding,User-Agent"
   },

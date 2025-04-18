@@ -5,12 +5,12 @@ from __future__ import annotations
 import json
 import logging
 import os
+from collections.abc import Iterable
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Self
 from typing import TypedDict
-from collections.abc import Iterable
 from urllib.parse import urlparse
 
 # from curl_cffi import Headers
@@ -28,7 +28,8 @@ from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
-from chempare.utils import dict_hash, replace_dict_values_by_value
+from chempare.utils import dict_hash
+from chempare.utils import replace_dict_values_by_value
 
 
 # import chempare
@@ -46,6 +47,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     # def __init_subclass__(cls, **kwargs):
     #     super().__init_subclass__(**kwargs)
+    _headers = None
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -58,7 +60,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index = 0
         self._query = query
         self._cookies = {}
-        self._headers = {}
+        # self._headers = {}
         self._save_responses = False
 
         self._debug_curl: bool = False
@@ -70,6 +72,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         SAVE_RESPONSES = os.getenv("SAVE_RESPONSES", "false").lower()
         if SAVE_RESPONSES == "true" or SAVE_RESPONSES == "1":
             self._save_responses = True
+
+        self._request_timeout = int(os.getenv("TIMEOUT", "2000"))
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -289,6 +293,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # impersonate="chrome",
             cookies=cookies or self._cookies,
             headers=headers or self._headers,
+            timeout=self._request_timeout,
             # debug=self._debug_curl,
         )
 
@@ -334,13 +339,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             data=data,
             headers=headers or self._headers,
             cookies=cookies or self._cookies,
+            timeout=self._request_timeout,
             # debug=self._debug_curl,
         )
 
         return res
 
     @finalmethod
-    def http_get_headers(self, path: str | None = None, *args, **kwargs):
+    def http_get_headers(self, path: str | None, *args, **kwargs):
         """Get the response headers for a GET request
 
         Returns:
@@ -352,7 +358,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if path:
             url = f"{url}/{path}"
         # resp = self.http_get(*args, **kwargs)
-        resp = requests.head(url, *args, **kwargs)
+        resp = requests.head(url, *args, timeout=self._request_timeout, **kwargs)
 
         return resp.headers
 
@@ -393,7 +399,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return req.json()
 
     @finalmethod
-    def http_get_html(self, path: str | None = None, /, params: dict | None = None) -> bytes:
+    def http_get_html(self, path: str, /, **kwargs) -> bytes:
         """HTTP getter (for HTML content).
 
         Args:
@@ -410,7 +416,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if path and api_url not in path:
             path = f"{api_url}/{path}"
 
-        res = self.http_get(path, params)
+        res = self.http_get(path, **kwargs)
 
         return res.content
 
@@ -438,10 +444,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         useful for when we need to make an initial request to a homepage to get
         headers and stores some cookies
         """
-
-    # @staticmethod
-    # def is_in_test():
-    #     return chempare.called_from_test
 
     @abstractmethod
     def _query_products(self, query: str) -> None:
