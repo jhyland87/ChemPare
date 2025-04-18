@@ -36,6 +36,42 @@ class SupplierLabchem(SupplierBase):
     __defaults: Dict = {"currency": "$", "currency_code": "USD"}
     """Default values applied to products from this supplier"""
 
+    _cookies = {
+        'pagemode': 'gridView',
+        'pc_debug': '',
+        'pc_debug_x': 'null',
+        'pc_debug_y': 'null',
+        'pc_v_4jVxV9OCTyi5I8mvWtt7fA': 'HgF_3YRvT6qa2weat2bTaw',
+        'JSESSIONID': '5C7C2D6629613C7B463F51489E7BA2BA',
+        'cf_clearance': 'xEXBNyV0FHpM.T02R.PvptK3gLTOuhrAFx.42wTVb5U-1744956265-1.2.1.1-VHECy52psEzCv_LSOv3yFaC._gM8yEwqVk8982KZmnV91FbEnDnyX6ii1Hu0syWJQjnHYIjJ51XPuSWuRp92EegDcQ90PucqVDLLCwSDrzjc6n.KiJ60MmsYZV.vwfpz0pBoZCx7ZFifSC9yExCjhFFUXhx9vo5BCjf4nRwLhMHZdhm8C3HhD5PlDT2ZGH8HvcRjrcBbsX_zCskQ3JbidWQXsbr2K.KejYNST_DWMyFv1mVts2ho1SLq8dm3uTNhCYbdYMx.8.9u2JEmecXmSoN1BhrRI35J0W_8PCQZ5KGFuicC2hYlIfnvlCpEbfOQreBjPv1kyTAEwyHyxX2Bb2TJj4RSlOXEQDrXsGlhTW69WtlLKEXD7SSVdxzVhau9',
+        'pc_sessid_4jVxV9OCTyi5I8mvWtt7fA': 'rZ264vRKQZ-ipSvsqz1gpg',
+        'afterLoginUrl': '',
+    }
+
+    _headers = {
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'accept-language': 'en-US,en;q=0.5',
+        'cache-control': 'no-cache',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': 'https://www.labchem.com//searchPage.action?keyWord=acid&overRideCatId=N',
+        'sec-ch-ua': '"Not(A:Brand";v="99", "Brave";v="133", "Chromium";v="133"',
+        'sec-ch-ua-arch': '"arm"',
+        'sec-ch-ua-bitness': '"64"',
+        'sec-ch-ua-full-version-list': '"Not(A:Brand";v="99.0.0.0", "Brave";v="133.0.0.0", "Chromium";v="133.0.0.0"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-model': '""',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-ch-ua-platform-version': '"14.6.1"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'sec-gpc': '1',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest',
+        'cookie': 'pagemode=gridView; pc_debug=; pc_debug_x=null; pc_debug_y=null; pc_v_4jVxV9OCTyi5I8mvWtt7fA=HgF_3YRvT6qa2weat2bTaw; JSESSIONID=5C7C2D6629613C7B463F51489E7BA2BA; cf_clearance=xEXBNyV0FHpM.T02R.PvptK3gLTOuhrAFx.42wTVb5U-1744956265-1.2.1.1-VHECy52psEzCv_LSOv3yFaC._gM8yEwqVk8982KZmnV91FbEnDnyX6ii1Hu0syWJQjnHYIjJ51XPuSWuRp92EegDcQ90PucqVDLLCwSDrzjc6n.KiJ60MmsYZV.vwfpz0pBoZCx7ZFifSC9yExCjhFFUXhx9vo5BCjf4nRwLhMHZdhm8C3HhD5PlDT2ZGH8HvcRjrcBbsX_zCskQ3JbidWQXsbr2K.KejYNST_DWMyFv1mVts2ho1SLq8dm3uTNhCYbdYMx.8.9u2JEmecXmSoN1BhrRI35J0W_8PCQZ5KGFuicC2hYlIfnvlCpEbfOQreBjPv1kyTAEwyHyxX2Bb2TJj4RSlOXEQDrXsGlhTW69WtlLKEXD7SSVdxzVhau9; pc_sessid_4jVxV9OCTyi5I8mvWtt7fA=rZ264vRKQZ-ipSvsqz1gpg; afterLoginUrl=',
+    }
+
     def _query_products(self, query: str) -> None:
         # Search types/ID's:
         #   desc = -1
@@ -47,8 +83,11 @@ class SupplierLabchem(SupplierBase):
 
         self._query = query
 
-        get_params = dict(keyWord=self._query, overRideCatId="N", resultPage=60)
+        get_params = dict(q=self._query, overRideCatId="N", resultPage=60)
 
+        get_params["productIdList"] = (
+            "LC101000-L02,LC101600-L03,LC103900-L03,LC179200-M02,LC271000-M02,LC102600-L03,LC258300-L04,LC102600-L04,LC153300-L04,LC153300-L03,LC258300-L02,LC153200-L04"
+        )
         if self._is_cas(self._query) is True:
             get_params["srchTyp"] = 11
         else:
@@ -56,7 +95,9 @@ class SupplierLabchem(SupplierBase):
 
         # 1) Query the main product search page (returns HTML, but does not
         # include prices)
-        self._query_results = self.http_get_html("searchPage.action", params=get_params)
+        self._query_results = self.http_get_html(
+            "searchPage.action", params=get_params, headers=self._headers, cookies=self._cookies
+        )
 
     def __query_products_autocomplete(self) -> None:
         """Query products from supplier"""
@@ -72,7 +113,9 @@ class SupplierLabchem(SupplierBase):
             "_": 1739962847766,
         }
 
-        search_result = self.http_get_json("AutoComplete.slt", params=get_params)
+        search_result = self.http_get_json(
+            "AutoComplete.slt", params=get_params, headers=self._headers, cookies=self._cookies
+        )
 
         if not search_result:
             return
@@ -188,7 +231,9 @@ class SupplierLabchem(SupplierBase):
 
         params = {"productIdList": part_numbers}
 
-        product_json = self.http_get_json("getPriceDetailPage.action", params=params)
+        product_json = self.http_get_json(
+            "getPriceDetailPage.action", params=params, headers=self._headers, cookies=self._cookies
+        )
 
         res = dict()
 

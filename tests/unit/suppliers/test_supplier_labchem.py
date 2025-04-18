@@ -4,10 +4,10 @@ import pytest
 from pytest_attributes import attributes
 
 from chempare.exceptions import CaptchaEncountered
+from chempare.exceptions import NoProductsFound
 from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
 
 
-@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="query-acid")
 def test_name_query():
     try:
@@ -18,18 +18,24 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="query-nonsense")
 def test_nonsense_query():
-    try:
+    with pytest.raises(NoProductsFound) as no_products_found:
         results = Supplier("this_should_return_no_search_result")
+
+    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+
+
+@attributes(supplier="supplier_labchem", mock_data="query-cas-64-19-7")
+def test_cas_query():
+    try:
+        results = Supplier("64-19-7")
     except Exception as e:
         results = e
 
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_labchem", mock_data="captcha-firewall")
 def test_captcha_firewall():
     with pytest.raises(CaptchaEncountered) as captcha_error:

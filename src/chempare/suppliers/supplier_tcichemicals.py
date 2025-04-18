@@ -23,6 +23,16 @@ class SupplierTciChemicals(SupplierBase):
     )
     """Supplier specific data"""
 
+    _headers = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "sec-ch-ua-platform": "macOS",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "none",
+        "sec-fetch-user": "?1",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+    }
+
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
@@ -53,7 +63,7 @@ class SupplierTciChemicals(SupplierBase):
                 None: Nothing, just adds new entries to self._query_results,
                           and executes self.__query_search_page if needed.
             """
-
+            print(f"{page_idx=}")
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter
                 # should apply to results returned from Supplier3SChem, not
@@ -63,7 +73,7 @@ class SupplierTciChemicals(SupplierBase):
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html("US/en/search", params=get_params)
+            search_result = self.http_get_html("US/en/search", params=get_params, headers=self._headers)
 
             if not search_result:
                 return

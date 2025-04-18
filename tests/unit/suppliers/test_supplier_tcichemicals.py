@@ -8,7 +8,6 @@ from chempare.exceptions import NoProductsFound
 from chempare.suppliers.supplier_tcichemicals import SupplierTciChemicals as Supplier
 
 
-@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_tcichemicals", mock_data="query-acid")
 def test_name_query():
     try:
@@ -19,7 +18,6 @@ def test_name_query():
     assert isinstance(results, Exception) is False, "query returned an exception"
 
 
-@pytest.mark.skip(reason="Test is under development")
 @attributes(supplier="supplier_tcichemicals", mock_data="query-nonsense")
 def test_nonsense_query():
     results = None

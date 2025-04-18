@@ -9,6 +9,7 @@ from abcplus import finalmethod
 from chempare import ClassUtils
 from chempare import suppliers
 from chempare.datatypes import TypeProduct
+from chempare.exceptions import NoProductsFound
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
@@ -16,6 +17,8 @@ from chempare.suppliers import *
 
 
 class SearchFactory(ClassUtils, object):
+    """Simple factory to make searching easier"""
+
     suppliers = suppliers.__all__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
@@ -105,10 +108,13 @@ class SearchFactory(ClassUtils, object):
             # class with the product query term as the first param
             try:
                 res = supplier_module(query, limit)
+            except NoProductsFound:
+                print("No products found")
+                continue
             except Exception as e:  # pylint: disable=broad-exception-caught
                 if __debug__:
                     print("ERROR:", e)
-                print("ERROR, skipping")
+                # print("ERROR, skipping")
                 continue
 
             if __debug__:
