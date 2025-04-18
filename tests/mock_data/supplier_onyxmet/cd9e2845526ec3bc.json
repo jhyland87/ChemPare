@@ -1,0 +1,37 @@
+{
+  "cookies": {
+    "OCSESSID": "57ddff983c180628cd42cfbffb",
+    "language": "en-gb",
+    "currency": "EUR"
+  },
+  "created_at": "2025-04-18T03:52:06.761752+00:00",
+  "elapsed": 0.652661,
+  "encoding": "UTF-8",
+  "headers": {
+    "Connection": "Keep-Alive",
+    "Keep-Alive": "timeout=5, max=100",
+    "alt-svc": "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000, h3-Q050=\":443\"; ma=2592000, h3-Q046=\":443\"; ma=2592000, h3-Q043=\":443\"; ma=2592000, quic=\":443\"; ma=2592000; v=\"43,46\"",
+    "content-encoding": "gzip",
+    "content-length": "591",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "REDACTED",
+    "server": "LiteSpeed",
+    "set-cookie": "OCSESSID=57ddff983c180628cd42cfbffb; path=/; secure, language=en-gb; expires=Sun, 18-May-2025 03:52:06 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure, currency=EUR; expires=Sun, 18-May-2025 03:52:06 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure",
+    "vary": "Accept-Encoding,User-Agent"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+    },
+    "method": "GET",
+    "url": "https://onyxmet.com/index.php?route=product%2Fsearch%2Fjson&term=rhodium"
+  },
+  "status_code": 200,
+  "url": "https://onyxmet.com/index.php?route=product%2Fsearch%2Fjson&term=rhodium",
+  "_decoded_content": "[{\"label\":\"Rhodium (coin) 99,9% - 5,35g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/2018\\/Rhodium%20coin-280x280.JPG\",\"description\":\"..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=2696\"},{\"label\":\"Rhodium (sponge) 99,99% - 1g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/2016%202\\/liquids\\/Rhodium%20sponge-280x280.JPG\",\"description\":\"CAS Nr: 7440-16-6 &nbsp; &nbsp;&nbsp;&nbsp;Rh\\r\\n\\r\\n\\tH228\\r\\n\\tP210\\r\\n\\tR11\\r\\n\\tS16, S22, S24\\/25..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=2042\"},{\"label\":\"Rhodium keychain\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/2021\\/001\\/Rh%20keychain-280x280.jpg\",\"description\":\"..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=3284\"},{\"label\":\"Rhodium pellets 99,95% - 1g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/Titan\\/Rhodium%202-280x280.jpg\",\"description\":\"..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=809\"},{\"label\":\"Rhodium rod 99,97% - 1g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/2014\\/ov_rhodiumpellets-280x280.jpg\",\"description\":\"Pure Rhodium sponge rods - pressed\\r\\n\\r\\n\\tSize approx: &nbsp;5,8 mm &nbsp;&nbsp;\\u00d8 5mm &nbsp;Weight: 1g..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=819\"},{\"label\":\"Rhodium(III) chloride - 1g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/2017%203\\/Chlorek%20rodu-280x280.JPG\",\"description\":\"CAS Nr:&nbsp;13569-65-8 &nbsp;&nbsp; &nbsp;RhCl3&nbsp;x 3H2O\\r\\n\\r\\n\\tH302, H318\\r\\n\\tP260, P280, P305 + P35..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=2579\"},{\"label\":\"Rhodium(III) oxide 99,8% - 1g\",\"image\":\"https:\\/\\/onyxmet.com\\/image\\/cache\\/catalog\\/stop\\/Rh2O3%20(1)-280x280.JPG\",\"description\":\"CAS Nr:&nbsp;12036-35-0&nbsp; &nbsp;Rh2O3\\r\\n\\r\\n\\tH-phrase(s) &nbsp; none\\r\\n\\tP-phrase(s) &nbsp; none\\r\\n\\tR-..\",\"href\":\"https:\\/\\/onyxmet.com\\/index.php?route=product\\/product&product_id=1060\"}]"
+}

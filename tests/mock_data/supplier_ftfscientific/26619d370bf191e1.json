@@ -1,0 +1,49 @@
+{
+  "cookies": {
+    "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g"
+  },
+  "created_at": "2025-04-18T03:52:02.847349+00:00",
+  "elapsed": 0.348105,
+  "encoding": "UTF-8",
+  "headers": {
+    "Alt-Svc": "REDACTED",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "REDACTED",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-language": "en-US",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "REDACTED",
+    "etag": "REDACTED",
+    "glb-x-seen-by": "REDACTED",
+    "html-cacheable": "true",
+    "link": "<https://static.parastorage.com/>; rel=preconnect; crossorigin;,<https://static.parastorage.com/>; rel=preconnect;,<https://static.wixstatic.com/>; rel=preconnect; crossorigin;,<https://static.wixstatic.com/>; rel=preconnect;,<https://siteassets.parastorage.com>; rel=preconnect; crossorigin;,",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
+    "set-cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20",
+    "strict-transport-security": "max-age=86400",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "REDACTED",
+    "x-served-by": "REDACTED",
+    "x-wix-request-id": "REDACTED"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "HEAD",
+    "url": "https://www.ftfscientific.com/"
+  },
+  "status_code": 200,
+  "url": "https://www.ftfscientific.com/",
+  "_decoded_content": ""
+}

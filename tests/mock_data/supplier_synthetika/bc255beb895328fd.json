@@ -1,0 +1,225 @@
+{
+  "created_at": "2025-04-18T03:52:05.518844+00:00",
+  "elapsed": 0.335828,
+  "encoding": "utf-8",
+  "headers": {
+    "Connection": "keep-alive",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json",
+    "Date": "Fri, 18 Apr 2025 03:52:05 GMT",
+    "Keep-Alive": "timeout=20",
+    "Server": "DCSaaS/httpd",
+    "Transfer-Encoding": "chunked",
+    "X-Content-Type-Options": "nosniff",
+    "X-Powered-By": "DCSaaS",
+    "X-XSS-Protection": "1; mode=block"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "GET",
+    "url": "https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?org=Tartaric+Acid&page=2&text=Tartaric+Acid"
+  },
+  "status_code": 200,
+  "url": "https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?org=Tartaric+Acid&page=2&text=Tartaric+Acid",
+  "_decoded_content": {
+    "pages": 3,
+    "page": 2,
+    "count": 11,
+    "max_score": 179709.9,
+    "list": [
+      {
+        "id": "105",
+        "product_code": "231140890",
+        "name": "Tartaric Acid - L(+)-Tartaric Acid - 2,3-Dihydroxysuccinic acid - Threaric acid - Uvic - 25 000g",
+        "price": "\u20ac354.12",
+        "img": "/userdata/public/gfx/196/de166a0e95f2362f174e11b85d17eb36.png",
+        "imgWebp": "/userdata/public/gfx/196/de166a0e95f2362f174e11b85d17eb36.webp",
+        "url": "/en_US/p/Tartaric-Acid-L-Tartaric-Acid-2%2C3-Dihydroxysuccinic-acid-Threaric-acid-Uvic-25-000g/105",
+        "category": {
+          "id": 53,
+          "name": "Carboxylic Acids",
+          "breadcrumbs": "ORGANIC COMPOUNDS > Carboxylic Acids"
+        },
+        "product_codes": [
+          {
+            "label": "sku",
+            "value": "231140890"
+          },
+          {
+            "label": "ean",
+            "value": "5906288608882"
+          }
+        ],
+        "score": 176223.22,
+        "rate": "0",
+        "options_stock": false,
+        "attributes": {
+          "stock": "999 szt.",
+          "producer_name": "SYNTHETIKA"
+        },
+        "promotion_price": null,
+        "active": true,
+        "availabilities": {
+          "label": "Large quantity",
+          "can_buy": true
+        }
+      },
+      {
+        "id": "7723",
+        "product_code": "WM_20241129121311",
+        "name": "Ammonium L-tartrate",
+        "price": "\u20ac7.60",
+        "img": "/userdata/public/gfx/15865/dup.png",
+        "imgWebp": "/userdata/public/gfx/15865/dup.webp",
+        "url": "/en_US/p/Ammonium-L-tartrate/7723",
+        "category": {
+          "id": 30,
+          "name": "Ammonium",
+          "breadcrumbs": "INORGANIC COMPOUNDS > Salts > Ammonium"
+        },
+        "product_codes": [
+          {
+            "label": "sku",
+            "value": "WM_20241129121311"
+          },
+          {
+            "label": "ean",
+            "value": ""
+          }
+        ],
+        "score": 68226.34,
+        "rate": "0",
+        "options_stock": true,
+        "attributes": {
+          "stock": "678 szt.",
+          "producer_name": "SYNTHETIKA"
+        },
+        "promotion_price": null,
+        "active": true,
+        "availabilities": {
+          "label": "Large quantity",
+          "can_buy": true
+        }
+      },
+      {
+        "id": "125",
+        "product_code": "231141000",
+        "name": "Sodium Potassium Tartarate ( Rochelle Salt ) - 1000g",
+        "price": "\u20ac55.91",
+        "img": "/userdata/public/gfx/216/ee02864cd6616500ca44b13035ae283e.png",
+        "imgWebp": "/userdata/public/gfx/216/ee02864cd6616500ca44b13035ae283e.webp",
+        "url": "/en_US/p/Sodium-Potassium-Tartarate-Rochelle-Salt-1000g/125",
+        "category": {
+          "id": "98",
+          "name": "Sodium",
+          "breadcrumbs": "INORGANIC COMPOUNDS > Salts > Sodium"
+        },
+        "product_codes": [
+          {
+            "label": "sku",
+            "value": "231141000"
+          },
+          {
+            "label": "ean",
+            "value": "5906288610984"
+          }
+        ],
+        "score": 23127.506,
+        "rate": "0",
+        "options_stock": false,
+        "attributes": {
+          "stock": "999 szt.",
+          "producer_name": "SYNTHETIKA"
+        },
+        "promotion_price": null,
+        "active": true,
+        "availabilities": {
+          "label": "Large quantity",
+          "can_buy": true
+        }
+      },
+      {
+        "id": "128",
+        "product_code": "231141011",
+        "name": "Sodium Potassium Tartarate ( Rochelle Salt ) - 10g",
+        "price": "\u20ac5.50",
+        "img": "/userdata/public/gfx/219/70287a2f3d76f9bd58e6804be1eb4f5b.png",
+        "imgWebp": "/userdata/public/gfx/219/70287a2f3d76f9bd58e6804be1eb4f5b.webp",
+        "url": "/en_US/p/Sodium-Potassium-Tartarate-Rochelle-Salt-10g/128",
+        "category": {
+          "id": "98",
+          "name": "Sodium",
+          "breadcrumbs": "INORGANIC COMPOUNDS > Salts > Sodium"
+        },
+        "product_codes": [
+          {
+            "label": "sku",
+            "value": "231141011"
+          },
+          {
+            "label": "ean",
+            "value": "5906288611011"
+          }
+        ],
+        "score": 23127.506,
+        "rate": "0",
+        "options_stock": false,
+        "attributes": {
+          "stock": "999 szt.",
+          "producer_name": "SYNTHETIKA"
+        },
+        "promotion_price": null,
+        "active": true,
+        "availabilities": {
+          "label": "Large quantity",
+          "can_buy": true
+        }
+      },
+      {
+        "id": "127",
+        "product_code": "231141007",
+        "name": "Sodium Potassium Tartarate ( Rochelle Salt ) - 100g",
+        "price": "\u20ac11.18",
+        "img": "/userdata/public/gfx/218/5cf9846e7c14e7ab656bf04838ae46ad.png",
+        "imgWebp": "/userdata/public/gfx/218/5cf9846e7c14e7ab656bf04838ae46ad.webp",
+        "url": "/en_US/p/Sodium-Potassium-Tartarate-Rochelle-Salt-100g/127",
+        "category": {
+          "id": "98",
+          "name": "Sodium",
+          "breadcrumbs": "INORGANIC COMPOUNDS > Salts > Sodium"
+        },
+        "product_codes": [
+          {
+            "label": "sku",
+            "value": "231141007"
+          },
+          {
+            "label": "ean",
+            "value": "5906288611004"
+          }
+        ],
+        "score": 23127.506,
+        "rate": "0",
+        "options_stock": false,
+        "attributes": {
+          "stock": "999 szt.",
+          "producer_name": "SYNTHETIKA"
+        },
+        "promotion_price": null,
+        "active": true,
+        "availabilities": {
+          "label": "Large quantity",
+          "can_buy": true
+        }
+      }
+    ],
+    "suggests": []
+  }
+}
