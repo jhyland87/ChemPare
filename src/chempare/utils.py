@@ -10,6 +10,38 @@ from typing import Any
 from typing import Callable
 from typing import Dict
 from typing import Iterable
+from chempare.datatypes import TypeLowLevel
+
+
+def get_env(setting: str, default: TypeLowLevel | None = None) -> TypeLowLevel | None:
+    value = os.getenv(setting, default)
+    # If it's not a string, then its probably a valid type..
+    if isinstance(value, str) is False:
+        return value
+
+    # Most castable values just need to be trimmed to be compatible
+    value = str(value).strip()
+
+    if not value or value.isspace():
+        return None
+
+    if value.lower() == "true":
+        return True
+
+    if value.lower() == "false":
+        return False
+
+    try:
+        return int(value)
+    except Exception:
+        pass
+
+    try:
+        return float(value)
+    except Exception:
+        pass
+
+    return value
 
 
 def find_first(arr: Iterable, condition: Callable) -> Any:

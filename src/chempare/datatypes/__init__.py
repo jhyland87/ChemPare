@@ -15,6 +15,8 @@ from chempare.datatypes.variant import TypeVariant
 
 DecimalLike = int | float | Decimal
 
-__all__ = ["TypeSupplier", "TypeProduct", "TypeVariant", "DecimalLike", "TypeQuantity", "TypePrice"]
+TypeLowLevel = int | float | complex | bool | str
+
+__all__ = ["TypeSupplier", "TypeProduct", "TypeVariant", "DecimalLike", "TypeQuantity", "TypePrice", "TypeLowLevel"]
 
 # TypeQuantity.__name__

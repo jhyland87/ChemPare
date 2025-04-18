@@ -106,7 +106,7 @@ class ClassUtils(metaclass=ABCMeta):
             r"U(?:AH|GX|SD?|YU|ZS)|"
             r"V(?:EF|ND|UV)|WST|"
             r"X(?:[AOP]F|CD|DR)|"
-            r"Z(?:AR|MW|WD)))"
+            r"Z(?:AR|MW|WD)))?"
             r"\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)"
             r"|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>[\p{Sc}ƒ]|"
             # r"(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)"
@@ -134,7 +134,7 @@ class ClassUtils(metaclass=ABCMeta):
             r"V(?:EF|ND|UV)|WST|"
             r"X(?:[AOP]F|CD|DR)|"
             r"Z(?:AR|MW|WD)))"
-            r")"
+            r")?"
         )
 
         matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)

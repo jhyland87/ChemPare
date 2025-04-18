@@ -24,11 +24,11 @@ from fuzzywuzzy import fuzz
 
 import chempare
 from chempare import ClassUtils
+from chempare import utils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
-from chempare.utils import replace_dict_values_by_value
 
 
 # import chempare
@@ -62,17 +62,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # self._headers = {}
         self._save_responses = False
 
-        self._debug_curl: bool = False
+        self._debug_curl = utils.get_env("DEBUG")
 
-        DEBUG_ENV = os.getenv("DEBUG", "false").lower()
-        if DEBUG_ENV == "true" or DEBUG_ENV == "1":
-            self._debug_curl = True
+        self._save_responses = utils.get_env("SAVE_RESPONSES")
 
-        SAVE_RESPONSES = os.getenv("SAVE_RESPONSES", "false").lower()
-        if SAVE_RESPONSES == "true" or SAVE_RESPONSES == "1":
-            self._save_responses = True
-
-        self._request_timeout = int(os.getenv("TIMEOUT", "2000"))
+        self._request_timeout = utils.get_env("TIMEOUT", 2000)
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -278,9 +272,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # request-cache seems to have issues if the parameters contain dictionaries or lists.
         # Look for any and convert them to json strings
         if isinstance(params, dict):
-            params = replace_dict_values_by_value(params, True, 'true')
-            params = replace_dict_values_by_value(params, False, 'false')
-            params = replace_dict_values_by_value(params, None, 'null')
+            params = utils.replace_dict_values_by_value(params, True, 'true')
+            params = utils.replace_dict_values_by_value(params, False, 'false')
+            params = utils.replace_dict_values_by_value(params, None, 'null')
 
             for k, v in params.items():
                 if isinstance(v, list) or isinstance(v, dict):

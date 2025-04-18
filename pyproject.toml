@@ -11,6 +11,7 @@ dependencies = [
     "inquirer",
     "bs4",
     "fuzzywuzzy[speedup]",
+    "browser_cookie3",
     "rich",
     "abcplus",
     "typing",
@@ -130,6 +131,7 @@ env = [
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
     "TIMEOUT=2000",
+    "USE_BROWSER_COOKIES=false",
     "SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
