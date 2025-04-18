@@ -287,13 +287,19 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 if isinstance(v, list) or isinstance(v, dict):
                     params[k] = json.dumps(v)
 
+        args = dict(headers=headers or self._headers, cookies=cookies or self._cookies, timeout=self._request_timeout)
+        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
+            # if chempare.test_monkeypatching and chempare.called_from_test:
+            args["only_if_cached"] = True
+
         res = requests.get(
             path,
-            params=params,
+            params,
+            **args,
             # impersonate="chrome",
-            cookies=cookies or self._cookies,
-            headers=headers or self._headers,
-            timeout=self._request_timeout,
+            # cookies=cookies or self._cookies,
+            # headers=headers or self._headers,
+            # timeout=self._request_timeout,
             # debug=self._debug_curl,
         )
 
@@ -331,15 +337,27 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if base_url not in path and (api_url is None or api_url not in path):
             path = f"{base_url}/{path}"
 
-        res = requests.post(
-            path,
-            params=params,
-            # impersonate="chrome",
+        # chempare.test_monkeypatching chempare.called_from_test
+        args = dict(
             json=json,
             data=data,
             headers=headers or self._headers,
             cookies=cookies or self._cookies,
             timeout=self._request_timeout,
+        )
+        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
+            args["only_if_cached"] = True
+
+        res = requests.post(
+            path,
+            params=params,
+            **args,
+            # impersonate="chrome",
+            # json=json,
+            # data=data,
+            # headers=headers or self._headers,
+            # cookies=cookies or self._cookies,
+            # timeout=self._request_timeout,
             # debug=self._debug_curl,
         )
 
@@ -357,8 +375,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         if path:
             url = f"{url}/{path}"
+
+        args = dict()
+
+        if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
+            args["only_if_cached"] = True
+
         # resp = self.http_get(*args, **kwargs)
-        resp = requests.head(url, timeout=self._request_timeout, **kwargs)
+        resp = requests.head(url, timeout=self._request_timeout, **args, **kwargs)
 
         return resp.headers
 

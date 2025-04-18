@@ -10,4 +10,4 @@ called_from_test = False
 test_monkeypatching = False
 
 
-__all__ = ["SearchFactory", "suppliers", "ClassUtils", "called_from_test"]
+__all__ = ["SearchFactory", "suppliers", "ClassUtils", "called_from_test", "test_monkeypatching"]
