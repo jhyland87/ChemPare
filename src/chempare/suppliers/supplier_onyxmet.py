@@ -1,6 +1,5 @@
 import re
 from threading import Thread
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -15,7 +14,7 @@ class SupplierOnyxmet(SupplierBase):
     _limit: int = 10
     """Max results to store"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Onyxmet", location="Poland", base_url="https://onyxmet.com"
     )
     """Supplier specific data"""
@@ -56,12 +55,12 @@ class SupplierOnyxmet(SupplierBase):
 
     # If any extra init logic needs to be called... uncmment the below and add
     # changes
-    def __init__(self, query: str, limit: int = 10) -> NoReturn:
+    def __init__(self, query: str, limit: int = 10) -> None:
         # self.__test_lock = Lock()
         super().__init__(query, limit)
         # Do extra stuff here
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -80,7 +79,7 @@ class SupplierOnyxmet(SupplierBase):
 
         self._query_results = search_result[: self._limit]
 
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Parse product query results.
 
         Iterate over the products returned from self._query_products, creating
@@ -114,7 +113,7 @@ class SupplierOnyxmet(SupplierBase):
         for thread in threads:
             thread.join()
 
-    def __query_and_parse_product(self, href: str) -> NoReturn:
+    def __query_and_parse_product(self, href: str) -> None:
         """Query specific product page and parse results
 
         Args:
@@ -153,30 +152,39 @@ class SupplierOnyxmet(SupplierBase):
         # Get the product name and price
         # (Set the product name here to default it, we ca re-set it to the
         # parsed value down below)
-        product = TypeProduct(
+        product_obj = dict(
             title=title_elem.contents[0],
             name=title_elem.contents[0],
             # price=price_elem.contents[0],
-            supplier=self._supplier["name"],
+            supplier=self._supplier.name,
             url=href,
         )
 
+        if self._is_cas(self._query):
+            product_obj["cas"] = self._query
+
         price = self._parse_price(price_elem.contents[0])
 
-        product.update(price)
+        if not price:
+            return
+
+        product_obj.update(price)
 
         # Use the regex pattern to parse the name for some useful data.
         title_pattern = re.compile(self._title_regex_pattern)
-        title_matches = title_pattern.search(product.name)
+        title_matches = title_pattern.search(product_obj["name"])
 
         # If something is matched, then just merge the key/names into the
         # self._product property
         if title_matches:
-            product.update(title_matches.groupdict())
+            title_matches = title_matches.groupdict()
+            # title_product = title_matches["product"]
+            del title_matches["product"]
+            product_obj.update(title_matches)
 
-        self._products.append(product.cast_properties())
+        product_obj = TypeProduct(**product_obj)
+        self._products.append(product_obj.cast_properties())
         # self.__test_lock.release()
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierOnyxmet

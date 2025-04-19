@@ -1,18 +1,19 @@
 """Utility class meant to provide functionality to any inheriting classes"""
 
+import logging
 import math
+import os
 
-# import os
 # import sys
 import random
 import re
 import string
 import time
+from decimal import ROUND_HALF_UP
+from decimal import Decimal
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Optional
-from typing import Union
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
 
@@ -21,9 +22,19 @@ from abcplus import ABCMeta
 from abcplus import finalmethod
 from currex import CURRENCIES
 from currex import Currency
+from datatypes import DecimalLike
+from datatypes import PriceType
+from datatypes import QuantityType
 from price_parser import Price
 
-import chempare
+
+# import chempare
+
+__package__ = "chempare"
+__name__ = "chempare.class_utils"
+
+_logger = logging.getLogger("chempare/class_utils")
+logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 
 
 class ClassUtils(metaclass=ABCMeta):
@@ -43,7 +54,7 @@ class ClassUtils(metaclass=ABCMeta):
     @finalmethod
     def _parse_price(
         self, value: str, symbol_to_code: bool = True
-    ) -> Optional[Dict]:
+    ) -> PriceType | None:
         """Parse a string for a price value (currency and value)
 
         Args:
@@ -53,7 +64,7 @@ class ClassUtils(metaclass=ABCMeta):
                                    (defaults to True)
 
         Returns:
-            Dict: Returns a dictionary with 'currency' and 'price' values
+            PriceType: Returns a dictionary with 'currency' and 'price' values
 
         See:
             https://en.wikipedia.org/wiki/Currency_symbol
@@ -134,61 +145,33 @@ class ClassUtils(metaclass=ABCMeta):
 
         matches_str = matches.group()
         price = Price.fromstring(matches_str)
-        country_code = self._currency_code_from_symbol(price.currency)
+        currency_code = self._currency_code_from_symbol(price.currency)
 
         result = {
             "currency": price.currency,
             "price": float(price.amount),
-            "currency_code": country_code,
+            "currency_code": currency_code or price.currency,
         }
 
-        if country_code != "USD":
+        if (
+            currency_code != "USD"
+            and price.currency is not None
+            and price.currency != currency_code
+        ):
             usd_price = self._to_usd(
-                from_currency=country_code, amount=float(price.amount)
+                from_currency=currency_code, amount=float(price.amount)
             )
             if usd_price:
                 result["usd"] = usd_price
 
-        return result
-
-        # matches_dict = matches.groupdict()
-
-        # if self._is_currency_symbol(
-        #     matches_dict["currency"]
-        # ):  # If the currency is a symbol
-        #     matches_dict["currency_code"] = self._currency_code_from_symbol(
-        #         matches_dict["currency"]
-        #     )
-        # else:
-        #     matches_dict["currency_code"] = matches_dict["currency"]
-        #     matches_dict["currency"] = self._currency_symbol_from_code(
-        #         matches_dict["currency_code"]
-        #     )
-
-        # # If we are trying to convert the currency symbol to the country code,
-        # # then check that the "currency" matched is at least a currency symbol.
-        # # if symbol_to_code is True and self._is_currency_symbol(
-        # #     matches_dict["currency"]
-        # # ):
-        # #     # ... Then attempt to get the country code from it.
-        # #     country_code = self._currency_code_from_symbol(
-        # #         matches_dict["currency"]
-        # #     )
-        # #     if country_code:
-        # #         # If one was found, then override the "currency" property in
-        # #         # the result
-        # #         matches_dict["currency_code"] = country_code
-
-        # if matches_dict["currency_code"] in ["USD", "CAD", "EUR"]:
-        #     price = str(matches_dict["price"]).replace(",", "")
-        #     matches_dict["price"] = f"{float(price):.2f}"
-
-        # return matches_dict
+        return PriceType(**result)
 
     @finalmethod
     def _to_usd(
-        self, from_currency: str = None, amount: Union[int, float, str] = None
-    ) -> Optional[float]:
+        self,
+        from_currency: str | None = None,
+        amount: int | float | str | None = None,
+    ) -> DecimalLike | None:
         """Convert a no USD price to the USD price
 
         Args:
@@ -204,40 +187,94 @@ class ClassUtils(metaclass=ABCMeta):
 
         Returns:
             Optional[float]: USD price (if one was found)
+
+        Example:
+            >>> self._to_usd()
         """
 
-        try:
-            if from_currency is None and isinstance(amount, str) is True:
-                parsed_price = self._parse_price(amount)
-                if not parsed_price:
-                    raise Exception(
-                        "Unable to determine from currency from amount"
-                    )
+        # try:
 
-                from_currency = parsed_price["currency_code"]
-                amount = parsed_price["price"]
-
-            if not from_currency or isinstance(from_currency, str) is False:
-                raise TypeError("from_currency not provided or not string")
-
-            from_currency = from_currency.upper()
-            if from_currency not in CURRENCIES:
-                # print(f"Unable to convert from '{from_currency}'")
-                # raise LookupError(f"Unable to convert from '{from_currency}")
+        # If no source currency type is provided, but we were given a string for the amount, then it may include
+        # the currency type (eg: "$123.23"), and can be parsed
+        if from_currency is None and isinstance(amount, str) is True:
+            parsed_price = self._parse_price(amount)  # type: ignore
+            if not isinstance(parsed_price, Dict):
+                _logger.debug(
+                    "Unable to determine from currency from amount %s of type %s (expected Dict)",
+                    parsed_price,
+                    type(parsed_price),
+                )
                 return None
 
-            if not amount:
-                raise TypeError("No amount provided or found")
+            from_currency = parsed_price.currency_code
+            amount = parsed_price.price
 
-            # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
-            #      raise TypeError("amount needs to be float or int")
-
-            from_currency_obj = Currency(from_currency, amount)
-            usd = from_currency_obj.to("USD")
-            return round(float(usd.amount), 2)
-        except Exception as err:
-            # print("Exception:", err)
+        # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
+        # an exception
+        if not from_currency or isinstance(from_currency, str) is False:
+            _logger.debug(
+                "Source currency '%s' (type %s) either not provided or wrong type",
+                from_currency,
+                type(from_currency),
+            )
             return None
+
+        from_currency = from_currency.upper()
+
+        if from_currency not in CURRENCIES:
+            # raise LookupError(f"Unable to convert from '{from_currency}")
+            return None
+
+        amount = self._cast_type(amount)
+
+        if not isinstance(amount, DecimalLike):
+            _logger.debug(
+                "Amount of '%s' is either invalid type or not provided (%s)",
+                amount,
+                type(amount),
+            )
+
+        # if not amount:
+        #     raise ValueError("No amount provided or found")
+
+        # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
+        #      raise TypeError("amount needs to be float or int")
+
+        from_currency_obj = Currency(from_currency, amount)  # type: ignore
+
+        usd = from_currency_obj.to("USD")
+
+        # return self._to_hundreths(usd.amount)
+        return round(float(usd.amount), 2)
+        # except Exception as err:
+        #     # print("Exception:", err)
+        #     return None
+
+    def _to_hundreths(self, value: DecimalLike | str) -> Decimal:
+        """Convert any number like value to include the hundreths place
+
+        Args:
+            value (DecimalLike | str): Value to convert
+
+        Returns:
+            Decimal: Equivelant value with hundreths.
+
+        Example:
+            >>> self._to_hundreths("123")
+            '123.00'
+            >>> self._to_hundreths("123.456")
+            '123.45'
+            >>> self._to_hundreths(123.456)
+            '123.45'
+            >>> self._to_hundreths(123)
+            '123.00'
+            >>> self._to_hundreths(Decimal("123.1"))
+            '123.10'
+        """
+        if not isinstance(value, Decimal):
+            value = Decimal(value)
+
+        return value.quantize(Decimal("0.00"), ROUND_HALF_UP)
 
     # def _to_usd(
     #     self, from_currency: str = None, amount: Union[int, float, str] = None
@@ -275,14 +312,14 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> Optional[Dict]:
+    def _parse_quantity(self, value: str) -> QuantityType | None:
         """Parse a string for the quantity and unit of measurement
 
         Args:
             value (str): Suspected quantity string
 
         Returns:
-            Optional[Dict]: Returns a dictionary with the 'quantity' and
+            Optional[QuantityType]: Returns a dictionary with the 'quantity' and
                             'uom' values
         """
 
@@ -353,10 +390,12 @@ class ClassUtils(metaclass=ABCMeta):
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return quantity_obj
+        return QuantityType(**quantity_obj)
 
     @finalmethod
-    def _get_param_from_url(self, url: str, param: str = None) -> Optional[Any]:
+    def _get_param_from_url(
+        self, url: str, param: str | None = None
+    ) -> Any | None:
         """Get a specific arameter from a GET URL
 
         Args:
@@ -367,13 +406,13 @@ class ClassUtils(metaclass=ABCMeta):
             Any: Whatver the value was of the key, or nothing
 
         Example:
-            self._get_param_from_url(
-                'http://google.com?foo=bar&product_id=12345'
-            )
+            >>> self._get_param_from_url(
+            ...    'http://google.com?foo=bar&product_id=12345'
+            ... )
             {'foo':'bar','product_id':'12345'}
-            self._get_param_from_url(
-                'http://google.com?foo=bar&product_id=12345', 'product_id'
-            )
+            >>> self._get_param_from_url(
+            ...    'http://google.com?foo=bar&product_id=12345', 'product_id'
+            ... )
             '12345'
         """
 
@@ -410,9 +449,9 @@ class ClassUtils(metaclass=ABCMeta):
             or an empty list if the input array is empty.
 
         Example:
-            self._split_array_into_groups([
-                'Variant', '500 g', 'CAS', '1762-95-4'
-            ])
+            >>> self._split_array_into_groups([
+            ...    'Variant', '500 g', 'CAS', '1762-95-4'
+            ... ])
             [['Variant', '500 g'],['CAS', '1762-95-4']]
         """
 
@@ -423,7 +462,7 @@ class ClassUtils(metaclass=ABCMeta):
         return result
 
     @finalmethod
-    def _nested_arr_to_dict(self, arr: List[List]) -> Optional[Dict]:
+    def _nested_arr_to_dict(self, arr: List[List]) -> Dict | None:
         """Takes an array of arrays (ie: result from
         self._split_array_into_groups) and converts that into a dictionary.
 
@@ -434,9 +473,8 @@ class ClassUtils(metaclass=ABCMeta):
             Optional[Dict]: A dictionary based off of the input alues
 
         Example:
-            self._nested_arr_to_dict([['foo','bar'], ['baz','quux']])
-            {'foo':'bar','baz':'quux'}
-
+            >>> self._nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
+            {'foo':'bar','baz":'quux"}
         """
 
         # Only works if the array has even amount of elements
@@ -459,9 +497,9 @@ class ClassUtils(metaclass=ABCMeta):
             bool: True if it's a currency symbol
 
         Example:
-            self._is_currency_symbol("$")
+            >>> self._is_currency_symbol("$")
             True
-            self._is_currency_symbol("foo")
+            >>> self._is_currency_symbol("foo")
             False
         """
 
@@ -470,7 +508,7 @@ class ClassUtils(metaclass=ABCMeta):
         return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
 
     @finalmethod
-    def _currency_code_from_symbol(self, symbol: str) -> Optional[str]:
+    def _currency_code_from_symbol(self, symbol: str) -> str | None:
         """Attempt to get the currency code for a given currency symbol
 
         Source:
@@ -483,8 +521,8 @@ class ClassUtils(metaclass=ABCMeta):
             Optional[str]: The currency code, if one is found
 
         Example:
-            self._currency_code_from_symbol("$")
-            "USD"
+            >>> self._currency_code_from_symbol("$")
+            'USD"
         """
 
         if isinstance(symbol, str) is False:
@@ -566,7 +604,7 @@ class ClassUtils(metaclass=ABCMeta):
         return currency_codes.get(symbol, None)
 
     @finalmethod
-    def _currency_symbol_from_code(self, code: str) -> Optional[str]:
+    def _currency_symbol_from_code(self, code: str) -> str | None:
 
         if isinstance(code, str) is False:
             return None
@@ -690,7 +728,7 @@ class ClassUtils(metaclass=ABCMeta):
             return currency_symbols[code]
 
     @finalmethod
-    def _cast_type(self, value: Union[str, int, float, bool] = None) -> Any:
+    def _cast_type(self, value: str | int | float | bool | None = None) -> Any:
         """Cast a value to the proper type. This is mostly used for casting
         int/float/bool
 
@@ -739,20 +777,20 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _random_string(
-        self, length: Optional[int] = 10, include_special: bool = False
+        self, max_length: int = 10, include_special: bool = False
     ) -> str:
         """Generate random string
 
         Args:
-            length (int, optional): Length to generate string to. Defaults to 10
+            max_length (int, optional): Length to generate string to. Defaults to 10
             include_special (bool, optional): Include special chars in output.
                                               Defaults to False
 
         Returns:
-            str: Random string, {length} chars long
+            str: Random string, {len} chars long
         """
-        if isinstance(length, int) is False:
-            length = 10
+        if isinstance(max_length, int) is False:
+            max_length = 10
 
         # ascii_letters = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
         # digits = 0123456789
@@ -763,10 +801,10 @@ class ClassUtils(metaclass=ABCMeta):
             char_list += string.punctuation
 
         # trunk-ignore(bandit/B311)
-        return "".join(random.choice(char_list) for _ in range(length))
+        return "".join(random.choice(char_list) for _ in range(max_length))
 
     @finalmethod
-    def _find_cas(self, value: str) -> Optional[str]:
+    def _find_cas(self, value: str) -> str | None:
         """Parse a string for CAS values, return the first valid one
 
         Args:
@@ -788,28 +826,54 @@ class ClassUtils(metaclass=ABCMeta):
     def _is_cas(self, value: Any) -> bool:
         """Check if a string is a valid CAS registry number
 
-        This is done by taking the first two segments and iterating over each
-        individual intiger in reverse order, multiplying each by its position,
-        then taking the modulous of the sum of those values.
+        CAS numbers are always in a format of three segments of numerical values:
+            1234-56-6
 
-        Example:
-            1234-56-6 is valid because the result of the below equation matches
-            the checksum, (which is 6)
-                (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
+        The first segment can be from 2 to 7 intigers (needs to be at least one non-zero value),
+        and the second is always 2 integers. These are basically just unique numbers, but there's no
+        established numbering system or other restrictions.
+        The third segment is one integer, and that is the checksum of the first two segments.
 
-            This can be simplified in the below aggregation:
-                cas_chars = [1, 2, 3, 4, 5, 6]
-                sum([(idx+1)*int(n) for idx, n
-                    in enumerate(cas_chars[::-1])]) % 10
+        https://regex101.com/r/xPF1Yp/2
+        (?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])
+
+        The checksum is calculated by taking the first two segments and iterating over each
+        individual intiger in reverse order, multiplying each by its position, then taking
+        the modulous of the sum of those values.
+
+        For example, 1234-56-6 is valid because the result of the below equation matches the checksum, (which is 6)
+            (6*1 + 5*2 + 4*3 + 3*4 + 2*5 + 1*6) % 10 == 6
+
+        This can be simplified in the below aggregation:
+            cas_chars = [1, 2, 3, 4, 5, 6]
+            sum([(idx+1)*int(n) for idx, n
+                in enumerate(cas_chars[::-1])]) % 10
 
         See:
             https://www.cas.org/training/documentation/chemical-substances/checkdig
+            https://www.allcheminfo.com/chemistry/cas-number-lookup.html
 
         Args:
             value (str): The value to determine if its a CAS # or not
 
         Returns:
             bool: True if its a valid format and the checksum matches
+
+        Example:
+            >>> self._is_cas("1234-56-6")
+            True
+            >>> self._is_cas("50-00-0")
+            True
+            >>> self._is_cas("1234-56-999")
+            False
+            >>> self._is_cas("1234-56")
+            False
+            >>> self._is_cas("1234-56-0")
+            False
+            >>> self._is_cas("0000-00-0")
+            False
+            >>> self._is_cas("00-10-0")
+            False
         """
 
         if isinstance(value, str) is False:
@@ -826,10 +890,13 @@ class ClassUtils(metaclass=ABCMeta):
             return False
 
         cas_dict = cas_pattern_check.groupdict()
-        # cas_dict = dict(seg_a='1234', seg_b='56', checksum='6')
+        # cas_dict = dict(seg_a="1234", seg_b="56", checksum="6")
+
+        if int(cas_dict["seg_a"]) == 0:
+            return False
 
         cas_chars = list(cas_dict["seg_a"] + cas_dict["seg_b"])
-        # cas_chars = ['1','2','3','4','5','6']
+        # cas_chars = ["1","2","3","4","5","6"]
 
         checksum = (
             sum([(idx + 1) * int(n) for idx, n in enumerate(cas_chars[::-1])])
@@ -840,7 +907,7 @@ class ClassUtils(metaclass=ABCMeta):
         return int(checksum) == int(cas_dict["checksum"])
 
     @finalmethod
-    def _filter_highest_value(self, input_dict: Dict) -> Dict:
+    def _filter_highest_item_value(self, input_dict: Dict) -> Dict:
         """Filter a dictionary for the entry with the highest numerical value.
 
         Args:
@@ -848,6 +915,12 @@ class ClassUtils(metaclass=ABCMeta):
 
         Returns:
             Dict: Item in dictionary with highest value
+
+        Example:
+            >>> self._filter_highest_item_value({"foo": 123, "bar": 555})
+            {'bar": 555}
+            >>> self._filter_highest_item_value({"foo": 999999, "bar": 123})
+            {'foo": 999999}
         """
 
         if not input_dict:
@@ -861,9 +934,8 @@ class ClassUtils(metaclass=ABCMeta):
         texts: list,
         maximum_length: int = 3,
         minimum_repeat: int = 2,
-        stopwords: list = None,
+        stopwords: list | None = None,
     ) -> dict:
-        stopwords = stopwords or []
         """Get the most common phrases out of a list of phrases.
 
         This is used to analyze the results from a query to
@@ -884,6 +956,7 @@ class ClassUtils(metaclass=ABCMeta):
             dict: Dictionary of sets of words and the frequency as the value.
         """
 
+        stopwords = stopwords or []
         phrases = {}
         for text in texts:
             # Replace separators and punctuation with spaces
@@ -937,7 +1010,7 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _find_values_with_element(
-        self, source: Dict, element: Union[str, int]
+        self, source: Dict, element: str | int | None
     ) -> List:
         """
         Finds values in a dictionary that are tuples and contain a specific
@@ -951,18 +1024,18 @@ class ClassUtils(metaclass=ABCMeta):
             List: A list of values that were found
 
         Example:
-            my_dict = {
-                (1, 2): "a",
-                (2, 3): "b",
-                (3, 4): "c",
-                "hello": "d",
-                (2, 5, 6): "e"
-            }
-            self._find_values_with_element(my_dict, 1)
+            >>> my_dict = {
+            ...    (1, 2): "a",
+            ...    (2, 3): "b",
+            ...    (3, 4): "c",
+            ...    "hello": "d",
+            ...    (2, 5, 6): "e"
+            ... }
+            >>> self._find_values_with_element(my_dict, 1)
             ['a']
-            self._find_values_with_element(my_dict, 2)
+            >>> self._find_values_with_element(my_dict, 2)
             ['a', 'b', 'e']
-            self._find_values_with_element(my_dict, "hello")
+            >>> self._find_values_with_element(my_dict, "hello")
             ['d']
         """
 
@@ -974,4 +1047,4 @@ class ClassUtils(metaclass=ABCMeta):
         ]
 
 
-__all__ = list("ClassUtils")
+__all__ = ["ClassUtils"]

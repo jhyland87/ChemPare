@@ -1,27 +1,31 @@
 """SupplierBase module to be inherited by any supplier modules"""
 
+from __future__ import annotations
+
 import logging
 import os
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import NoReturn
-from typing import Optional
-from typing import Self
-from typing import Union
+from typing import Self, TypedDict
 
 from abcplus import ABCMeta
 from abcplus import abstractmethod
 from abcplus import finalmethod
+from curl_cffi import Headers
+from curl_cffi import Response
 from curl_cffi import requests
 from fuzzywuzzy import fuzz
 
 from chempare import ClassUtils
 from chempare.datatypes import TypeProduct
+from chempare.datatypes import TypeSupplier
 
 
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """SupplierBase module to be inherited by any supplier modules"""
+
+    _supplier: TypeSupplier
 
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name
@@ -33,7 +37,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     # def __init_subclass__(cls, **kwargs):
     #     super().__init_subclass__(**kwargs)
 
-    def __init__(self, query: str, limit: int = None, fuzz_ratio: Optional[int] = 100) -> NoReturn:
+    def __init__(
+        self, query: str, limit: int | None = None, fuzz_ratio: int = 100
+    ) -> None:
         self.__init_logging()
 
         self._fuzz_ratio = fuzz_ratio
@@ -56,13 +62,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # product properties
         self._parse_products()
 
-        self._fuzz_filter()
+        # self._fuzz_filter()
 
-    def __init_logging(self) -> NoReturn:
+    def __init_logging(self) -> None:
         """Create the logger specific to this class instance (child)
 
         Returns:
-            NoReturn: None
+            None: None
 
         Note:
             Uses the LOG_LEVEL env var for the log level. Valid values are:
@@ -72,50 +78,50 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._logger = logging.getLogger(str(self.__class__.__name__))
         logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 
-    def _log(self, message: str) -> NoReturn:
+    def _log(self, message: str) -> None:
         """Create a regular log entry
 
         Args:
             message (str): Message to send to the logs
 
         Returns:
-            NoReturn: None
+            None: None
         """
 
         self._logger.log(logging.INFO, message)
 
-    def _debug(self, message: str) -> NoReturn:
+    def _debug(self, message: str) -> None:
         """Create a debugger log entry
 
         Args:
             message (str): Message to send to the logs
 
         Returns:
-            NoReturn: None
+            None: None
         """
 
         self._logger.log(logging.DEBUG, message)
 
-    def _error(self, message: str) -> NoReturn:
+    def _error(self, message: str) -> None:
         """Create an error log entry
 
         Args:
             message (str): Message to send to the logs
 
         Returns:
-            NoReturn: None
+            None: None
         """
 
         self._logger.log(logging.ERROR, message)
 
-    def _warn(self, message: str) -> NoReturn:
+    def _warn(self, message: str) -> None:
         """Create a warning log entry
 
         Args:
             message (str): Message to send to the logs
 
         Returns:
-            NoReturn: None
+            None: None
         """
 
         self._logger.log(logging.WARN, message)
@@ -147,7 +153,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return self
 
-    def _fuzz_filter(self) -> NoReturn:
+    def _fuzz_filter(self) -> None:
         """Filter products for ones where the title has a partial fuzz ratio of
         90% or more.
         When testing different fuzz methods with string 'sodium borohydride',
@@ -162,14 +168,28 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
                 ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
         """
-        if not self._products or isinstance(self._fuzz_ratio, int) is False or self._is_cas(self._query):
+        if (
+            not self._products
+            or isinstance(self._fuzz_ratio, int) is False
+            or self._is_cas(self._query)
+        ):
             return
 
         self._products = [
             product
             for product in self._products
-            if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
-            or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
+            if (
+                product.name
+                and fuzz.partial_ratio(self._query.lower(), product.name.lower())
+                >= self._fuzz_ratio
+            )
+            or (
+                product.title
+                and fuzz.partial_ratio(
+                    self._query.lower(), product.title.lower()
+                )
+                >= self._fuzz_ratio
+            )
         ]
 
     def __next__(self) -> TypeProduct:
@@ -202,7 +222,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return self._products
 
     @finalmethod
-    def http_get(self, path: str = None, params: Dict = None, cookies: Dict = None, headers: Dict = None) -> requests:
+    def http_get(
+        self,
+        path: str | None = None,
+        /,
+        params: Dict | None = None,
+        cookies: Dict | None = None,
+        headers: Dict | None = None,
+    ) -> Response:
         """Base HTTP getter (not specific to data type).
 
         Args:
@@ -213,8 +240,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.get()
         """
 
-        base_url = self._supplier.get("base_url", None)
-        api_url = self._supplier.get("api_url", base_url)
+        base_url = self._supplier.base_url
+        api_url = self._supplier.api_url or base_url
 
         if not path:
             path = api_url
@@ -233,12 +260,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     def http_post(
         self,
         path: str,
-        params: Dict = None,
+        /,
+        params: Dict | None = None,
         data: Any = None,
-        json: Union[Dict, List] = None,
-        cookies: Dict = None,
-        headers: Dict = None,
-    ) -> requests:
+        json: Dict | List | None = None,
+        cookies: Dict | None = None,
+        headers: Dict | None = None,
+    ) -> Response:
         """Base HTTP poster (not specific to data type).
 
         Args:
@@ -251,8 +279,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.post()
         """
 
-        api_url = self._supplier.get("api_url", None)
-        base_url = self._supplier.get("base_url", None)
+        base_url = self._supplier.base_url
+        api_url = self._supplier.api_url or base_url
 
         if base_url not in path and (api_url is None or api_url not in path):
             path = f"{base_url}/{path}"
@@ -268,7 +296,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         )
 
     @finalmethod
-    def http_get_headers(self, *args, **kwargs) -> requests.Headers:
+    def http_get_headers(self, *args, **kwargs) -> Headers:
         """Get the response headers for a GET request
 
         Returns:
@@ -281,8 +309,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_post_json(
-        self, path: str = None, params: Dict = None, json: Dict = None, headers: Dict = None, cookies: Dict = None
-    ) -> Union[Dict, List]:
+        self,
+        path: str | None = None,
+        /,
+        params: Dict | None = None,
+        json: Dict | None = None,
+        headers: Dict | None = None,
+        cookies: Dict | None = None,
+    ) -> Dict | List | None:
         """Post a JSON request and get a JSON response
 
         Args:
@@ -296,13 +330,17 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             Union[Dict, List]: JSON response, if there was one
         """
 
-        url = self._supplier.get("api_url", None)
+        url = self._supplier.api_url or self._supplier.base_url  # type: ignore
 
         if path:
             url = f"{url}/{path}"
 
         req = self.http_post(
-            url, params=params, json=json, cookies=cookies or self._cookies, headers=headers or self._headers
+            url,
+            params=params,
+            json=json,
+            cookies=cookies or self._cookies,
+            headers=headers or self._headers,
         )
         if req is None:
             return None
@@ -310,7 +348,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return req.json()
 
     @finalmethod
-    def http_get_html(self, path: str = None, params: Dict = None) -> str:
+    def http_get_html(
+        self, path: str | None = None, /, params: Dict | None = None
+    ) -> bytes:
         """HTTP getter (for HTML content).
 
         Args:
@@ -321,8 +361,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             HTML content of response object
         """
 
-        base_url = self._supplier.get("base_url", None)
-        api_url = self._supplier.get("api_url", base_url)
+        base_url = self._supplier.base_url
+        api_url = self._supplier.api_url or base_url
 
         if path and api_url not in path:
             path = f"{api_url}/{path}"
@@ -332,7 +372,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.content
 
     @finalmethod
-    def http_get_json(self, path: str = None, **kwargs) -> Union[List, Dict]:
+    def http_get_json(
+        self, path: str | None = None, /, **kwargs
+    ) -> List | Dict | None:
         """HTTP getter (for JSON content).
 
         Args:
@@ -345,19 +387,19 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         res = self.http_get(path, **kwargs)
 
-        if not res:
+        if res is None:
             return None
 
         return res.json()
 
-    def _setup(self, query: str = None) -> NoReturn:
+    def _setup(self, query: str | None = None) -> None:
         """Setup method - Triggered before the query is executed. This is
         useful for when we need to make an initial request to a homepage to get
         headers and stores some cookies
         """
 
     @abstractmethod
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query the website for the products (name or CAS).
 
         Args:
@@ -367,7 +409,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Method to set the local properties for the queried product.
 
         The self._query_results (populated by calling self._query_products())
@@ -376,5 +418,4 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
 
-if __package__ == "suppliers":
-    __disabled__ = True
+__disabled__ = True

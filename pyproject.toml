@@ -1,6 +1,6 @@
 [project]
 name = "chempare"
-version = "0.1"
+version = "0.0"
 description = "Reagent search utility"
 requires-python = ">= 3.12"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
@@ -22,7 +22,8 @@ dependencies = [
     "curl_cffi",
     "translate",
     "regex",
-    "pytest-cov"
+    "inflection",
+    "isort"
 ]
 
 authors = [
@@ -31,11 +32,31 @@ authors = [
     # Spuos
 ]
 
+
 maintainers = [
     # Maui3
     { name = "Justin Hyland", email = "j@linux.com" },
     # Spuos
 ]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-xdist",
+    "pylint-pytest",
+    "pytest-instafail",
+    "pytest-timeout",
+    "pytest-env",
+    "pytest-pycodestyle==1.0.6",
+    "pycodestyle==2.4.0",
+    "requests-mock",
+    "pytest_mock",
+    "flake8-pyproject",
+    #"coverage",
+]
+dev = ["pycodestyle==2.4.0"]
+api = ["uvicorn","fastapi"]
 
 [project.readme]
 file = "README.txt"
@@ -46,21 +67,7 @@ Homepage = "https://github.com/YourHeatingMantle/ChemPare"
 Documentation = "https://github.com/YourHeatingMantle/ChemPare/tree/main/documentation"
 Repository = "https://github.com/YourHeatingMantle/ChemPare.git"
 
-[project.optional-dependencies]
-test = [
-    "pytest",
-    "pytest-cov",
-    "pytest-xdist",
-    "pylint-pytest",
-    "pytest-instafail",
-    "pytest-timeout",
-    "pytest-pycodestyle==1.0.6",
-    "pytest-env",
-    "pycodestyle==2.4.0",
-    "flake8-pyproject"
-]
-dev = ["pycodestyle==2.4.0"]
-api = ["uvicorn","fastapi"]
+
 [project.scripts]
 chemparecli = "chempare.cli.chempare_cli:main"
 chemparemain = "chempare.cli.main:main"
@@ -95,31 +102,40 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    ".",
-    "src",
+    # ".",
+    # "src",
+    # "tests/mock_data",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
 ]
 
 [tool.pytest.ini_options]
+pythonpath = [
+    "tests/mock_data",
+    "src",
+    "src/chempare",
+    "src/chempare/datatypes",
+    "src/chempare/suppliers",
+    "tests/mock_data"
+]
+
+
+env = [
+    "LOG_LEVEL=DEBUG",
+    "PYTEST_COV=true"
+]
 minversion = "7.0"
-addopts = "-ra -n auto --capture=no --color=yes --numprocesses=auto --code-highlight=yes --cov=src/chempare --doctest-modules --cov-report html:coverage --cov-report=term"
+addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
+#  --cov-report=term --capture=tee-sys --show-capture=all  --no-summary
+
+# "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests"]
-pythonpath = ["src/chempare", "src/chempare/*"]
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
 markers = [
     "supplier: Supplier module",
-    "webtest: mark a test as a webtest.",
-    "first: Trigger 1st.",
-    "second: Trigger 2nd.",
-    "third: Trigger 3rd.",
-    "fourth: Trigger 4th.",
-    "fifth: Trigger 5th.",
-    "sixth: Trigger 6th.",
-    "seventh: Trigger 7th."
+    "webtest: mark a test as a webtest."
 ]
-env = ["LOG_LEVEL=WARNING"]
 [tool.isort]
 py_version = 313
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
@@ -253,16 +269,26 @@ extend-ignore = [
 
 [tool.coverage.paths]
 source = [
+    "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"
 ]
 
 [tool.coverage.run]
-#disable_warnings = ["no-data-collected"]
+disable_warnings = ["no-data-collected"]
+# include = [
+#     "src",
+#     "src/chempare",
+#     "src/chempare/datatypes",
+#     "src/chempare/suppliers"
+# ]
+command_line = "pytest"
 branch = true
-parallel = true
+#parallel = true
 source = [
+    #".",
+    "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers"
@@ -271,4 +297,12 @@ omit = ["*tests*","*/__init__.py"]
 
 [tool.coverage.report]
 show_missing = true
-precision = 2
+#precision = 2
+
+
+[tool.lcov]
+output = "coverage.lcov"
+
+
+[tool.pyright]
+reportOptionalMemberAccess = false

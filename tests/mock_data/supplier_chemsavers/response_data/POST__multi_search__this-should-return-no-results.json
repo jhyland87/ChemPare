@@ -1,0 +1,29 @@
+{
+    "MOCK_DATA": true,
+    "results": [
+        {
+            "facet_counts": [
+                {
+                    "counts": [],
+                    "field_name": "price",
+                    "sampled": false,
+                    "stats": {
+                        "total_values": 0
+                    }
+                }
+            ],
+            "found": 0,
+            "hits": [],
+            "out_of": 39516,
+            "page": 1,
+            "request_params": {
+                "collection_name": "products",
+                "first_q": "This_should_return_no_results",
+                "per_page": 5,
+                "q": "This_should_return_no_results"
+            },
+            "search_cutoff": false,
+            "search_time_ms": 1
+        }
+    ]
+}

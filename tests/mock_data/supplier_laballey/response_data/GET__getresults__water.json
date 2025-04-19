@@ -1,0 +1,1444 @@
+{
+    "MOCK_DATA": true,
+    "totalItems": 949,
+    "startIndex": 0,
+    "itemsPerPage": 10,
+    "currentItemCount": 10,
+    "items": [
+        {
+            "product_id": "2276606738491",
+            "original_product_id": "2276606738491",
+            "title": "Water, HPLC Grade",
+            "description": "",
+            "link": "\/products\/water-hplc-grade",
+            "price": "75.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WAHPLC-4L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2112-4L_large.jpg?v=1743684335",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "21149566173243",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "21149566173243",
+                    "sku": "WAHPLC-4L",
+                    "barcode": "",
+                    "price": "75.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2112-4L_large.jpg?v=1743684335",
+                    "image_alt": "Water, HPLC Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/water-hplc-grade?variant=21149566173243"
+                },
+                {
+                    "variant_id": "21149566206011",
+                    "sku": "WAHPLC-4LCS",
+                    "barcode": "",
+                    "price": "267.7800",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2112-4L_large.jpg?v=1743684335",
+                    "image_alt": "Water, HPLC Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/water-hplc-grade?variant=21149566206011"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2112-4L_large.jpg?v=1743684335"
+            ],
+            "shopify_images_alt": [
+                "Water, HPLC Grade, 4 Liters"
+            ],
+            "tags": "autoship[:ATTR:]best_CBD[:ATTR:]best_Pharmaceutical[:ATTR:]Chemicals[:ATTR:]Grade_HPLC Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_Botanical[:ATTR:]Master[:ATTR:]SEO[:ATTR:]Size_4 Liters[:ATTR:]Water"
+        },
+        {
+            "product_id": "2276614045755",
+            "original_product_id": "2276614045755",
+            "title": "Water, LC\/MS Grade",
+            "description": "",
+            "link": "\/products\/water-lc-ms-grade",
+            "price": "84.7000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WALCMS-4L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "21149585735739",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "21149585735739",
+                    "sku": "WALCMS-4L",
+                    "barcode": "",
+                    "price": "84.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+                    "image_alt": "Water, LC\/MS Grade",
+                    "quantity_total": "",
+                    "link": "\/products\/water-lc-ms-grade?variant=21149585735739"
+                },
+                {
+                    "variant_id": "21149585768507",
+                    "sku": "WALCMS-4LCS",
+                    "barcode": "",
+                    "price": "338.8000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136",
+                    "image_alt": "Water, LC\/MS Grade",
+                    "quantity_total": "",
+                    "link": "\/products\/water-lc-ms-grade?variant=21149585768507"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/A2111-4L_large.jpg?v=1744273136"
+            ],
+            "shopify_images_alt": [
+                "Water, LC\/MS Grade"
+            ],
+            "tags": "autoship[:ATTR:]best_CBD[:ATTR:]Chemicals[:ATTR:]Grade_LC\/MS Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_Botanical[:ATTR:]Master[:ATTR:]Size_4 Liters[:ATTR:]Water"
+        },
+        {
+            "product_id": "7645688791195",
+            "original_product_id": "7645688791195",
+            "title": "Water, USP Grade",
+            "description": "",
+            "link": "\/products\/water-usp-grade",
+            "price": "157.5000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WAU-5GAL",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "43339134763163",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "43339134763163",
+                    "sku": "WAU-5GAL",
+                    "barcode": "",
+                    "price": "157.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/water-usp-grade?variant=43339134763163"
+                },
+                {
+                    "variant_id": "43339134795931",
+                    "sku": "WAU-55GAL",
+                    "barcode": "",
+                    "price": "495.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-55GAL_large.jpg?v=1744266458",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/water-usp-grade?variant=43339134795931"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-5GAL_large.jpg?v=1744266460",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAU-55GAL_large.jpg?v=1744266458"
+            ],
+            "shopify_images_alt": [
+                "",
+                ""
+            ],
+            "tags": "autoship[:ATTR:]best_CBD[:ATTR:]best_Pharmaceutical[:ATTR:]Chemicals[:ATTR:]Grade_HPLC Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Industry_Botanical[:ATTR:]Master[:ATTR:]SEO[:ATTR:]Size_4 Liters[:ATTR:]Water"
+        },
+        {
+            "product_id": "576716439611",
+            "original_product_id": "576716439611",
+            "title": "Deionized Water Lab Grade, Kosher",
+            "description": "",
+            "link": "\/products\/deionized-water-lab-grade-astm-type-1",
+            "price": "33.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "WAD-1L",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "7218983141435",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7218983141435",
+                    "sku": "WAD-1L",
+                    "barcode": "",
+                    "price": "33.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+                    "image_alt": "Deionized Water Lab Grade, 1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=7218983141435"
+                },
+                {
+                    "variant_id": "42902495920283",
+                    "sku": "WAD-1LCS",
+                    "barcode": "",
+                    "price": "81.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1LCS_large.jpg?v=1743681697",
+                    "image_alt": "Deionized Water Lab Grade, 4 x 1 Liter Case",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495920283"
+                },
+                {
+                    "variant_id": "7218983108667",
+                    "sku": "WAD-1GAL",
+                    "barcode": "",
+                    "price": "44.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                    "image_alt": "Deionized Water Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=7218983108667"
+                },
+                {
+                    "variant_id": "42902495953051",
+                    "sku": "WAD-1GALCS",
+                    "barcode": "",
+                    "price": "132.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Gallon Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                    "image_alt": "Deionized Water Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495953051"
+                },
+                {
+                    "variant_id": "42902496018587",
+                    "sku": "WAD-4L",
+                    "barcode": "",
+                    "price": "49.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                    "image_alt": "Deionized Water Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902496018587"
+                },
+                {
+                    "variant_id": "42902495985819",
+                    "sku": "WAD-4LCS",
+                    "barcode": "",
+                    "price": "126.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                    "image_alt": "Deionized Water Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=42902495985819"
+                },
+                {
+                    "variant_id": "21112474402875",
+                    "sku": "WAD-5GAL",
+                    "barcode": "",
+                    "price": "99.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-5GAL_large.jpg?v=1743681693",
+                    "image_alt": "Deionized Water Lab Grade, 5 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=21112474402875"
+                },
+                {
+                    "variant_id": "21112691294267",
+                    "sku": "WAD-55GAL",
+                    "barcode": "",
+                    "price": "242.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-55GAL_large.jpg?v=1743681691",
+                    "image_alt": "Deionized Water, Lab Grade, 55 Gallon Poly Drum",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=21112691294267"
+                },
+                {
+                    "variant_id": "46043842019483",
+                    "sku": "WAD-275GAL",
+                    "barcode": "",
+                    "price": "1210.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "275 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/WAD-275GAL_large.jpg?v=1743681696",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/deionized-water-lab-grade-astm-type-1?variant=46043842019483"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1L_large.jpg?v=1743681692",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1LCS_large.jpg?v=1743681697",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-1GAL_large.jpg?v=1743681694",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/WAD-4L_large.jpg?v=1743681698",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-5GAL_large.jpg?v=1743681693",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C3600-55GAL_large.jpg?v=1743681691",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/WAD-275GAL_large.jpg?v=1743681696"
+            ],
+            "shopify_images_alt": [
+                "Deionized Water Lab Grade, 1 Liter",
+                "Deionized Water Lab Grade, 4 x 1 Liter Case",
+                "Deionized Water Lab Grade, 1 Gallon",
+                "Deionized Water Lab Grade, 4 Liters",
+                "Deionized Water Lab Grade, 5 Gallons",
+                "Deionized Water, Lab Grade, 55 Gallon Poly Drum",
+                ""
+            ],
+            "tags": "autoship[:ATTR:]best_Food & Beverage[:ATTR:]best_Government[:ATTR:]best_Healthcare[:ATTR:]best_Hospital\/Clinical[:ATTR:]best_Winery[:ATTR:]CBD[:ATTR:]Certified_Kosher[:ATTR:]Chemicals[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Other[:ATTR:]OVK[:ATTR:]Water"
+        },
+        {
+            "product_id": "576723779643",
+            "original_product_id": "576723779643",
+            "title": "Isopropyl Alcohol 99.8% USP Grade, Kosher, Halal",
+            "description": "",
+            "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade",
+            "price": "40.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "IPAU99-500ML",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1PP_684059dd-838b-43fb-a94c-468626492195_large.jpg?v=1743498183",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "32741402542139",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "32741402542139",
+                    "sku": "IPAU99-500ML",
+                    "barcode": "",
+                    "price": "40.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500mL"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-500ml_large.jpg?v=1743498179",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 500mL",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741402542139"
+                },
+                {
+                    "variant_id": "37789218898075",
+                    "sku": "IPAU99-500MLCS",
+                    "barcode": "",
+                    "price": "139.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "6 x 500mL Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-500MLCS_large.jpg?v=1743498184",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 6x500mL Case",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=37789218898075"
+                },
+                {
+                    "variant_id": "7219009290299",
+                    "sku": "IPAU99-1L",
+                    "barcode": "",
+                    "price": "45.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1L_large.jpg?v=1743498176",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=7219009290299"
+                },
+                {
+                    "variant_id": "37789224763547",
+                    "sku": "IPAU99-1LCS",
+                    "barcode": "",
+                    "price": "121.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-1LCS_large.jpg?v=1743498185",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 4x1 Liter Case",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=37789224763547"
+                },
+                {
+                    "variant_id": "32741409620027",
+                    "sku": "IPAU99-1GAL",
+                    "barcode": "",
+                    "price": "59.4000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1GAL_af7d3c58-e82c-46ed-a40d-79c52c7f394d_large.jpg?v=1743498181",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741409620027"
+                },
+                {
+                    "variant_id": "32741415813179",
+                    "sku": "IPAU99-1GALCS",
+                    "barcode": "",
+                    "price": "183.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Gallon Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1GAL_af7d3c58-e82c-46ed-a40d-79c52c7f394d_large.jpg?v=1743498181",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741415813179"
+                },
+                {
+                    "variant_id": "32741412569147",
+                    "sku": "IPAU99-4L",
+                    "barcode": "",
+                    "price": "66.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-4L_2f161468-a87e-4785-94d1-20ce77d52972_large.jpg?v=1743498175",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741412569147"
+                },
+                {
+                    "variant_id": "41611341070491",
+                    "sku": "IPAU99-4LCS",
+                    "barcode": "",
+                    "price": "198.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1GAL_af7d3c58-e82c-46ed-a40d-79c52c7f394d_large.jpg?v=1743498181",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=41611341070491"
+                },
+                {
+                    "variant_id": "32741425184827",
+                    "sku": "IPAU99-5GAL",
+                    "barcode": "",
+                    "price": "209.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-5GAL-P_4ab8744b-eeb6-4df9-b573-65d93a60f4b0_large.jpg?v=1743498174",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 5 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741425184827"
+                },
+                {
+                    "variant_id": "32741462966331",
+                    "sku": "IPAU99-55GAL",
+                    "barcode": "",
+                    "price": "1089.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons Metal Drum"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-55GAL_m_large.jpg?v=1743498186",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 55 Gallon Drum",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=32741462966331"
+                },
+                {
+                    "variant_id": "45643034362011",
+                    "sku": "IPAU99-55GALP",
+                    "barcode": "",
+                    "price": "990.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons Plastic Drum"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/IPAU99-55GALP_large.jpg?v=1743498178",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=45643034362011"
+                },
+                {
+                    "variant_id": "37374641832091",
+                    "sku": "IPAU99-270GAL",
+                    "barcode": "",
+                    "price": "4840.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "270 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-270GAL_large.jpg?v=1743498180",
+                    "image_alt": "Isopropyl Alcohol 99.8% USP Grade, Kosher, 270 Gallon Tote",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=37374641832091"
+                },
+                {
+                    "variant_id": "41602014871707",
+                    "sku": "IPAU99-361GALCS",
+                    "barcode": "",
+                    "price": "4527.6000",
+                    "list_price": "6840.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon Case x 36 units per pallet"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/PAL-IPAL_large.jpg?v=1741612121",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=41602014871707"
+                },
+                {
+                    "variant_id": "41611343331483",
+                    "sku": "IPAU99-364LCS",
+                    "barcode": "",
+                    "price": "5001.7000",
+                    "list_price": "5904.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters Case x 36 units per pallet"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/PAL-IPAL_large.jpg?v=1741612121",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=41611343331483"
+                },
+                {
+                    "variant_id": "41602015854747",
+                    "sku": "IPAU99-365GALCS",
+                    "barcode": "",
+                    "price": "6098.4000",
+                    "list_price": "7200.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons x 36 units per pallet"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/PAL-IPAL_large.jpg?v=1741612121",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/isopropyl-alcohol-99-percent-usp-grade?variant=41602015854747"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1PP_684059dd-838b-43fb-a94c-468626492195_large.jpg?v=1743498183",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-500ml_large.jpg?v=1743498179",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-500MLCS_large.jpg?v=1743498184",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1L_large.jpg?v=1743498176",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-1LCS_large.jpg?v=1743498185",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-4L_2f161468-a87e-4785-94d1-20ce77d52972_large.jpg?v=1743498175",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-1GAL_af7d3c58-e82c-46ed-a40d-79c52c7f394d_large.jpg?v=1743498181",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-5GAL-P_4ab8744b-eeb6-4df9-b573-65d93a60f4b0_large.jpg?v=1743498174",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4580-55GAL_m_large.jpg?v=1743498186",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/IPAU99-55GALP_large.jpg?v=1743498178",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/IPA1001-270GAL_large.jpg?v=1743498180",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/PAL-IPAL_large.jpg?v=1741612121",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/pallet-pails-1_81c9bd6d-e1ba-4e2c-b3a7-601bced8bba1_large.jpg?v=1743498173"
+            ],
+            "shopify_images_alt": [
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Pint",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 500mL",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 6x500mL Case",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Liter",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 4x1 Liter Case",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 4 Liters",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 1 Gallon",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 5 Gallons",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 55 Gallon Drum",
+                "",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 270 Gallon Tote",
+                "",
+                "Isopropyl Alcohol 99.8% USP Grade, Kosher, 5 Gallons x 36 units per pallet"
+            ],
+            "tags": "autoship[:ATTR:]best_Biotechnology[:ATTR:]best_Government[:ATTR:]best_Hemp[:ATTR:]best_Industrial[:ATTR:]best_Other[:ATTR:]best_Petroleum[:ATTR:]best_Pharmacy[:ATTR:]best_R&D\/Lab[:ATTR:]best_Wastewater[:ATTR:]CBD[:ATTR:]Certified_Halal[:ATTR:]Certified_Kosher[:ATTR:]Chemicals[:ATTR:]GMO-free[:ATTR:]Grade_USP Grade[:ATTR:]Halal[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Isopropyl Alcohol[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Other[:ATTR:]OVK[:ATTR:]SEO"
+        },
+        {
+            "product_id": "4332594036795",
+            "original_product_id": "4332594036795",
+            "title": "Hydrochloric Acid 37% Solution, ACS Reagent Grade",
+            "description": "",
+            "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade",
+            "price": "44.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "HCLA37-500ML",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-500ML_92cbd100-0301-462b-9a30-fbbb67108412_large.jpg?v=1743593890",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "31090394628155",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "31090394628155",
+                    "sku": "HCLA37-500ML",
+                    "barcode": "",
+                    "price": "44.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500mL"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-500ML_92cbd100-0301-462b-9a30-fbbb67108412_large.jpg?v=1743593890",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 500mL",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=31090394628155"
+                },
+                {
+                    "variant_id": "37938591236251",
+                    "sku": "HCLA37-500MLCS",
+                    "barcode": "",
+                    "price": "198.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "6 x 500mL Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-500MLCS_e52863ab-7485-4956-aa34-21923c648c81_large.jpg?v=1743593898",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 6x500ml",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=37938591236251"
+                },
+                {
+                    "variant_id": "31090391384123",
+                    "sku": "HCLA37-1L",
+                    "barcode": "",
+                    "price": "48.4000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-1L_d8018991-2f52-49ce-b978-155f465583bf_large.jpg?v=1743593899",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=31090391384123"
+                },
+                {
+                    "variant_id": "37938605457563",
+                    "sku": "HCLA37-1LCS",
+                    "barcode": "",
+                    "price": "145.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-1LCS_8d7c6d11-d2fd-4537-a1a8-7daafcb2c744_large.jpg?v=1743593893",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 4x1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=37938605457563"
+                },
+                {
+                    "variant_id": "42860335169691",
+                    "sku": "HCLA37-1GAL",
+                    "barcode": "",
+                    "price": "82.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-1GAL_large.jpg?v=1743593895",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=42860335169691"
+                },
+                {
+                    "variant_id": "45548248268955",
+                    "sku": "HCLA37-1GALCS",
+                    "barcode": "",
+                    "price": "247.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Gallon Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-1GAL_large.jpg?v=1743593895",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=45548248268955"
+                },
+                {
+                    "variant_id": "31090394857531",
+                    "sku": "HCLA37-4L",
+                    "barcode": "",
+                    "price": "88.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-4L_f9759cee-9834-45b6-b2b5-c03c80ca0a84_large.jpg?v=1743593894",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=31090394857531"
+                },
+                {
+                    "variant_id": "45548248301723",
+                    "sku": "HCLA37-4LCS",
+                    "barcode": "",
+                    "price": "264.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-4L_f9759cee-9834-45b6-b2b5-c03c80ca0a84_large.jpg?v=1743593894",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=45548248301723"
+                },
+                {
+                    "variant_id": "42860383469723",
+                    "sku": "HCLA37-5GAL",
+                    "barcode": "",
+                    "price": "247.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-5GAL_large.jpg?v=1743593892",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 5 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=42860383469723"
+                },
+                {
+                    "variant_id": "31090394759227",
+                    "sku": "HCLA37-20L",
+                    "barcode": "",
+                    "price": "260.3300",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "20 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-5GAL_large.jpg?v=1743593892",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 5 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=31090394759227"
+                },
+                {
+                    "variant_id": "31090390859835",
+                    "sku": "HCLA37-55GAL",
+                    "barcode": "",
+                    "price": "1750.1000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-55GAL_bce6e45f-113b-4f5e-81dd-973da1e6487b_large.jpg?v=1743593900",
+                    "image_alt": "Hydrochloric Acid, ACS Reagent Grade, 37%, 55 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/hydrochloric-acid-37-percent-solution-acs-grade?variant=31090390859835"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-500ML_92cbd100-0301-462b-9a30-fbbb67108412_large.jpg?v=1743593890",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-30ML_0683eda2-bbb2-4360-80a2-a9e34050d041_large.jpg?v=1743593897",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-500MLCS_e52863ab-7485-4956-aa34-21923c648c81_large.jpg?v=1743593898",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-1L_d8018991-2f52-49ce-b978-155f465583bf_large.jpg?v=1743593899",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-1LCS_8d7c6d11-d2fd-4537-a1a8-7daafcb2c744_large.jpg?v=1743593893",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-1GAL_large.jpg?v=1743593895",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-4L_f9759cee-9834-45b6-b2b5-c03c80ca0a84_large.jpg?v=1743593894",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/HCLA37-5GAL_large.jpg?v=1743593892",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/C4280-55GAL_bce6e45f-113b-4f5e-81dd-973da1e6487b_large.jpg?v=1743593900"
+            ],
+            "shopify_images_alt": [
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 500mL",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 30ml",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 6x500ml",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 1 Liter",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 4x1 Liter",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 1 Gallon",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 4 Liters",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 5 Gallon",
+                "Hydrochloric Acid, ACS Reagent Grade, 37%, 55 Gallons"
+            ],
+            "tags": "Acids[:ATTR:]autoship[:ATTR:]best_Biotechnology[:ATTR:]best_Educational[:ATTR:]best_Food & Beverage[:ATTR:]best_Hemp[:ATTR:]best_Individual[:ATTR:]best_Industrial[:ATTR:]best_Life Sciences[:ATTR:]best_Other[:ATTR:]best_R&D\/Lab[:ATTR:]best_Wastewater[:ATTR:]Chemicals[:ATTR:]Form_Liquid[:ATTR:]hazmat[:ATTR:]Hydrochloric Acid[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Master[:ATTR:]Opener[:ATTR:]Percentage_37%[:ATTR:]SEO[:ATTR:]Size_1 Liter[:ATTR:]Size_2.5 Liters[:ATTR:]Size_30ml[:ATTR:]Size_4 Liters[:ATTR:]Size_500ml[:ATTR:]Size_55 Gallons"
+        },
+        {
+            "product_id": "576725254203",
+            "original_product_id": "576725254203",
+            "title": "Lime Water, Calcium Hydroxide Solution",
+            "description": "",
+            "link": "\/products\/lime-water-calcium-hydroxide-solution",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C4840-30ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_930c6063-eb60-4f98-94c3-f4a4d598cb0a_large.png?v=1741688236",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7219012862011",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7219012862011",
+                    "sku": "C4840-30ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-30ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012862011"
+                },
+                {
+                    "variant_id": "7219012927547",
+                    "sku": "C4840-500ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012927547"
+                },
+                {
+                    "variant_id": "7219012796475",
+                    "sku": "C4840-1L",
+                    "barcode": "",
+                    "price": "51.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-1L"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012796475"
+                },
+                {
+                    "variant_id": "7219012829243",
+                    "sku": "C4840-2.5L",
+                    "barcode": "",
+                    "price": "50.6000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-2.5L"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012829243"
+                },
+                {
+                    "variant_id": "7219012894779",
+                    "sku": "C4840-4L",
+                    "barcode": "",
+                    "price": "95.7000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-4L"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012894779"
+                },
+                {
+                    "variant_id": "7219012960315",
+                    "sku": "C4840-5gal",
+                    "barcode": "",
+                    "price": "159.5000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C4840-5gal"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/lime-water-calcium-hydroxide-solution?variant=7219012960315"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_930c6063-eb60-4f98-94c3-f4a4d598cb0a_large.png?v=1741688236"
+            ],
+            "tags": "Chemicals[:ATTR:]Educational[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Individual[:ATTR:]Master[:ATTR:]Size_1 Liter[:ATTR:]Size_4 Liters[:ATTR:]Size_5 Gallons[:ATTR:]Size_500ml[:ATTR:]Wastewater"
+        },
+        {
+            "product_id": "8378316587163",
+            "original_product_id": "8378316587163",
+            "title": "Sewage\/Water Sampler",
+            "description": "",
+            "link": "\/products\/sewage-water-sampler",
+            "price": "968.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "GT-9770",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/GT-9770_-_Water_Sewage_Sampler_large.jpg?v=1736799682",
+            "vendor": "George Taylor Brass",
+            "discount": "0",
+            "add_to_cart_id": "45968003235995",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "45968003235995",
+                    "sku": "GT-9770",
+                    "barcode": "",
+                    "price": "968.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Size": "GT-9770"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/sewage-water-sampler?variant=45968003235995"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/GT-9770_-_Water_Sewage_Sampler_large.jpg?v=1736799682"
+            ],
+            "tags": "Bottles[:ATTR:]Lab Supplies[:ATTR:]Master[:ATTR:]Other[:ATTR:]stoppers"
+        },
+        {
+            "product_id": "576739213371",
+            "original_product_id": "576739213371",
+            "title": "Propylene Glycol 60% in DI Water",
+            "description": "",
+            "link": "\/products\/propylene-glycol-60-in-di-water",
+            "price": "46.2000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "C6709-500ml",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_d60185b9-793e-4296-a981-9218a9ab0749_large.png?v=1741688849",
+            "vendor": "Post Apple",
+            "discount": "0",
+            "add_to_cart_id": "7219054542907",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "7219054542907",
+                    "sku": "C6709-500ml",
+                    "barcode": "",
+                    "price": "46.2000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C6709-500ml"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/propylene-glycol-60-in-di-water?variant=7219054542907"
+                },
+                {
+                    "variant_id": "7219054477371",
+                    "sku": "C6709-1L",
+                    "barcode": "",
+                    "price": "63.8000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C6709-1L"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/propylene-glycol-60-in-di-water?variant=7219054477371"
+                },
+                {
+                    "variant_id": "7219054510139",
+                    "sku": "C6709-4L",
+                    "barcode": "",
+                    "price": "190.3000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C6709-4L"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/propylene-glycol-60-in-di-water?variant=7219054510139"
+                },
+                {
+                    "variant_id": "7219054575675",
+                    "sku": "C6709-5gal",
+                    "barcode": "",
+                    "price": "564.3000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "C6709-5gal"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "",
+                    "image_alt": "",
+                    "quantity_total": "",
+                    "link": "\/products\/propylene-glycol-60-in-di-water?variant=7219054575675"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/files\/post-apple-generic-CORRECT_d60185b9-793e-4296-a981-9218a9ab0749_large.png?v=1741688849"
+            ],
+            "tags": "Chemicals[:ATTR:]Form_Liquid[:ATTR:]Ideal Template[:ATTR:]Master[:ATTR:]Percentage_60%[:ATTR:]Propylene glycol[:ATTR:]SEO[:ATTR:]Size_1 Liter[:ATTR:]Size_4 Liters[:ATTR:]Size_5 Gallons[:ATTR:]Size_500ml"
+        },
+        {
+            "product_id": "7344463380635",
+            "original_product_id": "7344463380635",
+            "title": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade",
+            "description": "",
+            "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade",
+            "price": "55.0000",
+            "list_price": "0.0000",
+            "quantity": "1",
+            "product_code": "NMPL-500ML",
+            "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-500ML_large.jpg?v=1650451290",
+            "vendor": "Lab Alley",
+            "discount": "0",
+            "add_to_cart_id": "42291074629787",
+            "total_reviews": "0",
+            "reviews_average_score": "0",
+            "shopify_variants": [
+                {
+                    "variant_id": "42291074629787",
+                    "sku": "NMPL-500ML",
+                    "barcode": "",
+                    "price": "55.0000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "500mL"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-500ML_large.jpg?v=1650451290",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 500mL",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074629787"
+                },
+                {
+                    "variant_id": "42291074695323",
+                    "sku": "NMPL-500MLCS",
+                    "barcode": "",
+                    "price": "265.7700",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "6 x 500mL Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-500MLCS_large.jpg?v=1650451290",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 6 x 500mL Case",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074695323"
+                },
+                {
+                    "variant_id": "42291074728091",
+                    "sku": "NMPL-1L",
+                    "barcode": "",
+                    "price": "78.3400",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Liter"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1L_large.jpg?v=1650451290",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 1 Liter",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074728091"
+                },
+                {
+                    "variant_id": "42291074760859",
+                    "sku": "NMPL-1LCS",
+                    "barcode": "",
+                    "price": "174.6700",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Liter Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1LCS_large.jpg?v=1650451284",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 4 x 1 Liter Case",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074760859"
+                },
+                {
+                    "variant_id": "42291074793627",
+                    "sku": "NMPL-1GAL",
+                    "barcode": "",
+                    "price": "97.6300",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "1 Gallon"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1GAL_large.jpg?v=1650451281",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074793627"
+                },
+                {
+                    "variant_id": "42291074859163",
+                    "sku": "NMPL-1GALCS",
+                    "barcode": "",
+                    "price": "280.7900",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 1 Gallon Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1GAL_large.jpg?v=1650451281",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 1 Gallon",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074859163"
+                },
+                {
+                    "variant_id": "42291074891931",
+                    "sku": "NMPL-4L",
+                    "barcode": "",
+                    "price": "111.1300",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 Liters"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMP4-4L_large.jpg?v=1650451280",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074891931"
+                },
+                {
+                    "variant_id": "42291074924699",
+                    "sku": "NMPL-4LCS",
+                    "barcode": "",
+                    "price": "350.0100",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "4 x 4 Liters Case"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMP4-4L_large.jpg?v=1650451280",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 4 Liters",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074924699"
+                },
+                {
+                    "variant_id": "42291074957467",
+                    "sku": "NMPL-5GAL",
+                    "barcode": "",
+                    "price": "270.6700",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "5 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-5GAL_large.jpg?v=1650451280",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 5 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074957467"
+                },
+                {
+                    "variant_id": "42291074990235",
+                    "sku": "NMPL-55GAL",
+                    "barcode": "",
+                    "price": "1820.6000",
+                    "list_price": "0.0000",
+                    "taxable": "1",
+                    "options": {
+                        "Model": "55 Gallons"
+                    },
+                    "available": "1",
+                    "search_variant_metafields_data": [],
+                    "filter_variant_metafields_data": [],
+                    "image_link": "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-55GAL_large.jpg?v=1650451281",
+                    "image_alt": "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 55 Gallons",
+                    "quantity_total": "",
+                    "link": "\/products\/nmp-1-methyl-2-pyrrolidone-lab-grade?variant=42291074990235"
+                }
+            ],
+            "shopify_images": [
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-500ML_large.jpg?v=1650451290",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-500MLCS_large.jpg?v=1650451290",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1L_large.jpg?v=1650451290",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1LCS_large.jpg?v=1650451284",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-1GAL_large.jpg?v=1650451281",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMP4-4L_large.jpg?v=1650451280",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-5GAL_large.jpg?v=1650451280",
+                "https:\/\/cdn.shopify.com\/s\/files\/1\/0003\/3406\/9819\/products\/NMPL-55GAL_large.jpg?v=1650451281"
+            ],
+            "shopify_images_alt": [
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 500mL",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 6 x 500mL Case",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 1 Liter",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 4 x 1 Liter Case",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 1 Gallon",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 4 Liters",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 5 Gallons",
+                "NMP, 1-Methyl-2-Pyrrolidone, Lab Grade, 55 Gallons"
+            ],
+            "tags": "autoship[:ATTR:]Chemicals[:ATTR:]Educational[:ATTR:]Form_Liquid[:ATTR:]Grade_Lab Grade[:ATTR:]Ideal Template[:ATTR:]In-House[:ATTR:]Individual[:ATTR:]Industrial[:ATTR:]Master[:ATTR:]Petroleum[:ATTR:]R&D\/Lab[:ATTR:]Size_1 Liter[:ATTR:]Size_500ml"
+        }
+    ]
+}

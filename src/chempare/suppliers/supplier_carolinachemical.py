@@ -1,7 +1,7 @@
 import json
+from typing import Any
 from typing import Dict
 from typing import List
-from typing import NoReturn
 from typing import Tuple
 
 from bs4 import BeautifulSoup
@@ -15,9 +15,9 @@ from chempare.suppliers.supplier_base import SupplierBase
 # File: /suppliers/supplier_carolinachemical.py
 class SupplierCarolinaChemical(SupplierBase):
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Carolina Chemical",
-        location=None,
+        # location=None,
         base_url="https://carolinachemical.com",
         api_url="https://carolinachemical.com",
     )
@@ -34,7 +34,7 @@ class SupplierCarolinaChemical(SupplierBase):
     }
     """Default values applied to products from this supplier"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -54,7 +54,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # Add each product to the self._products list in the form of a
             # TypeProduct object.
@@ -104,7 +104,7 @@ class SupplierCarolinaChemical(SupplierBase):
         #     }
         # },
 
-        product = TypeProduct(
+        product = dict(
             **self.__defaults,
             url=product_obj["url"],
             # uuid=product_obj["product_id"],
@@ -125,9 +125,11 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product.update(product_data)
 
-        return product
+        product = TypeProduct(product)
 
-    def __query_product_page(self, product_url: str):
+        return product.cast_properties()
+
+    def __query_product_page(self, product_url: str) -> Dict[str, Any]:
         product_page = self.http_get_html(product_url)
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
@@ -204,5 +206,4 @@ class SupplierCarolinaChemical(SupplierBase):
         return product_page_data
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierCarolinaChemical

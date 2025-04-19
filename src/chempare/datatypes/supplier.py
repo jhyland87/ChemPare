@@ -2,33 +2,31 @@
 
 from dataclasses import dataclass
 from typing import Dict
-from typing import NoReturn
-
 
 @dataclass
-class TypeSupplier:
+class TypeSupplier(Dict):
     """Custom data class for suppliers"""
 
-    name: str = None
+    name: str
     """Name of supplier"""
 
-    location: str = None
-    """Location of supplier"""
-
-    base_url: str = None
+    base_url: str
     """Base URL for supplier"""
 
-    api_url: str = None
+    location: str | None = None
+    """Location of supplier"""
+
+    api_url: str | None = None
     """URL for public facing API - may not be the same as base_url"""
 
-    api_key: str = None
+    api_key: str | None = None
     """Key for API calls, if needed"""
 
-    def update(self, data: Dict) -> NoReturn:
-        """Update the TypeSupplier instance
+    # def update(self, data: Dict) -> None:
+    #     """Update the TypeSupplier instance
 
-        Args:
-            data (Dict): Dictionary to merge into current dictioary
-        """
-        if data:
-            self.__dict__.update(data)
+    #     Args:
+    #         data (Dict): Dictionary to merge into current dictioary
+    #     """
+    #     if data:
+    #         self.__dict__.update(data)

@@ -1,0 +1,395 @@
+{
+    "MOCK_DATA": true,
+    "results": [
+        {
+            "facet_counts": [
+                {
+                    "counts": [
+                        {
+                            "count": 6,
+                            "highlighted": "0",
+                            "value": "0"
+                        },
+                        {
+                            "count": 2,
+                            "highlighted": "36.2",
+                            "value": "36.2"
+                        },
+                        {
+                            "count": 1,
+                            "highlighted": "974.7",
+                            "value": "974.7"
+                        },
+                        {
+                            "count": 1,
+                            "highlighted": "275.4",
+                            "value": "275.4"
+                        },
+                        {
+                            "count": 1,
+                            "highlighted": "371.35",
+                            "value": "371.35"
+                        }
+                    ],
+                    "field_name": "price",
+                    "sampled": false,
+                    "stats": {
+                        "avg": 119.96633345286051,
+                        "max": 974.7000122070312,
+                        "min": 0.0,
+                        "sum": 3598.9900035858154,
+                        "total_values": 24
+                    }
+                }
+            ],
+            "found": 30,
+            "hits": [
+                {
+                    "document": {
+                        "CAS": "7732-18-5",
+                        "calculatedPrice": 0,
+                        "categories": [
+                            "W",
+                            "Bulk Products",
+                            "High Purity Solvents, Acids & Bases"
+                        ],
+                        "description": "<p><strong>CAS#: 7732-18-5<br /><br />  <p><span style=\\"font-family: \'times new roman\', times; font-size: medium;\\">Please contact us for discounted pricing. Commercial Address must be approved prior to receiving a quote.<br /><br />MOQ: 5 Piece (can be mixed) or 2 x 55 Gallon Drum <br /><br />Fees: New Drop ships have a onetime $50 drop ship set up fee <br /> -If drop ship MOQ is not met, $150.00 fee applies<br /> -If you use your own carrier, $30 fee applies<br /> -If you pay with a credit card 3% fee applies</span></p> <p>&nbsp;</p>",
+                        "hasOptions": false,
+                        "id": "107109",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107109/images/29360/logo_greenfield__65506.1688416493.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107109/images/29360/logo_greenfield__65506.1688416493.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "Water, Deionized, Deionized, 55 gallon New Poly Drum",
+                        "price": 0,
+                        "product_id": 107109,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "zp2320000DIDM55",
+                        "sortOrder": 0,
+                        "upc": "",
+                        "url": "/w/water-deionized-deionized-55-gallon-new-poly-drum/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    ],
+                    "text_match": 578730123365711985,
+                    "text_match_info": {
+                        "best_field_score": "1108091339008",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730123365711985",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 0
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7732-18-5",
+                        "calculatedPrice": 0,
+                        "categories": [
+                            "W",
+                            "Bulk Products",
+                            "High Purity Solvents, Acids & Bases"
+                        ],
+                        "description": "<p><strong>CAS#: 7732-18-5<br /><br />  <p><span style=\\"font-family: \'times new roman\', times; font-size: medium;\\">Please contact us for discounted pricing. Commercial Address must be approved prior to receiving a quote.<br /><br />MOQ: 5 Piece (can be mixed) or 2 x 55 Gallon Drum <br /><br />Fees: New Drop ships have a onetime $50 drop ship set up fee <br /> -If drop ship MOQ is not met, $150.00 fee applies<br /> -If you use your own carrier, $30 fee applies<br /> -If you pay with a credit card 3% fee applies</span></p> <p>&nbsp;</p>",
+                        "hasOptions": false,
+                        "id": "107108",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107108/images/29359/logo_greenfield__24151.1688416493.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107108/images/29359/logo_greenfield__24151.1688416493.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "Water, USP-Purified, USP-Purified, 55 gallon New Poly Drum",
+                        "price": 0,
+                        "product_id": 107108,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "zp232000USPDM55",
+                        "sortOrder": 0,
+                        "upc": "",
+                        "url": "/w/water-usp-purified-usp-purified-55-gallon-new-poly-drum/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    ],
+                    "text_match": 578730123365711985,
+                    "text_match_info": {
+                        "best_field_score": "1108091339008",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730123365711985",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 0
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7732-18-5",
+                        "calculatedPrice": 0,
+                        "categories": [
+                            "W",
+                            "Bulk Products",
+                            "High Purity Solvents, Acids & Bases"
+                        ],
+                        "description": "<p><strong>CAS#: 7732-18-5<br /><br />  <p><span style=\\"font-family: \'times new roman\', times; font-size: medium;\\">Please contact us for discounted pricing. Commercial Address must be approved prior to receiving a quote.<br /><br />MOQ: 5 Piece (can be mixed) or 2 x 55 Gallon Drum <br /><br />Fees: New Drop ships have a onetime $50 drop ship set up fee <br /> -If drop ship MOQ is not met, $150.00 fee applies<br /> -If you use your own carrier, $30 fee applies<br /> -If you pay with a credit card 3% fee applies</span></p> <p>&nbsp;</p>",
+                        "hasOptions": false,
+                        "id": "107107",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107107/images/29358/logo_greenfield__23667.1688416493.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107107/images/29358/logo_greenfield__23667.1688416493.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "Water, USP-Purified, USP-Purified, 5 gallon Cube w/ spigot",
+                        "price": 0,
+                        "product_id": 107107,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "zp232000USPCB05",
+                        "sortOrder": 0,
+                        "upc": "",
+                        "url": "/w/water-usp-purified-usp-purified-5-gallon-cube-w-spigot/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    ],
+                    "text_match": 578730123365711985,
+                    "text_match_info": {
+                        "best_field_score": "1108091339008",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730123365711985",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 0
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7732-18-5",
+                        "calculatedPrice": 0,
+                        "categories": [
+                            "W",
+                            "Bulk Products",
+                            "High Purity Solvents, Acids & Bases"
+                        ],
+                        "description": "<p><strong>CAS#: 7732-18-5<br /><br />  <p><span style=\\"font-family: \'times new roman\', times; font-size: medium;\\">Please contact us for discounted pricing. Commercial Address must be approved prior to receiving a quote.<br /><br />MOQ: 5 Piece (can be mixed) or 2 x 55 Gallon Drum <br /><br />Fees: New Drop ships have a onetime $50 drop ship set up fee <br /> -If drop ship MOQ is not met, $150.00 fee applies<br /> -If you use your own carrier, $30 fee applies<br /> -If you pay with a credit card 3% fee applies</span></p> <p>&nbsp;</p>",
+                        "hasOptions": false,
+                        "id": "107105",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107105/images/29357/logo_greenfield__66815.1688416492.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107105/images/29357/logo_greenfield__66815.1688416492.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "Water for Injection (WFI), Sterile, USP Sterile, 6x1 liter Poly",
+                        "price": 0,
+                        "product_id": 107105,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "232ASWFIUSPCSP1L",
+                        "sortOrder": 0,
+                        "upc": "",
+                        "url": "/w/water-for-injection-wfi-sterile-usp-sterile-6x1-liter-poly/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    ],
+                    "text_match": 578730123365711985,
+                    "text_match_info": {
+                        "best_field_score": "1108091339008",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730123365711985",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 0
+                    }
+                },
+                {
+                    "document": {
+                        "CAS": "7732-18-5",
+                        "calculatedPrice": 0,
+                        "categories": [
+                            "W",
+                            "Bulk Products",
+                            "High Purity Solvents, Acids & Bases"
+                        ],
+                        "description": "<p><strong>CAS#: 7732-18-5<br /><br />  <p><span style=\\"font-family: \'times new roman\', times; font-size: medium;\\">Please contact us for discounted pricing. Commercial Address must be approved prior to receiving a quote.<br /><br />MOQ: 5 Piece (can be mixed) or 2 x 55 Gallon Drum <br /><br />Fees: New Drop ships have a onetime $50 drop ship set up fee <br /> -If drop ship MOQ is not met, $150.00 fee applies<br /> -If you use your own carrier, $30 fee applies<br /> -If you pay with a credit card 3% fee applies</span></p> <p>&nbsp;</p>",
+                        "hasOptions": false,
+                        "id": "107104",
+                        "images": [
+                            {
+                                "description": "",
+                                "isThumbnail": true,
+                                "sortOrder": 0,
+                                "urlStandard": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107104/images/29356/logo_greenfield__39072.1688416492.600.600.png?c=2",
+                                "urlThumbnail": "https://cdn11.bigcommerce.com/s-ityfqr2/products/107104/images/29356/logo_greenfield__39072.1688416492.200.200.png?c=2"
+                            }
+                        ],
+                        "inventoryLevel": 0,
+                        "inventory_level": 0,
+                        "inventory_tracking": "none",
+                        "mapPrice": 0,
+                        "meta_description": "",
+                        "meta_keywords": [],
+                        "name": "Water, HPLC, 4x4 liter Amber Glass",
+                        "price": 0,
+                        "product_id": 107104,
+                        "retailPrice": 0,
+                        "salePrice": 0,
+                        "sku": "23200HPLCCS4L",
+                        "sortOrder": 0,
+                        "upc": "",
+                        "url": "/w/water-hplc-4x4-liter-amber-glass/"
+                    },
+                    "highlight": {
+                        "CAS": {
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    },
+                    "highlights": [
+                        {
+                            "field": "CAS",
+                            "matched_tokens": [
+                                "7732-18-5"
+                            ],
+                            "snippet": "<mark>7732-18-5</mark>",
+                            "value": "<mark>7732-18-5</mark>"
+                        }
+                    ],
+                    "text_match": 578730123365711985,
+                    "text_match_info": {
+                        "best_field_score": "1108091339008",
+                        "best_field_weight": 14,
+                        "fields_matched": 1,
+                        "num_tokens_dropped": 0,
+                        "score": "578730123365711985",
+                        "tokens_matched": 1,
+                        "typo_prefix_score": 0
+                    }
+                }
+            ],
+            "out_of": 39516,
+            "page": 1,
+            "request_params": {
+                "collection_name": "products",
+                "first_q": "7732185",
+                "per_page": 5,
+                "q": "7732-18-5"
+            },
+            "search_cutoff": false,
+            "search_time_ms": 0
+        }
+    ]
+}

@@ -1,6 +1,5 @@
 from threading import Thread
 from typing import Dict
-from typing import NoReturn
 
 from bs4 import BeautifulSoup
 
@@ -22,7 +21,7 @@ class SupplierLoudwolf(SupplierBase):
     _limit: int = 5
     """Max results to store"""
 
-    _supplier: TypeSupplier = dict(
+    _supplier: TypeSupplier = TypeSupplier(
         name="Loudwolf Scientific",
         location="US",
         base_url="https://www.loudwolf.com/",
@@ -33,7 +32,7 @@ class SupplierLoudwolf(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> NoReturn:
+    def _query_products(self, query: str) -> None:
         """Query products from supplier
 
         Args:
@@ -42,7 +41,7 @@ class SupplierLoudwolf(SupplierBase):
 
         self.__product_pages = dict()
 
-        def __query_search_page(query: str, limit: int = 100, page_idx: int = 1):
+        def __query_search_page(query: str, limit: int = 10, page_idx: int = 1):
             """Handles the pagination on the search page"""
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter
@@ -50,7 +49,7 @@ class SupplierLoudwolf(SupplierBase):
                 # rquests made by it.
                 # 'q': f'{query}:productNameExactMatch',
                 "search": query,
-                "limit": 100,
+                "limit": 10,
                 "route": "product/search",
                 "sort": "p.price",  # pd.name, p.model, p.sort_order (default)
                 "order": "ASC",  # or DESC
@@ -122,7 +121,7 @@ class SupplierLoudwolf(SupplierBase):
     # Method iterates over the product query results stored at
     # self._query_results and
     # returns a list of TypeProduct objects.
-    def _parse_products(self) -> NoReturn:
+    def _parse_products(self) -> None:
         """Parse products from initial query. This will iterate over
         self.__product_pages, and execute the self.__query_and_parse_product
         method using multiple thrads to speed things up.
@@ -142,7 +141,7 @@ class SupplierLoudwolf(SupplierBase):
         for thread in threads:
             thread.join()
 
-    def __query_and_parse_product(self, href: str) -> NoReturn:
+    def __query_and_parse_product(self, href: str) -> None:
         """Execute the product page query and parse functions, one after the
         other, then updating the self._products
 
@@ -169,11 +168,11 @@ class SupplierLoudwolf(SupplierBase):
 
         product.uuid = product_params["product_id"]
         product.url = href
-        product.supplier = self._supplier["name"]
+        product.supplier = self._supplier.name
 
         self._products.append(product)
 
-    def __query_product_page(self, params: Dict) -> bytes:
+    def __query_product_page(self, params: Dict) -> bytes | None:
         """Query a specific product page given the GET params
 
         Args:
@@ -186,7 +185,7 @@ class SupplierLoudwolf(SupplierBase):
         product_html = self.http_get_html("storefront/index.php", params=params)
         return product_html or None
 
-    def __parse_product_page(self, product_html: bytes) -> TypeProduct:
+    def __parse_product_page(self, product_html: bytes) -> TypeProduct | None:
         """Parse a specific product page's HTML
 
         Args:
@@ -207,7 +206,7 @@ class SupplierLoudwolf(SupplierBase):
 
         # product_id = product_soup.find('input', {'name':'product_id'})
 
-        product = TypeProduct(
+        product = dict(
             title=title_elem.get_text(strip=True),
             # uuid=product_id.attrs['value'].strip()
         )
@@ -227,7 +226,7 @@ class SupplierLoudwolf(SupplierBase):
         if price_data:
             product.update(price_data)
         else:
-            product.price = price_txt
+            product["price"] = price_txt
 
         product_desc_tab = product_content.find("div", id="tab-description")
         paragraphs = product_desc_tab.find_all("p", class_="MsoNormal")
@@ -239,7 +238,7 @@ class SupplierLoudwolf(SupplierBase):
         for idx, p in enumerate(paragraphs):
             p_txt = p.get_text(strip=True)
             if idx == 0:
-                product.name = p_txt
+                product["name"] = p_txt
                 continue
 
             if "TOTAL WEIGHT OF PRODUCT" in p_txt:
@@ -252,12 +251,12 @@ class SupplierLoudwolf(SupplierBase):
 
             if "GRADE" == p_txt:
                 idx = idx + 1
-                product.grade = paragraphs[idx].get_text(strip=True)
+                product["grade"] = paragraphs[idx].get_text(strip=True)
                 continue
 
             if "CAS#" in p_txt:
                 idx = idx + 1
-                product.cas = paragraphs[idx].get_text(strip=True)
+                product["cas"] = paragraphs[idx].get_text(strip=True)
                 continue
 
             # Arbitrary value to abort parsing after, since the find_all('p')
@@ -265,8 +264,7 @@ class SupplierLoudwolf(SupplierBase):
             if idx > 13:
                 break
 
-        return product
+        product = TypeProduct(**product)
+        return product.cast_properties()
 
-
-if __package__ == "suppliers":
-    __disabled__ = False
+__supplier_class = SupplierLoudwolf
