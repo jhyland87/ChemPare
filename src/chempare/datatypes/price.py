@@ -2,7 +2,6 @@
 
 from dataclasses import asdict
 from dataclasses import dataclass
-from dataclasses import fields
 
 from chempare.datatypes import DecimalLikeType
 

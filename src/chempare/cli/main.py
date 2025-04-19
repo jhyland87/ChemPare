@@ -1,7 +1,10 @@
+import sys
+
 from rich.console import Console
 from rich.panel import Panel
-from chempare import SearchFactory
-import sys
+
+from chempare.search_factory import SearchFactory
+
 
 def main():
     if len(sys.argv) >= 2:
@@ -12,13 +15,13 @@ def main():
 
     console = Console()
 
-    #cas_number = get_cas(chem)
+    # cas_number = get_cas(chem)
 
     product_search = SearchFactory(chem)
 
     # Create a progress bar with the total number of suppliers
     # with Progress(console=console) as progress:
-        # task = progress.add_task("[cyan]Searching..", total=len(product_search.results))
+    # task = progress.add_task("[cyan]Searching..", total=len(product_search.results))
 
     supplier_list = {}
 
@@ -45,9 +48,13 @@ def main():
         supplier = product.supplier
 
         # Create the panel to print
-        panel = Panel(f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}", expand=True)
+        panel = Panel(
+            f"[yellow][b]{name}[/b][/yellow]\nPrice: {price}\nQuantity: {quantity if quantity else 'N/A'}\nSupplier: {supplier}\nURL: {url if url else 'N/A'}",
+            expand=True,
+        )
         console.print(panel)
     sys.exit()
+
 
 if __name__ == "__main__":
     main()

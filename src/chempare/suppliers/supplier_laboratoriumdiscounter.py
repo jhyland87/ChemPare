@@ -1,8 +1,8 @@
-from chempare import utils
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import utils
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py

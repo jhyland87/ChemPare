@@ -3,28 +3,36 @@ from http import HTTPMethod
 from http import HTTPStatus
 
 from requests_cache import CachedSession
-from requests_cache import FileCache
 
-from chempare import utils
+from chempare.utils import utils
 
 
 _cache_sessions = {}
 
 requests = None
 
-save_responses = utils.get_env("SAVE_RESPONSES", False)
 
 # print(f"{save_responses=}")
 
 
 def set_supplier_cache_session(supplier: str = "default"):
+
+    # called_from_test = utils.getenv("CALLED_FROM_TEST", False)
+    # test_monkeypatching = utils.getenv("TEST_MONKEYPATCHING", False)
+    # print(f"{test_monkeypatching=}, {called_from_test=}")
+
+    force_refresh = utils.getenv("PYTEST_FORCE_REFRESH", False)
+    only_mock = utils.getenv("PYTEST_ONLY_MOCK_DATA", True)
+
+    print(f"{force_refresh=}, {force_refresh=}")
+
     if supplier not in _cache_sessions:
         save_to = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_data", supplier)
 
         _cache_sessions[supplier] = CachedSession(
             cache_name=save_to,
-            only_if_cached=not save_responses,
-            force_refresh=save_responses,
+            only_if_cached=only_mock,
+            force_refresh=force_refresh,
             backend="filesystem",
             serializer="json",
             always_revalidate=False,
@@ -67,7 +75,6 @@ def set_supplier_cache_session(supplier: str = "default"):
                 HTTPStatus.NOT_IMPLEMENTED,
                 HTTPStatus.BAD_GATEWAY,
                 HTTPStatus.SERVICE_UNAVAILABLE,
-                HTTPStatus.GATEWAY_TIMEOUT,
                 HTTPStatus.HTTP_VERSION_NOT_SUPPORTED,
                 HTTPStatus.NETWORK_AUTHENTICATION_REQUIRED,
             ],

@@ -12,6 +12,7 @@ from typing import Callable
 from typing import Iterable
 
 from chempare.datatypes import PrimitiveType
+from chempare.datatypes import Undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -46,35 +47,118 @@ def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
         return X
 
 
-def get_env(setting: str, default: PrimitiveType = None) -> PrimitiveType:
-    value = os.getenv(setting, default)
+# PYTEST_CURRENT_TEST
+# DEBUGPY_RUNNING
+
+
+def cast(value: str) -> PrimitiveType | None:
+    """
+    Cast a str value to its most likely primitive type.
+
+    Args:
+        value (str): Value to cast
+
+    Returns:
+        PrimitiveType | None: Casted result
+
+    Example:
+        >>> from chempare.utils import utils
+        >>> utils.cast("123")
+        123
+        >>> utils.cast("123.34")
+        123.34
+        >>> utils.cast("123.34000")
+        123.34
+        >>> utils.cast("true")
+        True
+        >>> utils.cast("FALSE")
+        False
+        >>> utils.cast("None")
+        >>> utils.cast("null")
+        >>> utils.cast("0")
+        0
+        >>> utils.cast("Test")
+        'Test'
+        >>> utils.cast(True)
+        ValueError: Unable to cast value type <class 'bool'> - Must be a string
+    """
+
     # If it's not a string, then its probably a valid type..
     if isinstance(value, str) is False:
-        return value
+        raise ValueError(f"Unable to cast value type '{type(value).__name__}' - Must be a string")
 
     # Most castable values just need to be trimmed to be compatible
-    value = str(value).strip()
+    value = value.strip()
 
-    if not value or value.isspace():
+    # Account for any Null-ish types (None, null, "", etc)
+    if not value or value.lower() == "none" or value.lower() == "null" or value.isspace():
         return None
 
+    # Boolean type True
     if value.lower() == "true":
         return True
 
+    # Boolean type False
     if value.lower() == "false":
         return False
 
     try:
         return int(value)
-    except Exception:
+    except (ValueError, TypeError):
         pass
 
     try:
         return float(value)
-    except Exception:
+    except (ValueError, TypeError):
         pass
 
     return value
+
+
+def getenv(
+    setting: str, default: PrimitiveType | None | type[Undefined] = Undefined, typecast: bool = True
+) -> PrimitiveType | None:
+    """
+    Get an environmental variable. Also casts the value to the most likely type
+
+    Args:
+        setting (str): Name of the environmental variable
+        default (PrimitiveType | None, optional): Default value of variable.
+        cast (bool): Cast the variable to its most likely type. Defaults to True
+
+    Raises:
+        ValueError: ValueError if the env var is not set and no default is provided
+
+    Returns:
+        PrimitiveType | None: Environmental variable of types: int, float, str,  bool or None
+
+    Example:
+        >>> os.environ["FOO"] = "BAR"
+        >>> utils.getenv("FOO")
+        'BAR'
+        >>> utils.getenv("BAZ")
+        ValueError: Environment variable 'BAZ' not set.
+        >>> utils.getenv("BAZ", None)
+        >>> utils.getenv("BAZ", "qux")
+        'qux'
+        >>> utils.getenv("BAZ", 123)
+        123
+        >>> utils.getenv("BAZ", "123")
+        123
+        >>> utils.getenv("DEBUG_LVLd", "123", cast=False)
+        '123'
+        >>> utils.getenv("BAZ", "test123")
+        'test123'
+    """
+    if setting not in os.environ and default is Undefined:
+        raise ValueError(f"Environment variable '{setting}' not set.")
+
+    value = os.getenv(setting, default)
+
+    if typecast is False:
+        return value  # type: ignore
+
+    return cast(str(value).strip())
 
 
 def find_first(arr: Iterable, condition: Callable) -> Any:

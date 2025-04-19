@@ -4,6 +4,7 @@ import json
 import logging
 import os
 from collections.abc import Iterable
+from http import HTTPMethod
 from http import HTTPStatus
 from typing import Any
 from typing import Final
@@ -16,13 +17,13 @@ from abcplus import finalmethod
 from fuzzywuzzy import fuzz
 
 import chempare
-from chempare import ClassUtils
-from chempare import utils
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
+from chempare.utils import ClassUtils
+from chempare.utils import utils
 
 
 # import chempare
@@ -42,13 +43,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     #     super().__init_subclass__(**kwargs)
     _headers = {}
 
-    LOG_LEVEL: Final = os.environ.get("LOG_LEVEL", "WARNING")
+    LOG_LEVEL: Final = utils.getenv("LOG_LEVEL", "WARNING")
 
-    DEBUG_CURL: Final = utils.get_env("DEBUG")
+    DEBUG_CURL: Final = utils.getenv("DEBUG", False)
 
-    SAVE_RESPONSES: Final = utils.get_env("SAVE_RESPONSES", False)
+    SAVE_RESPONSES: Final = utils.getenv("SAVE_RESPONSES", False)
 
-    REQUEST_TIMEOUT: Final = int(utils.get_env("TIMEOUT", 2000))
+    REQUEST_TIMEOUT: Final = utils.getenv("TIMEOUT", 2000)
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -320,7 +321,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["force_refresh"] = True
 
         res = self.request(
-            "GET",
+            HTTPMethod.GET,
             url=path,
             **args,
             # impersonate="chrome",
@@ -329,7 +330,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # timeout=self.REQUEST_TIMEOUT,
             # debug=self.DEBUG_CURL,
         )
-        # res.reason, res.status_code == 504
 
         return res
 
@@ -359,7 +359,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if res_status_code.is_success:
             return res
 
-        if res.status_code == 504 and res.reason.lower() == "not cached" and res.__class__.__name__ == "CachedResponse":
+        if (
+            res.status_code == HTTPStatus.GATEWAY_TIMEOUT
+            and res.reason.lower() == "not cached"
+            and res.__class__.__name__ == "CachedResponse"
+        ):
             raise NoMockDataError(url=url, supplier=self._supplier.name)
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
@@ -411,7 +415,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["force_refresh"] = True
 
         res = self.request(
-            "POST",
+            HTTPMethod.POST,
             url=path,
             **args,
             # impersonate="chrome",
@@ -451,7 +455,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["force_refresh"] = True
 
         # resp = self.http_get(*args, **kwargs)
-        resp = self.request("HEAD", url=url, **kwargs)
+        resp = self.request(HTTPMethod.HEAD, url=url, **kwargs)
 
         return resp.headers
 

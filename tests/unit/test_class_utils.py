@@ -10,7 +10,7 @@ from datatypes import PriceType
 from datatypes import QuantityType
 from price_parser.parser import Price
 
-from chempare import ClassUtils
+from chempare.utils import ClassUtils
 
 
 # pylint: disable=unused-import

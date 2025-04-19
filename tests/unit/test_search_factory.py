@@ -1,4 +1,4 @@
-from chempare import SearchFactory
+from chempare.search_factory import SearchFactory
 
 
 # SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))

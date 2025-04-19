@@ -135,8 +135,14 @@ env = [
     "LOG_LEVEL=ERROR",
     "PYTEST_COV=true",
     "TIMEOUT=2000",
-    "USE_BROWSER_COOKIES=false",
-    "SAVE_RESPONSES=false"
+    #"USE_BROWSER_COOKIES=false",
+    # This will cause any request that does not already have a cached result
+    # to fail with a 504 error
+    "PYTEST_ONLY_MOCK_DATA=true",
+    # This will force the saving of any requests made through the requsts mocker,
+    # even if there is cached data for it already
+    "PYTEST_FORCE_REFRESH=false",
+    #"SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
 addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
@@ -144,7 +150,7 @@ addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doct
 
 # "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests/unit"]
-python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
+python_files = ["test_*.py", "tests/*.py", "tests/*/*.py", "*_test.py"]
 markers = [
     "supplier: Supplier module",
     "webtest: mark a test as a webtest."
@@ -308,10 +314,11 @@ source = [
     "src/chempare/exceptions",
     "src/chempare/suppliers"
 ]
-omit = ["*tests*","*/__init__.py"]
+omit = ["*tests*","*/__init__.py", "**/__init__.py"]
 
 [tool.coverage.report]
 show_missing = true
+omit = ["*tests*","*/__init__.py", "**/__init__.py"]
 #precision = 2
 
 
