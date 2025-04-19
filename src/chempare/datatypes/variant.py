@@ -1,10 +1,10 @@
-"""TypeVariant datatype"""
+"""VariantType datatype"""
 
 from dataclasses import dataclass
-from typing import Dict
+
 
 @dataclass(init=False, match_args=True, kw_only=True)
-class TypeVariant(Dict):
+class VariantType:
     """Custom data class for product variants"""
 
     uuid: str | int | None = None
@@ -71,7 +71,7 @@ class TypeVariant(Dict):
 
     # def __eq__(self, other):
     #     return (
-    #         isinstance(TypeVariant, other) is True
+    #         isinstance(VariantType, other) is True
     #         and self.__hash__() == other.__hash__()
     #     )
 
@@ -79,7 +79,7 @@ class TypeVariant(Dict):
     #     return f"({self.__id}, {self.name})"
 
     # def __repr__(self):
-    #     return f"TypeVariant(_id='{self._id}', name={self.name})"
+    #     return f"VariantType(_id='{self._id}', name={self.name})"
 
     # def set_id(self, id):
     #     self.__id = id
@@ -92,16 +92,16 @@ class TypeVariant(Dict):
     #         if val is not None and not key.startswith("_"):
     #             yield (key, val)
 
-    # def items(self) -> List:
+    # def items(self) -> list:
     #     """Get Variant dictionary items in list format"""
     #     # return self.__dict__.items()
     #     return dict(self).items()
 
-    # def update(self, data: Dict) -> None:
-    #     """Update the TypeProduct instance
+    # def update(self, data: dict) -> None:
+    #     """Update the ProductType instance
 
     #     Args:
-    #         data (Dict): Dictionary to merge into current dictioary
+    #         data (dict): Dictionary to merge into current dictioary
     #     """
     #     if data:
     #         self.__dict__.update(data)

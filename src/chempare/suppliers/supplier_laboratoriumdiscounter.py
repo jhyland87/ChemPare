@@ -1,6 +1,8 @@
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
+from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import utils
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -12,15 +14,16 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
-    _supplier: TypeSupplier = TypeSupplier(
-        name="Laboratorium Discounter",
-        base_url="https://www.laboratoriumdiscounter.nl",
+    _supplier: SupplierType = SupplierType(
+        name="Laboratorium Discounter", base_url="https://www.laboratoriumdiscounter.nl"
     )
     """Supplier specific data"""
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
+
+    _defaults = {}
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -34,55 +37,74 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         # Example request url for Laboratorium Discounter
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/page1.ajax?limit=100
+        # which returns an array at '.products'
+        #
         # Alternative:
-        # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/?format=json
+        # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/?format=json&limit=100
+        # which returns an array at '.collection.products'
         #
         get_params = {
             # Setting the limit here to 1000, since the limit parameter should
             # apply to results returned from Supplier3SChem, not the rquests
             # made by it.
-            "limit": 1000
+            "limit": self._limit or 100,
+            "format": "json",
         }
-        search_result = self.http_get_json(
-            f"en/search/{query}/page1.ajax?", params=get_params
-        )
 
-        if not search_result:
-            return
+        search_result = self.http_get_json(f"en/search/{query}", params=get_params)
 
-        self._query_results = search_result["products"][: self._limit]
+        self._defaults = {}
+
+        shop_currency = utils.get_nested(search_result, "shop", "currency")
+
+        self._defaults["currency"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "symbol")
+        self._defaults["currency_code"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "code")
+        # .shop.currencies[.shop.currency].symbol, .shop.currencies[.shop.currency].code
+
+        # self._query_results = search_result["collection"]["products"][: self._limit]
+        self._query_results = utils.get_nested(search_result, "collection", "products")
+
+        if self._query_results is False:
+            print(f"No products found for search query: {query}")
+            raise NoProductsFoundError(supplier=self._supplier.name, query=query)
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
-        for product in self._query_results:
+        if not isinstance(self._query_results, dict):
+            raise ValueError(f"Expected a dictionary from search, received {type(self._query_results)}")
+
+        for product in self._query_results.values():
             # Skip unavailable
-            if product["available"] is False:
+            if product.get("available") is False:
                 continue
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             # quantity = self._parse_quantity(product["title"])
-            quantity = self._parse_quantity(product["variant"])
+            quantity = self._parse_quantity(product.get("variant"))
             # price = self._parse_price(product["price"])
 
-            product_obj = TypeProduct(
-                uuid=str(product["id"]).strip(),
-                name=product["title"],
-                title=product["fulltitle"],
+            price = utils.get_nested(product, "price", "price")
+
+            product_obj = ProductType(
+                uuid=str(product.get("id", "")).strip(),
+                name=product.get("title", None),
+                title=product.get("fulltitle", None),
                 # cas=self._get_cas_from_variant(product["variant"]),
-                cas=self._find_cas(str(product["variant"])),
-                description=str(product["description"]).strip() or None,
-                price=str(product["price"]["price"]).strip(),
-                currency_code=product["price"]["currency"].upper(),
-                currency=self._currency_symbol_from_code(
-                    product["price"]["currency"]
-                ),
-                url=product["url"],
+                cas=self._find_cas(str(product.get("variant", ""))),
+                description=str(product.get("description", "")).strip() or None,
+                price=price,
+                # currency_code=self._defaults["curre"],
+                # currency=shop_currency_symbol,
+                url=product.get("url", None),
                 supplier=self._supplier.name,
+                usd=self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
                 # quantity=quantity["quantity"],
                 # uom=quantity["uom"],
             )
+
+            product_obj.update(self._defaults)
 
             if quantity:
                 product_obj.update(quantity)

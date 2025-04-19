@@ -1,10 +1,10 @@
 from threading import Thread
-from typing import Dict
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import PriceType
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -21,10 +21,8 @@ class SupplierLoudwolf(SupplierBase):
     _limit: int = 5
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
-        name="Loudwolf Scientific",
-        location="US",
-        base_url="https://www.loudwolf.com/",
+    _supplier: SupplierType = SupplierType(
+        name="Loudwolf Scientific", location="US", base_url="https://www.loudwolf.com/"
     )
     """Supplier specific data"""
 
@@ -61,9 +59,7 @@ class SupplierLoudwolf(SupplierBase):
             if self._is_cas(query) is True:
                 get_params["description"] = True
 
-            search_result = self.http_get_html(
-                "storefront/index.php", params=get_params
-            )
+            search_result = self.http_get_html("storefront/index.php", params=get_params)
 
             if not search_result:
                 return
@@ -72,9 +68,7 @@ class SupplierLoudwolf(SupplierBase):
 
             # Since we know the element is a <h3 class=product-price /> element,
             # search for H3's
-            product_elements = product_soup.find_all(
-                "div", class_="product-layout"
-            )
+            product_elements = product_soup.find_all("div", class_="product-layout")
 
             if product_elements is None:
                 # No product wrapper found
@@ -100,13 +94,9 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(
-                    product_href.strip()
-                )
+                product_href_params = self._get_param_from_url(product_href.strip())
 
-                if not product_href_params or not product_href_params.get(
-                    "product_id", None
-                ):
+                if not product_href_params or not product_href_params.get("product_id", None):
                     continue
 
                 product_id = product_href_params.get("product_id", None)
@@ -120,7 +110,7 @@ class SupplierLoudwolf(SupplierBase):
 
     # Method iterates over the product query results stored at
     # self._query_results and
-    # returns a list of TypeProduct objects.
+    # returns a list of ProductType objects.
     def _parse_products(self) -> None:
         """Parse products from initial query. This will iterate over
         self.__product_pages, and execute the self.__query_and_parse_product
@@ -130,10 +120,7 @@ class SupplierLoudwolf(SupplierBase):
         threads = []
 
         for product_href in self.__product_pages.values():
-            thread = Thread(
-                target=self.__query_and_parse_product,
-                kwargs=dict(href=product_href),
-            )
+            thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=product_href))
             threads.append(thread)
             thread.start()
 
@@ -172,11 +159,11 @@ class SupplierLoudwolf(SupplierBase):
 
         self._products.append(product)
 
-    def __query_product_page(self, params: Dict) -> bytes | None:
+    def __query_product_page(self, params: dict) -> bytes | None:
         """Query a specific product page given the GET params
 
         Args:
-            params (Dict): The HTTP Get parameters (with product_id)
+            params (dict): The HTTP Get parameters (with product_id)
 
         Returns:
             bytes: The html content
@@ -185,7 +172,7 @@ class SupplierLoudwolf(SupplierBase):
         product_html = self.http_get_html("storefront/index.php", params=params)
         return product_html or None
 
-    def __parse_product_page(self, product_html: bytes) -> TypeProduct | None:
+    def __parse_product_page(self, product_html: bytes) -> ProductType | None:
         """Parse a specific product page's HTML
 
         Args:
@@ -193,7 +180,7 @@ class SupplierLoudwolf(SupplierBase):
                                   (ie: from __query_product_page)
 
         Returns:
-            TypeProduct: A new product object, if valid
+            ProductType: A new product object, if valid
         """
 
         product_soup = BeautifulSoup(product_html, "html.parser")
@@ -223,6 +210,8 @@ class SupplierLoudwolf(SupplierBase):
         # Attempt to parse the price out to get the currency and price
         price_data = self._parse_price(price_txt)
 
+        # if isinstance(price_data, PriceType):
+        # if isinstance(price_data, PriceType) and price_data:
         if price_data:
             product.update(price_data)
         else:
@@ -264,7 +253,8 @@ class SupplierLoudwolf(SupplierBase):
             if idx > 13:
                 break
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
         return product.cast_properties()
+
 
 __supplier_class = SupplierLoudwolf

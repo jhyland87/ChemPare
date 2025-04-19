@@ -1,17 +1,14 @@
-from typing import Dict
-from typing import List
-from typing import Tuple
-
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Chemsavers",
         base_url="https://chemsavers.com",
         api_url="https://0ul35zwtpkx14ifhp-1.a1.typesense.net",
@@ -26,11 +23,7 @@ class SupplierChemsavers(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {
-        "currency": "$",
-        "currency_code": "USD",
-        "is_restricted": False,
-    }
+    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     # If any extra init logic needs to be called... uncmment the below and add
@@ -59,10 +52,7 @@ class SupplierChemsavers(SupplierBase):
                     # meta_description, meta_keywords',
                     "query_by": "name, CAS",
                     "sort_by": "price:asc",
-                    "highlight_full_fields": (
-                        "name, CAS, description, sku, "
-                        "meta_description, meta_keywords"
-                    ),
+                    "highlight_full_fields": ("name, CAS, description, sku, " "meta_description, meta_keywords"),
                     "collection": "products",
                     "q": query,
                     "facet_by": "price",
@@ -73,14 +63,12 @@ class SupplierChemsavers(SupplierBase):
                     # limiting it later.
                     "max_facet_values": 5,
                     "page": 1,
-                    "per_page": 5,
+                    "per_page": 100,
                 }
             ]
         }
 
-        search_result = self.http_post_json(
-            "multi_search", json=body, params=params
-        )
+        search_result = self.http_post_json("multi_search", json=body, params=params)
 
         if not search_result:
             return
@@ -88,7 +76,7 @@ class SupplierChemsavers(SupplierBase):
         self._query_results = search_result["results"][0]["hits"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # if len(self._products) == self._limit:
@@ -106,23 +94,23 @@ class SupplierChemsavers(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON
+            product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
         """
 
-        product = TypeProduct(
+        product = ProductType(
             **self.__defaults,
             uuid=product_obj["product_id"],
             name=product_obj["name"],
             description=product_obj["description"],
             cas=product_obj.get("CAS", None),
-            price=product_obj.get("price", None),
+            price=product_obj.get("price"),
             url=f"{self._supplier.base_url}{product_obj["url"]}",
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
@@ -131,9 +119,7 @@ class SupplierChemsavers(SupplierBase):
 
         # Since the description contains HTML, and it may contain restrictions,
         # use BS
-        description_soup = BeautifulSoup(
-            product_obj["description"], "html.parser"
-        )
+        description_soup = BeautifulSoup(product_obj["description"], "html.parser")
 
         # The restrictions always seem to be shown in
         # <strong style="color: red;"></strong> tags
@@ -142,8 +128,7 @@ class SupplierChemsavers(SupplierBase):
         if (
             restriction is not None
             and hasattr(restriction, 'string') is True
-            and "Restricted to qualified labs and businesses only (no residences)"
-            in str(restriction.string)
+            and "Restricted to qualified labs and businesses only (no residences)" in str(restriction.string)
         ):
             product.restriction = restriction.string
             product.is_restricted = True
@@ -152,9 +137,7 @@ class SupplierChemsavers(SupplierBase):
         desc = description_soup.find_all(["b", "p", "strong", "font"])
 
         if desc and desc is not None:
-            desc_parts = [
-                d.string.strip() if d.string and d.string else None for d in desc
-            ]
+            desc_parts = [d.string.strip() if d.string and d.string else None for d in desc]
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))
 
@@ -165,5 +148,6 @@ class SupplierChemsavers(SupplierBase):
                 product.description = "; ".join(desc_parts)
 
         return product.cast_properties()
+
 
 __supplier_class = SupplierChemsavers

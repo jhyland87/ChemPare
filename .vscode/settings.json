@@ -122,6 +122,7 @@
         "./src/chempare/datatypes",
     ],
     "python.testing.pytestArgs": [
+        "-s",
         "--config-file=pyproject.toml",
         "--numprocesses=auto",
         //"--cov=src/chempare",
@@ -201,5 +202,11 @@
         "./src/chempare/suppliers",
         "./src/chempare/datatypes"
     ],
-    "editor.defaultFormatter": "ms-python.pylint"
+    "editor.defaultFormatter": "ms-python.pylint",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "files.exclude": {
+        "**/__pycache__": true
+    }
 }

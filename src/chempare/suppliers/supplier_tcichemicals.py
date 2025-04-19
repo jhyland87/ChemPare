@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -16,12 +16,22 @@ class SupplierTciChemicals(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="TCI Chemicals",
         # location = 'Eu',
-        base_url="https://www.tcichemicals.com/",
+        base_url="https://www.tcichemicals.com",
     )
     """Supplier specific data"""
+
+    _headers = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "sec-ch-ua-platform": "macOS",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "none",
+        "sec-fetch-user": "?1",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+    }
 
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
@@ -53,7 +63,6 @@ class SupplierTciChemicals(SupplierBase):
                 None: Nothing, just adds new entries to self._query_results,
                           and executes self.__query_search_page if needed.
             """
-
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter
                 # should apply to results returned from Supplier3SChem, not
@@ -63,9 +72,7 @@ class SupplierTciChemicals(SupplierBase):
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html(
-                "US/en/search/", params=get_params
-            )
+            search_result = self.http_get_html("US/en/search", params=get_params, headers=self._headers)
 
             if not search_result:
                 return
@@ -80,9 +87,7 @@ class SupplierTciChemicals(SupplierBase):
                 # No product wrapper found
                 return
 
-            self._query_results.extend(
-                product_basic.find_all("div", class_="prductlist")
-            )
+            self._query_results.extend(product_basic.find_all("div", class_="prductlist"))
 
             if self._limit == len(self._query_results):
                 return
@@ -99,7 +104,7 @@ class SupplierTciChemicals(SupplierBase):
 
     def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
-        self._query_results and returns a list of TypeProduct objects.
+        self._query_results and returns a list of ProductType objects.
 
         Returns:
             None: Nothing.
@@ -108,10 +113,10 @@ class SupplierTciChemicals(SupplierBase):
             self.__parse_product(product_elem)
 
     def __parse_product(self, product_obj: BeautifulSoup) -> None:
-        """Parse single product and return single TypeProduct object
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from the
+            product_obj (tuple[list, dict]): Single product object from the
                                              JSON body
 
         Todo:
@@ -143,9 +148,7 @@ class SupplierTciChemicals(SupplierBase):
         if price_obj:
             product_dict.update(price_obj)
 
-        description_container = product_obj.find(
-            "div", class_="product-description"
-        )
+        description_container = product_obj.find("div", class_="product-description")
         data = description_container.find_all("td")
 
         for idx, d in enumerate(data):
@@ -158,10 +161,7 @@ class SupplierTciChemicals(SupplierBase):
                 continue
 
         quantity_pattern = re.compile(
-            (
-                r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|"
-                r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$"
-            )
+            (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
         )
         quantity_matches = quantity_pattern.search(product_dict["quantity"])
 
@@ -174,8 +174,9 @@ class SupplierTciChemicals(SupplierBase):
         # if price_matches:
         #     product.update(price_matches.groupdict())
 
-        product = TypeProduct(**product_dict)
+        product = ProductType(**product_dict)
 
         self._products.append(product.cast_properties())
+
 
 __supplier_class = SupplierTciChemicals

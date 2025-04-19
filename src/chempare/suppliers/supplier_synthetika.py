@@ -1,10 +1,7 @@
 import re
-from typing import Dict
-from typing import List
-from typing import Tuple
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -14,11 +11,8 @@ class SupplierSynthetika(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
-        name="Synthetika",
-        location="Eu",
-        base_url="https://synthetikaeu.com",
-        api_url="https://synthetikaeu.com",
+    _supplier: SupplierType = SupplierType(
+        name="Synthetika", location="Eu", base_url="https://synthetikaeu.com", api_url="https://synthetikaeu.com"
     )
     """Supplier specific data"""
 
@@ -57,42 +51,36 @@ class SupplierSynthetika(SupplierBase):
                 "page": page,
             }
 
-            search_result = self.http_get_json(
-                "webapi/front/en_US/search/short-list/products",
-                params=get_params,
-            )
+            search_result = self.http_get_json("webapi/front/en_US/search/short-list/products", params=get_params)
 
             if not search_result:
                 return
 
             self._query_results.extend(search_result["list"])
 
-            if (
-                int(search_result["pages"]) > page
-                and len(self._query_results) < self._limit
-            ):
+            if int(search_result["pages"]) > page and len(self._query_results) < self._limit:
                 __query_list(query, page + 1)
 
         __query_list(query, 1)
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from the
+            product_obj (tuple[list, dict]): Single product object from the
                                              JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -109,12 +97,7 @@ class SupplierSynthetika(SupplierBase):
             supplier=self._supplier.name,
         )
 
-        quantity_pattern = re.compile(
-            (
-                r"(?P<quantity>[0-9,\.x]+)\s?"
-                r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"
-            )
-        )
+        quantity_pattern = re.compile((r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"))
         quantity_matches = quantity_pattern.search(product_obj["name"])
 
         if quantity_matches:
@@ -125,7 +108,7 @@ class SupplierSynthetika(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
 
         return product.cast_properties()
 
