@@ -1,7 +1,3 @@
-from typing import Dict
-from typing import List
-from typing import Tuple
-
 from bs4 import BeautifulSoup
 
 from chempare.datatypes import TypeProduct
@@ -27,7 +23,7 @@ class SupplierChemsavers(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     # If any extra init logic needs to be called... uncmment the below and add
@@ -98,11 +94,11 @@ class SupplierChemsavers(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
+    def _parse_product(self, product_obj: dict) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON
+            product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
             TypeProduct: Instance of TypeProduct
@@ -114,7 +110,7 @@ class SupplierChemsavers(SupplierBase):
             name=product_obj["name"],
             description=product_obj["description"],
             cas=product_obj.get("CAS", None),
-            price=product_obj.get("price", None),
+            price=product_obj.get("price"),
             url=f"{self._supplier.base_url}{product_obj["url"]}",
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),

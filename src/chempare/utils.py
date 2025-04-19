@@ -5,15 +5,48 @@ import platform
 import plistlib
 import sys
 from collections.abc import Iterable
+from functools import reduce
 from pathlib import Path
 from typing import Any
 from typing import Callable
-from typing import Dict
 from typing import Iterable
-from chempare.datatypes import TypeLowLevel
+
+from chempare.datatypes import TypePrimitive
 
 
-def get_env(setting: str, default: TypeLowLevel | None = None) -> TypeLowLevel | None:
+def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
+    """
+    Get a nested value from a dictionary
+
+    Args:
+        dict_ (dict): Dictionary to iterate over
+        keys (list[str]): Keys to drill down with
+        default (Any, optional): Default value. Defaults to None.
+
+    Returns:
+        Any: Result, if somethig was found
+
+    Example:
+        >>> d = {"foo":{"bar":{"baz":"test"}}}
+        >>> get_nested(d, "foo","bar","baz")
+        test
+        >>> get_nested(d, "foo","bar","bazzzz")
+        None
+        >>> get_nested(d, "foo","bar","bazzzz", default="no bazzzz")
+        no bazzzz
+        >>> get_nested(d, "foo","bar")
+        {'baz': 'test'}
+    """
+
+    try:
+        X = reduce(dict.__getitem__, keys, dict_)
+    except (KeyError, TypeError):
+        return default
+    else:
+        return X
+
+
+def get_env(setting: str, default: TypePrimitive = None) -> TypePrimitive:
     value = os.getenv(setting, default)
     # If it's not a string, then its probably a valid type..
     if isinstance(value, str) is False:
@@ -89,16 +122,16 @@ def get_default_browser() -> str | None:
             with system_preferences.open("rb") as fp:
                 data = plistlib.load(fp)
 
-            data = find_first(data["LSHandlers"], lambda h: h.get("LSHandlerURLScheme") in ['http', 'https'])
+            data = find_first(data["LSHandlers"], lambda h: h.get("LSHandlerURLScheme") in ["http", "https"])
 
             if not isinstance(data, dict):
                 return None
 
-            return data.get('LSHandlerRoleAll').split('.')[1]
+            return data.get("LSHandlerRoleAll").split(".")[1]
         except:
             pass
 
-    if platform.system() == 'Darwin':
+    if platform.system() == "Darwin":
         return _for_darwin()
 
     sys.stderr.write(f"ERROR: No logic on getting the default browser for your platform: {platform.system()}\n")
@@ -127,10 +160,9 @@ def dict_hash(dictionary: dict[str, Any], sort: bool = True) -> str:
     return dhash.hexdigest()
 
 
-NonIterable = str | int | float | bool | None
-
-
-def replace_dict_values_by_value(obj: dict, find_value: NonIterable, replace_value: NonIterable) -> dict[str, str]:
+def replace_dict_values_by_value(
+    obj: dict, find_value: TypePrimitive | None, replace_value: TypePrimitive
+) -> dict[str, str]:
     """
     Replace values in a dictionary with another value.
 

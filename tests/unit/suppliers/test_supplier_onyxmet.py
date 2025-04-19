@@ -1,5 +1,7 @@
 """OnyxMet supplier test module"""
 
+from typing import Iterable
+
 import pytest
 from pytest_attributes import attributes
 
@@ -10,12 +12,11 @@ from chempare.suppliers.supplier_onyxmet import SupplierOnyxmet as Supplier
 
 @attributes(supplier="supplier_onyxmet", mock_data="query-rhodium")
 def test_name_query():
-    try:
-        results = Supplier("rhodium")
-    except Exception as e:
-        results = e
+    results = Supplier("rhodium")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @attributes(supplier="supplier_onyxmet", mock_data="query-nonsense")

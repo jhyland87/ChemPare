@@ -1,7 +1,6 @@
 """Chemsavers supplier test module"""
 
-# from unittest.mock import MagicMock
-# from unittest.mock import patch
+from typing import Iterable
 
 import pytest
 from pytest_attributes import attributes
@@ -9,6 +8,10 @@ from pytest_attributes import attributes
 from chempare.datatypes import TypeProduct
 from chempare.exceptions import NoProductsFound
 from chempare.suppliers.supplier_laballey import SupplierLaballey as Supplier
+
+
+# from unittest.mock import MagicMock
+# from unittest.mock import patch
 
 
 # from tests.mock_data.supplier_chemsavers.chemsavers_mocker import curl_cffi as mock_curl_cffi
@@ -22,22 +25,20 @@ from chempare.suppliers.supplier_laballey import SupplierLaballey as Supplier
 
 @attributes(supplier="supplier_laballey", mock_data="query-acid")
 def test_name_query():
-    try:
-        results = Supplier("acid")
-    except Exception as e:
-        results = e
+    results = Supplier("acid")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @attributes(supplier="supplier_laballey", mock_data="query-cas-7664-93-9")
 def test_cas_query():
-    try:
-        results = Supplier("7664-93-9")
-    except Exception as e:
-        results = e
+    results = Supplier("7664-93-9")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @attributes(supplier="supplier_laballey", mock_data="query-nonsense")

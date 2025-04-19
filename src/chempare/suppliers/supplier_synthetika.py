@@ -1,7 +1,4 @@
 import re
-from typing import Dict
-from typing import List
-from typing import Tuple
 
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
@@ -15,10 +12,7 @@ class SupplierSynthetika(SupplierBase):
     """Max results to store"""
 
     _supplier: TypeSupplier = TypeSupplier(
-        name="Synthetika",
-        location="Eu",
-        base_url="https://synthetikaeu.com",
-        api_url="https://synthetikaeu.com",
+        name="Synthetika", location="Eu", base_url="https://synthetikaeu.com", api_url="https://synthetikaeu.com"
     )
     """Supplier specific data"""
 
@@ -57,20 +51,14 @@ class SupplierSynthetika(SupplierBase):
                 "page": page,
             }
 
-            search_result = self.http_get_json(
-                "webapi/front/en_US/search/short-list/products",
-                params=get_params,
-            )
+            search_result = self.http_get_json("webapi/front/en_US/search/short-list/products", params=get_params)
 
             if not search_result:
                 return
 
             self._query_results.extend(search_result["list"])
 
-            if (
-                int(search_result["pages"]) > page
-                and len(self._query_results) < self._limit
-            ):
+            if int(search_result["pages"]) > page and len(self._query_results) < self._limit:
                 __query_list(query, page + 1)
 
         __query_list(query, 1)
@@ -84,11 +72,11 @@ class SupplierSynthetika(SupplierBase):
             # TypeProduct object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
+    def _parse_product(self, product_obj: tuple[list, dict]) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from the
+            product_obj (tuple[list, dict]): Single product object from the
                                              JSON body
 
         Returns:
@@ -109,12 +97,7 @@ class SupplierSynthetika(SupplierBase):
             supplier=self._supplier.name,
         )
 
-        quantity_pattern = re.compile(
-            (
-                r"(?P<quantity>[0-9,\.x]+)\s?"
-                r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"
-            )
-        )
+        quantity_pattern = re.compile((r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"))
         quantity_matches = quantity_pattern.search(product_obj["name"])
 
         if quantity_matches:

@@ -1,21 +1,13 @@
 """SupplierBase module to be inherited by any supplier modules"""
 
-from __future__ import annotations
-
 import json
 import logging
 import os
 from collections.abc import Iterable
 from typing import Any
-from typing import Dict
-from typing import List
+from typing import Final
 from typing import Self
-from typing import TypedDict
-from urllib.parse import urlparse
 
-# from curl_cffi import Headers
-# from curl_cffi import Response
-# from curl_cffi import requests
 import requests
 from abcplus import ABCMeta
 from abcplus import abstractmethod
@@ -27,7 +19,9 @@ from chempare import ClassUtils
 from chempare import utils
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
+from chempare.datatypes import TypeTimeout
 from chempare.exceptions import CaptchaEncountered
+from chempare.exceptions import NoMockDataFound
 from chempare.exceptions import NoProductsFound
 
 
@@ -48,6 +42,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     #     super().__init_subclass__(**kwargs)
     _headers = {}
 
+    _log_level: Final = os.environ.get("LOG_LEVEL", "WARNING")
+
+    _debug_curl: Final = utils.get_env("DEBUG")
+
+    _save_responses: Final = utils.get_env("SAVE_RESPONSES", False)
+
+    _request_timeout: Final = int(utils.get_env("TIMEOUT", 2000))
+
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
 
@@ -60,13 +62,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query = query
         self._cookies = {}
         # self._headers = {}
-        self._save_responses = False
 
-        self._debug_curl = utils.get_env("DEBUG")
+        # self._debug_curl: Final = utils.get_env("DEBUG")
 
-        self._save_responses = utils.get_env("SAVE_RESPONSES")
+        # self._save_responses: Final = utils.get_env("SAVE_RESPONSES", False)
 
-        self._request_timeout = utils.get_env("TIMEOUT", 2000)
+        # self._request_timeout: Final = utils.get_env("TIMEOUT", 2000)
+
+        # self._log_level: Final = os.environ.get("LOG_LEVEL", "WARNING")
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -83,8 +86,46 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         if len(self._products) == 0:
             raise NoProductsFound(supplier=self._supplier.name, query=self._query)
 
+    def __getitem__(self, index: int) -> TypeProduct:
+        """
+        Get product from query results
+
+        Args:
+            index (int): Index of array
+
+        Returns:
+            TypeProduct: Product located at index
+        """
+        return self._products[index]
+
+    def __len__(self) -> int:
+        """
+        Magic method for getting number of products
+
+        Returns:
+            int: Number of entries in self._products array
+        """
+
+        return len(self._products)
+
+    def __iter__(self) -> Self:
+        """
+        Iterable magic method
+
+        Returns:
+            Self: Supplier instance
+        """
+
+        return self
+
     @finalmethod
-    def _type(self):
+    def _type(self) -> str:
+        """
+        Get the supplier name
+
+        Returns:
+            str: Name of the supplier
+        """
         return self.__class__.__name__
 
     @finalmethod
@@ -93,7 +134,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def __init_logging(self) -> None:
-        """Create the logger specific to this class instance (child)
+        """
+        Create the logger specific to this class instance (child)
 
         Returns:
             None: None
@@ -104,11 +146,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
         self._logger = logging.getLogger(str(self.__class__.__name__))
-        logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
+        logging.basicConfig(level=self._log_level)
 
     @finalmethod
     def _log(self, message: str) -> None:
-        """Create a regular log entry
+        """
+        Create a regular log entry
 
         Args:
             message (str): Message to send to the logs
@@ -121,7 +164,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def _debug(self, message: str) -> None:
-        """Create a debugger log entry
+        """
+        Create a debugger log entry
 
         Args:
             message (str): Message to send to the logs
@@ -134,7 +178,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def _error(self, message: str) -> None:
-        """Create an error log entry
+        """
+        Create an error log entry
 
         Args:
             message (str): Message to send to the logs
@@ -147,7 +192,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def _warn(self, message: str) -> None:
-        """Create a warning log entry
+        """
+        Create a warning log entry
 
         Args:
             message (str): Message to send to the logs
@@ -167,27 +213,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         # DEBUG = 10
         # NOTSET = 0
 
-    def __len__(self) -> int:
-        """len() magic method for getting number of products
-
-        Returns:
-            int: Number of entries in self._products array
-        """
-
-        return len(self._products)
-
-    def __iter__(self) -> Self:
-        """Iterable magic method
-
-        Returns:
-            Self: Supplier instance
-        """
-
-        return self
-
     @finalmethod
     def _fuzz_filter(self) -> None:
-        """Filter products for ones where the title has a partial fuzz ratio of
+        """
+        Filter products for ones where the title has a partial fuzz ratio of
         90% or more.
         When testing different fuzz methods with string 'sodium borohydride',
         partial_ratio would return 58 for 'sodium amide' and 67 for 'sodium
@@ -214,7 +243,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._products = x
 
     def __next__(self) -> TypeProduct:
-        """next magic method
+        """
+        next magic method
 
         Raises:
             StopIteration: When the iteration needs to be stopped
@@ -234,10 +264,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     @property
     @finalmethod
     def products(self) -> Iterable[TypeProduct]:
-        """Product title getter
+        """
+        Product title getter
 
         Returns:
-            List[TypeProduct]: List of products
+            list[TypeProduct]: list of products
         """
 
         return self._products
@@ -251,7 +282,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         cookies: dict | None = None,
         headers: dict | None = None,
     ):
-        """Base HTTP getter (not specific to data type).
+        """
+        Base HTTP getter (not specific to data type).
 
         Args:
              path: URL Path to get (should not include the self._base_url value)
@@ -280,7 +312,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 if isinstance(v, list) or isinstance(v, dict):
                     params[k] = json.dumps(v)
 
-        args = dict(headers=headers or self._headers, cookies=cookies or self._cookies, timeout=self._request_timeout)
+        args = dict(
+            params=params,
+            headers=headers or self._headers,
+            cookies=cookies or self._cookies,
+            timeout=self._request_timeout,
+        )
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
         #     # if chempare.test_monkeypatching and chempare.called_from_test:
         #     args["only_if_cached"] = self._save_responses
@@ -291,9 +328,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
 
-        res = requests.get(
-            path,
-            params,
+        res = self.request(
+            "GET",
+            url=path,
             **args,
             # impersonate="chrome",
             # cookies=cookies or self._cookies,
@@ -301,10 +338,22 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # timeout=self._request_timeout,
             # debug=self._debug_curl,
         )
+        # res.reason, res.status_code == 504
+
+        return res
+
+    def request(self, method, url, **kwargs):
+
+        res = requests.request(method, url, **kwargs)
+
+        if res.status_code == 200:
+            return res
+
+        if res.status_code == 504 and res.reason.lower() == "not cached" and res.__class__.__name__ == "CachedResponse":
+            raise NoMockDataFound(url=url, supplier=self._supplier.name)
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
             raise CaptchaEncountered(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
-
         return res
 
     @finalmethod
@@ -338,6 +387,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         # chempare.test_monkeypatching chempare.called_from_test
         args = dict(
+            params=params,
             json=json,
             data=data,
             headers=headers or self._headers,
@@ -350,9 +400,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
 
-        res = requests.post(
-            path,
-            params=params,
+        res = self.request(
+            "POST",
+            url=path,
             **args,
             # impersonate="chrome",
             # json=json,
@@ -367,7 +417,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_get_headers(self, path: str | None = None, **kwargs):
-        """Get the response headers for a GET request
+        """
+        Get the response headers for a GET request
 
         Returns:
             requests.Headers: Header object
@@ -377,8 +428,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         if path:
             url = f"{url}/{path}"
-
-        args = dict()
 
         # args["only_if_cached"] = True
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
@@ -392,7 +441,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         #     args["force_refresh"] = True
 
         # resp = self.http_get(*args, **kwargs)
-        resp = requests.head(url, timeout=self._request_timeout, **args, **kwargs)
+        resp = self.request("HEAD", url=url, timeout=self._request_timeout, **kwargs)
 
         return resp.headers
 
@@ -405,18 +454,19 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         json: dict | None = None,
         headers: dict | None = None,
         cookies: dict | None = None,
-    ) -> Dict | dict | None:
-        """Post a JSON request and get a JSON response
+    ) -> dict | dict | None:
+        """
+        Post a JSON request and get a JSON response
 
         Args:
             path (str, optional): Path to post to. Defaults to None.
-            params (Dict, optional): params object. Defaults to None.
-            json (Dict, optional): json body. Defaults to None.
-            headers (Dict, optional): override headers. Defaults to None.
-            cookies (Dict, optional): override cookies. Defaults to None.
+            params (dict, optional): params object. Defaults to None.
+            json (dict, optional): json body. Defaults to None.
+            headers (dict, optional): override headers. Defaults to None.
+            cookies (dict, optional): override cookies. Defaults to None.
 
         Returns:
-            Union[Dict, List]: JSON response, if there was one
+            Union[dict, list]: JSON response, if there was one
         """
 
         url = self._supplier.api_url or self._supplier.base_url  # type: ignore
@@ -434,7 +484,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_get_html(self, path: str | None, /, **kwargs) -> bytes:
-        """HTTP getter (for HTML content).
+        """
+        HTTP getter (for HTML content).
 
         Args:
             path: URL Path to get (should not include the self._base_url value)
@@ -456,7 +507,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @finalmethod
     def http_get_json(self, path: str, /, params: dict | None = None, **kwargs) -> dict | None:
-        """HTTP getter (for JSON content).
+        """
+        HTTP getter (for JSON content).
 
         Args:
             path: URL Path to get (should not include the self._base_url value)
@@ -474,14 +526,16 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.json()
 
     def _setup(self, query: str | None = None) -> None:
-        """Setup method - Triggered before the query is executed. This is
+        """
+        Setup method - Triggered before the query is executed. This is
         useful for when we need to make an initial request to a homepage to get
         headers and stores some cookies
         """
 
     @abstractmethod
     def _query_products(self, query: str) -> None:
-        """Query the website for the products (name or CAS).
+        """
+        Query the website for the products (name or CAS).
 
         Args:
             query: query string to use

@@ -3,18 +3,20 @@ import os
 from requests_cache import CachedSession
 from requests_cache import FileCache
 
+from chempare import utils
+
 
 _cache_sessions = {}
 
 requests = None
 
-SAVE_RESPONSES = os.getenv("SAVE_RESPONSES", "false").lower()
-save_responses = SAVE_RESPONSES == "true" or SAVE_RESPONSES == "1"
+save_responses = utils.get_env("SAVE_RESPONSES", False)
+
+print(f"{save_responses=}")
 
 
 def set_supplier_cache_session(supplier: str = "default"):
     if supplier not in _cache_sessions:
-        print(f"Supplier ${supplier} does not have a mock_data directory - creating it")
         save_to = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_data", supplier)
 
         _cache_sessions[supplier] = CachedSession(

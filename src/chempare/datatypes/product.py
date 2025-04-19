@@ -6,9 +6,7 @@ from dataclasses import fields
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any
-from typing import Dict
 from typing import ItemsView
-from typing import List
 from typing import Self
 
 from chempare.datatypes.variant import TypeVariant
@@ -88,8 +86,8 @@ class TypeProduct:
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    variants: List[TypeVariant] | None = None
-    """List of variants for this product"""
+    variants: list[TypeVariant] | None = None
+    """list of variants for this product"""
 
     formula: str | None = None
     """Chemical formula"""
@@ -101,7 +99,7 @@ class TypeProduct:
     #     super().__init__(**kwargs)
     #     self.update(kwargs)
 
-    def update(self, data: Dict) -> None:
+    def update(self, data: dict) -> None:
         """Append a dictionary data to the product"""
         self.__dict__.update(data)
 

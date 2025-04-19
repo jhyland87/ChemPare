@@ -6,11 +6,11 @@ from typing import Literal
 from unittest.mock import patch
 
 import pytest
-from datatypes import TypePrice
-from datatypes import TypeQuantity
-from price_parser import Price
+from price_parser.parser import Price
 
 from chempare import ClassUtils
+from datatypes import TypePrice
+from datatypes import TypeQuantity
 
 
 # pylint: disable=unused-import

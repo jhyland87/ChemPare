@@ -24,13 +24,15 @@ class SupplierEsDrei(SupplierBase):
             query (str): Query string to use
         """
 
-        self._debug(f"Querying for {query}")
+        self._query = query
+
+        self._debug(f"Querying for {self._query}")
 
         # Example request url for S3Chem Supplier
         # https://shop.es-drei.de/search/index/sSearch/mercury?p=1&n=48
         # https://shop.es-drei.de/search?sSearch=mercury&p=1&n=48
         #
-        get_params = {"sSearch": query, "p": 1, "n": 48}  # Page number  # Must be one of: 12, 24, 36, 48
+        get_params = {"sSearch": self._query, "p": 1, "n": 48}  # Page number  # Must be one of: 12, 24, 36, 48
 
         search_result = self.http_get_html("search", params=get_params)
 
@@ -54,7 +56,8 @@ class SupplierEsDrei(SupplierBase):
         product_containers = product_page_soup.find_all("div", class_="product--info")
 
         for product_elem in product_containers[: self._limit]:
-            self._products.append(self._parse_product(product_elem))
+            r = self._parse_product(product_elem)
+            self._products.append(r)
 
     def _parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
         """Parse a single div.product--info element, creating a Partner object
@@ -105,8 +108,9 @@ class SupplierEsDrei(SupplierBase):
         # product.update(price_matches.groupdict())
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
-        if quantity:
-            product_data.update(self._parse_quantity(quantity))
+        quantity_data = self._parse_quantity(quantity)
+        if quantity_data:
+            product_data.update(quantity_data)
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space

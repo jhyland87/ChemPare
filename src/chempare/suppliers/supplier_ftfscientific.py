@@ -1,7 +1,5 @@
 """FTF Scientific Supplier Module"""
 
-from typing import Dict
-
 from bs4 import BeautifulSoup
 
 from chempare.datatypes import TypeProduct
@@ -54,7 +52,9 @@ class SupplierFtfScientific(SupplierBase):
         # What can this be used for?
         # https://www.ftfscientific.com/_api/v2/dynamicmodel
 
-        self._headers["authorization"] = auth["apps"]["1484cb44-49cd-5b39-9681-75188ab429de"]["instance"]
+        self._headers["authorization"] = (
+            auth.get("apps", {}).get("1484cb44-49cd-5b39-9681-75188ab429de", {}).get("instance", {})
+        )
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -129,11 +129,11 @@ class SupplierFtfScientific(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Dict) -> TypeProduct | None:
+    def _parse_product(self, product_obj: dict) -> TypeProduct | None:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Dict): Single product object from JSON body
+            product_obj (dict): Single product object from JSON body
 
         Returns:
             TypeProduct: Instance of TypeProduct
@@ -189,7 +189,7 @@ class SupplierFtfScientific(SupplierBase):
 
         return product
 
-    def __query_product_page(self, url: str) -> Dict:
+    def __query_product_page(self, url: str) -> dict:
         """Query a specific product page and parse the HTML for the cas or
         other info that's not present in the initial search result page
 
@@ -197,7 +197,7 @@ class SupplierFtfScientific(SupplierBase):
             url (str): URL for product
 
         Returns:
-            Dict: Just more data (eg: cas)
+            dict: Just more data (eg: cas)
         """
 
         product_page_html = self.http_get_html(url)

@@ -35,18 +35,19 @@ class Supplier3SChem(SupplierBase):
             "resources[limit]": 1000,
             "resources[options][unavailable_products]": "last",
         }
+
         search_result = self.http_get_json("search/suggest.json", params=get_params)
 
         if not search_result:
             return
-        # search_result.get('resources',{}).get('results',{}).get('products',[])
-        self._query_results = search_result["resources"]["results"]["products"][: self._limit]
+
+        self._query_results = search_result.get('resources', {}).get('results', {}).get('products', [])[: self._limit]
 
     def _parse_products(self) -> None:
         """Parse products stored at self._query_results"""
         for product in self._query_results:
             # Skip unavailable
-            if product["available"] is False:
+            if product.get("available") is False:
                 continue
 
             product_obj = dict(

@@ -3,18 +3,16 @@
 from dataclasses import asdict
 from dataclasses import dataclass
 from dataclasses import fields
-from decimal import Decimal
 
-
-DecimalLike = int | float | Decimal
+from chempare.datatypes import TypeDecimalLike
 
 
 @dataclass
 class TypePrice:
-    price: DecimalLike
+    price: TypeDecimalLike
     currency: str
     currency_code: str | None = None
-    usd: DecimalLike | None = None
+    usd: TypeDecimalLike | None = None
 
     def __iter__(self):
         return iter(asdict(self).items())

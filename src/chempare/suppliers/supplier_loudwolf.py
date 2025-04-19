@@ -1,5 +1,4 @@
 from threading import Thread
-from typing import Dict
 
 from bs4 import BeautifulSoup
 
@@ -160,11 +159,11 @@ class SupplierLoudwolf(SupplierBase):
 
         self._products.append(product)
 
-    def __query_product_page(self, params: Dict) -> bytes | None:
+    def __query_product_page(self, params: dict) -> bytes | None:
         """Query a specific product page given the GET params
 
         Args:
-            params (Dict): The HTTP Get parameters (with product_id)
+            params (dict): The HTTP Get parameters (with product_id)
 
         Returns:
             bytes: The html content

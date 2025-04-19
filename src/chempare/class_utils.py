@@ -12,8 +12,7 @@ import time
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any
-from typing import Dict
-from typing import List
+from unicodedata import normalize
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
 
@@ -22,10 +21,11 @@ from abcplus import ABCMeta
 from abcplus import finalmethod
 from currex import CURRENCIES
 from currex import Currency
-from datatypes import DecimalLike
-from datatypes import TypePrice
-from datatypes import TypeQuantity
-from price_parser import Price
+from price_parser.parser import Price
+
+from chempare.datatypes import TypeDecimalLike
+from chempare.datatypes import TypePrice
+from chempare.datatypes import TypeQuantity
 
 
 # import chempare
@@ -74,6 +74,7 @@ class ClassUtils(metaclass=ABCMeta):
                 numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
         """
 
+        value = normalize('NFKC', value)
         # if chempare.called_from_test is True:
         #     print(
         #         "\n\n\nchempare.called_from_test:",
@@ -159,7 +160,9 @@ class ClassUtils(metaclass=ABCMeta):
         return TypePrice(**result)
 
     @finalmethod
-    def _to_usd(self, from_currency: str | None = None, amount: int | float | str | None = None) -> DecimalLike | None:
+    def _to_usd(
+        self, from_currency: str | None = None, amount: int | float | str | None = None
+    ) -> TypeDecimalLike | None:
         """Convert a no USD price to the USD price
 
         Args:
@@ -186,9 +189,9 @@ class ClassUtils(metaclass=ABCMeta):
         # the currency type (eg: "$123.23"), and can be parsed
         if from_currency is None and isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, Dict):
+            if not isinstance(parsed_price, dict):
                 _logger.debug(
-                    "Unable to determine from currency from amount %s of type %s (expected Dict)",
+                    "Unable to determine from currency from amount %s of type %s (expected dict)",
                     parsed_price,
                     type(parsed_price),
                 )
@@ -213,7 +216,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         amount = self._cast_type(amount)
 
-        if not isinstance(amount, DecimalLike):
+        if not isinstance(amount, TypeDecimalLike):
             _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
 
         # if not amount:
@@ -232,11 +235,11 @@ class ClassUtils(metaclass=ABCMeta):
         #     # print("Exception:", err)
         #     return None
 
-    def _to_hundreths(self, value: DecimalLike | str) -> Decimal:
+    def _to_hundreths(self, value: TypeDecimalLike | str) -> Decimal:
         """Convert any number like value to include the hundreths place
 
         Args:
-            value (DecimalLike | str): Value to convert
+            value (TypeDecimalLike | str): Value to convert
 
         Returns:
             Decimal: Equivelant value with hundreths.
@@ -304,6 +307,8 @@ class ClassUtils(metaclass=ABCMeta):
             Optional[TypeQuantity]: Returns a dictionary with the 'quantity' and
                             'uom' values
         """
+
+        value = normalize('NFKC', value)
 
         # When a UOM is found, its lower case key can be used to look up the
         # correct case format for it. If the UOM is in one of the below tuple
@@ -394,7 +399,7 @@ class ClassUtils(metaclass=ABCMeta):
         return parsed_query[param]
 
     @finalmethod
-    def _split_array_into_groups(self, arr: List, size: int = 2) -> List:
+    def _split_array_into_groups(self, arr: list, size: int = 2) -> list:
         """Splits an array into sub-arrays of 2 elements each.
 
         Args:
@@ -419,15 +424,15 @@ class ClassUtils(metaclass=ABCMeta):
         return result
 
     @finalmethod
-    def _nested_arr_to_dict(self, arr: List[List]) -> Dict | None:
+    def _nested_arr_to_dict(self, arr: list[list]) -> dict | None:
         """Takes an array of arrays (ie: result from
         self._split_array_into_groups) and converts that into a dictionary.
 
         Args:
-            arr (List[List]): The input array.
+            arr (list[list]): The input array.
 
         Returns:
-            Optional[Dict]: A dictionary based off of the input alues
+            Optional[dict]: A dictionary based off of the input alues
 
         Example:
             >>> self._nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
@@ -856,14 +861,14 @@ class ClassUtils(metaclass=ABCMeta):
         return int(checksum) == int(cas_dict["checksum"])
 
     @finalmethod
-    def _filter_highest_item_value(self, input_dict: Dict) -> Dict:
+    def _filter_highest_item_value(self, input_dict: dict) -> dict:
         """Filter a dictionary for the entry with the highest numerical value.
 
         Args:
-            input_dict (Dict): Dictionary to iterate through
+            input_dict (dict): Dictionary to iterate through
 
         Returns:
-            Dict: Item in dictionary with highest value
+            dict: Item in dictionary with highest value
 
         Example:
             >>> self._filter_highest_item_value({"foo": 123, "bar": 555})
@@ -952,17 +957,17 @@ class ClassUtils(metaclass=ABCMeta):
         return longest_phrases
 
     @finalmethod
-    def _find_values_with_element(self, source: Dict, element: str | int | None) -> List:
+    def _find_values_with_element(self, source: dict, element: str | int | None) -> list:
         """
         Finds values in a dictionary that are tuples and contain a specific
         element.
 
         Args:
-            source (Dict): The dictionary to search.
+            source (dict): The dictionary to search.
             element (str, int): The element to search for within the tuple keys
 
         Returns:
-            List: A list of values that were found
+            list: A list of values that were found
 
         Example:
             >>> my_dict = {

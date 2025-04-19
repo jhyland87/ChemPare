@@ -22,11 +22,11 @@ class TypeSupplier:
     api_key: str | None = None
     """Key for API calls, if needed"""
 
-    # def update(self, data: Dict) -> None:
+    # def update(self, data: dict) -> None:
     #     """Update the TypeSupplier instance
 
     #     Args:
-    #         data (Dict): Dictionary to merge into current dictioary
+    #         data (dict): Dictionary to merge into current dictioary
     #     """
     #     if data:
     #         self.__dict__.update(data)

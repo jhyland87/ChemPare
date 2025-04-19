@@ -1,8 +1,5 @@
 import json
 from typing import Any
-from typing import Dict
-from typing import List
-from typing import Tuple
 
 from bs4 import BeautifulSoup
 
@@ -27,7 +24,7 @@ class SupplierCarolinaChemical(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {
+    __defaults: dict = {
         "currency": "$",
         "currency_code": "USD",
         # "is_restricted": False,
@@ -43,9 +40,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         get_params = {"search": self._query}
 
-        search_result = self.http_get_json(
-            "wp-json/wp/v2/search", params=get_params
-        )
+        search_result = self.http_get_json("wp-json/wp/v2/search", params=get_params)
 
         if not search_result:
             return
@@ -61,13 +56,11 @@ class SupplierCarolinaChemical(SupplierBase):
             product_result = self._query_and_parse_product(product_obj)
             self._products.append(product_result)
 
-    def _query_and_parse_product(
-        self, product_obj: Tuple[List, Dict]
-    ) -> TypeProduct:
+    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON
+            product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
             TypeProduct: Instance of TypeProduct
@@ -129,7 +122,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         return product.cast_properties()
 
-    def __query_product_page(self, product_url: str) -> Dict[str, Any]:
+    def __query_product_page(self, product_url: str) -> dict[str, Any]:
         product_page = self.http_get_html(product_url)
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
@@ -137,9 +130,9 @@ class SupplierCarolinaChemical(SupplierBase):
         product_page_data = {"url": product_url, "variants": []}
 
         try:
-            product_variations = product_page_soup.find(
-                "form", class_="variations_form"
-            ).attrs.get("data-product_variations")
+            product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(
+                "data-product_variations"
+            )
 
             if product_variations:
                 product_variations = json.loads(product_variations)
@@ -157,12 +150,8 @@ class SupplierCarolinaChemical(SupplierBase):
                 variation.set_id(index)
 
                 if variation.description:
-                    variation.description = BeautifulSoup(
-                        variation.description, "html.parser"
-                    )
-                    variation.description = variation.description.get_text(
-                        strip=True
-                    )
+                    variation.description = BeautifulSoup(variation.description, "html.parser")
+                    variation.description = variation.description.get_text(strip=True)
 
                 product_page_data["variants"].append(variation)
 
@@ -178,10 +167,7 @@ class SupplierCarolinaChemical(SupplierBase):
             # Get the CAS/formula/etc
             # .woocommerce-product-details__short-description > table > tbody > tr
             description_rows = (
-                product_page_soup.find(
-                    "div",
-                    class_="woocommerce-product-details__short-description",
-                )
+                product_page_soup.find("div", class_="woocommerce-product-details__short-description")
                 .find('table')
                 .find('tbody')
                 .find_all('tr')

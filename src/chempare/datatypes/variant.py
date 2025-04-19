@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 @dataclass(init=False, match_args=True, kw_only=True)
-class TypeVariant():
+class TypeVariant:
     """Custom data class for product variants"""
 
     uuid: str | int | None = None
@@ -92,16 +92,16 @@ class TypeVariant():
     #         if val is not None and not key.startswith("_"):
     #             yield (key, val)
 
-    # def items(self) -> List:
+    # def items(self) -> list:
     #     """Get Variant dictionary items in list format"""
     #     # return self.__dict__.items()
     #     return dict(self).items()
 
-    # def update(self, data: Dict) -> None:
+    # def update(self, data: dict) -> None:
     #     """Update the TypeProduct instance
 
     #     Args:
-    #         data (Dict): Dictionary to merge into current dictioary
+    #         data (dict): Dictionary to merge into current dictioary
     #     """
     #     if data:
     #         self.__dict__.update(data)

@@ -1,8 +1,8 @@
 """Search factory"""
 
-from typing import List
-
 # from curl_cffi import requests
+from typing import Self
+
 import requests
 from abcplus import finalmethod
 
@@ -23,7 +23,7 @@ class SearchFactory(ClassUtils, object):
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 
-    __results: List | None = None
+    __results: list | None = None
     """Contains a list of all the product results"""
 
     __index: int = 0
@@ -41,7 +41,7 @@ class SearchFactory(ClassUtils, object):
 
         self.__query(query, limit)
 
-    def __iter__(self):
+    def __iter__(self) -> Self:
         """Simple iterator, making this object usable in for loops"""
 
         return self
@@ -189,11 +189,11 @@ class SearchFactory(ClassUtils, object):
 
     @property
     @finalmethod
-    def results(self) -> List[TypeProduct]:
+    def results(self) -> list[TypeProduct]:
         """Results getter
 
         Returns:
-            List[TypeProduct]: List of the aggregated TypeProduct objects from
+            list[TypeProduct]: list of the aggregated TypeProduct objects from
                                each supplier
         """
         return self.__results

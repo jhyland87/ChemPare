@@ -1,8 +1,11 @@
 """EsDrei supplier test module"""
 
+from typing import Iterable
+
 import pytest
 from pytest_attributes import attributes
 
+from chempare.datatypes import TypeProduct
 from chempare.exceptions import CaptchaEncountered
 from chempare.exceptions import NoProductsFound
 from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
@@ -11,12 +14,11 @@ from chempare.suppliers.supplier_labchem import SupplierLabchem as Supplier
 @pytest.mark.skip(reason="This test is currently under development")
 @attributes(supplier="supplier_labchem", mock_data="query-acid")
 def test_name_query():
-    try:
-        results = Supplier("acid")
-    except Exception as e:
-        results = e
+    results = Supplier("acid")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @pytest.mark.skip(reason="This test is currently under development")
@@ -31,12 +33,11 @@ def test_nonsense_query():
 @pytest.mark.skip(reason="This test is currently under development")
 @attributes(supplier="supplier_labchem", mock_data="query-cas-64-19-7")
 def test_cas_query():
-    try:
-        results = Supplier("64-19-7")
-    except Exception as e:
-        results = e
+    results = Supplier("64-19-7")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @pytest.mark.skip(reason="This test is currently under development")

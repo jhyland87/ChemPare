@@ -1,7 +1,4 @@
 import os
-from typing import Dict
-from typing import List
-from typing import Tuple
 
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
@@ -23,7 +20,7 @@ class SupplierLaballey(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     def _query_products(self, query: str) -> None:
@@ -102,11 +99,11 @@ class SupplierLaballey(SupplierBase):
             # TypeProduct object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
+    def _parse_product(self, product_obj: tuple[list, dict]) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON
+            product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
             TypeProduct: Instance of TypeProduct

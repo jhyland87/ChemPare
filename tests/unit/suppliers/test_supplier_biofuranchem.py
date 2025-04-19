@@ -1,15 +1,19 @@
-"""Chemsavers supplier test module"""
+"""Biofuran Chem supplier test module"""
 
-# from unittest.mock import MagicMock
-# from unittest.mock import patch
+from typing import Iterable
 
 import pytest
 from pytest_attributes import attributes
 
+from chempare.datatypes import TypeProduct
 from chempare.exceptions import NoProductsFound
 
 # from chempare.datatypes import TypeProduct
 from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem as Supplier
+
+
+# from unittest.mock import MagicMock
+# from unittest.mock import patch
 
 
 # from tests.mock_data.supplier_chemsavers.chemsavers_mocker import curl_cffi as mock_curl_cffi
@@ -24,24 +28,19 @@ from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem as Sup
 @attributes(supplier="supplier_biofuranchem", mock_data="query-water")
 def test_name_query():
     results = Supplier("water")
-    assert isinstance(results, Exception) is False
-    assert hasattr(results, "__iter__") is True
-    assert hasattr(results, "products") is True
-    assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
+
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @attributes(supplier="supplier_biofuranchem", mock_data="query-5949-29-1")
 def test_cas_query():
-    try:
-        results = Supplier("5949-29-1")
-        assert isinstance(results, Exception) is False
-        assert hasattr(results, "__iter__") is True
-        assert hasattr(results, "products") is True
-        assert isinstance(results.products, list) is True, "Return data is not instance of TypeProduct"
-    except Exception as e:
-        results = e
+    results = Supplier("5949-29-1")
 
-    assert isinstance(results, Exception) is False, "query returned an exception"
+    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
+    assert len(results) > 0, "No product results found"
+    assert isinstance(results[0], TypeProduct) is True
 
 
 @attributes(supplier="supplier_biofuranchem", mock_data="query-nonsense")

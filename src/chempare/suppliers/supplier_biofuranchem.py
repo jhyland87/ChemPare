@@ -1,12 +1,13 @@
-# pylint: disable=unreachable
 import json
-from typing import Dict
 
 import regex
 
 from chempare.datatypes import TypeProduct
 from chempare.datatypes import TypeSupplier
 from chempare.suppliers.supplier_base import SupplierBase
+
+
+# pylint: disable=unreachable
 
 
 # File: /suppliers/supplier_biofuranchem.py
@@ -204,11 +205,11 @@ class SupplierBioFuranChem(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Dict) -> TypeProduct:
+    def _parse_product(self, product_obj: dict) -> TypeProduct:
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Dict): Single product object from JSON body
+            product_obj (dict): Single product object from JSON body
 
         Returns:
             TypeProduct: Instance of TypeProduct

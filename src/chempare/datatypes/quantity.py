@@ -3,15 +3,13 @@
 from dataclasses import asdict
 from dataclasses import dataclass
 from dataclasses import fields
-from decimal import Decimal
 
-
-DecimalLike = int | float | Decimal
+from chempare.datatypes import TypeDecimalLike
 
 
 @dataclass
 class TypeQuantity:
-    quantity: DecimalLike
+    quantity: TypeDecimalLike
     uom: str
 
     def __iter__(self):

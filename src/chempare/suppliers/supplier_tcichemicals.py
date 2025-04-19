@@ -117,7 +117,7 @@ class SupplierTciChemicals(SupplierBase):
         """Parse single product and return single TypeProduct object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from the
+            product_obj (tuple[list, dict]): Single product object from the
                                              JSON body
 
         Todo:

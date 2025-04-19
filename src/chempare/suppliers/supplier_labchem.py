@@ -1,7 +1,4 @@
 import re
-from typing import Dict
-from typing import Optional
-from typing import Tuple
 
 from bs4 import BeautifulSoup
 
@@ -33,7 +30,7 @@ class SupplierLabchem(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD"}
+    __defaults: dict = {"currency": "$", "currency_code": "USD"}
     """Default values applied to products from this supplier"""
 
     _cookies = {
@@ -164,7 +161,7 @@ class SupplierLabchem(SupplierBase):
 
             self._products.append(p)
 
-    def __parse_product(self, product_elem: BeautifulSoup) -> Dict:
+    def __parse_product(self, product_elem: BeautifulSoup) -> dict:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
         link = product_elem.find("div", class_="prodImage").find("a").attrs["href"]
 
@@ -213,7 +210,7 @@ class SupplierLabchem(SupplierBase):
 
         return _product
 
-    def __query_products_prices(self, part_numbers: Tuple[str, list]) -> Dict | None:
+    def __query_products_prices(self, part_numbers: tuple[str, list]) -> dict | None:
         """Query specific product prices by their part numeber(s)
 
         Args:
