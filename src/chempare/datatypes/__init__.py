@@ -1,30 +1,27 @@
 """Custom datatypes"""
 
-from dataclasses import dataclass
 from decimal import Decimal
-from typing import Optional
-from typing import TypedDict
 
 
-TypeDecimalLike = int | float | Decimal
-TypePrimitive = int | float | str | bool
-TypeTimeout = float | tuple[float, float] | tuple[float, None]
+DecimalLikeType = int | float | Decimal
+PrimitiveType = int | float | str | bool
+TimeoutType = float | tuple[float, float] | tuple[float, None]
 
-from chempare.datatypes.price import TypePrice
-from chempare.datatypes.product import TypeProduct
-from chempare.datatypes.quantity import TypeQuantity
-from chempare.datatypes.supplier import TypeSupplier
-from chempare.datatypes.variant import TypeVariant
+from chempare.datatypes.price import PriceType
+from chempare.datatypes.product import ProductType
+from chempare.datatypes.quantity import QuantityType
+from chempare.datatypes.supplier import SupplierType
+from chempare.datatypes.variant import VariantType
 
 
 __all__ = [
-    "TypeSupplier",
-    "TypeProduct",
-    "TypeVariant",
-    "TypeDecimalLike",
-    "TypeQuantity",
-    "TypePrice",
-    "TypePrimitive",
+    "SupplierType",
+    "ProductType",
+    "VariantType",
+    "DecimalLikeType",
+    "QuantityType",
+    "PriceType",
+    "PrimitiveType",
 ]
 
-# TypeQuantity.__name__
+# QuantityType.__name__

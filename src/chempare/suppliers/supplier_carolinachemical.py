@@ -3,16 +3,16 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
-from chempare.datatypes import TypeVariant
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
+from chempare.datatypes import VariantType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_carolinachemical.py
 class SupplierCarolinaChemical(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Carolina Chemical",
         # location=None,
         base_url="https://carolinachemical.com",
@@ -48,22 +48,22 @@ class SupplierCarolinaChemical(SupplierBase):
         self._query_results = search_result
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             product_result = self._query_and_parse_product(product_obj)
             self._products.append(product_result)
 
-    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -118,7 +118,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product.update(product_data)
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
 
         return product.cast_properties()
 
@@ -138,7 +138,7 @@ class SupplierCarolinaChemical(SupplierBase):
                 product_variations = json.loads(product_variations)
 
             for index, variant in enumerate(product_variations):
-                variation = TypeVariant(
+                variation = VariantType(
                     # _id=index,
                     uuid=variant["variation_id"],
                     sku=variant["sku"],

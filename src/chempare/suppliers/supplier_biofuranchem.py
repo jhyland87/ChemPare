@@ -2,8 +2,8 @@ import json
 
 import regex
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -13,7 +13,7 @@ from chempare.suppliers.supplier_base import SupplierBase
 # File: /suppliers/supplier_biofuranchem.py
 class SupplierBioFuranChem(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="BioFuran Chem",
         location=None,
         base_url="https://www.biofuranchem.com",
@@ -195,24 +195,24 @@ class SupplierBioFuranChem(SupplierBase):
         self._query_results = search_result["data"]["catalog"]["category"]["productsWithMetaData"]["list"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             product = self._parse_product(product_obj)
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: dict) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (dict): Single product object from JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -241,7 +241,7 @@ class SupplierBioFuranChem(SupplierBase):
         if price is not None:
             product.update(price)
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
         return product.cast_properties()
 
 

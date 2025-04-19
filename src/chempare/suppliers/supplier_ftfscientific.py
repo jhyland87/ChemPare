@@ -2,8 +2,8 @@
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -11,7 +11,7 @@ from chempare.suppliers.supplier_base import SupplierBase
 class SupplierFtfScientific(SupplierBase):
     """FTF Scientific Supplier Class"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="FTF Scientific",
         location=None,
         base_url="https://www.ftfscientific.com",
@@ -110,12 +110,12 @@ class SupplierFtfScientific(SupplierBase):
         self._query_results = search_result["documents"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             product = self._parse_product(product_obj)
 
             if not product:
@@ -129,14 +129,14 @@ class SupplierFtfScientific(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: dict) -> TypeProduct | None:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType | None:
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (dict): Single product object from JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -166,7 +166,7 @@ class SupplierFtfScientific(SupplierBase):
             if not product_cas or product_cas != self._query:
                 return
 
-        product = TypeProduct(
+        product = ProductType(
             uuid=product_obj["id"],
             name=product_obj["title"],
             title=product_obj["title"],

@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -19,7 +19,7 @@ class SupplierLabchem(SupplierBase):
           https://www.labchem.com/getPriceDetailPage.action?productIdList=LC261700-L03,LC261700-L27
     """
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Labchem",
         # location = 'Poland',
         base_url="https://www.labchem.com/",
@@ -124,7 +124,7 @@ class SupplierLabchem(SupplierBase):
 
         Iterate over the products returned from self._query_products, creating
         new requests for each to get the HTML content of the individual
-        product page, and creating a new TypeProduct object for each to add
+        product page, and creating a new ProductType object for each to add
         to _products
         """
         # Check if title of rsult shows
@@ -155,7 +155,7 @@ class SupplierLabchem(SupplierBase):
 
             product_obj["price"] = product_prices.get(product_obj["mpn"])
 
-            product = TypeProduct(**product_obj)
+            product = ProductType(**product_obj)
 
             p = product.cast_properties()
 

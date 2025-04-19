@@ -2,15 +2,15 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="EsDrei",
         # location = '',
         base_url="https://shop.es-drei.de",
@@ -46,7 +46,7 @@ class SupplierEsDrei(SupplierBase):
 
         Iterate over the products returned from self._query_products, creating
         new requests for each to get the HTML content of the individual product
-        page, and creating a new TypeProduct object for each to add to _products
+        page, and creating a new ProductType object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
@@ -59,7 +59,7 @@ class SupplierEsDrei(SupplierBase):
             r = self._parse_product(product_elem)
             self._products.append(r)
 
-    def _parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
+    def _parse_product(self, product_elem: BeautifulSoup) -> ProductType:
         """Parse a single div.product--info element, creating a Partner object
 
         Args:
@@ -67,7 +67,7 @@ class SupplierEsDrei(SupplierBase):
                                           BS search
 
         Returns:
-            TypeProduct: Object of parsed product
+            ProductType: Object of parsed product
         """
 
         # Get some of the basic elements from this product_element object
@@ -120,7 +120,7 @@ class SupplierEsDrei(SupplierBase):
         elif price_string:
             product_data["price"] = price_string
 
-        return TypeProduct(**product_data)
+        return ProductType(**product_data)
 
 
 __supplier_class = SupplierEsDrei

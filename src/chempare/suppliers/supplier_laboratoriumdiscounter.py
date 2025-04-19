@@ -1,6 +1,6 @@
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
-from chempare.exceptions import NoProductsFound
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
+from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -13,7 +13,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Laboratorium Discounter", base_url="https://www.laboratoriumdiscounter.nl"
     )
     """Supplier specific data"""
@@ -57,10 +57,10 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         if self._query_results is False:
             print(f"No products found for search query: {query}")
-            raise NoProductsFound(supplier=self._supplier.name, query=query)
+            raise NoProductsFoundError(supplier=self._supplier.name, query=query)
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         if not isinstance(self._query_results, dict):
             raise ValueError(f"Expected a dictionary from search, received {type(self._query_results)}")
@@ -71,12 +71,12 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 continue
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product.get("variant"))
             # price = self._parse_price(product["price"])
 
-            product_obj = TypeProduct(
+            product_obj = ProductType(
                 uuid=str(product.get("id", "")).strip(),
                 name=product.get("title", None),
                 title=product.get("fulltitle", None),

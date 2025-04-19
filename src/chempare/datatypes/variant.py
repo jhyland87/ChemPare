@@ -1,10 +1,10 @@
-"""TypeVariant datatype"""
+"""VariantType datatype"""
 
 from dataclasses import dataclass
 
 
 @dataclass(init=False, match_args=True, kw_only=True)
-class TypeVariant:
+class VariantType:
     """Custom data class for product variants"""
 
     uuid: str | int | None = None
@@ -71,7 +71,7 @@ class TypeVariant:
 
     # def __eq__(self, other):
     #     return (
-    #         isinstance(TypeVariant, other) is True
+    #         isinstance(VariantType, other) is True
     #         and self.__hash__() == other.__hash__()
     #     )
 
@@ -79,7 +79,7 @@ class TypeVariant:
     #     return f"({self.__id}, {self.name})"
 
     # def __repr__(self):
-    #     return f"TypeVariant(_id='{self._id}', name={self.name})"
+    #     return f"VariantType(_id='{self._id}', name={self.name})"
 
     # def set_id(self, id):
     #     self.__id = id
@@ -98,7 +98,7 @@ class TypeVariant:
     #     return dict(self).items()
 
     # def update(self, data: dict) -> None:
-    #     """Update the TypeProduct instance
+    #     """Update the ProductType instance
 
     #     Args:
     #         data (dict): Dictionary to merge into current dictioary

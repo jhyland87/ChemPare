@@ -51,6 +51,7 @@ test = [
     "pytest-env",
     "pytest-attributes",
     "pytest-pycodestyle==1.0.6",
+    "pytest-assertcount",
     "pycodestyle==2.4.0",
     "pytest-describe-it",
     "requests-mock",
@@ -124,7 +125,10 @@ pythonpath = [
     "src/chempare/suppliers",
     #"tests/mock_data"
 ]
+verbosity_assertions = 2
+enable_assertion_pass_hook = true
 
+#pytest -o verbosity_assertions=2 -o enable_assertion_pass_hook=true tests/unit/suppliers/test_supplier_3schem.py
 
 env = [
     # DEBUG, WARNING, ERROR, INFO

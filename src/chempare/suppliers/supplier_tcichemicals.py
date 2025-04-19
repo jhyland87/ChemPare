@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -16,7 +16,7 @@ class SupplierTciChemicals(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="TCI Chemicals",
         # location = 'Eu',
         base_url="https://www.tcichemicals.com",
@@ -105,7 +105,7 @@ class SupplierTciChemicals(SupplierBase):
 
     def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
-        self._query_results and returns a list of TypeProduct objects.
+        self._query_results and returns a list of ProductType objects.
 
         Returns:
             None: Nothing.
@@ -114,7 +114,7 @@ class SupplierTciChemicals(SupplierBase):
             self.__parse_product(product_elem)
 
     def __parse_product(self, product_obj: BeautifulSoup) -> None:
-        """Parse single product and return single TypeProduct object
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (tuple[list, dict]): Single product object from the
@@ -175,7 +175,7 @@ class SupplierTciChemicals(SupplierBase):
         # if price_matches:
         #     product.update(price_matches.groupdict())
 
-        product = TypeProduct(**product_dict)
+        product = ProductType(**product_dict)
 
         self._products.append(product.cast_properties())
 

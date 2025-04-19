@@ -197,7 +197,6 @@
     "openCoverage.coverageFilePath": "coverage-html/index.html",
     "python.analysis.extraPaths": [
         "./tests/mock_data",
-        //"./tests/unit",
         "./src",
         "./src/chempare",
         "./src/chempare/suppliers",
@@ -206,5 +205,8 @@
     "editor.defaultFormatter": "ms-python.pylint",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "files.exclude": {
+        "**/__pycache__": true
     }
 }

@@ -1,7 +1,7 @@
 import re
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -11,7 +11,7 @@ class SupplierSynthetika(SupplierBase):
     _limit: int = 20
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Synthetika", location="Eu", base_url="https://synthetikaeu.com", api_url="https://synthetikaeu.com"
     )
     """Supplier specific data"""
@@ -64,23 +64,23 @@ class SupplierSynthetika(SupplierBase):
         __query_list(query, 1)
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: tuple[list, dict]) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (tuple[list, dict]): Single product object from the
                                              JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -108,7 +108,7 @@ class SupplierSynthetika(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
 
         return product.cast_properties()
 

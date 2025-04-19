@@ -11,7 +11,7 @@ from typing import Any
 from typing import Callable
 from typing import Iterable
 
-from chempare.datatypes import TypePrimitive
+from chempare.datatypes import PrimitiveType
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -46,7 +46,7 @@ def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
         return X
 
 
-def get_env(setting: str, default: TypePrimitive = None) -> TypePrimitive:
+def get_env(setting: str, default: PrimitiveType = None) -> PrimitiveType:
     value = os.getenv(setting, default)
     # If it's not a string, then its probably a valid type..
     if isinstance(value, str) is False:
@@ -161,7 +161,7 @@ def dict_hash(dictionary: dict[str, Any], sort: bool = True) -> str:
 
 
 def replace_dict_values_by_value(
-    obj: dict, find_value: TypePrimitive | None, replace_value: TypePrimitive
+    obj: dict, find_value: PrimitiveType | None, replace_value: PrimitiveType
 ) -> dict[str, str]:
     """
     Replace values in a dictionary with another value.

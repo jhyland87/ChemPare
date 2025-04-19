@@ -1,7 +1,7 @@
 """Common Exceptions module"""
 
 
-class NoProductsFound(Exception):
+class NoProductsFoundError(Exception):
     """
     Raised when the supplier returns no products
 
@@ -12,7 +12,7 @@ class NoProductsFound(Exception):
 
     def __init__(self, supplier: str, query: str):
         """
-        Initializes the NoProductsFound exception
+        Initializes the NoProductsFoundError exception
 
         Args:
             supplier (str): Name of supplier.
@@ -26,7 +26,7 @@ class NoProductsFound(Exception):
         return f"No products found at supplier {self.supplier} for '{self.query}'"
 
 
-class CaptchaEncountered(Exception):
+class CaptchaError(Exception):
     """
     Raised when the HTTP request to a supplier website encounters a captcha/firewall
 
@@ -38,7 +38,7 @@ class CaptchaEncountered(Exception):
 
     def __init__(self, supplier: str, url: str, captcha_type: str | None = None):
         """
-        Initializes the CaptchaEncountered exception
+        Initializes the CaptchaError exception
 
         Args:
             supplier (str): Name of supplier.
@@ -53,7 +53,7 @@ class CaptchaEncountered(Exception):
         return f"Encountered a captcha when querying supplier {self.supplier} at address {self.url}"
 
 
-class NoMockDataFound(Exception):
+class NoMockDataError(Exception):
     """
     Raised when a unit test is triggered but finds no local mock data
 
@@ -65,7 +65,7 @@ class NoMockDataFound(Exception):
 
     def __init__(self, url: str, supplier: str | None = None, details: str | None = None):
         """
-        Initializes the NoMockDataFound exception
+        Initializes the NoMockDataError exception
 
         Args:
             url (str): URL the unit test called.

@@ -1,15 +1,15 @@
-"""TypeQuantity datatype"""
+"""QuantityType datatype"""
 
 from dataclasses import asdict
 from dataclasses import dataclass
 from dataclasses import fields
 
-from chempare.datatypes import TypeDecimalLike
+from chempare.datatypes import DecimalLikeType
 
 
 @dataclass
-class TypeQuantity:
-    quantity: TypeDecimalLike
+class QuantityType:
+    quantity: DecimalLikeType
     uom: str
 
     def __iter__(self):

@@ -1,5 +1,5 @@
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -7,7 +7,7 @@ from chempare.suppliers.supplier_base import SupplierBase
 class Supplier3SChem(SupplierBase):
     _limit: int = 20
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="3S Chemicals LLC", location=None, base_url="https://3schemicalsllc.com"
     )
     """Supplier specific data"""
@@ -70,7 +70,7 @@ class Supplier3SChem(SupplierBase):
 
             # print("product_obj:", product_obj)
 
-            self._products.append(TypeProduct(**product_obj))
+            self._products.append(ProductType(**product_obj))
 
 
 __supplier_class = Supplier3SChem

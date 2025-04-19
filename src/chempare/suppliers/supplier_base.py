@@ -4,6 +4,7 @@ import json
 import logging
 import os
 from collections.abc import Iterable
+from http import HTTPStatus
 from typing import Any
 from typing import Final
 from typing import Self
@@ -17,19 +18,18 @@ from fuzzywuzzy import fuzz
 import chempare
 from chempare import ClassUtils
 from chempare import utils
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
-from chempare.datatypes import TypeTimeout
-from chempare.exceptions import CaptchaEncountered
-from chempare.exceptions import NoMockDataFound
-from chempare.exceptions import NoProductsFound
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
+from chempare.exceptions import CaptchaError
+from chempare.exceptions import NoMockDataError
+from chempare.exceptions import NoProductsFoundError
 
 
 # import chempare
 class SupplierBase(ClassUtils, metaclass=ABCMeta):
     """SupplierBase module to be inherited by any supplier modules"""
 
-    _supplier: TypeSupplier
+    _supplier: SupplierType
 
     allow_cas_search: bool = False
     """Determines if the supplier allows CAS searches in addition to name
@@ -42,13 +42,13 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     #     super().__init_subclass__(**kwargs)
     _headers = {}
 
-    _log_level: Final = os.environ.get("LOG_LEVEL", "WARNING")
+    LOG_LEVEL: Final = os.environ.get("LOG_LEVEL", "WARNING")
 
-    _debug_curl: Final = utils.get_env("DEBUG")
+    DEBUG_CURL: Final = utils.get_env("DEBUG")
 
-    _save_responses: Final = utils.get_env("SAVE_RESPONSES", False)
+    SAVE_RESPONSES: Final = utils.get_env("SAVE_RESPONSES", False)
 
-    _request_timeout: Final = int(utils.get_env("TIMEOUT", 2000))
+    REQUEST_TIMEOUT: Final = int(utils.get_env("TIMEOUT", 2000))
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -61,15 +61,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._index = 0
         self._query = query
         self._cookies = {}
-        # self._headers = {}
-
-        # self._debug_curl: Final = utils.get_env("DEBUG")
-
-        # self._save_responses: Final = utils.get_env("SAVE_RESPONSES", False)
-
-        # self._request_timeout: Final = utils.get_env("TIMEOUT", 2000)
-
-        # self._log_level: Final = os.environ.get("LOG_LEVEL", "WARNING")
 
         if hasattr(self, "_setup"):
             self._setup(query)
@@ -84,9 +75,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._fuzz_filter()
 
         if len(self._products) == 0:
-            raise NoProductsFound(supplier=self._supplier.name, query=self._query)
+            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
 
-    def __getitem__(self, index: int) -> TypeProduct:
+    def __getitem__(self, index: int) -> ProductType:
         """
         Get product from query results
 
@@ -94,7 +85,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             index (int): Index of array
 
         Returns:
-            TypeProduct: Product located at index
+            ProductType: Product located at index
         """
         return self._products[index]
 
@@ -146,7 +137,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
         self._logger = logging.getLogger(str(self.__class__.__name__))
-        logging.basicConfig(level=self._log_level)
+        logging.basicConfig(level=self.LOG_LEVEL)
 
     @finalmethod
     def _log(self, message: str) -> None:
@@ -242,7 +233,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         self._products = x
 
-    def __next__(self) -> TypeProduct:
+    def __next__(self) -> ProductType:
         """
         next magic method
 
@@ -250,7 +241,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             StopIteration: When the iteration needs to be stopped
 
         Returns:
-            TypeProduct: Next value in line
+            ProductType: Next value in line
         """
 
         if self._index >= len(self._products):
@@ -263,12 +254,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     @property
     @finalmethod
-    def products(self) -> Iterable[TypeProduct]:
+    def products(self) -> Iterable[ProductType]:
         """
         Product title getter
 
         Returns:
-            list[TypeProduct]: list of products
+            list[ProductType]: list of products
         """
 
         return self._products
@@ -316,14 +307,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             params=params,
             headers=headers or self._headers,
             cookies=cookies or self._cookies,
-            timeout=self._request_timeout,
+            # timeout=self.REQUEST_TIMEOUT,
         )
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
         #     # if chempare.test_monkeypatching and chempare.called_from_test:
-        #     args["only_if_cached"] = self._save_responses
+        #     args["only_if_cached"] = self.SAVE_RESPONSES
         # args["only_if_cached"] = True
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
@@ -335,25 +326,44 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # impersonate="chrome",
             # cookies=cookies or self._cookies,
             # headers=headers or self._headers,
-            # timeout=self._request_timeout,
-            # debug=self._debug_curl,
+            # timeout=self.REQUEST_TIMEOUT,
+            # debug=self.DEBUG_CURL,
         )
         # res.reason, res.status_code == 504
 
         return res
 
-    def request(self, method, url, **kwargs):
+    def request(self, method: str, url, **kwargs):
+        """
+        Just a simple wrapper around the requests.request method, where any common logic can be added before or after
+        the call.
 
-        res = requests.request(method, url, **kwargs)
+        Args:
+            method (_type_): _description_
+            url (_type_): _description_
 
-        if res.status_code == 200:
+        Raises:
+            NoMockDataError: _description_
+            CaptchaError: _description_
+
+        Returns:
+            _type_: _description_
+        """
+
+        kwargs.setdefault("timeout", self.REQUEST_TIMEOUT)
+
+        res = requests.request(method, url, **kwargs)  # pylint: disable=missing-timeout
+
+        res_status_code = HTTPStatus(res.status_code)
+
+        if res_status_code.is_success:
             return res
 
         if res.status_code == 504 and res.reason.lower() == "not cached" and res.__class__.__name__ == "CachedResponse":
-            raise NoMockDataFound(url=url, supplier=self._supplier.name)
+            raise NoMockDataError(url=url, supplier=self._supplier.name)
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
-            raise CaptchaEncountered(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
+            raise CaptchaError(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
         return res
 
     @finalmethod
@@ -392,10 +402,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             data=data,
             headers=headers or self._headers,
             cookies=cookies or self._cookies,
-            timeout=self._request_timeout,
+            # timeout=self.REQUEST_TIMEOUT,
         )
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
@@ -409,8 +419,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             # data=data,
             # headers=headers or self._headers,
             # cookies=cookies or self._cookies,
-            # timeout=self._request_timeout,
-            # debug=self._debug_curl,
+            # timeout=self.REQUEST_TIMEOUT,
+            # debug=self.DEBUG_CURL,
         )
 
         return res
@@ -431,17 +441,17 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         # args["only_if_cached"] = True
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-        #     args["only_if_cached"] = self._save_responses
+        #     args["only_if_cached"] = self.SAVE_RESPONSES
         #     # force_refresh
-        # args["only_if_cached"] = self._save_responses
+        # args["only_if_cached"] = self.SAVE_RESPONSES
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self._save_responses is True:
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
 
         # resp = self.http_get(*args, **kwargs)
-        resp = self.request("HEAD", url=url, timeout=self._request_timeout, **kwargs)
+        resp = self.request("HEAD", url=url, **kwargs)
 
         return resp.headers
 
@@ -549,7 +559,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         The self._query_results (populated by calling self._query_products())
         is iterated over by this method, which in turn parses each property and
-        creates a new TypeProduct object that gets saved to this._products
+        creates a new ProductType object that gets saved to this._products
         """
 
 

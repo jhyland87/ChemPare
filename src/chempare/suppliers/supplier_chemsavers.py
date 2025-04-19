@@ -1,14 +1,14 @@
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Chemsavers",
         base_url="https://chemsavers.com",
         api_url="https://0ul35zwtpkx14ifhp-1.a1.typesense.net",
@@ -76,7 +76,7 @@ class SupplierChemsavers(SupplierBase):
         self._query_results = search_result["results"][0]["hits"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # if len(self._products) == self._limit:
@@ -94,17 +94,17 @@ class SupplierChemsavers(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: dict) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
             product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
         """
 
-        product = TypeProduct(
+        product = ProductType(
             **self.__defaults,
             uuid=product_obj["product_id"],
             name=product_obj["name"],

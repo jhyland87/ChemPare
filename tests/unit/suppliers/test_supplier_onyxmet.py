@@ -5,8 +5,8 @@ from typing import Iterable
 import pytest
 from pytest_attributes import attributes
 
-from chempare.datatypes import TypeProduct
-from chempare.exceptions import NoProductsFound
+from chempare.datatypes import ProductType
+from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_onyxmet import SupplierOnyxmet as Supplier
 
 
@@ -16,22 +16,22 @@ def test_name_query():
 
     assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
     assert len(results) > 0, "No product results found"
-    assert isinstance(results[0], TypeProduct) is True
+    assert isinstance(results[0], ProductType) is True
 
 
 @attributes(supplier="supplier_onyxmet", mock_data="query-nonsense")
 def test_nonsense_query():
     results = None
-    with pytest.raises(NoProductsFound) as no_products_found:
+    with pytest.raises(NoProductsFoundError) as no_products_found:
         results = Supplier("this_should_return_no_search_result")
 
-    assert no_products_found.errisinstance(NoProductsFound) is True, "Expected a NoProductsFound error"
+    assert no_products_found.errisinstance(NoProductsFoundError) is True, "Expected a NoProductsFoundError error"
     assert results is None, "Results found for nonsense query"
 
 
 # import pytest
 
-# from chempare.datatypes import TypeProduct
+# from chempare.datatypes import ProductType
 # from chempare.suppliers import SupplierOnyxmet as Supplier
 
 
@@ -62,11 +62,11 @@ def test_nonsense_query():
 #         assert hasattr(results, "products") is True
 #         assert (
 #             isinstance(results.products, list) is True
-#         ), "Return data is not instance of TypeProduct"
+#         ), "Return data is not instance of ProductType"
 
 #     def test_results(self, results):
 #         assert len(results) > 0, "No product results found"
-#         assert isinstance(results.products[0], TypeProduct) is True
+#         assert isinstance(results.products[0], ProductType) is True
 
 
 # # Test cases for invalid searches for this supplier
@@ -80,7 +80,7 @@ def test_nonsense_query():
 #         assert hasattr(results, "products") is True
 #         assert (
 #             isinstance(results.products, list) is True
-#         ), "Return data is not instance of TypeProduct"
+#         ), "Return data is not instance of ProductType"
 
 #     def test_results(self, results):
 #         assert len(results) == 0
@@ -97,11 +97,11 @@ def test_nonsense_query():
 #         assert hasattr(results, "products") is True
 #         assert (
 #             isinstance(results.products, list) is True
-#         ), "Return data is not instance of TypeProduct"
+#         ), "Return data is not instance of ProductType"
 
 #     def test_results(self, results):
 #         assert len(results) > 0, "No product results found"
-#         assert isinstance(results.products[0], TypeProduct) is True
+#         assert isinstance(results.products[0], ProductType) is True
 
 
 # # Test cases for an invalid CAS search for this supplier
@@ -115,7 +115,7 @@ def test_nonsense_query():
 #         assert hasattr(results, "products") is True
 #         assert (
 #             isinstance(results.products, list) is True
-#         ), "Return data is not instance of TypeProduct"
+#         ), "Return data is not instance of ProductType"
 
 #     def test_results(self, results):
 #         assert len(results) == 0

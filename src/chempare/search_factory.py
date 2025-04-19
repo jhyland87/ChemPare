@@ -8,8 +8,8 @@ from abcplus import finalmethod
 
 from chempare import ClassUtils
 from chempare import suppliers
-from chempare.datatypes import TypeProduct
-from chempare.exceptions import NoProductsFound
+from chempare.datatypes import ProductType
+from chempare.exceptions import NoProductsFoundError
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
@@ -46,14 +46,14 @@ class SearchFactory(ClassUtils, object):
 
         return self
 
-    def __next__(self) -> TypeProduct:
+    def __next__(self) -> ProductType:
         """Next dunder method for for loop iterations
 
         Raises:
             StopIteration: When the results are done
 
         Returns:
-            TypeProduct: Individual products
+            ProductType: Individual products
         """
 
         if self.__index >= len(self.__results):
@@ -108,7 +108,7 @@ class SearchFactory(ClassUtils, object):
             # class with the product query term as the first param
             try:
                 res = supplier_module(query, limit)
-            except NoProductsFound:
+            except NoProductsFoundError:
                 print("No products found")
                 continue
             except Exception as e:  # pylint: disable=broad-exception-caught
@@ -189,11 +189,11 @@ class SearchFactory(ClassUtils, object):
 
     @property
     @finalmethod
-    def results(self) -> list[TypeProduct]:
+    def results(self) -> list[ProductType]:
         """Results getter
 
         Returns:
-            list[TypeProduct]: list of the aggregated TypeProduct objects from
+            list[ProductType]: list of the aggregated ProductType objects from
                                each supplier
         """
         return self.__results

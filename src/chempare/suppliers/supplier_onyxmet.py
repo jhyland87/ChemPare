@@ -3,8 +3,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -14,7 +14,7 @@ class SupplierOnyxmet(SupplierBase):
     _limit: int = 10
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(name="Onyxmet", location="Poland", base_url="https://onyxmet.com")
+    _supplier: SupplierType = SupplierType(name="Onyxmet", location="Poland", base_url="https://onyxmet.com")
     """Supplier specific data"""
 
     allow_cas_search: bool = True
@@ -92,7 +92,7 @@ class SupplierOnyxmet(SupplierBase):
 
         Iterate over the products returned from self._query_products, creating
         new requests for each to get the HTML content of the individual product
-        page, and creating a new TypeProduct object for each to add to _products
+        page, and creating a new ProductType object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
@@ -126,7 +126,7 @@ class SupplierOnyxmet(SupplierBase):
                         using BeautifulSoup
 
         Returns:
-            TypeProduct: Single instance of TypeProduct
+            ProductType: Single instance of ProductType
         """
 
         # self.__test_lock.acquire()
@@ -183,7 +183,7 @@ class SupplierOnyxmet(SupplierBase):
             del title_matches["product"]
             product_obj.update(title_matches)
 
-        product_obj = TypeProduct(**product_obj)
+        product_obj = ProductType(**product_obj)
         self._products.append(product_obj.cast_properties())
         # self.__test_lock.release()
 

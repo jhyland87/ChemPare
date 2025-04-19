@@ -1,10 +1,10 @@
-"""TypeSupplier datatype"""
+"""SupplierType datatype"""
 
 from dataclasses import dataclass
 
 
 @dataclass
-class TypeSupplier:
+class SupplierType:
     """Custom data class for suppliers"""
 
     name: str
@@ -23,7 +23,7 @@ class TypeSupplier:
     """Key for API calls, if needed"""
 
     # def update(self, data: dict) -> None:
-    #     """Update the TypeSupplier instance
+    #     """Update the SupplierType instance
 
     #     Args:
     #         data (dict): Dictionary to merge into current dictioary

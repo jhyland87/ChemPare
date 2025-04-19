@@ -1,18 +1,18 @@
-"""TypePrice datatype"""
+"""PriceType datatype"""
 
 from dataclasses import asdict
 from dataclasses import dataclass
 from dataclasses import fields
 
-from chempare.datatypes import TypeDecimalLike
+from chempare.datatypes import DecimalLikeType
 
 
 @dataclass
-class TypePrice:
-    price: TypeDecimalLike
+class PriceType:
+    price: DecimalLikeType
     currency: str
     currency_code: str | None = None
-    usd: TypeDecimalLike | None = None
+    usd: DecimalLikeType | None = None
 
     def __iter__(self):
         return iter(asdict(self).items())

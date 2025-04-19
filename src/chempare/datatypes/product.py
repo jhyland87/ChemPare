@@ -1,19 +1,18 @@
-"""TypeProduct datatype"""
+"""ProductType datatype"""
 
 import re
 from dataclasses import dataclass
-from dataclasses import fields
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any
 from typing import ItemsView
 from typing import Self
 
-from chempare.datatypes.variant import TypeVariant
+from chempare.datatypes.variant import VariantType
 
 
 @dataclass
-class TypeProduct:
+class ProductType:
     """Custom data class for products"""
 
     name: str
@@ -86,7 +85,7 @@ class TypeProduct:
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    variants: list[TypeVariant] | None = None
+    variants: list[VariantType] | None = None
     """list of variants for this product"""
 
     formula: str | None = None
@@ -131,7 +130,7 @@ class TypeProduct:
                                            to False.
 
         Returns:
-            TypeProduct: Product with casted values
+            ProductType: Product with casted values
         """
         # dc = self.__class__.__dataclass_fields__['uuid'].type
 

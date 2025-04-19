@@ -6,11 +6,11 @@ from typing import Literal
 from unittest.mock import patch
 
 import pytest
+from datatypes import PriceType
+from datatypes import QuantityType
 from price_parser.parser import Price
 
 from chempare import ClassUtils
-from datatypes import TypePrice
-from datatypes import TypeQuantity
 
 
 # pylint: disable=unused-import
@@ -24,15 +24,15 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("value", "return_type", "price", "currency", "currency_code"),
         [
-            ("$123.45", TypePrice, 123.45, "$", "USD"),
-            ("$12,345.45", TypePrice, 12345.45, "$", "USD"),
-            ("$123.45 USD", TypePrice, 123.45, "$", "USD"),
-            ("CA$123.45", TypePrice, 123.45, "CA$", "CAD"),
-            ("€1,1234.5", TypePrice, 11234.50, "€", "EUR"),
-            ("£123", TypePrice, 123, "£", "GBP"),
-            ("674 ¥", TypePrice, 674, "¥", "JPY"),
-            ("ZAR123", TypePrice, 123, "ZAR", "ZAR"),
-            ("ZAR 456", TypePrice, 456, "ZAR", "ZAR"),
+            ("$123.45", PriceType, 123.45, "$", "USD"),
+            ("$12,345.45", PriceType, 12345.45, "$", "USD"),
+            ("$123.45 USD", PriceType, 123.45, "$", "USD"),
+            ("CA$123.45", PriceType, 123.45, "CA$", "CAD"),
+            ("€1,1234.5", PriceType, 11234.50, "€", "EUR"),
+            ("£123", PriceType, 123, "£", "GBP"),
+            ("674 ¥", PriceType, 674, "¥", "JPY"),
+            ("ZAR123", PriceType, 123, "ZAR", "ZAR"),
+            ("ZAR 456", PriceType, 456, "ZAR", "ZAR"),
             ("ZAR", None, None, None, None),
             ("FOO", None, None, None, None),
         ],
@@ -203,18 +203,18 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("value", "expected_instance", "quantity", "uom"),
         [
-            ("1 ounce", TypeQuantity, "1", "oz"),
-            ("43 ounces", TypeQuantity, "43", "oz"),
-            ("1 lb", TypeQuantity, "1", "lb"),
-            ("4 lbs", TypeQuantity, "4", "lb"),
-            ("5 g", TypeQuantity, "5", "g"),
-            ("10 gal", TypeQuantity, "10", "gal"),
-            ("43.56 qt", TypeQuantity, "43.56", "qt"),
-            ("10L", TypeQuantity, "10", "L"),
-            ("5 l", TypeQuantity, "5", "L"),
-            ("123.45mm", TypeQuantity, "123.45", "mm"),
-            ("100 millimeters", TypeQuantity, "100", "mm"),
-            ("1234ml", TypeQuantity, "1234", "mL"),
+            ("1 ounce", QuantityType, "1", "oz"),
+            ("43 ounces", QuantityType, "43", "oz"),
+            ("1 lb", QuantityType, "1", "lb"),
+            ("4 lbs", QuantityType, "4", "lb"),
+            ("5 g", QuantityType, "5", "g"),
+            ("10 gal", QuantityType, "10", "gal"),
+            ("43.56 qt", QuantityType, "43.56", "qt"),
+            ("10L", QuantityType, "10", "L"),
+            ("5 l", QuantityType, "5", "L"),
+            ("123.45mm", QuantityType, "123.45", "mm"),
+            ("100 millimeters", QuantityType, "100", "mm"),
+            ("1234ml", QuantityType, "1234", "mL"),
             ("abcd", None, None, None),
         ],
         ids=[

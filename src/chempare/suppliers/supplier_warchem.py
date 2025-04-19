@@ -2,8 +2,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -13,7 +13,7 @@ class SupplierWarchem(SupplierBase):
     _limit: int = 5
     """Maximum amount of allowed search results to be returned"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="WarChem", location=None, base_url="https://warchem.pl", api_url="https://warchem.pl"
     )
     """Supplier specific data"""
@@ -73,7 +73,7 @@ class SupplierWarchem(SupplierBase):
 
     def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
-        self._query_results and returns a list of TypeProduct objects.
+        self._query_results and returns a list of ProductType objects.
         """
 
         # Each product page query will have its own thread stored here
@@ -81,7 +81,7 @@ class SupplierWarchem(SupplierBase):
 
         for product_elem in self._query_results:
             # Add each product to the self._products list in the form of
-            # a TypeProduct object.
+            # a ProductType object.
 
             link = product_elem.find("h3").find("a")
             thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=link.attrs["href"]))
@@ -100,7 +100,7 @@ class SupplierWarchem(SupplierBase):
                         using BeautifulSoup
 
         Returns:
-            None: Nothing, just inserts a new TypeProduct into
+            None: Nothing, just inserts a new ProductType into
                       self._products (if successful).
         """
 
@@ -140,7 +140,7 @@ class SupplierWarchem(SupplierBase):
         if quantity:
             product.update(self._parse_quantity(quantity.get_text(strip=True)))
 
-        product = TypeProduct(**product)
+        product = ProductType(**product)
         self._products.append(product.cast_properties())
 
 

@@ -23,15 +23,13 @@ from currex import CURRENCIES
 from currex import Currency
 from price_parser.parser import Price
 
-from chempare.datatypes import TypeDecimalLike
-from chempare.datatypes import TypePrice
-from chempare.datatypes import TypeQuantity
+from chempare.datatypes import DecimalLikeType
+from chempare.datatypes import PriceType
+from chempare.datatypes import QuantityType
 
 
 # import chempare
 
-__package__ = "chempare"
-__name__ = "chempare.class_utils"
 
 _logger = logging.getLogger("chempare/class_utils")
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
@@ -52,7 +50,7 @@ class ClassUtils(metaclass=ABCMeta):
         return math.floor(time.time() * 1000)
 
     @finalmethod
-    def _parse_price(self, value: str, symbol_to_code: bool = True) -> TypePrice | None:
+    def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType | None:
         """Parse a string for a price value (currency and value)
 
         Args:
@@ -62,7 +60,7 @@ class ClassUtils(metaclass=ABCMeta):
                                    (defaults to True)
 
         Returns:
-            TypePrice: Returns a dictionary with 'currency' and 'price' values
+            PriceType: Returns a dictionary with 'currency' and 'price' values
 
         See:
             https://en.wikipedia.org/wiki/Currency_symbol
@@ -157,12 +155,12 @@ class ClassUtils(metaclass=ABCMeta):
             if usd_price:
                 result["usd"] = usd_price
 
-        return TypePrice(**result)
+        return PriceType(**result)
 
     @finalmethod
     def _to_usd(
         self, from_currency: str | None = None, amount: int | float | str | None = None
-    ) -> TypeDecimalLike | None:
+    ) -> DecimalLikeType | None:
         """Convert a no USD price to the USD price
 
         Args:
@@ -216,7 +214,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         amount = self._cast_type(amount)
 
-        if not isinstance(amount, TypeDecimalLike):
+        if not isinstance(amount, DecimalLikeType):
             _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
 
         # if not amount:
@@ -235,11 +233,11 @@ class ClassUtils(metaclass=ABCMeta):
         #     # print("Exception:", err)
         #     return None
 
-    def _to_hundreths(self, value: TypeDecimalLike | str) -> Decimal:
+    def _to_hundreths(self, value: DecimalLikeType | str) -> Decimal:
         """Convert any number like value to include the hundreths place
 
         Args:
-            value (TypeDecimalLike | str): Value to convert
+            value (DecimalLikeType | str): Value to convert
 
         Returns:
             Decimal: Equivelant value with hundreths.
@@ -297,14 +295,14 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> TypeQuantity | None:
+    def _parse_quantity(self, value: str) -> QuantityType | None:
         """Parse a string for the quantity and unit of measurement
 
         Args:
             value (str): Suspected quantity string
 
         Returns:
-            Optional[TypeQuantity]: Returns a dictionary with the 'quantity' and
+            Optional[QuantityType]: Returns a dictionary with the 'quantity' and
                             'uom' values
         """
 
@@ -356,7 +354,7 @@ class ClassUtils(metaclass=ABCMeta):
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return TypeQuantity(**quantity_obj)
+        return QuantityType(**quantity_obj)
 
     @finalmethod
     def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:
