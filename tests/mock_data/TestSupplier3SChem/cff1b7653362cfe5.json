@@ -1,0 +1,93 @@
+{
+  "cookies": {
+    "secure_customer_sig": "",
+    "_shopify_y": "0D551039-c539-4D1C-b29d-14afeecd1b9b",
+    "_shopify_s": "88F4302F-4070-4047-b819-c4427c3d08fd"
+  },
+  "created_at": "2025-04-19T20:18:52.501240+00:00",
+  "elapsed": 0.231959,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=86400",
+    "CF-RAY": "932f17f51da6a0c3-PHX",
+    "Connection": "keep-alive",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json; charset=utf-8",
+    "Date": "Sat, 19 Apr 2025 20:18:52 GMT",
+    "NEL": "{\"success_fraction\":0.01,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+    "Report-To": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=Sr3%2BMVc5YQO9mWfPsOOvviPKa2T2PSgfebLfTpOVVcf31F30uph%2Bm2islAHwM4dKLdNlAe2TJ3cy%2BPOB7GZ0PaTOa%2FDsaL4E9znuXAaIYoNJJCji1EgO4IEjPzOPRI5NA9kCMA%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "Server": "cloudflare",
+    "Shopify-Edge-Ip": "23.227.38.65",
+    "Transfer-Encoding": "chunked",
+    "X-Content-Type-Options": "nosniff",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "1; mode=block",
+    "cf-cache-status": "DYNAMIC",
+    "content-language": "en-US",
+    "content-security-policy": "block-all-mixed-content; frame-ancestors 'none'; upgrade-insecure-requests;",
+    "etag": "W/\"cacheable:227d8d46e1908f6d7eb8f0af38cb7417\"",
+    "powered-by": "Shopify",
+    "server-timing": "processing;dur=107;desc=\"gc:1\", db;dur=73, db_async;dur=4.431, fetch;dur=118, asn;desc=\"22773\", edge;desc=\"PHX\", country;desc=\"US\", servedBy;desc=\"sd4t\", requestID;desc=\"d49bd9e9-8917-4918-b4e6-5d9f990cd5e1-1745093932\", cfRequestDuration;dur=169.999838",
+    "set-cookie": "secure_customer_sig=; path=/; expires=Sun, 19 Apr 2026 20:18:52 GMT; secure; HttpOnly; SameSite=Lax, _shopify_y=0D551039-c539-4D1C-b29d-14afeecd1b9b; domain=3schemicalsllc.com; path=/; expires=Mon, 20 Apr 2026 02:18:52 GMT; SameSite=Lax, _shopify_s=88F4302F-4070-4047-b819-c4427c3d08fd; domain=3schemicalsllc.com; path=/; expires=Sat, 19 Apr 2025 20:48:52 GMT; SameSite=Lax",
+    "shopify-complexity-score": "1060",
+    "strict-transport-security": "max-age=7889238",
+    "vary": "Accept, accept-encoding",
+    "x-cache": "miss",
+    "x-dc": "gcp-us-west1,gcp-us-west1,gcp-us-west1",
+    "x-frame-options": "DENY",
+    "x-request-id": "d49bd9e9-8917-4918-b4e6-5d9f990cd5e1-1745093932",
+    "x-shardid": "52",
+    "x-shopid": "57297174581",
+    "x-sorting-hat-podid": "52",
+    "x-sorting-hat-shopid": "57297174581",
+    "x-storefront-renderer-rendered": "1"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "GET",
+    "url": "https://3schemicalsllc.com/search/suggest.json?q=clean&resources%5Blimit%5D=1000&resources%5Boptions%5D%5Bunavailable_products%5D=last&resources%5Btype%5D=product"
+  },
+  "status_code": 200,
+  "url": "https://3schemicalsllc.com/search/suggest.json?q=clean&resources%5Blimit%5D=1000&resources%5Boptions%5D%5Bunavailable_products%5D=last&resources%5Btype%5D=product",
+  "_decoded_content": {
+    "resources": {
+      "results": {
+        "products": [
+          {
+            "available": true,
+            "body": "<h3><img height=\"139\" width=\"237\" src=\"https://cdn.shopify.com/s/files/1/0572/9717/4581/files/Expert_logo_99ee5be2-c1ab-479c-9ee0-49dc9833ce6d_480x480.jpg?v=1652790286\" alt=\"Expert Chemical - By 3S Chemicals, LLC\"></h3>\n<h3>** PLEASE NOTE **<br>This product has a short shelf life and MUST be used within 30 days after receiving your product!<br data-mce-fragment=\"1\">\n</h3>\n<p>This product is NOT sold by any other business or persons.<br data-mce-fragment=\"1\">Due to the time sensitivity of the chemical, if any other business/person is selling this they are selling you bad product! [i.e. EBay, Amazon, etc...]<br data-mce-fragment=\"1\"></p>\n<h2>Description:</h2>\n<p>Composite Deck Cleaner &amp; Enhancer is a heavy duty, mildly alkaline chlorinated mold and mildew remover/cleaner designed specifically for composite deck cleaning. Powerful penetrating detergents carry the deck cleaner rapidly through soils and into the pores of the deck to control mold and its spores at their source. This composite deck wash when applied to a dry deck will begin to work immediately. The deck material will begin to brighten with little effort and dirt and grime can be removed from the surface easily.</p>\n<h2>How to Video:</h2>\n<p><iframe title=\"YouTube video player\" src=\"https://www.youtube.com/embed/FQFxI3YYxyE\" height=\"315\" width=\"560\" allowfullscreen=\"\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" frameborder=\"0\"></iframe></p>\n<h2>Suggestions:</h2>\n<p>Put the cup of chemical you need at the END of the process aside at the beginning, and make sure you leave enough for the second coat. Each bottle should cover the entire process for 100 square feet of decking.</p>\n<p><strong>DECK WASH IS FOR EXTERIOR USE ONLY.</strong> Apply this deck wash only in a well-ventilated area. Do not mix the deck cleaner chemicals with any other chemical as hazardous fumes may result.</p>\n<h2>For More Information Call:</h2>\n<p>1-800-831-4963</p>\n<h2>Storage and Disposal:</h2>\n<p>Store tightly sealed deck cleaning solution upright in a cool dry place, out of sun light for up to 35 days. Keep from freezing.</p>\n<h2>Results:</h2>\n<p>Due to various environmental and application factors, results may vary and are not guaranteed to last for a year.</p>\n<p>Depending on climate, some decks may need cleaned more than once a year.<br></p>",
+            "compare_at_price_max": "0.00",
+            "compare_at_price_min": "0.00",
+            "handle": "composite-deck-cleaner-enhancer",
+            "id": 6856944484405,
+            "image": "https://cdn.shopify.com/s/files/1/0572/9717/4581/products/deckcleanerthumbnail.jpg?v=1653665495",
+            "price": "35.00",
+            "price_max": "158.00",
+            "price_min": "35.00",
+            "tags": [],
+            "title": "Composite Deck Cleaner & Enhancer",
+            "type": "",
+            "url": "/products/composite-deck-cleaner-enhancer?_pos=1&_psq=clean&_ss=e&_v=1.0",
+            "variants": [],
+            "vendor": "3schemicalsllc",
+            "featured_image": {
+              "alt": "Composite Deck Cleaner & Enhancer",
+              "aspect_ratio": 0.756,
+              "height": 221,
+              "url": "https://cdn.shopify.com/s/files/1/0572/9717/4581/products/deckcleanerthumbnail.jpg?v=1653665495",
+              "width": 167
+            }
+          }
+        ]
+      }
+    }
+  }
+}

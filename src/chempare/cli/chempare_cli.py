@@ -4,7 +4,7 @@ import sys
 from rich.console import Console
 from rich.panel import Panel
 
-from chempare import SearchFactory
+from chempare.search_factory import SearchFactory
 
 
 # def signal_handler(sig, frame):
@@ -78,7 +78,7 @@ def main():
         us_equiv = ""
 
         # If the price has a USD conversion, then show that in parenthesis
-        if hasattr(product, 'usd'):
+        if getattr(product, 'usd', None) is not None:
             us_equiv = f" (${product.usd} USD)"
 
         result_row = Panel(

@@ -129,3 +129,4 @@ The output should look simiar to the following:
 - https://carolinachemical.com/
     https://carolinachemical.com/wp-json/wp/v2/search?search=borohydride
     https://carolinachemical.com/wp-json/wp/v2/product/6981
+- https://www.labchem.de/

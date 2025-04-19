@@ -6,11 +6,12 @@ requires-python = ">= 3.12"
 keywords = ["chemistry", "chemicals", "reagent", "reagents"]
 dependencies = [
     "currex",
-    "requests",
+    "requests>=2.4.2",
     "price_parser",
     "inquirer",
     "bs4",
     "fuzzywuzzy[speedup]",
+    "browser_cookie3",
     "rich",
     "abcplus",
     "typing",
@@ -19,11 +20,11 @@ dependencies = [
     "dataclasses",
     "numpy",
     "pathlib",
-    "curl_cffi",
+    #"curl_cffi",
     "translate",
     "regex",
     "inflection",
-    "isort"
+    "requests-cache"
 ]
 
 authors = [
@@ -48,11 +49,15 @@ test = [
     "pytest-instafail",
     "pytest-timeout",
     "pytest-env",
+    "pytest-attributes",
     "pytest-pycodestyle==1.0.6",
+    "pytest-assertcount",
     "pycodestyle==2.4.0",
+    "pytest-describe-it",
     "requests-mock",
     "pytest_mock",
     "flake8-pyproject",
+    "isort"
     #"coverage",
 ]
 dev = ["pycodestyle==2.4.0"]
@@ -102,8 +107,8 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    # ".",
-    # "src",
+    ".",
+    "src",
     # "tests/mock_data",
     "src/chempare",
     "src/chempare/datatypes",
@@ -112,26 +117,40 @@ where = [
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "tests/mock_data",
+    #".",
+    #"tests/mock_data",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
-    "tests/mock_data"
+    #"tests/mock_data"
 ]
+verbosity_assertions = 2
+enable_assertion_pass_hook = true
 
+#pytest -o verbosity_assertions=2 -o enable_assertion_pass_hook=true tests/unit/suppliers/test_supplier_3schem.py
 
 env = [
-    "LOG_LEVEL=DEBUG",
-    "PYTEST_COV=true"
+    # DEBUG, WARNING, ERROR, INFO
+    "LOG_LEVEL=ERROR",
+    "PYTEST_COV=true",
+    "TIMEOUT=1500",
+    #"USE_BROWSER_COOKIES=false",
+    # This will cause any request that does not already have a cached result
+    # to fail with a 504 error
+    "PYTEST_ONLY_MOCK_DATA=true",
+    # This will force the saving of any requests made through the requsts mocker,
+    # even if there is cached data for it already
+    "PYTEST_FORCE_REFRESH=false",
+    #"SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
-addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
+addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html --cov-append"
 #  --cov-report=term --capture=tee-sys --show-capture=all  --no-summary
 
 # "--capture=tee-sys" "--show-capture=all",
-testpaths = ["tests"]
-python_files = ["test_*.py", "tests/*.py", "tests/*/*.py"]
+testpaths = ["tests/unit"]
+python_files = ["test_*.py", "tests/*.py", "tests/*/*.py", "*_test.py"]
 markers = [
     "supplier: Supplier module",
     "webtest: mark a test as a webtest."
@@ -272,6 +291,7 @@ source = [
     "src",
     "src/chempare",
     "src/chempare/datatypes",
+    "src/chempare/exceptions",
     "src/chempare/suppliers"
 ]
 
@@ -291,12 +311,14 @@ source = [
     "src",
     "src/chempare",
     "src/chempare/datatypes",
+    "src/chempare/exceptions",
     "src/chempare/suppliers"
 ]
-omit = ["*tests*","*/__init__.py"]
+omit = ["*tests*","*/__init__.py", "**/__init__.py"]
 
 [tool.coverage.report]
 show_missing = true
+omit = ["*tests*","*/__init__.py", "**/__init__.py"]
 #precision = 2
 
 

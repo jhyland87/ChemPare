@@ -1,0 +1,37 @@
+{
+  "cookies": {
+    "OCSESSID": "d9f6ad166b325200a34eef6bfe",
+    "language": "en-gb",
+    "currency": "EUR"
+  },
+  "created_at": "2025-04-19T20:56:29.463793+00:00",
+  "elapsed": 0.68129,
+  "encoding": "UTF-8",
+  "headers": {
+    "Connection": "Keep-Alive",
+    "Keep-Alive": "timeout=5, max=100",
+    "alt-svc": "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000, h3-Q050=\":443\"; ma=2592000, h3-Q046=\":443\"; ma=2592000, h3-Q043=\":443\"; ma=2592000, quic=\":443\"; ma=2592000; v=\"43,46\"",
+    "content-encoding": "gzip",
+    "content-length": "22",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Sat, 19 Apr 2025 20:56:29 GMT",
+    "server": "LiteSpeed",
+    "set-cookie": "OCSESSID=d9f6ad166b325200a34eef6bfe; path=/; secure, language=en-gb; expires=Mon, 19-May-2025 20:56:29 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure, currency=EUR; expires=Mon, 19-May-2025 20:56:29 GMT; Max-Age=2592000; path=/; domain=onyxmet.com; secure",
+    "vary": "Accept-Encoding,User-Agent"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+    },
+    "method": "GET",
+    "url": "https://onyxmet.com/index.php?route=product%2Fsearch%2Fjson&term=this_should_not_exist"
+  },
+  "status_code": 200,
+  "url": "https://onyxmet.com/index.php?route=product%2Fsearch%2Fjson&term=this_should_not_exist",
+  "_decoded_content": "[]"
+}

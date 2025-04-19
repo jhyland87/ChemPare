@@ -1,25 +1,29 @@
 """Search factory"""
 
-from typing import List
+# from curl_cffi import requests
+from typing import Self
 
+import requests
 from abcplus import finalmethod
-from curl_cffi import requests
 
-from chempare import ClassUtils
 from chempare import suppliers
-from chempare.datatypes import TypeProduct
+from chempare.datatypes import ProductType
+from chempare.exceptions import NoProductsFoundError
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
 from chempare.suppliers import *
+from chempare.utils import ClassUtils
 
 
 class SearchFactory(ClassUtils, object):
+    """Simple factory to make searching easier"""
+
     suppliers = suppliers.__all__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 
-    __results: List | None = None
+    __results: list | None = None
     """Contains a list of all the product results"""
 
     __index: int = 0
@@ -37,19 +41,19 @@ class SearchFactory(ClassUtils, object):
 
         self.__query(query, limit)
 
-    def __iter__(self):
+    def __iter__(self) -> Self:
         """Simple iterator, making this object usable in for loops"""
 
         return self
 
-    def __next__(self) -> TypeProduct:
+    def __next__(self) -> ProductType:
         """Next dunder method for for loop iterations
 
         Raises:
             StopIteration: When the results are done
 
         Returns:
-            TypeProduct: Individual products
+            ProductType: Individual products
         """
 
         if self.__index >= len(self.__results):
@@ -92,10 +96,7 @@ class SearchFactory(ClassUtils, object):
             # Create a direct reference to this supplier class
             supplier_module = getattr(suppliers, supplier)
 
-            if (
-                query_is_cas is True
-                and supplier_module.allow_cas_search is False
-            ):
+            if query_is_cas is True and supplier_module.allow_cas_search is False:
                 if __debug__:
                     print(f"Skipping {supplier_module.__name__} CAS search")
                 continue
@@ -107,10 +108,13 @@ class SearchFactory(ClassUtils, object):
             # class with the product query term as the first param
             try:
                 res = supplier_module(query, limit)
+            except NoProductsFoundError:
+                print("No products found")
+                continue
             except Exception as e:  # pylint: disable=broad-exception-caught
                 if __debug__:
                     print("ERROR:", e)
-                print("ERROR, skipping")
+                # print("ERROR, skipping")
                 continue
 
             if __debug__:
@@ -123,81 +127,13 @@ class SearchFactory(ClassUtils, object):
             # list with those products
             self.__results.extend(res.products)
 
-    def __get_cas(self, chem_name: str) -> str | None:
-        """Search for the CAS value(s) given a chemical name
-
-        Args:
-            chem_name (str): Name of chemical to search for
-
-        Returns:
-            Optional[str]: CAS value of chemical
-        """
-
-        cas = None
-        try:
-            # Send a GET request to the API
-            cas_request = requests.get(
-                f"https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas"
-            )
-            # Check if the request was successful
-            if cas_request.status_code != 200:
-                return None
-
-            # Decode the bytes to a string
-            cas_response = cas_request.content.decode("utf-8")
-
-            if not cas_response:
-                return None
-
-            cas_list = cas_response.split("\n")
-            cas = cas_list[0]
-        except Exception as e:
-            print("Failed to get CAS #", e)
-
-        return cas
-
-        # # Should only be one line/value, so just strip it before returning,
-        # if a value was found
-        # return str(cas_response).strip() if cas_response else None
-
-    def __get_popular_name(self, query: str) -> str:
-        """Get the most frequently used name for a chemical from a list of
-        its aliases
-
-        Args:
-            query (str): Chemical name or CAS
-
-        Returns:
-            str: The most frequently found name
-        """
-        # Send a GET request to the API
-        name_request = requests.get(
-            f"https://cactus.nci.nih.gov/chemical/structure/{query}/names"
-        )
-
-        # Check if the request was successful
-        if name_request.status_code != 200:
-            raise SystemError(f"Error: {name_request.status_code}")
-
-        name_response = name_request.content.decode(
-            "utf-8"
-        )  # Decode the bytes to a string
-        name_lines = name_response.split("\n")  # Split by newline
-
-        highest_val = self._filter_highest_item_value(
-            self._get_common_phrases(name_lines)
-        )
-
-        keys = list(highest_val.keys())
-        return keys[0][0]
-
     @property
     @finalmethod
-    def results(self) -> List[TypeProduct]:
+    def results(self) -> list[ProductType]:
         """Results getter
 
         Returns:
-            List[TypeProduct]: List of the aggregated TypeProduct objects from
+            list[ProductType]: list of the aggregated ProductType objects from
                                each supplier
         """
         return self.__results

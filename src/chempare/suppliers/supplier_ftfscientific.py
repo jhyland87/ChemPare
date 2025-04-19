@@ -1,11 +1,9 @@
 """FTF Scientific Supplier Module"""
 
-from typing import Dict
-
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -13,7 +11,7 @@ from chempare.suppliers.supplier_base import SupplierBase
 class SupplierFtfScientific(SupplierBase):
     """FTF Scientific Supplier Class"""
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="FTF Scientific",
         location=None,
         base_url="https://www.ftfscientific.com",
@@ -34,37 +32,29 @@ class SupplierFtfScientific(SupplierBase):
 
     def _setup(self, query: str | None = None) -> None:
         headers = self.http_get_headers()
-        cookies = (
-            list(v for k, v in headers.multi_items() if k == "set-cookie")
-            or None
-        )
 
-        auth_cookies = {}
-        auth_headers = {}
+        cookies = self._split_set_cookie(headers.get('set-cookie', ''))
 
-        for cookie in cookies:
-            segs = cookie.split("=")
-            name = segs[0]
-            val = "=".join(segs[1:-1])
+        if cookies:
+            for cookie in cookies:
+                cookie_data = self._parse_cookie(cookie)
 
-            if name == "ssr-caching" or name == "server-session-bind":
-                auth_cookies[name] = val.split(";")[0]
-                continue
+                if cookie_data.get("name") == "ssr-caching" or cookie_data.get("name") == "server-session-bind":
+                    self._cookies[cookie_data.get("name")] = cookie_data.get("value")
+                    continue
 
-            if name == "client-session-bind":
-                auth_headers["client-binding"] = val.split(";")[0]
-                continue
+                if cookie_data.get("name") == "client-session-bind":
+                    self._headers["client-binding"] = cookie_data.get("value")
+                    continue
 
-        auth = self.http_get_json(
-            "_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers
-        )
+        auth = self.http_get_json("_api/v1/access-tokens", cookies=self._cookies, headers=self._headers)
 
         # What can this be used for?
         # https://www.ftfscientific.com/_api/v2/dynamicmodel
 
-        self._headers["authorization"] = auth["apps"][
-            "1484cb44-49cd-5b39-9681-75188ab429de"
-        ]["instance"]
+        self._headers["authorization"] = (
+            auth.get("apps", {}).get("1484cb44-49cd-5b39-9681-75188ab429de", {}).get("instance", {})
+        )
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -88,18 +78,8 @@ class SupplierFtfScientific(SupplierBase):
             "includeSeoHidden": False,
             "facets": {
                 "clauses": [
-                    {
-                        "aggregation": {
-                            "name": "discountedPriceNumeric",
-                            "aggregation": "MIN",
-                        }
-                    },
-                    {
-                        "aggregation": {
-                            "name": "discountedPriceNumeric",
-                            "aggregation": "MAX",
-                        }
-                    },
+                    {"aggregation": {"name": "discountedPriceNumeric", "aggregation": "MIN"}},
+                    {"aggregation": {"name": "discountedPriceNumeric", "aggregation": "MAX"}},
                     {"term": {"name": "collections", "limit": 999}},
                 ]
             },
@@ -122,9 +102,7 @@ class SupplierFtfScientific(SupplierBase):
             ],
         }
 
-        search_result = self.http_post_json(
-            "_api/search-services-sitesearch/v1/search", json=body
-        )
+        search_result = self.http_post_json("_api/search-services-sitesearch/v1/search", json=body)
 
         if not search_result:
             return
@@ -132,12 +110,12 @@ class SupplierFtfScientific(SupplierBase):
         self._query_results = search_result["documents"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             product = self._parse_product(product_obj)
 
             if not product:
@@ -151,14 +129,14 @@ class SupplierFtfScientific(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Dict) -> TypeProduct | None:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType | None:
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Dict): Single product object from JSON body
+            product_obj (dict): Single product object from JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -188,7 +166,7 @@ class SupplierFtfScientific(SupplierBase):
             if not product_cas or product_cas != self._query:
                 return
 
-        product = TypeProduct(
+        product = ProductType(
             uuid=product_obj["id"],
             name=product_obj["title"],
             title=product_obj["title"],
@@ -211,7 +189,7 @@ class SupplierFtfScientific(SupplierBase):
 
         return product
 
-    def __query_product_page(self, url: str) -> Dict:
+    def __query_product_page(self, url: str) -> dict:
         """Query a specific product page and parse the HTML for the cas or
         other info that's not present in the initial search result page
 
@@ -219,23 +197,19 @@ class SupplierFtfScientific(SupplierBase):
             url (str): URL for product
 
         Returns:
-            Dict: Just more data (eg: cas)
+            dict: Just more data (eg: cas)
         """
 
         product_page_html = self.http_get_html(url)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
-        product_container = product_soup.find(
-            "div", {"data-hook": "product-page"}
-        )
+        product_container = product_soup.find("div", {"data-hook": "product-page"})
         product_info = {}
 
-        product_info["price"] = product_container.find(
-            "span", {"data-hook": "formatted-primary-price"}
-        ).get_text(strip=True)
-
-        description = product_soup.find(
-            "div", {"data-hook": "info-section-description"}
+        product_info["price"] = product_container.find("span", {"data-hook": "formatted-primary-price"}).get_text(
+            strip=True
         )
+
+        description = product_soup.find("div", {"data-hook": "info-section-description"})
 
         bullet_points = description.find_all("li")
 
@@ -246,5 +220,6 @@ class SupplierFtfScientific(SupplierBase):
                 break
 
         return product_info
+
 
 __supplier_class = SupplierFtfScientific

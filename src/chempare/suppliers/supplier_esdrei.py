@@ -2,15 +2,15 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="EsDrei",
         # location = '',
         base_url="https://shop.es-drei.de",
@@ -24,19 +24,17 @@ class SupplierEsDrei(SupplierBase):
             query (str): Query string to use
         """
 
-        self._debug(f"Querying for {query}")
+        self._query = query
+
+        self._debug(f"Querying for {self._query}")
 
         # Example request url for S3Chem Supplier
         # https://shop.es-drei.de/search/index/sSearch/mercury?p=1&n=48
         # https://shop.es-drei.de/search?sSearch=mercury&p=1&n=48
         #
-        get_params = {
-            "sSearch": query,
-            "p": 1,  # Page number
-            "n": 48,  # Must be one of: 12, 24, 36, 48
-        }
+        get_params = {"sSearch": self._query, "p": 1, "n": 48}  # Page number  # Must be one of: 12, 24, 36, 48
 
-        search_result = self.http_get_html("search", get_params)
+        search_result = self.http_get_html("search", params=get_params)
 
         if not search_result:
             return
@@ -48,21 +46,20 @@ class SupplierEsDrei(SupplierBase):
 
         Iterate over the products returned from self._query_products, creating
         new requests for each to get the HTML content of the individual product
-        page, and creating a new TypeProduct object for each to add to _products
+        page, and creating a new ProductType object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
         """
 
         product_page_soup = BeautifulSoup(self._query_results, "html.parser")
-        product_containers = product_page_soup.find_all(
-            "div", class_="product--info"
-        )
+        product_containers = product_page_soup.find_all("div", class_="product--info")
 
         for product_elem in product_containers[: self._limit]:
-            self._products.append(self._parse_product(product_elem))
+            r = self._parse_product(product_elem)
+            self._products.append(r)
 
-    def _parse_product(self, product_elem: BeautifulSoup) -> TypeProduct:
+    def _parse_product(self, product_elem: BeautifulSoup) -> ProductType:
         """Parse a single div.product--info element, creating a Partner object
 
         Args:
@@ -70,7 +67,7 @@ class SupplierEsDrei(SupplierBase):
                                           BS search
 
         Returns:
-            TypeProduct: Object of parsed product
+            ProductType: Object of parsed product
         """
 
         # Get some of the basic elements from this product_element object
@@ -111,8 +108,9 @@ class SupplierEsDrei(SupplierBase):
         # product.update(price_matches.groupdict())
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
-        if quantity:
-            product_data.update(self._parse_quantity(quantity))
+        quantity_data = self._parse_quantity(quantity)
+        if quantity_data:
+            product_data.update(quantity_data)
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space
@@ -122,6 +120,7 @@ class SupplierEsDrei(SupplierBase):
         elif price_string:
             product_data["price"] = price_string
 
-        return TypeProduct(**product_data)
+        return ProductType(**product_data)
+
 
 __supplier_class = SupplierEsDrei

@@ -1,17 +1,14 @@
 import os
-from typing import Dict
-from typing import List
-from typing import Tuple
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
 class SupplierLaballey(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="Laballey",
         base_url="https://www.laballey.com",
         api_url="https://searchserverapi.com",
@@ -23,7 +20,7 @@ class SupplierLaballey(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: Dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     def _query_products(self, query: str) -> None:
@@ -67,7 +64,7 @@ class SupplierLaballey(SupplierBase):
             # made by it.
             "api_key": self._supplier.api_key,
             "q": query,
-            "maxResults": 6,
+            "maxResults": 15,
             "startIndex": 0,
             "items": True,
             "pages": True,
@@ -77,11 +74,11 @@ class SupplierLaballey(SupplierBase):
             "vendors": True,
             "tags": True,
             "pageStartIndex": 0,
-            "pagesMaxResults": 10,
+            "pagesMaxResults": 15,
             "categoryStartIndex": 0,
             "categoriesMaxResults": 3,
             "suggestionsMaxResults": 4,
-            "vendorsMaxResults": 3,
+            "vendorsMaxResults": 4,
             "tagsMaxResults": 3,
             "output": "json",
             "_": epoch_ts,
@@ -95,21 +92,21 @@ class SupplierLaballey(SupplierBase):
         self._query_results = search_result["items"][: self._limit]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: Tuple[List, Dict]) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Tuple[List, Dict]): Single product object from JSON
+            product_obj (tuple[list, dict]): Single product object from JSON
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -117,23 +114,24 @@ class SupplierLaballey(SupplierBase):
               This could maybe be included?
         """
 
-        product = TypeProduct(
+        product = ProductType(
             **self.__defaults,
-            uuid=product_obj["product_id"],
-            name=product_obj["title"],
-            title=product_obj["title"],
-            description=(str(product_obj["description"]).strip() if product_obj["description"] else None),
-            price=f"{float(product_obj['price']):.2f}",
-            url="{0}{1}".format(self._supplier.base_url, product_obj["link"]),
-            manufacturer=product_obj["vendor"],
+            uuid=product_obj.get("product_id"),
+            name=product_obj.get("title"),
+            title=product_obj.get("title"),
+            description=str(product_obj.get("description", "")).strip() or None,
+            price=f"{float(product_obj.get("price")):.2f}",
+            url="{0}{1}".format(self._supplier.base_url, product_obj.get("link")),
+            manufacturer=product_obj.get("vendor"),
             supplier=self._supplier.name,
         )
 
-        quantity_matches = self._parse_quantity(product_obj["product_code"])
+        quantity_matches = self._parse_quantity(product_obj.get("product_code"))
 
         if quantity_matches:
             product.update(quantity_matches)
 
         return product
+
 
 __supplier_class = SupplierLaballey

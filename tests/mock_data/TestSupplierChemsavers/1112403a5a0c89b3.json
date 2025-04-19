@@ -1,0 +1,58 @@
+{
+  "created_at": "2025-04-19T20:56:26.246632+00:00",
+  "elapsed": 0.277001,
+  "encoding": "utf-8",
+  "headers": {
+    "Connection": "keep-alive",
+    "accept-ranges": "none",
+    "access-control-allow-origin": "*",
+    "content-encoding": "gzip",
+    "content-type": "application/json; charset=utf-8",
+    "transfer-encoding": "chunked",
+    "vary": "accept-encoding"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "dm?jXVRB<=Wpg4rAX|GPadl;Kd0%3AB03-<ZeeX@EFeQcQz9%NB6DwYbYEh5B03-<aB^v5WjbMVV<IddB4}x6Xl!X`Xmnp@b!=>3W@%+?WOE`qAR=yIZDlMVLqSt4AY^58V{&P5bZKvHEFg1hbu1ulWprU*WMy+>a%pgMX>V>UAZ=xIVP9)yd3SGeWOE`cAR=RLY;0v?bZKvHB03-<aB^>Cbz^jMA}k;xaUwb(B6MhJb6<04Z*^>BUv6)7UuAe{b95psAR=aAV`X$-VtFDuAR=&bX=7y~EFdCnVR&C=VPj=<Uv^<^b!BrRIv_PHAR=&KXJsNfATcZ;B5-ALUvOb(Wg<EtF)%QFU3~",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Content-Length": "282",
+      "Content-Type": "application/json",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "POST",
+    "url": "https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd"
+  },
+  "status_code": 200,
+  "url": "https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd",
+  "_decoded_content": {
+    "results": [
+      {
+        "facet_counts": [
+          {
+            "counts": [],
+            "field_name": "price",
+            "sampled": false,
+            "stats": {
+              "total_values": 0
+            }
+          }
+        ],
+        "found": 0,
+        "hits": [],
+        "out_of": 39515,
+        "page": 1,
+        "request_params": {
+          "collection_name": "products",
+          "first_q": "this_should_not_exist",
+          "per_page": 100,
+          "q": "this_should_not_exist"
+        },
+        "search_cutoff": false,
+        "search_time_ms": 1
+      }
+    ]
+  }
+}

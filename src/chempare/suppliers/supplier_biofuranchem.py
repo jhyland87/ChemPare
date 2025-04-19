@@ -1,15 +1,19 @@
-# pylint: disable=unreachable
-from typing import Dict
+import json
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+import regex
+
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+
+# pylint: disable=unreachable
 
 
 # File: /suppliers/supplier_biofuranchem.py
 class SupplierBioFuranChem(SupplierBase):
 
-    _supplier: TypeSupplier = TypeSupplier(
+    _supplier: SupplierType = SupplierType(
         name="BioFuran Chem",
         location=None,
         base_url="https://www.biofuranchem.com",
@@ -30,70 +34,77 @@ class SupplierBioFuranChem(SupplierBase):
     def _setup(self, query: str | None = None) -> None:
         # 1 Get the session binding from the initial request headers
         headers = self.http_get_headers(
-            "/shop",
-            headers={
-                "sec-fetch-mode": "navigate",
-                "sec-fetch-dest": "document",
-                "sec-fetch-site": "none",
-            },
-        )
-        cookies = (
-            list(v for k, v in headers.multi_items() if k == "set-cookie")
-            or None
+            "shop", headers={"sec-fetch-mode": "navigate", "sec-fetch-dest": "document", "sec-fetch-site": "none"}
         )
 
-        auth_cookies = {}
-        auth_headers = {}
+        if 'set-cookie' not in headers:
+            return
+
+        # cookies = list(v for k, v in headers.multi_items() if k == "set-cookie") or None
+        cookies = self._split_set_cookie(headers.get('set-cookie', ''))
+        # auth_cookies = {}
+        # auth_headers = {}
 
         if cookies:
             for cookie in cookies:
-                segs = cookie.split("=")
-                name = segs[0]
-                val = "=".join(segs[1:-1])
+                cookie_data = self._parse_cookie(cookie)
 
-                if name == "ssr-caching" or name == "server-session-bind":
-                    auth_cookies[name] = val.split(";")[0]
+                if cookie_data.get("name") == "ssr-caching" or cookie_data.get("name") == "server-session-bind":
+                    self._cookies[cookie_data.get("name")] = cookie_data.get("value")
                     continue
 
-                if name == "client-session-bind":
-                    auth_headers["client-binding"] = val.split(";")[0]
+                if cookie_data.get("name") == "client-session-bind":
+                    self._headers["client-binding"] = cookie_data.get("value")
                     continue
 
         # 2 Get the XSRF id thingy
         xsrf_token_headers = self.http_get_headers(
             "_api/wix-laboratory-server/laboratory/conductAllInScope",
             params={"scope": "wix-one-app"},
-            cookies=auth_cookies,
-            headers=auth_headers,
+            cookies=self._cookies,
+            headers=self._headers,
         )
 
-        xsrf_header_cookies = (
-            list(
-                v
-                for k, v in xsrf_token_headers.multi_items()
-                if k == "set-cookie"
-            )
-            or None
-        )
+        # xsrf_header_cookies = list(v for k, v in xsrf_token_headers.multi_items() if k == "set-cookie") or None
+        xsrf_header_cookies = self._split_set_cookie(xsrf_token_headers.get('set-cookie', ''))
 
         for xsrf_cookie in xsrf_header_cookies:
-            segs = xsrf_cookie.split("=")
-            name = segs[0]
-            val = "=".join(segs[1:-1])
+            if "XSRF-TOKEN" not in xsrf_cookie:
+                continue
 
-            if name == "XSRF-TOKEN":
-                auth_cookies[name] = val.split(";")[0]
-                self._headers["XSRF-TOKEN"] = val.split(";")[0]
-                break
+            cookie_data = self._parse_cookie(xsrf_cookie)
+
+            if cookie_data.get("name") != "XSRF-TOKEN":
+                continue
+
+            self._headers["XSRF-TOKEN"] = cookie_data.get("value")
+            self._cookies["XSRF-TOKEN"] = cookie_data.get("value")
+            break
+            # # cookies =  xsrf_token_headers.get('set-cookie').split('; ')[4]
+            # xsrf_cookie_parts = xsrf_cookie.split(', ')
+
+            # xsrf_cookie_parts2 = list(map(lambda x: x.split('='), xsrf_cookie_parts))
+            # xsrf_cookie_parts3 = list(filter(lambda x: x[0] == "XSRF-TOKEN", xsrf_cookie_parts2))
+
+            # if len(xsrf_cookie_parts3) == 0 or len(xsrf_cookie_parts3[0]) == 0:
+            #     continue
+
+            # self._headers["XSRF-TOKEN"] = xsrf_cookie_parts3[0][1]
+
+            # break
+            # segs = xsrf_cookie.split("=")
+            # name = segs[0]
+            # val = "=".join(segs[1:-1])
+
+            # if name == "XSRF-TOKEN":
+            #     auth_cookies[name] = val.split(";")[0]
+            #     self._headers["XSRF-TOKEN"] = val.split(";")[0]
+            #    break
 
         # 3 Get the website instance ID ("access tokens")
-        auth = self.http_get_json(
-            "_api/v1/access-tokens", cookies=auth_cookies, headers=auth_headers
-        )
+        auth = self.http_get_json("_api/v1/access-tokens", cookies=self._cookies, headers=self._headers)
 
-        self._headers["Authorization"] = auth["apps"][
-            "1380b703-ce81-ff05-f115-39571d94dfcd"
-        ]["instance"]
+        self._headers["Authorization"] = auth["apps"]["1380b703-ce81-ff05-f115-39571d94dfcd"]["instance"]
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -116,7 +127,7 @@ class SupplierBioFuranChem(SupplierBase):
             # Below is a GraphQL structure
             "q": """\
                 query,getFilteredProductsWithHasDiscount(
-                    $mainCollectionId:String!,
+                    $mainCollectionId:String\u0021,
                     $filters:ProductFilters,
                     $sort:ProductSort,
                     $offset:Int,
@@ -166,48 +177,42 @@ class SupplierBioFuranChem(SupplierBase):
                 "offset": 0,
                 "limit": 100,
                 "sort": None,
-                "filters": {
-                    "term": {
-                        "field": "name",
-                        "op": "CONTAINS",
-                        "values": [f"*'{self._query}'*"],
-                    }
-                },
+                "filters": {"term": {"field": "name", "op": "CONTAINS", "values": [f"*{self._query}*"]}},
                 "withOptions": True,
                 "withPriceRange": False,
             },
         }
 
+        query_params["q"] = regex.sub(r'\n?\s*', '', query_params["q"])
+        query_params["v"] = json.dumps(query_params["v"])
         search_result = self.http_get_json(
-            "_api/wix-ecommerce-storefront-web/api", params=query_params
+            "_api/wix-ecommerce-storefront-web/api", params=query_params, headers=self._headers, cookies=self._cookies
         )
 
         if not search_result:
             return
 
-        self._query_results = search_result["data"]["catalog"]["category"][
-            "productsWithMetaData"
-        ]["list"]
+        self._query_results = search_result["data"]["catalog"]["category"]["productsWithMetaData"]["list"]
 
     # Method iterates over the product query results stored at
-    # self._query_results and returns a list of TypeProduct objects.
+    # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
 
             # Add each product to the self._products list in the form of a
-            # TypeProduct object.
+            # ProductType object.
             product = self._parse_product(product_obj)
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: Dict) -> TypeProduct:
-        """Parse single product and return single TypeProduct object
+    def _parse_product(self, product_obj: dict) -> ProductType:
+        """Parse single product and return single ProductType object
 
         Args:
-            product_obj (Dict): Single product object from JSON body
+            product_obj (dict): Single product object from JSON body
 
         Returns:
-            TypeProduct: Instance of TypeProduct
+            ProductType: Instance of ProductType
 
         Todo:
             - It looks like each product has a shopify_variants array that
@@ -226,20 +231,17 @@ class SupplierBioFuranChem(SupplierBase):
             cas=self._find_cas(str(product_obj["name"])),
         )
 
-        qty = (
-            self._parse_quantity(
-                product_obj["options"][0]["selections"][0]["value"]
-            )
-            or {}
-        )
+        qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
-        price = (
-            self._parse_price(product_obj["productItems"][0]["formattedPrice"])
-            or {}
-        )
+        price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
 
-        product.update(dict(**qty, **price))
-        product = TypeProduct(**product)
+        if qty is not None:
+            product.update(qty)
+
+        if price is not None:
+            product.update(price)
+
+        product = ProductType(**product)
         return product.cast_properties()
 
 

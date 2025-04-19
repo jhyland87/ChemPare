@@ -1,20 +1,18 @@
-"""TypeProduct datatype"""
+"""ProductType datatype"""
 
 import re
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any
-from typing import Dict
 from typing import ItemsView
-from typing import List
 from typing import Self
 
-from chempare.datatypes.variant import TypeVariant
+from chempare.datatypes.variant import VariantType
 
 
 @dataclass
-class TypeProduct(Dict):
+class ProductType:
     """Custom data class for products"""
 
     name: str
@@ -87,8 +85,8 @@ class TypeProduct(Dict):
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    variants: List[TypeVariant] | None = None
-    """List of variants for this product"""
+    variants: list[VariantType] | None = None
+    """list of variants for this product"""
 
     formula: str | None = None
     """Chemical formula"""
@@ -96,12 +94,17 @@ class TypeProduct(Dict):
     usd: str | int | float | None = None
     """USD equivelant price (if price currency is not USD)"""
 
-    def __init__(self, **kwargs):
-        super().__init__(kwargs)
-        self.update(kwargs)
+    # def __init__(self, **kwargs):
+    #     super().__init__(**kwargs)
+    #     self.update(kwargs)
 
-    def update(self, data):
+    def update(self, data: dict) -> None:
+        """Append a dictionary data to the product"""
         self.__dict__.update(data)
+
+    def setdefault(self, key: str, val: Any) -> None:
+        """Set the default value of a property"""
+        self.__dict__.setdefault(key, val)
 
     def __bool__(self) -> bool:
         """This just allows us to use 'if not product'"""
@@ -111,8 +114,8 @@ class TypeProduct(Dict):
         """This just allows us to use 'if not product'"""
         return True
 
-    # def items(self) -> ItemsView[str, Any]:
-    #     return self.__dict__.items()
+    def items(self) -> ItemsView[str, Any]:
+        return self.__dict__.items()
 
     def set(self, key, value) -> None:
         """Set a local attribute for this product"""
@@ -127,7 +130,7 @@ class TypeProduct(Dict):
                                            to False.
 
         Returns:
-            TypeProduct: Product with casted values
+            ProductType: Product with casted values
         """
         # dc = self.__class__.__dataclass_fields__['uuid'].type
 

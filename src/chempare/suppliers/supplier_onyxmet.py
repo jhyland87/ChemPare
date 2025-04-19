@@ -3,8 +3,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import TypeProduct
-from chempare.datatypes import TypeSupplier
+from chempare.datatypes import ProductType
+from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -14,9 +14,7 @@ class SupplierOnyxmet(SupplierBase):
     _limit: int = 10
     """Max results to store"""
 
-    _supplier: TypeSupplier = TypeSupplier(
-        name="Onyxmet", location="Poland", base_url="https://onyxmet.com"
-    )
+    _supplier: SupplierType = SupplierType(name="Onyxmet", location="Poland", base_url="https://onyxmet.com")
     """Supplier specific data"""
 
     allow_cas_search: bool = True
@@ -58,6 +56,13 @@ class SupplierOnyxmet(SupplierBase):
     def __init__(self, query: str, limit: int = 10) -> None:
         # self.__test_lock = Lock()
         super().__init__(query, limit)
+
+        self.headers = {
+            "user-agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+                " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+            )
+        }
         # Do extra stuff here
 
     def _query_products(self, query: str) -> None:
@@ -71,8 +76,11 @@ class SupplierOnyxmet(SupplierBase):
         # https://onyxmet.com/index.php?route=product/search/json&term={query}
         #
         get_params = {"route": "product/search/json", "term": query}
+        self._headers = {
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+        }
 
-        search_result = self.http_get_json("index.php", params=get_params)
+        search_result = self.http_get_json("index.php", params=get_params, headers=self._headers)
 
         if not search_result:
             return
@@ -84,7 +92,7 @@ class SupplierOnyxmet(SupplierBase):
 
         Iterate over the products returned from self._query_products, creating
         new requests for each to get the HTML content of the individual product
-        page, and creating a new TypeProduct object for each to add to _products
+        page, and creating a new ProductType object for each to add to _products
 
         Todo:
             Have this execute in parallen using AsyncIO
@@ -102,10 +110,7 @@ class SupplierOnyxmet(SupplierBase):
         # self._products property
         for product in self._query_results:
             # self.__query_and_parse_product(product['href'])
-            thread = Thread(
-                target=self.__query_and_parse_product,
-                kwargs=dict(href=product["href"]),
-            )
+            thread = Thread(target=self.__query_and_parse_product, kwargs=dict(href=product["href"]))
             threads.append(thread)
             thread.start()
 
@@ -121,11 +126,11 @@ class SupplierOnyxmet(SupplierBase):
                         using BeautifulSoup
 
         Returns:
-            TypeProduct: Single instance of TypeProduct
+            ProductType: Single instance of ProductType
         """
 
         # self.__test_lock.acquire()
-        product_page_html = self.http_get_html(href)
+        product_page_html = self.http_get_html(href, headers=self._headers)
 
         product_soup = BeautifulSoup(product_page_html, "html.parser")
 
@@ -134,12 +139,8 @@ class SupplierOnyxmet(SupplierBase):
         h3_elems = product_soup.find_all("h3")
 
         # Find the one with the 'product-price' class
-        title_elem = next(
-            obj for obj in h3_elems if "product-title" in obj.get("class")
-        )
-        price_elem = next(
-            obj for obj in h3_elems if "product-price" in obj.get("class")
-        )
+        title_elem = next(obj for obj in h3_elems if "product-title" in obj.get("class"))
+        price_elem = next(obj for obj in h3_elems if "product-price" in obj.get("class"))
 
         # TODO: I'm sure there's an easier way to just specifically look for
         #       the 'h3.product-price' element, instead of _all_ h3 elements
@@ -182,7 +183,7 @@ class SupplierOnyxmet(SupplierBase):
             del title_matches["product"]
             product_obj.update(title_matches)
 
-        product_obj = TypeProduct(**product_obj)
+        product_obj = ProductType(**product_obj)
         self._products.append(product_obj.cast_properties())
         # self.__test_lock.release()
 

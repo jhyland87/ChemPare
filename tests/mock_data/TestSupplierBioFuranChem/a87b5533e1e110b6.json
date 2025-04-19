@@ -1,0 +1,62 @@
+{
+  "created_at": "2025-04-19T20:59:51.782197+00:00",
+  "elapsed": 0.112134,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "205",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Sat, 19 Apr 2025 20:59:51 GMT",
+    "etag": "W/\"68fad8bd14f98540477fdce666b232ad\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
+    "x-served-by": "cache-lax-kwhp1940119-LAX",
+    "x-wix-request-id": "1745096391.836625122268559539"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "server-session-bind": "9ca7159e-3ee8-4c27-a6f2-bece4faa0981",
+      "XSRF-TOKEN": "1745093932|SQ3nElXfb9Nf"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=9ca7159e-3ee8-4c27-a6f2-bece4faa0981; XSRF-TOKEN=1745093932|SQ3nElXfb9Nf",
+      "User-Agent": "python-requests/2.32.3",
+      "XSRF-TOKEN": "1745093932|SQ3nElXfb9Nf",
+      "client-binding": "9ca7159e-3ee8-4c27-a6f2-bece4faa0981"
+    },
+    "method": "GET",
+    "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Athis_should_not_exist%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D"
+  },
+  "status_code": 200,
+  "url": "https://www.biofuranchem.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Athis_should_not_exist%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D",
+  "_decoded_content": {
+    "data": {
+      "catalog": {
+        "category": {
+          "numOfProducts": 634,
+          "productsWithMetaData": {
+            "totalCount": 0,
+            "list": []
+          }
+        }
+      }
+    }
+  }
+}
