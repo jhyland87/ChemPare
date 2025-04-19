@@ -16,7 +16,10 @@ requests = None
 
 
 def set_supplier_cache_session(supplier: str = "default"):
+    testing_supplier = os.getenv("PYTEST_CURRENT_TEST")
 
+    if testing_supplier.split('::')[1]:
+        supplier = testing_supplier.split('::')[1]
     # called_from_test = utils.getenv("CALLED_FROM_TEST", False)
     # test_monkeypatching = utils.getenv("TEST_MONKEYPATCHING", False)
     # print(f"{test_monkeypatching=}, {called_from_test=}")

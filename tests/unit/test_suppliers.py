@@ -5,14 +5,21 @@ from typing import Iterable
 from typing import override
 
 import pytest
+import requests
+from pytest import MonkeyPatch
 from pytest_attributes import attributes
 
+# from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem
+# from chempare.suppliers.supplier_chemsavers import SupplierChemsavers
+# from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
+import chempare.suppliers
 from chempare.datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
-from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem
-from chempare.suppliers.supplier_chemsavers import SupplierChemsavers
-from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
+from chempare.search_factory import SearchFactory
+from tests import mock_request_cache
 
+
+monkeypatch = MonkeyPatch()
 
 # def test_some_bullshit():
 #     assert 1 == 1
@@ -21,10 +28,38 @@ from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
 # @dataclass
 class BaseTestClass:
     results = None
-
+    supplier = None
+    query = None
+    supplier_class = None
+    query_limit = 5
+    # supplier = "Default"
     # @classmethod
     # def setup_class(cls):
     #     cls.results = SupplierBioFuranChem("water")
+
+    @classmethod
+    def setup_class(cls):
+        monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
+        monkeypatch.setenv("CALLED_FROM_TEST", "true")
+
+        # setattr(mock_request_cache, 'mock_cfg', attr)
+        mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
+
+        monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
+        monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
+        monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
+        monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
+
+        supplier_module = getattr(chempare.suppliers, str(cls.supplier_class))
+        cls.results = supplier_module(cls.query, cls.query_limit)
+        # globals()[variable_name] = MyClass(f"Instance {i}")
+        # cls.results = SupplierBioFuranChem(str(cls.query))
+
+    @classmethod
+    def teardown_class(cls):
+        monkeypatch.undo()
+        cls.supplier = None
+        cls.query = None
 
     def test_result_type(self):
         assert isinstance(self.results, Iterable) is True, "Expected an iterable result from supplier query"
@@ -34,10 +69,6 @@ class BaseTestClass:
         ), "Items in resulting array are not ProductTypes"
 
         assert len(self.results) > 0, "No product results found"  # type: ignore
-
-    # @classmethod
-    # def teardown_class(cls):
-    #     print("Tearing down class")
 
     # def setup_method(self, method):
     #     print(f"Setting up method: {method.__name__}")
@@ -49,14 +80,14 @@ class BaseTestClass:
         ("attribute"),
         [("supplier"), ("url"), ("title"), ("price"), ("currency"), ("currency_code"), ("quantity"), ("uom")],
         ids=[
-            "supplier attribute check",
-            "url attribute check",
-            "title attribute check",
-            "price attribute check",
-            "currency attribute check",
-            "currency_code attribute check",
-            "quantity attribute check",
-            "uom attribute check",
+            "'supplier' attribute check",
+            "'url' attribute check",
+            "'title' attribute check",
+            "'price' attribute check",
+            "'currency' attribute check",
+            "'currency_code' attribute check",
+            "'quantity' attribute check",
+            "'uom' attribute check",
         ],
     )
     def test_product_attributes(self, attribute):
@@ -69,31 +100,100 @@ class BaseTestClass:
         ), f"Found items with empty/invalid {attribute} attribute"
 
 
+# @attributes(supplier="susupplier_biofuranchempp")
+# @pytest.mark.usefixtures("setup_mock_cfg_to_curl_cffi_attrs")
+# @override_attribute(BaseTestClass)
 class TestSupplierBioFuranChem(BaseTestClass):
     results = None
-
-    # @override
-    @classmethod
-    def setup_class(cls):
-        cls.results = SupplierBioFuranChem("water")
+    supplier_class = "SupplierBioFuranChem"
+    supplier = "supplier_biofuranchem"
+    query = "water"
 
 
 class TestSupplierFtfScientific(BaseTestClass):
     results = None
-
-    # @override
-    @classmethod
-    def setup_class(cls):
-        cls.results = SupplierFtfScientific("water")
+    supplier = "supplier_ftfscientific"
+    supplier_class = "SupplierFtfScientific"
+    query = "acid"
 
 
 class TestSupplierChemsavers(BaseTestClass):
     results = None
+    supplier = "supplier_chemsavers"
+    supplier_class = "SupplierChemsavers"
+    query = "water"
 
-    # @override
-    @classmethod
-    def setup_class(cls):
-        cls.results = SupplierChemsavers("water")
+
+class TestSupplier3SChem(BaseTestClass):
+    results = None
+    supplier = "supplier_3SChem"
+    supplier_class = "Supplier3SChem"
+    query = "clean"
+
+
+class TestSupplierEsDrei(BaseTestClass):
+    results = None
+    supplier = "supplier_esdrei"
+    supplier_class = "SupplierEsDrei"
+    query = "Wasser"
+
+
+class TestSupplierLaballey(BaseTestClass):
+    results = None
+    supplier = "supplier_laballey"
+    supplier_class = "SupplierLaballey"
+    query = "acid"
+
+
+class TestSupplierLaboratoriumDiscounter(BaseTestClass):
+    results = None
+    supplier = "supplier_laboratoriumdiscounter"
+    supplier_class = "SupplierLaboratoriumDiscounter"
+    query = "acid"
+
+
+class TestSupplierLoudwolf(BaseTestClass):
+    results = None
+    supplier = "supplier_loudwolf"
+    supplier_class = "SupplierLoudwolf"
+    query = "acid"
+
+
+class TestSupplierOnyxmet(BaseTestClass):
+    results = None
+    supplier = "supplier_onyxmet"
+    supplier_class = "SupplierOnyxmet"
+    query = "rhodium"
+
+
+class TestSupplierSynthetika(BaseTestClass):
+    results = None
+    supplier = "supplier_synthetika"
+    supplier_class = "SupplierSynthetika"
+    query = "Tartaric Acid"
+
+
+class TestSupplierTciChemicals(BaseTestClass):
+    results = None
+    supplier = "supplier_tcichemicals"
+    supplier_class = "SupplierTciChemicals"
+    query = "acetamide"
+
+
+class TestSupplierWarchem(BaseTestClass):
+    results = None
+    supplier = "supplier_warchem"
+    supplier_class = "SupplierWarchem"
+    query = "WODA"
+
+
+# class TestSearchFactory(BaseTestClass):
+#     results = None
+
+#     @classmethod
+#     @attributes(supplier="supplier_searchfactory")
+#     def setup_class(cls):
+#         cls.results = SearchFactory("water")
 
 
 # @attributes(supplier="supplier_biofuranchem", mock_data="query-water")

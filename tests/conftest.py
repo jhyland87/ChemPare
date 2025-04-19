@@ -1,3 +1,4 @@
+import asyncio
 from decimal import Decimal
 
 import pytest
@@ -93,28 +94,37 @@ from tests import mock_request_cache
 
 # hookimpl definition: pytest_assertion_pass(session, assertionreport)
 # Argument(s) {'assertionreport', 'session'} are declared in the hookimpl but can not be found in the hookspec
-monkeypatch = MonkeyPatch()
+# monkeypatch = MonkeyPatch()
 
 
-@pytest.fixture(autouse=True)
-def setup_mock_cfg_to_curl_cffi_attrs(attr, monkeypatch):
+# @pytest.fixture(scope="session", autouse=True)
+# def event_loop():
+#     """Overrides pytest default function scoped event loop"""
+#     policy = asyncio.get_event_loop_policy()
+#     loop = policy.new_event_loop()
+#     yield loop
+#     loop.close()
 
-    monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
-    monkeypatch.setenv("CALLED_FROM_TEST", "true")
 
-    # setattr(mock_request_cache, 'mock_cfg', attr)
-    mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(getattr(attr, "supplier", "default"))
+# @pytest.fixture(scope="function", autouse=True)
+# def setup_mock_cfg_to_curl_cffi_attrs(attr, monkeypatch):
 
-    monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
-    monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
-    monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
-    monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
-    # chempare.test_monkeypatching = True
-    yield monkeypatch
-    # monkeypatch.delenv("TEST_MONKEYPATCHING")
-    # monkeypatch.delenv("CALLED_FROM_TEST")
-    monkeypatch.undo()
-    # chempare.test_monkeypatching = False
+#     # monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
+#     # monkeypatch.setenv("CALLED_FROM_TEST", "true")
+
+#     # # setattr(mock_request_cache, 'mock_cfg', attr)
+#     # mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(getattr(attr, "supplier", "default"))
+
+#     # monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
+#     # monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
+#     # monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
+#     # monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
+#     # chempare.test_monkeypatching = True
+#     yield monkeypatch
+#     # monkeypatch.delenv("TEST_MONKEYPATCHING")
+#     # monkeypatch.delenv("CALLED_FROM_TEST")
+#     monkeypatch.undo()
+#     # chempare.test_monkeypatching = False
 
 
 # def pytest_report_header(config):

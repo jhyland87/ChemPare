@@ -6,7 +6,6 @@ from typing import Self
 import requests
 from abcplus import finalmethod
 
-import chempare.utils as utils
 from chempare import suppliers
 from chempare.datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
