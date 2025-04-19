@@ -9,9 +9,6 @@ import requests
 from pytest import MonkeyPatch
 from pytest_attributes import attributes
 
-# from chempare.suppliers.supplier_biofuranchem import SupplierBioFuranChem
-# from chempare.suppliers.supplier_chemsavers import SupplierChemsavers
-# from chempare.suppliers.supplier_ftfscientific import SupplierFtfScientific
 import chempare.suppliers
 from chempare.datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
@@ -21,28 +18,24 @@ from tests import mock_request_cache
 
 monkeypatch = MonkeyPatch()
 
-# def test_some_bullshit():
-#     assert 1 == 1
+
+# pylint: disable=missing-class-docstring
 
 
 # @dataclass
 class BaseTestClass:
-    results = None
+    results = {}
     supplier = None
-    query = None
+    positive_query = None
+    negative_query = None
     supplier_class = None
     query_limit = 5
-    # supplier = "Default"
-    # @classmethod
-    # def setup_class(cls):
-    #     cls.results = SupplierBioFuranChem("water")
 
     @classmethod
     def setup_class(cls):
         monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
         monkeypatch.setenv("CALLED_FROM_TEST", "true")
 
-        # setattr(mock_request_cache, 'mock_cfg', attr)
         mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
 
         monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
@@ -51,24 +44,32 @@ class BaseTestClass:
         monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
 
         supplier_module = getattr(chempare.suppliers, str(cls.supplier_class))
-        cls.results = supplier_module(cls.query, cls.query_limit)
-        # globals()[variable_name] = MyClass(f"Instance {i}")
-        # cls.results = SupplierBioFuranChem(str(cls.query))
+        cls.results["positive_query"] = supplier_module(cls.positive_query, cls.query_limit)
+
+        with pytest.raises(NoProductsFoundError) as no_products_found:
+            cls.results["negative_query"] = supplier_module(cls.negative_query, cls.query_limit)
+        cls.results["negative_query"] = no_products_found
 
     @classmethod
     def teardown_class(cls):
         monkeypatch.undo()
+        cls.results = {}
         cls.supplier = None
-        cls.query = None
+        cls.positive_query = None
+        cls.negative_query = None
+        cls.supplier_class = None
+        cls.query_limit = 5
 
     def test_result_type(self):
-        assert isinstance(self.results, Iterable) is True, "Expected an iterable result from supplier query"
+        assert (
+            isinstance(self.results["positive_query"], Iterable) is True
+        ), "Expected an iterable result from supplier query"
 
         assert all(
-            isinstance(product, ProductType) for product in self.results  # type: ignore
+            isinstance(product, ProductType) for product in self.results["positive_query"]
         ), "Items in resulting array are not ProductTypes"
 
-        assert len(self.results) > 0, "No product results found"  # type: ignore
+        assert len(self.results["positive_query"]) > 0, "No product results found"
 
     # def setup_method(self, method):
     #     print(f"Setting up method: {method.__name__}")
@@ -92,156 +93,119 @@ class BaseTestClass:
     )
     def test_product_attributes(self, attribute):
         assert all(
-            hasattr(product, attribute) for product in self.results
+            hasattr(product, attribute) for product in self.results["positive_query"]
         ), f"Found items with no {attribute} attribute"
 
         assert all(
-            getattr(product, attribute) not in [None, "None", ""] for product in self.results
+            getattr(product, attribute) not in [None, "None", ""] for product in self.results["positive_query"]
         ), f"Found items with empty/invalid {attribute} attribute"
 
+    def test_nonsense_query_results(self):
+        assert (
+            self.results["negative_query"].errisinstance(NoProductsFoundError) is True
+        ), "Expected a NoProductsFoundError error"
 
-# @attributes(supplier="susupplier_biofuranchempp")
-# @pytest.mark.usefixtures("setup_mock_cfg_to_curl_cffi_attrs")
-# @override_attribute(BaseTestClass)
+
 class TestSupplierBioFuranChem(BaseTestClass):
-    results = None
+    results = {}
     supplier_class = "SupplierBioFuranChem"
     supplier = "supplier_biofuranchem"
-    query = "water"
+    positive_query = "water"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierFtfScientific(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_ftfscientific"
     supplier_class = "SupplierFtfScientific"
-    query = "acid"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierChemsavers(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_chemsavers"
     supplier_class = "SupplierChemsavers"
-    query = "water"
+    positive_query = "water"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplier3SChem(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_3SChem"
     supplier_class = "Supplier3SChem"
-    query = "clean"
+    positive_query = "clean"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierEsDrei(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_esdrei"
     supplier_class = "SupplierEsDrei"
-    query = "Wasser"
+    positive_query = "Wasser"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierLaballey(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_laballey"
     supplier_class = "SupplierLaballey"
-    query = "acid"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
+
+
+@pytest.mark.skip(reason="Under development")
+class TestSupplierLabchem(BaseTestClass):
+    results = {}
+    supplier = "supplier_lachem"
+    supplier_class = "SupplierLabchem"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierLaboratoriumDiscounter(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_laboratoriumdiscounter"
     supplier_class = "SupplierLaboratoriumDiscounter"
-    query = "acid"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierLoudwolf(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_loudwolf"
     supplier_class = "SupplierLoudwolf"
-    query = "acid"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierOnyxmet(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_onyxmet"
     supplier_class = "SupplierOnyxmet"
-    query = "rhodium"
+    positive_query = "rhodium"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierSynthetika(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_synthetika"
     supplier_class = "SupplierSynthetika"
-    query = "Tartaric Acid"
+    positive_query = "Tartaric Acid"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierTciChemicals(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_tcichemicals"
     supplier_class = "SupplierTciChemicals"
-    query = "acetamide"
+    positive_query = "acetamide"
+    negative_query = "this_should_not_exist"
 
 
 class TestSupplierWarchem(BaseTestClass):
-    results = None
+    results = {}
     supplier = "supplier_warchem"
     supplier_class = "SupplierWarchem"
-    query = "WODA"
-
-
-# class TestSearchFactory(BaseTestClass):
-#     results = None
-
-#     @classmethod
-#     @attributes(supplier="supplier_searchfactory")
-#     def setup_class(cls):
-#         cls.results = SearchFactory("water")
-
-
-# @attributes(supplier="supplier_biofuranchem", mock_data="query-water")
-# def test_name_query():
-#     results = Supplier("water")
-
-#     assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
-
-#     assert len(results) > 0, "No product results found"
-#     # assert isinstance(results[0], ProductType) is True, "Items in resulting array are not ProductTypes"
-
-#     assert all(isinstance(product, ProductType) for product in results), "Items in resulting array are not ProductTypes"
-#     assert all(not hasattr(product, "supplier") for product in results), "Found items with no supplier attribute"
-#     assert all(not hasattr(product, "url") for product in results), "Found items with no url attribute"
-#     assert all(not hasattr(product, "title") for product in results), "Found items with no title attribute"
-#     assert all(not hasattr(product, "price") for product in results), "Found items with no price attribute"
-#     assert all(not hasattr(product, "currency") for product in results), "Found items with no currency attribute"
-#     assert all(not hasattr(product, "currency_code") for product in results), "Found items with no currency code"
-#     assert all(not hasattr(product, "quantity") for product in results), "Found items with no quantity attribute"
-#     assert all(not hasattr(product, "uom") for product in results), "Found items with no unit of measurement attribute"
-
-
-"""
-@attributes(supplier="supplier_biofuranchem", mock_data="query-5949-29-1")
-def test_cas_query():
-    results = Supplier("5949-29-1")
-
-    assert isinstance(results, Iterable) is True, "Expected an iterable result from supplier query"
-    assert len(results) > 0, "No product results found"
-    assert isinstance(results[0], ProductType) is True
-
-
-@attributes(supplier="supplier_biofuranchem", mock_data="query-nonsense")
-def test_nonsense_query():
-    results = None
-    with pytest.raises(NoProductsFoundError) as no_products_found:
-        results = Supplier("this_should_return_no_search_result")
-
-    assert no_products_found.errisinstance(NoProductsFoundError) is True, "Expected a NoProductsFoundError error"
-    assert results is None, "Results found for nonsense query"
-
-
-@attributes(supplier="supplier_biofuranchem", mock_data="query-9999-99-9")
-def test_invalid_cas_query():
-    results = None
-    with pytest.raises(NoProductsFoundError) as no_products_found:
-        results = Supplier("9999-99-9")
-
-    assert no_products_found.errisinstance(NoProductsFoundError) is True, "Expected a NoProductsFoundError error"
-    assert results is None, "Results found for bad CAS query"
-"""
+    positive_query = "WODA"
+    negative_query = "this_should_not_exist"

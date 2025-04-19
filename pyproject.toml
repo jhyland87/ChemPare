@@ -138,10 +138,10 @@ env = [
     #"USE_BROWSER_COOKIES=false",
     # This will cause any request that does not already have a cached result
     # to fail with a 504 error
-    "PYTEST_ONLY_MOCK_DATA=false",
+    "PYTEST_ONLY_MOCK_DATA=true",
     # This will force the saving of any requests made through the requsts mocker,
     # even if there is cached data for it already
-    "PYTEST_FORCE_REFRESH=true",
+    "PYTEST_FORCE_REFRESH=false",
     #"SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
