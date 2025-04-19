@@ -145,7 +145,7 @@ env = [
     #"SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
-addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html "
+addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doctest-modules --cov-report=html:coverage-html --cov-append"
 #  --cov-report=term --capture=tee-sys --show-capture=all  --no-summary
 
 # "--capture=tee-sys" "--show-capture=all",

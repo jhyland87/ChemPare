@@ -127,66 +127,6 @@ class SearchFactory(ClassUtils, object):
             # list with those products
             self.__results.extend(res.products)
 
-    def __get_cas(self, chem_name: str) -> str | None:
-        """Search for the CAS value(s) given a chemical name
-
-        Args:
-            chem_name (str): Name of chemical to search for
-
-        Returns:
-            Optional[str]: CAS value of chemical
-        """
-
-        cas = None
-        try:
-            # Send a GET request to the API
-            cas_request = requests.get(f"https://cactus.nci.nih.gov/chemical/structure/{chem_name}/cas")
-            # Check if the request was successful
-            if cas_request.status_code != 200:
-                return None
-
-            # Decode the bytes to a string
-            cas_response = cas_request.content.decode("utf-8")
-
-            if not cas_response:
-                return None
-
-            cas_list = cas_response.split("\n")
-            cas = cas_list[0]
-        except Exception as e:
-            print("Failed to get CAS #", e)
-
-        return cas
-
-        # # Should only be one line/value, so just strip it before returning,
-        # if a value was found
-        # return str(cas_response).strip() if cas_response else None
-
-    def __get_popular_name(self, query: str) -> str:
-        """Get the most frequently used name for a chemical from a list of
-        its aliases
-
-        Args:
-            query (str): Chemical name or CAS
-
-        Returns:
-            str: The most frequently found name
-        """
-        # Send a GET request to the API
-        name_request = requests.get(f"https://cactus.nci.nih.gov/chemical/structure/{query}/names")
-
-        # Check if the request was successful
-        if name_request.status_code != 200:
-            raise SystemError(f"Error: {name_request.status_code}")
-
-        name_response = name_request.content.decode("utf-8")  # Decode the bytes to a string
-        name_lines = name_response.split("\n")  # Split by newline
-
-        highest_val = self._filter_highest_item_value(self._get_common_phrases(name_lines))
-
-        keys = list(highest_val.keys())
-        return keys[0][0]
-
     @property
     @finalmethod
     def results(self) -> list[ProductType]:
