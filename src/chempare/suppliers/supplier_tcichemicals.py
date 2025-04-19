@@ -63,7 +63,6 @@ class SupplierTciChemicals(SupplierBase):
                 None: Nothing, just adds new entries to self._query_results,
                           and executes self.__query_search_page if needed.
             """
-            print(f"{page_idx=}")
             get_params = {
                 # Setting the limit here to 1000, since the limit parameter
                 # should apply to results returned from Supplier3SChem, not

@@ -1,3 +1,4 @@
+from chempare import utils
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
@@ -21,6 +22,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
+
+    _defaults = {}
 
     def _query_products(self, query: str) -> None:
         """Query products from supplier
@@ -47,13 +50,19 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             "limit": self._limit or 100,
             "format": "json",
         }
+
         search_result = self.http_get_json(f"en/search/{query}", params=get_params)
 
-        if not search_result or not isinstance(search_result, dict):
-            return
+        self._defaults = {}
+
+        shop_currency = utils.get_nested(search_result, "shop", "currency")
+
+        self._defaults["currency"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "symbol")
+        self._defaults["currency_code"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "code")
+        # .shop.currencies[.shop.currency].symbol, .shop.currencies[.shop.currency].code
 
         # self._query_results = search_result["collection"]["products"][: self._limit]
-        self._query_results = search_result.get("collection", {}).get("products", [])
+        self._query_results = utils.get_nested(search_result, "collection", "products")
 
         if self._query_results is False:
             print(f"No products found for search query: {query}")
@@ -76,6 +85,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             quantity = self._parse_quantity(product.get("variant"))
             # price = self._parse_price(product["price"])
 
+            price = utils.get_nested(product, "price", "price")
+
             product_obj = ProductType(
                 uuid=str(product.get("id", "")).strip(),
                 name=product.get("title", None),
@@ -83,14 +94,17 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 # cas=self._get_cas_from_variant(product["variant"]),
                 cas=self._find_cas(str(product.get("variant", ""))),
                 description=str(product.get("description", "")).strip() or None,
-                price=str(product.get("price", {}).get("price", "")).strip(),
-                currency_code=product.get("price", {}).get("currency", "").upper(),
-                currency=self._currency_symbol_from_code(product.get("price", {}).get("currency", None)),
+                price=price,
+                # currency_code=self._defaults["curre"],
+                # currency=shop_currency_symbol,
                 url=product.get("url", None),
                 supplier=self._supplier.name,
+                usd=self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
                 # quantity=quantity["quantity"],
                 # uom=quantity["uom"],
             )
+
+            product_obj.update(self._defaults)
 
             if quantity:
                 product_obj.update(quantity)
