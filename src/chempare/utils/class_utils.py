@@ -1,4 +1,5 @@
-"""Utility class meant to provide functionality to any inheriting classes"""
+"""
+Utility class meant to provide functionality to any inheriting classes"""
 
 import logging
 import math
@@ -23,6 +24,7 @@ from currex import CURRENCIES
 from currex import Currency
 from price_parser.parser import Price
 
+from chempare import utils
 from chempare.datatypes import DecimalLikeType
 from chempare.datatypes import PriceType
 from chempare.datatypes import QuantityType
@@ -36,12 +38,14 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 
 
 class ClassUtils(metaclass=ABCMeta):
-    """Utility class meant to provide functionality to any inheriting classes"""
+    """
+    Utility class meant to provide functionality to any inheriting classes"""
 
     @property
     @finalmethod
     def _epoch(self) -> int:
-        """Get epoch string - Used for unique values in searches (sometimes _)
+        """
+        Get epoch string - Used for unique values in searches (sometimes _)
 
         Returns:
             int: Current time in epoch
@@ -51,7 +55,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType | None:
-        """Parse a string for a price value (currency and value)
+        """
+        Parse a string for a price value (currency and value)
 
         Args:
             value (str): String with price
@@ -81,67 +86,30 @@ class ClassUtils(metaclass=ABCMeta):
         #     )
 
         iso_4217_pattern = (
-            r"(?:ab\s?)?(?:(?P<currency>[\p{Sc}ƒ]|"
-            r"(?P<currency>"
-            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|"
-            r"B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|"
-            r"C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|"
-            r"D(?:JF|KK|OP|ZD)|"
-            r"E(?:GP|RN|TB|UR?)|"
-            r"F(?:JD|KP)|"
-            r"G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|"
-            r"H(?:KD|NL|RK|TG|UF)|"
-            r"I(?:[NRD]R|LS|MP|QD|SK)|"
-            r"J(?:EP|MD|OD|PY)|"
-            r"K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|"
-            r"L(?:AK|BP|KR|[RY]D|SL)|"
-            r"M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|"
-            r"N(?:[AZ]D|GN|IO|OK|PR)|"
-            r"(?:QA|OM|YE)R|"
-            r"P(?:AB|[EKL]N|GK|HP|KR|YG)|"
-            r"R(?:ON|SD|UB|WF)|"
-            r"S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|"
-            r"T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|"
-            r"U(?:AH|GX|SD?|YU|ZS)|"
-            r"V(?:EF|ND|UV)|WST|"
-            r"X(?:[AOP]F|CD|DR)|"
-            r"Z(?:AR|MW|WD)))?"
-            r"\s?(?P<price>[0-9]+(?:[,\.][0-9]+)*)"
-            r"|(?P<price>[0-9]+(?:[,\.][0-9]+)*)\s?(?P<currency>[\p{Sc}ƒ]|"
-            # r"(?:us|au|ca)d?|eur?|chf|rub|gbp|jyp|pln|sek|uah|hrk)"
-            r"(?P<currency>"
-            r"A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|"
-            r"B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|"
-            r"C(?:AD|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|"
-            r"D(?:JF|KK|OP|ZD)|"
-            r"E(?:GP|RN|TB|UR?)|"
-            r"F(?:JD|KP)|"
-            r"G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|"
-            r"H(?:KD|NL|RK|TG|UF)|"
-            r"I(?:[NRD]R|LS|MP|QD|SK)|"
-            r"J(?:EP|MD|OD|PY)|"
-            r"K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|"
-            r"L(?:AK|BP|KR|[RY]D|SL)|"
-            r"M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|"
-            r"N(?:[AZ]D|GN|IO|OK|PR)|"
-            r"(?:QA|OM|YE)R|"
-            r"P(?:AB|[EKL]N|GK|HP|KR|YG)|"
-            r"R(?:ON|SD|UB|WF)|"
-            r"S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|"
-            r"T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|"
-            r"U(?:AH|GX|SD?|YU|ZS)|"
-            r"V(?:EF|ND|UV)|WST|"
-            r"X(?:[AOP]F|CD|DR)|"
-            r"Z(?:AR|MW|WD)))"
-            r")?"
+            r"^(?:"
+            r"(?P<currency>[\p{Sc}ƒ]|A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|D(?:JF|KK|OP|ZD)|E(?:GP|RN|TB|UR?)|F(?:JD|KP)|G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|H(?:KD|NL|RK|TG|UF)|I(?:[NRD]R|LS|MP|QD|SK)|J(?:EP|MD|OD|PY)|K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|L(?:AK|BP|KR|[RY]D|SL)|M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|N(?:[AZ]D|GN|IO|OK|PR)|(?:QA|OM|YE)R|P(?:AB|[EKL]N|GK|HP|KR|YG)|R(?:ON|SD|UB|WF)|S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|U(?:AH|GX|SD?|YU|ZS)|V(?:EF|ND|UV)|WST|X(?:[AOP]F|CD|DR)|Z(?:AR|MW|WD))"
+            r"(?:\s(?!$))?|"
+            r"(?P<amount>[0-9\.\,]+)"
+            r"\s?){2}$"
         )
 
         matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
         if not matches:
             return None
 
-        matches_str = matches.group()
-        price = Price.fromstring(matches_str)
+        matches_groups = matches.groupdict()
+
+        # If we failed to match the currency and amount, then just quit early.
+        # We may choose to default the currency to $ or something else later.
+        if "currency" not in matches_groups or "amount" not in matches_groups:
+            return None
+
+        price = Price.fromstring(str(matches_groups.get('currency')) + str(matches_groups.get('amount')))
+
+        # Failed to parse the currency?
+        if not hasattr(price, "currency"):
+            return None
+
         currency_code = self._currency_code_from_symbol(price.currency)
 
         result = {
@@ -161,7 +129,8 @@ class ClassUtils(metaclass=ABCMeta):
     def _to_usd(
         self, from_currency: str | None = None, amount: int | float | str | None = None
     ) -> DecimalLikeType | None:
-        """Convert a no USD price to the USD price
+        """
+        Convert a no USD price to the USD price
 
         Args:
             from_currency (str, optional): Currency the price currently is in.
@@ -180,14 +149,11 @@ class ClassUtils(metaclass=ABCMeta):
         Example:
             >>> self._to_usd()
         """
-
-        # try:
-
         # If no source currency type is provided, but we were given a string for the amount, then it may include
         # the currency type (eg: "$123.23"), and can be parsed
         if from_currency is None and isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, dict):
+            if not isinstance(parsed_price, PriceType):
                 _logger.debug(
                     "Unable to determine from currency from amount %s of type %s (expected dict)",
                     parsed_price,
@@ -212,7 +178,8 @@ class ClassUtils(metaclass=ABCMeta):
             # raise LookupError(f"Unable to convert from '{from_currency}")
             return None
 
-        amount = self._cast_type(amount)
+        if isinstance(amount, str):
+            amount = utils.cast(amount)
 
         if not isinstance(amount, DecimalLikeType):
             _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
@@ -234,7 +201,8 @@ class ClassUtils(metaclass=ABCMeta):
         #     return None
 
     def _to_hundreths(self, value: DecimalLikeType | str) -> Decimal:
-        """Convert any number like value to include the hundreths place
+        """
+        Convert any number like value to include the hundreths place
 
         Args:
             value (DecimalLikeType | str): Value to convert
@@ -296,7 +264,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _parse_quantity(self, value: str) -> QuantityType | None:
-        """Parse a string for the quantity and unit of measurement
+        """
+        Parse a string for the quantity and unit of measurement
 
         Args:
             value (str): Suspected quantity string
@@ -358,7 +327,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:
-        """Get a specific arameter from a GET URL
+        """
+        Get a specific arameter from a GET URL
 
         Args:
             url (str): HREF address
@@ -398,7 +368,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _split_array_into_groups(self, arr: list, size: int = 2) -> list:
-        """Splits an array into sub-arrays of 2 elements each.
+        """
+        Splits an array into sub-arrays of 2 elements each.
 
         Args:
             arr: The input array.
@@ -423,7 +394,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _nested_arr_to_dict(self, arr: list[list]) -> dict | None:
-        """Takes an array of arrays (ie: result from
+        """
+        Takes an array of arrays (ie: result from
         self._split_array_into_groups) and converts that into a dictionary.
 
         Args:
@@ -448,7 +420,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _is_currency_symbol(self, char: str) -> bool:
-        """Determines if a value is a currency symbol or not
+        """
+        Determines if a value is a currency symbol or not
 
         Args:
             char (str): Value to analyze
@@ -469,7 +442,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _currency_code_from_symbol(self, symbol: str) -> str | None:
-        """Attempt to get the currency code for a given currency symbol
+        """
+        Attempt to get the currency code for a given currency symbol
 
         Source:
             https://www.eurochange.co.uk/travel/tips/world-currency-abbreviations-symbols-and-codes-travel-money
@@ -688,56 +662,9 @@ class ClassUtils(metaclass=ABCMeta):
             return currency_symbols[code]
 
     @finalmethod
-    def _cast_type(self, value: str | int | float | bool | None = None) -> Any:
-        """Cast a value to the proper type. This is mostly used for casting
-        int/float/bool
-
-        Args:
-            value (Union[str,int,float,bool]): Value to be casted (optional)
-
-        Returns:
-            Any: Casted value
-        """
-
-        # If it's not a string, then its probably a valid type..
-        if isinstance(value, str) is False:
-            return value
-
-        # Most castable values just need to be trimmed to be compatible
-        value = value.strip()
-
-        if not value or value.isspace():
-            return None
-
-        if value.lower() == "true":
-            return True
-
-        if value.lower() == "false":
-            return False
-
-        try:
-            return int(value)
-        except Exception:
-            pass
-
-        try:
-            return float(value)
-        except Exception:
-            pass
-
-        return value
-
-        # if not value.isdecimal() or re.match(r'^[0-9]+.[0-9]+$', value):
-        #     return float(value)
-
-        # if value.isnumeric() or re.match(r'^[0-9]+$', value):
-        #     return int(value)
-
-        # return value
-
-    @finalmethod
     def _random_string(self, max_length: int = 10, include_special: bool = False) -> str:
-        """Generate random string
+        """
+        Generate random string
 
         Args:
             max_length (int, optional): Length to generate string to. Defaults to 10
@@ -763,7 +690,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _find_cas(self, value: str) -> str | None:
-        """Parse a string for CAS values, return the first valid one
+        """
+        Parse a string for CAS values, return the first valid one
 
         Args:
             value (str): String content with possible CAS issues
@@ -782,7 +710,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _is_cas(self, value: Any) -> bool:
-        """Check if a string is a valid CAS registry number
+        """
+        Check if a string is a valid CAS registry number
 
         CAS numbers are always in a format of three segments of numerical values:
             1234-56-6
@@ -860,7 +789,8 @@ class ClassUtils(metaclass=ABCMeta):
 
     @finalmethod
     def _filter_highest_item_value(self, input_dict: dict) -> dict:
-        """Filter a dictionary for the entry with the highest numerical value.
+        """
+        Filter a dictionary for the entry with the highest numerical value.
 
         Args:
             input_dict (dict): Dictionary to iterate through
@@ -884,7 +814,8 @@ class ClassUtils(metaclass=ABCMeta):
     def _get_common_phrases(
         self, texts: list, maximum_length: int = 3, minimum_repeat: int = 2, stopwords: list | None = None
     ) -> dict:
-        """Get the most common phrases out of a list of phrases.
+        """
+        Get the most common phrases out of a list of phrases.
 
         This is used to analyze the results from a query to
         https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names to

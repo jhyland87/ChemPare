@@ -8,6 +8,7 @@ from typing import Any
 from typing import ItemsView
 from typing import Self
 
+from chempare import utils
 from chempare.datatypes.variant import VariantType
 
 
@@ -132,9 +133,8 @@ class ProductType:
         Returns:
             ProductType: Product with casted values
         """
-        # dc = self.__class__.__dataclass_fields__['uuid'].type
-
         for key, val in self.items():
+            _val = val
             if key == "usd" and val is not None:
                 _val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
                 continue
@@ -143,50 +143,12 @@ class ProductType:
                 _val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
                 continue
 
-            _val = self.__cast_type(value=val)
+            if isinstance(val, str):
+                _val = utils.cast(value=val)
 
             if _val is None and include_none is True:
                 continue
 
             self.set(key, val)
-            # setattr(self, key, val)
-            # self.setarr(key, _val)
 
         return self
-
-    def __cast_type(self, value: Any) -> Any:
-        """Cast a value to the proper type. This is mostly used for casting
-        int/float/bool
-
-        Args:
-            value (Any): Value to be casted (optional)
-
-        Returns:
-            Any: Casted value
-        """
-        if value is None:
-            return None
-
-        # If it's not a string, then its probably a valid type..
-        if isinstance(value, str) is False:
-            return value
-
-        # Most castable values just need to be trimmed to be compatible
-        value = value.strip()
-
-        if not value or value.isspace():
-            return None
-
-        if value.lower() == "true":
-            return True
-
-        if value.lower() == "false":
-            return False
-
-        if re.match(r"^[0-9]+\.[0-9]+$", value):
-            return float(value)
-
-        if re.match(r"^[0-9]+$", value):
-            return int(value)
-
-        return value
