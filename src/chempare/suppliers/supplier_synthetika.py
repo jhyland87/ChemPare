@@ -20,12 +20,8 @@ class SupplierSynthetika(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         def __query_list(query: str, page: int = 1) -> None:
             """Query list of products on page
@@ -61,7 +57,7 @@ class SupplierSynthetika(SupplierBase):
             if int(search_result["pages"]) > page and len(self._query_results) < self._limit:
                 __query_list(query, page + 1)
 
-        __query_list(query, 1)
+        __query_list(self._query, 1)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -111,6 +107,3 @@ class SupplierSynthetika(SupplierBase):
         product = ProductType(**product)
 
         return product.cast_properties()
-
-
-__supplier_class = SupplierSynthetika

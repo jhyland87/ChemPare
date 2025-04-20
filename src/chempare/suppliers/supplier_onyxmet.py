@@ -65,17 +65,13 @@ class SupplierOnyxmet(SupplierBase):
         }
         # Do extra stuff here
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for Onyxmet Supplier
         # https://onyxmet.com/index.php?route=product/search/json&term={query}
         #
-        get_params = {"route": "product/search/json", "term": query}
+        get_params = {"route": "product/search/json", "term": self._query}
         self._headers = {
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
         }
@@ -186,6 +182,3 @@ class SupplierOnyxmet(SupplierBase):
         product_obj = ProductType(**product_obj)
         self._products.append(product_obj.cast_properties())
         # self.__test_lock.release()
-
-
-__supplier_class = SupplierOnyxmet

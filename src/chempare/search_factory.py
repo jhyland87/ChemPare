@@ -3,7 +3,6 @@
 # from curl_cffi import requests
 from typing import Self
 
-import requests
 from abcplus import finalmethod
 
 from chempare import suppliers
@@ -12,14 +11,14 @@ from chempare.exceptions import NoProductsFoundError
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
-from chempare.suppliers import *
+
 from chempare.utils import ClassUtils
 
 
 class SearchFactory(ClassUtils, object):
     """Simple factory to make searching easier"""
 
-    suppliers = suppliers.__all__
+    suppliers = suppliers.__subclasses__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 
@@ -89,7 +88,7 @@ class SearchFactory(ClassUtils, object):
             print(f"Searching suppliers for '{query}'...\n")
 
         # Iterate over the modules in the suppliers package
-        for supplier in suppliers.__all__:
+        for supplier in suppliers.__subclasses__:
             if supplier == "SupplierBase":
                 continue
 

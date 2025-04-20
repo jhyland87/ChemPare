@@ -1,0 +1,60 @@
+{
+  "cookies": {
+    "ssr-caching": "cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g",
+    "client-session-bind": "45a9c460-2fe5-483d-a50f-1ce034fe4fb2",
+    "server-session-bind": "45a9c460-2fe5-483d-a50f-1ce034fe4fb2"
+  },
+  "created_at": "2025-04-20T21:31:58.376504+00:00",
+  "elapsed": 0.046927,
+  "encoding": "UTF-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "1318",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-language": "en",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Sun, 20 Apr 2025 21:31:58 GMT",
+    "etag": "W/\"3bb360ecc02565c1f7da6259b2f64c19\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "html-cacheable": "true",
+    "link": "<https://static.parastorage.com/>; rel=preconnect; crossorigin;,<https://static.parastorage.com/>; rel=preconnect;,<https://static.wixstatic.com/>; rel=preconnect; crossorigin;,<https://static.wixstatic.com/>; rel=preconnect;,<https://siteassets.parastorage.com>; rel=preconnect; crossorigin;,",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=miss, varnish;desc=miss_hit, dc;desc=fastly_g",
+    "set-cookie": "ssr-caching=cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g; max-age=20, client-session-bind=45a9c460-2fe5-483d-a50f-1ce034fe4fb2; Path=/; Secure; SameSite=Lax;, server-session-bind=45a9c460-2fe5-483d-a50f-1ce034fe4fb2; Path=/; Secure; SameSite=Lax; HttpOnly;",
+    "strict-transport-security": "max-age=86400",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
+    "x-served-by": "cache-lax-kwhp1940044-LAX",
+    "x-wix-request-id": "1745184718.401824806575732127"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g",
+      "client-session-bind": "45a9c460-2fe5-483d-a50f-1ce034fe4fb2",
+      "server-session-bind": "45a9c460-2fe5-483d-a50f-1ce034fe4fb2"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=miss#varnish=miss_hit#dc#desc=fastly_g; client-session-bind=45a9c460-2fe5-483d-a50f-1ce034fe4fb2; server-session-bind=45a9c460-2fe5-483d-a50f-1ce034fe4fb2",
+      "User-Agent": "python-requests/2.32.3",
+      "sec-fetch-dest": "document",
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-site": "none"
+    },
+    "method": "HEAD",
+    "url": "https://www.biofuranchem.com//"
+  },
+  "status_code": 200,
+  "url": "https://www.biofuranchem.com//",
+  "_decoded_content": ""
+}

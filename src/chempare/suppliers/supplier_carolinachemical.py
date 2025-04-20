@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.datatypes import VariantType
-from chempare.suppliers.supplier_base import SupplierBase
+from chempare.suppliers import SupplierBase
 
 
 # File: /suppliers/supplier_carolinachemical.py
@@ -31,7 +31,7 @@ class SupplierCarolinaChemical(SupplierBase):
     }
     """Default values applied to products from this supplier"""
 
-    def _query_products(self, query: str) -> None:
+    def _query_products(self) -> None:
         """Query products from supplier
 
         Args:
@@ -40,12 +40,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         get_params = {"search": self._query}
 
-        search_result = self.http_get_json("wp-json/wp/v2/search", params=get_params)
-
-        if not search_result:
-            return
-
-        self._query_results = search_result
+        self._query_results = self.http_get_json("wp-json/wp/v2/search", params=get_params)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -190,6 +185,3 @@ class SupplierCarolinaChemical(SupplierBase):
             print("Something failed:", err)
 
         return product_page_data
-
-
-__supplier_class = SupplierCarolinaChemical

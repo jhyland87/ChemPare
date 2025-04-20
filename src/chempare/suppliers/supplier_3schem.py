@@ -12,12 +12,8 @@ class Supplier3SChem(SupplierBase):
     )
     """Supplier specific data"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for 3S Supplier
         # https://3schemicalsllc.com/search/suggest.json?
@@ -27,7 +23,7 @@ class Supplier3SChem(SupplierBase):
         #   &resources[options][unavailable_products]=last
         #
         get_params = {
-            "q": query,
+            "q": self._query,
             "resources[type]": "product",
             # Setting the limit here to 1000, since the limit parameter should
             # apply to results returned from Supplier3SChem, not the rquests
@@ -72,8 +68,6 @@ class Supplier3SChem(SupplierBase):
 
             self._products.append(ProductType(**product_obj))
 
-
-__supplier_class = Supplier3SChem
 
 if __package__ == "suppliers":
     __disabled__ = False

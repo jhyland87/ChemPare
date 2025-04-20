@@ -23,12 +23,8 @@ class SupplierLaballey(SupplierBase):
     __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for Laboratorium Discounter
         # https://searchserverapi.com/getresults?
@@ -63,7 +59,7 @@ class SupplierLaballey(SupplierBase):
             # apply to results returned from Supplier3SChem, not the rquests
             # made by it.
             "api_key": self._supplier.api_key,
-            "q": query,
+            "q": self._query,
             "maxResults": 15,
             "startIndex": 0,
             "items": True,
@@ -132,6 +128,3 @@ class SupplierLaballey(SupplierBase):
             product.update(quantity_matches)
 
         return product
-
-
-__supplier_class = SupplierLaballey

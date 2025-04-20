@@ -16,14 +16,17 @@ from abcplus import abstractmethod
 from abcplus import finalmethod
 from fuzzywuzzy import fuzz
 
-import chempare
-from chempare.datatypes import ProductType
+
 from chempare.datatypes import SupplierType
+from chempare.datatypes import ProductType
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
 from chempare.utils import ClassUtils
 from chempare.utils import utils
+
+# ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype PageElement NavigableString
+# from bs4 import ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype
 
 
 # import chempare
@@ -39,8 +42,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
     language_for_search: Any = None
     """For what language it should use for the search query"""
 
-    # def __init_subclass__(cls, **kwargs):
-    #     super().__init_subclass__(**kwargs)
     _headers = {}
 
     LOG_LEVEL: Final = utils.getenv("LOG_LEVEL", "WARNING")
@@ -63,19 +64,22 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._query = query
         self._cookies = {}
 
-        if hasattr(self, "_setup"):
-            self._setup(query)
+        # Run the setup if there is one. This is for requesting prerequisite data that's
+        # needed for cookies, headers, API Keys, etc
+        self._setup()
 
         # Execute the basic product search (logic should be in inheriting class)
-        self._query_products(self._query)
+        self._query_products()
 
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
 
+        # Make sure the results are relevant and a decent match.
         self._fuzz_filter()
 
-        if len(self._products) == 0:
+        # If no products were found, raise a NoProductsFoundError exception
+        if not isinstance(self._products, Iterable) or len(self._products) == 0:
             raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
 
     def __getitem__(self, index: int) -> ProductType:
@@ -300,7 +304,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             params = utils.replace_dict_values_by_value(params, False, 'false')
             params = utils.replace_dict_values_by_value(params, None, 'null')
 
-            for k, v in params.items():
+            for v in params:
                 if isinstance(v, list) or isinstance(v, dict):
                     params[k] = json.dumps(v)
 
@@ -520,7 +524,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res.content
 
     @finalmethod
-    def http_get_json(self, path: str, /, params: dict | None = None, **kwargs) -> dict | None:
+    def http_get_json(self, path: str, /, params: dict | None = None, **kwargs) -> dict:
         """
         HTTP getter (for JSON content).
 
@@ -539,7 +543,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         return res.json()
 
-    def _setup(self, query: str | None = None) -> None:
+    def _setup(self) -> None:
         """
         Setup method - Triggered before the query is executed. This is
         useful for when we need to make an initial request to a homepage to get
@@ -547,12 +551,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def _query_products(self, query: str) -> None:
+    def _query_products(self) -> None:
         """
         Query the website for the products (name or CAS).
-
-        Args:
-            query: query string to use
 
         This should define the self._query_results property with the results
         """

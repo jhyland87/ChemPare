@@ -1,0 +1,1443 @@
+{
+  "created_at": "2025-04-20T06:22:18.398469+00:00",
+  "elapsed": 1.661651,
+  "encoding": "utf-8",
+  "headers": {
+    "Cache-Control": "no-store",
+    "Connection": "Keep-Alive",
+    "Content-Encoding": "gzip",
+    "Content-Length": "4251",
+    "Content-Type": "application/json; charset=utf-8",
+    "Date": "Sun, 20 Apr 2025 06:22:18 GMT",
+    "ETag": "W/\"9f5a-tJhUhBUbekLR9ju/3lFIx1U0uFk-gzip\"",
+    "Keep-Alive": "timeout=2, max=100",
+    "Server": "Apache",
+    "Vary": "Accept-Encoding,User-Agent",
+    "X-B3-TraceId": "aASSmQ9eZrsrydOlFis8ywAAATg",
+    "X-epages-RequestId": "aASSmQ9eZrsrydOlFis8ywAAATg",
+    "X-epages-ui-version": "v3.27.1"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "dm?6OY;<LEb0Rt*TU{(5B5`$Pa(N;;AR=L7WppAeAR=>ba&#g(AR=;QY-M&~ZewL4eE",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Content-Length": "53",
+      "Content-Type": "application/json",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "POST",
+    "url": "https://www.labchem.de/api/v2/search?locale=de_DE&page=1&resultsPerPage=12&shop=87762263"
+  },
+  "status_code": 200,
+  "url": "https://www.labchem.de/api/v2/search?locale=de_DE&page=1&resultsPerPage=12&shop=87762263",
+  "_decoded_content": {
+    "facets": {},
+    "products": [
+      {
+        "productId": "5DDD34C8-2860-55B1-D8AA-0A0C6D12E46F",
+        "mainCategoryId": null,
+        "name": "Acetamid min. 98%",
+        "sku": "011200",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Acetamid min. 98% - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: Essigs\u00e4ureamid </li><li>Summenformel n. Hill: C\u2082H\u2085NO </li><li>Chem. Formel: CH\u2083CONH\u2082 </li><li>Molare Masse: 59.06 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): 2200 g/l </li><li>Schmelzpunkt: 78 - 81 \u00b0C </li><li>Cas-Nr.: 60-35-5 </li><li>EG-Nr.: 200-473-5 </li><li>Lagerklasse (VCI): 10 - 13 Sonstige Fl\u00fcssigkeiten und Feststoffe </li><li>WGK: WGK 1 schwach wassergef\u00e4hrdendEntsorgung </li></ul><p> <span style=\"color:#000000;\"><br /></span></p><p><strong><span style=\"color:#000000;\">Signalwort: Achtung</span></strong> </p><p><br /></p><p><strong>Gefahrenhinweise: </strong><br /></p><p> H351: Kann vermutlich Krebs erzeugen. <br /></p><p><br /></p><p><strong>Shopkaterogie: 2</strong><br /></p><p> <br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "acetamid-min-98",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": {
+          "taxType": "GROSS",
+          "formatted": "15,59 \u20ac",
+          "amount": 15.59,
+          "currency": "EUR"
+        },
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD34C8-2860-55B1-D8AA-0A0C6D12E46F",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD34C8-2860-55B1-D8AA-0A0C6D12E46F/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD34C8-2860-55B1-D8AA-0A0C6D12E46F/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD34C8-2860-55B1-D8AA-0A0C6D12E46F",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F34C8%2F2860%2F55B1%2FD8AA%2F0A0C%2F6D12%2FE46F%2FGHS08.jpg&shop=87762263",
+          "width": 1080,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": null,
+        "lowestRefPriceFormatted": null,
+        "highestPrice": null,
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDD35A4-EDED-8331-EA8D-0A0C6D0CCDA4",
+        "mainCategoryId": null,
+        "name": "Acetanilid min. 99%",
+        "sku": "011300",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Acetanilid min. 99% - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: <em>N-Phenylacetamid </em></li><li>Summenformel n. Hill:<em> C\u2088H\u2089NO</em> </li><li>Chem. Formel:<em> CH\u2083CONHC\u2086H\u2085 </em></li><li>Molare Masse: <em>135.16 g/mol </em></li><li>L\u00f6slichkeit in H2O (20\u00b0C): <em>5 g/l </em></li><li>Schmelzpunkt: <em>115 \u00b0C </em></li><li>Cas-Nr.: <em>103-84-4 </em></li><li>EG-Nr.: <em>203-150-7 </em></li><li>Lagerklasse (VCI): <em>10 - 13 Sonstige Fl\u00fcssigkeiten und Feststoffe </em></li><li>WGK:<em> WGK 1 schwach wassergef\u00e4hrdend </em></li></ul><p><strong><br /></strong></p><p><strong>Signalwort: Achtung</strong><em><br /></em></p><p><strong><br /></strong></p><p><em></em><strong>Gefahrenhinweise: </strong></p><p>H302: Gesundheitssch\u00e4dlich bei Verschlucken. <br /></p><p><br /></p><p> <strong>Shopkategorie: 1</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "acetanilid-min-99",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": {
+          "taxType": "GROSS",
+          "formatted": "15,47 \u20ac",
+          "amount": 15.47,
+          "currency": "EUR"
+        },
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD35A4-EDED-8331-EA8D-0A0C6D0CCDA4",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD35A4-EDED-8331-EA8D-0A0C6D0CCDA4/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD35A4-EDED-8331-EA8D-0A0C6D0CCDA4/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD35A4-EDED-8331-EA8D-0A0C6D0CCDA4",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F35A4%2FEDED%2F8331%2FEA8D%2F0A0C%2F6D0C%2FCDA4%2FGHS07.jpg&shop=87762263",
+          "width": 1080,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": null,
+        "lowestRefPriceFormatted": null,
+        "highestPrice": null,
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDD5A2E-48CE-71D0-F8D6-0A0C6D12BAD3",
+        "mainCategoryId": null,
+        "name": "Aceton zur Analyse",
+        "sku": "011600",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Aceton zur Analyse - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: Dimetyhlketon, 2-Propanon </li><li>Summenformel n. Hill: C3H6O </li><li>Chem. Formel: CH3COCH3 </li><li>Molare Masse: 58,08 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): l\u00f6slich </li><li>Schmelzpunkt: -95,4\u00b0C </li><li>Cas-Nr.: 67-41-1 </li><li>EG-Nr.: 2006622 </li><li>Lagerklasse (VCI): 3A </li><li>WGK: 1 </li></ul><p> <span style=\"color:#000000;\"><br /></span> </p><p><strong>Signalwort: Gefahr</strong><em><br /></em></p><p><em><br /></em></p><p><strong>Gefahrenhinweise:</strong></p><p> H225: Fl\u00fcssigkeit und Dampf leicht entz\u00fcndbar.<br />H319: Verursacht schwere Augenreizung.<br />H336: Kann Schl\u00e4frigkeit und Benommenheit verursachen.<br />EUH066: Wiederholter Kontakt kann zu spr\u00f6der oder rissiger Haut f\u00fchren. <br /></p><p><strong><br /></strong></p><p><strong>Shopkategorie: 2</strong></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "aceton-zur-analyse",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5A2E-48CE-71D0-F8D6-0A0C6D12BAD3",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5A2E-48CE-71D0-F8D6-0A0C6D12BAD3/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5A2E-48CE-71D0-F8D6-0A0C6D12BAD3/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD5A2E-48CE-71D0-F8D6-0A0C6D12BAD3",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD10A1-A431-CECE-EB6A-0A0C6D120E7C",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F5A2E%2F48CE%2F71D0%2FF8D6%2F0A0C%2F6D12%2FBAD3%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "20,59 \u20ac",
+          "amount": 20.59,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "94,01 \u20ac",
+          "amount": 94.01,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDD5B1C-7826-3EEF-95F5-0A0C6D0CDB0E",
+        "mainCategoryId": null,
+        "name": "Aceton reinst",
+        "sku": "011700",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Aceton reinst - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><p> <br /></p><ul><li>Synonyme: Dimetyhlketon, 2-Propanon </li><li>Summenformel n. Hill: C3H6O </li><li>Chem. Formel: CH3COCH3 </li><li>Molare Masse: 58,08 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): l\u00f6slich </li><li>Schmelzpunkt: -95,4\u00b0C </li><li>Cas-Nr.: 67-41-1 </li><li>EG-Nr.: 2006622 </li><li>Lagerklasse (VCI): 3A </li><li>WGK: 1 </li></ul><p> <span style=\"color:#000000;\"><br /></span> </p><p><strong>Signalwort: Gefahr</strong><em><br /></em></p><p><em><br /></em></p><p><strong>Gefahrenhinweise:</strong></p><p> H225: Fl\u00fcssigkeit und Dampf leicht entz\u00fcndbar.<br />H319: Verursacht schwere Augenreizung.<br />H336: Kann Schl\u00e4frigkeit und Benommenheit verursachen.<br />EUH066: Wiederholter Kontakt kann zu spr\u00f6der oder rissiger Haut f\u00fchren. <br /></p><p><strong><br /></strong></p><p><strong>Shopkategorie: 2</strong></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "aceton-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5B1C-7826-3EEF-95F5-0A0C6D0CDB0E",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5B1C-7826-3EEF-95F5-0A0C6D0CDB0E/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5B1C-7826-3EEF-95F5-0A0C6D0CDB0E/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD5B1C-7826-3EEF-95F5-0A0C6D0CDB0E",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD10A1-A431-CECE-EB6A-0A0C6D120E7C",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F5B1C%2F7826%2F3EEF%2F95F5%2F0A0C%2F6D0C%2FDB0E%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "14,16 \u20ac",
+          "amount": 14.16,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "54,15 \u20ac",
+          "amount": 54.15,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDD5D8B-7C76-57D7-9AD2-0A0C6D0C98C9",
+        "mainCategoryId": null,
+        "name": "Aceton technisch",
+        "sku": "011900",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Aceton technisch - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: Dimetyhlketon, 2-Propanon </li><li>Summenformel n. Hill: C3H6O </li><li>Chem. Formel: CH3COCH3 </li><li>Molare Masse: 58,08 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): l\u00f6slich </li><li>Schmelzpunkt: -95,4\u00b0C </li><li>Cas-Nr.: 67-41-1 </li><li>EG-Nr.: 2006622 </li><li>Lagerklasse (VCI): 3A </li><li>WGK: 1 </li></ul><p> <span style=\"color:#000000;\"><br /></span> </p><p><strong>Signalwort: Gefahr</strong><em><br /></em></p><p><em><br /></em></p><p><strong>Gefahrenhinweise:</strong></p><p> H225: Fl\u00fcssigkeit und Dampf leicht entz\u00fcndbar.<br />H319: Verursacht schwere Augenreizung.<br />H336: Kann Schl\u00e4frigkeit und Benommenheit verursachen.<br />EUH066: Wiederholter Kontakt kann zu spr\u00f6der oder rissiger Haut f\u00fchren. <br /></p><p><strong><br /></strong></p><p><strong>Shopkategorie: 2</strong><br /></p><p><em><br /></em></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "aceton-technisch",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5D8B-7C76-57D7-9AD2-0A0C6D0C98C9",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5D8B-7C76-57D7-9AD2-0A0C6D0C98C9/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5D8B-7C76-57D7-9AD2-0A0C6D0C98C9/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD5D8B-7C76-57D7-9AD2-0A0C6D0C98C9",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD10A1-A431-CECE-EB6A-0A0C6D120E7C",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F5D8B%2F7C76%2F57D7%2F9AD2%2F0A0C%2F6D0C%2F98C9%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "14,16 \u20ac",
+          "amount": 14.16,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "55,34 \u20ac",
+          "amount": 55.34,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDD5E24-6D91-31BE-ACAC-0A0C6D0C989B",
+        "mainCategoryId": null,
+        "name": "Acetonitril reinst",
+        "sku": "012200",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Acetonitril reinst - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: Methylcanid, Ethannitril </li><li>Summenformel n. Hill: C\u2082H\u2083N </li><li>Chem. Formel: CH\u2083CN </li><li>Molare Masse: 41,05 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): l\u00f6slich </li><li>Schmelzpunkt: -45,7\u00b0C </li><li>Cas-Nr.:75-05-8 </li><li>EG-Nr.: 2008352 </li><li>Lagerklasse (VCI): 3A </li><li>WGK: 2 </li></ul><p><strong><br /></strong></p><p><strong>Signalwort: Gefahr</strong><em><br /></em></p><p><br /></p><p><strong>Gefahrenhinweise:</strong></p><p> H225: Fl\u00fcssigkeit und Dampf leicht entz\u00fcndbar.<br />H302 + H312 + H332: Gesundheitssch\u00e4dlich bei Verschlucken, Hautkontakt oder Einatmen.<br />H319: Verursacht schwere Augenreizung. <br /></p><p><br /></p><p> <strong>Shopkategorie: 1</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "acetonitril-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5E24-6D91-31BE-ACAC-0A0C6D0C989B",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5E24-6D91-31BE-ACAC-0A0C6D0C989B/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDD5E24-6D91-31BE-ACAC-0A0C6D0C989B/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDD5E24-6D91-31BE-ACAC-0A0C6D0C989B",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD10A1-A431-CECE-EB6A-0A0C6D120E7C",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDD%2F5E24%2F6D91%2F31BE%2FACAC%2F0A0C%2F6D0C%2F989B%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "17,26 \u20ac",
+          "amount": 17.26,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "30,35 \u20ac",
+          "amount": 30.35,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDEA10B-BC4D-7DF3-86B9-0A0C6D0C5E01",
+        "mainCategoryId": null,
+        "name": "Acetylchlorid min. 98%",
+        "sku": "12400",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Acetylchlorid min. 98% - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Synonyme: <em>Essigs\u00e4urechlorid </em></li><li>Summenformel n. Hill: <em>C\u2082H\u2083ClO </em></li><li>Chem. Formel: </li><li>Molare Masse: <em>78.49 g/mol </em></li><li>L\u00f6slichkeit in H2O (20\u00b0C): </li><li>Schmelzpunkt: <em>-112 \u00b0C </em></li><li>Cas-Nr.: <em>75-36-5 </em></li><li>EG-Nr.: <em>200-865-6 </em></li><li>Lagerklasse (VCI): <em>3 Entz\u00fcndbare Fl\u00fcssigkeiten </em></li><li>WGK: <em>WGK 1 schwach wassergef\u00e4hrdend</em> </li></ul><p><strong><br /></strong></p><p><strong>Signalwort: Gefahr</strong><em><br /></em></p><p><br /></p><p><strong>Gefahrenhinweise:</strong></p><p>H225: Fl\u00fcssigkeit und Dampf leicht entz\u00fcndbar.</p><p>H302: Gesundheitssch\u00e4dlich bei Verschlucken.</p><p>H314: Verursacht schwere Ver\u00e4tzungen der Haut und schwere Augensch\u00e4den.<br />EUH014: Reagiert heftig mit Wasser. <br /></p><p><br /></p><p> <strong>Shopkategorie: 0</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "acetylchlorid-min-98",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": {
+          "taxType": "GROSS",
+          "formatted": "18,45 \u20ac",
+          "amount": 18.45,
+          "currency": "EUR"
+        },
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDEA10B-BC4D-7DF3-86B9-0A0C6D0C5E01",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDEA10B-BC4D-7DF3-86B9-0A0C6D0C5E01/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDEA10B-BC4D-7DF3-86B9-0A0C6D0C5E01/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDEA10B-BC4D-7DF3-86B9-0A0C6D0C5E01",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD10A1-A431-CECE-EB6A-0A0C6D120E7C",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDE%2FA10B%2FBC4D%2F7DF3%2F86B9%2F0A0C%2F6D0C%2F5E01%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": null,
+        "lowestRefPriceFormatted": null,
+        "highestPrice": null,
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "633FFFAD-2898-DE1D-5795-0A0C6D1203ED",
+        "mainCategoryId": null,
+        "name": "Mangan(II)-acetat-Tetrahydrat reinst",
+        "sku": "73400",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Mangan(II)-acetat-Tetrahydrat reinst - LabChem R\u00f6ttinger",
+        "description": "<p><br /></p><li>Synonyme: <span>Mangan(II)-acetat</span>, <span>Mangandiacetat</span> </li><li>Summenformel n. Hill: C4H6MnO4 x 4H2O </li><li>Chem. Formel: Mn(CH3COO)2 x 4H2O<br /></li><li>Molare Masse: 173,03 g/mol </li><li>Dichte (20\u00b0C): 1,59g/cm3 </li><li>L\u00f6slichkeit in H2O (20\u00b0C): l\u00f6slich<br /></li><li>Schmelzpunkt: 80\u00b0C </li><li>CAS-Nr.: 6156-78-1 </li><li>EG-Nr.: 211-334-3 </li><li>Lagerklasse (VCI): 10-13 <em><br /></em></li><li>WGK: 1 <br /></li><p><br /></p><p> <strong><span style=\"color:#000000;\">Signalwort: Achtung</span></strong> </p><p><br /></p><p><strong>Gefahrenhinweise:</strong></p><p> H315: Verursacht Hautreizungen.<br />H319: Verursacht schwere Augenreizung. </p><p>H335: Kann die Atemwege reizen.</p><p><br /></p><p><strong>Shopkaterogie: 0</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "mangan-ii-acetat-tetrahydrat-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/633FFFAD-2898-DE1D-5795-0A0C6D1203ED",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/633FFFAD-2898-DE1D-5795-0A0C6D1203ED/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/633FFFAD-2898-DE1D-5795-0A0C6D1203ED/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=633FFFAD-2898-DE1D-5795-0A0C6D1203ED",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F633F%2FFFAD%2F2898%2FDE1D%2F5795%2F0A0C%2F6D12%2F03ED%2FGHS07.jpg&shop=87762263",
+          "width": 1080,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "17,95 \u20ac",
+          "amount": 17.95,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "50,95 \u20ac",
+          "amount": 50.95,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5ECA938E-FE9D-2038-EAE8-0A0C6D12CE12",
+        "mainCategoryId": null,
+        "name": "Kupfer(II)-acetat-Monohydrat reinst",
+        "sku": "66200",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Kupfer(II)-acetat-Monohydrat reinst - LabChem R\u00f6ttinger",
+        "description": "<p><br /></p><li>Synonyme: Gr\u00fcnspan<strong> </strong> <span>Kupferdiacetat</span> </li><li>Summenformel n. Hill: C\u2084H\u2086CuO\u2084 * H\u2082O </li><li>Chem. Formel: (CH\u2083COO)\u2082Cu * H\u2082O </li><li>Molare Masse: 199.65 g/mol </li><li>Dichte (20\u00b0C): 1,88 g/cm3<strong> </strong></li><li>L\u00f6slichkeit in H2O (20\u00b0C):<strong> </strong>72 g/l </li><li>Schmelzpunkt:<strong> </strong>115 \u00b0C </li><li>CAS-Nr.:<strong> </strong>6046-93-1 </li><li>EG-Nr.: 205-553-3 </li><li>Lagerklasse (VCI): 10-13</li><li>WGK: WGK 3 stark wassergef\u00e4hrdend<strong> </strong></li><p> <strong><span style=\"color:#000000;\"><br /></span></strong></p><p><strong><span style=\"color:#000000;\">Signalwort: Gefahr</span></strong> </p><p><br /></p><p><strong>Gefahrenhinweise:</strong></p><p>H302: Gesundheitssch\u00e4dlich bei Verschlucken.<br />H314: Verursacht schwere Ver\u00e4tzungen der Haut und schwere Augensch\u00e4den.<br />H410: Sehr giftig f\u00fcr Wasserorganismen, mit langfristiger Wirkung. <br /></p><p><br /></p><p> <strong>Shopkaterogie: 0</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "kupfer-ii-acetat-monohydrat-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5ECA938E-FE9D-2038-EAE8-0A0C6D12CE12",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5ECA938E-FE9D-2038-EAE8-0A0C6D12CE12/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5ECA938E-FE9D-2038-EAE8-0A0C6D12CE12/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5ECA938E-FE9D-2038-EAE8-0A0C6D12CE12",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5ECA%2F938E%2FFE9D%2F2038%2FEAE8%2F0A0C%2F6D12%2FCE12%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "14,95 \u20ac",
+          "amount": 14.95,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "39,95 \u20ac",
+          "amount": 39.95,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDFD065-7A2B-79A0-9129-0A0C6D0C4D21",
+        "mainCategoryId": null,
+        "name": "Ammoniumacetat zur Analyse",
+        "sku": "17600",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Ammoniumacetat zur Analyse - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Summenformel n. Hill: C2H7NO2 </li><li>Molare Masse: 77,08 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): 1480 g/l </li><li>Schmelzpunkt: 114\u00b0C </li><li>Cas-Nr.: 631-61-8 </li><li>EG-Nr.: 21111629 </li><li>Lagerklasse (VCI): 10-13 </li><li>WGK: 1 </li></ul><p><em><br /></em> </p><p> <strong>Shopkaterogie: 0</strong> </p><p> <br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "ammoniumacetat-zur-analyse",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD065-7A2B-79A0-9129-0A0C6D0C4D21",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD065-7A2B-79A0-9129-0A0C6D0C4D21/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD065-7A2B-79A0-9129-0A0C6D0C4D21/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDFD065-7A2B-79A0-9129-0A0C6D0C4D21",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDF%2FD065%2F7A2B%2F79A0%2F9129%2F0A0C%2F6D0C%2F4D21%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "20,83 \u20ac",
+          "amount": 20.83,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "30,35 \u20ac",
+          "amount": 30.35,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DDFD0CD-3097-8545-A107-0A0C6D0C4D2A",
+        "mainCategoryId": null,
+        "name": "Ammoniumacetat reinst",
+        "sku": "17700",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Ammoniumacetat reinst - LabChem R\u00f6ttinger",
+        "description": "<p> <br /></p><ul><li>Summenformel n. Hill: C2H7NO2 </li><li>Molare Masse: 77,08 g/mol </li><li>L\u00f6slichkeit in H2O (20\u00b0C): 1480 g/l </li><li>Schmelzpunkt: 114\u00b0C </li><li>Cas-Nr.: 631-61-8 </li><li>EG-Nr.: 21111629 </li><li>Lagerklasse (VCI): 10-13 </li><li>WGK: 1 </li></ul><p><em><br /></em> </p><p> <strong>Shopkaterogie: 0</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "ammoniumacetat-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD0CD-3097-8545-A107-0A0C6D0C4D2A",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD0CD-3097-8545-A107-0A0C6D0C4D2A/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DDFD0CD-3097-8545-A107-0A0C6D0C4D2A/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DDFD0CD-3097-8545-A107-0A0C6D0C4D2A",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DDF%2FD0CD%2F3097%2F8545%2FA107%2F0A0C%2F6D0C%2F4D2A%2FSymbolbild_Chemikalien.jpeg&shop=87762263",
+          "width": 907,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "6,55 \u20ac",
+          "amount": 6.55,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "74,38 \u20ac",
+          "amount": 74.38,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      },
+      {
+        "productId": "5DE14B50-BDC5-CEA7-FB02-0A0C6D0C75E4",
+        "mainCategoryId": null,
+        "name": "Bariumacetat reinst",
+        "sku": "23700",
+        "isProductNumberVisible": true,
+        "isShippingLinkVisible": true,
+        "title": "Bariumacetat reinst - LabChem R\u00f6ttinger",
+        "description": "<p><br /></p><p><br /></p><li>Synonyme: <span style=\"color:#000000;\">Bariumethanoat</span> </li><li>Summenformel n. Hill: C4H6BaO4 </li><li>Chem. Formel: Ba(CH3COO)2 </li><li>Molare Masse: 255,43 g/mol </li><li>Dichte (20\u00b0C): ~2,47 g/cm3 </li><li>L\u00f6slichkeit in H2O (20\u00b0C): 720 g/l </li><li>Schmelzpunkt: ~450\u00b0C </li><li>CAS-Nr.: 543-80-6 </li><li>EG-Nr.: 208-849-0 </li><li>Lagerklasse (VCI): 10-13 </li><li>WGK: 1 </li><p><br /></p><p> <strong><span style=\"color:#000000;\">Signalwort: Achtung</span></strong> </p><p><br /></p><p><strong>Gefahrenhinweise:</strong></p><p> H302 + H332: Gesundheitssch\u00e4dlich bei Verschlucken oder Einatmen. <br /></p><p><br /></p><p> <strong>Shopkaterogie: 0</strong> </p><p><br /></p>",
+        "metaDescription": "",
+        "additionalDescriptions": [],
+        "slug": "bariumacetat-reinst",
+        "deliveryPeriod": "",
+        "deliveryPeriodUnit": null,
+        "isVisible": true,
+        "weight": null,
+        "deposit": null,
+        "price": null,
+        "basePrice": null,
+        "strikePrice": null,
+        "isStrikePriceRRP": false,
+        "manufacturer": null,
+        "bulkPrices": null,
+        "gtin": null,
+        "energyLabel": null,
+        "energyLabelSourceFile": null,
+        "productDataSheet": null,
+        "labels": [],
+        "availabilityText": "",
+        "available": false,
+        "hasStockLevel": false,
+        "onStock": false,
+        "warnStock": false,
+        "outOfStock": false,
+        "stockLevelClass": null,
+        "stockLevelMicrodata": null,
+        "conditionMicrodata": "NewCondition",
+        "shippingMethodsRestrictedTo": null,
+        "hasVariations": true,
+        "isVariationMaster": true,
+        "isVariationProduct": false,
+        "productVariationSelection": null,
+        "productVariationValues": "",
+        "variations": null,
+        "variationMaster": {
+          "name": null,
+          "productId": null,
+          "slug": ""
+        },
+        "customizableProductInfo": null,
+        "orderUnitInfo": {
+          "orderUnit": "piece",
+          "orderUnitShort": "St\u00fcck",
+          "priceQuantity": 1,
+          "minOrder": 1,
+          "intervalOrder": 1
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DE14B50-BDC5-CEA7-FB02-0A0C6D0C75E4",
+            "title": ""
+          },
+          {
+            "rel": "variations",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DE14B50-BDC5-CEA7-FB02-0A0C6D0C75E4/variations",
+            "title": ""
+          },
+          {
+            "rel": "lowest-price",
+            "href": "https://www.labchem.de/rs/shops/87762263/products/5DE14B50-BDC5-CEA7-FB02-0A0C6D0C75E4/lowest-price",
+            "title": ""
+          },
+          {
+            "rel": "categories",
+            "href": "https://www.labchem.de/rs/shops/87762263/categories/?productId=5DE14B50-BDC5-CEA7-FB02-0A0C6D0C75E4",
+            "title": ""
+          },
+          {
+            "rel": "producttype",
+            "href": "https://www.labchem.de/rs/shops/87762263/producttypes/5DDD31AF-E7BA-5733-A34B-0A0C6D12F006",
+            "title": ""
+          }
+        ],
+        "image": {
+          "url": "/storage/images/image?remote=https%3A%2F%2Fwww.labchem.de%2FWebRoot%2FStore31%2FShops%2F87762263%2F5DE1%2F4B50%2FBDC5%2FCEA7%2FFB02%2F0A0C%2F6D0C%2F75E4%2FGHS07.jpg&shop=87762263",
+          "width": 1080,
+          "height": 1080,
+          "isZoomEnabled": false
+        },
+        "slideshow": [],
+        "customAttributes": [],
+        "lowestPrice": {
+          "taxType": "GROSS",
+          "formatted": "14,22 \u20ac",
+          "amount": 14.22,
+          "currency": "EUR"
+        },
+        "lowestRefPriceFormatted": null,
+        "highestPrice": {
+          "taxType": "GROSS",
+          "formatted": "27,97 \u20ac",
+          "amount": 27.97,
+          "currency": "EUR"
+        },
+        "vatNote": "",
+        "showVatNote": true,
+        "hasCrossSelling": false,
+        "isInWishlist": false,
+        "gpsrInfo": {
+          "responsiblePersonAddress": null,
+          "manufacturerAddress": null,
+          "safetyStatements": [],
+          "pictograms": [],
+          "relevantDocuments": [],
+          "supplemetaryInformation": null
+        }
+      }
+    ],
+    "totalNumberOfProducts": 23
+  }
+}

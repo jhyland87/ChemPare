@@ -2,19 +2,80 @@
 
 from dataclasses import dataclass
 
+from chempare.datatypes import DecimalLikeType
+
 
 @dataclass(init=False, match_args=True, kw_only=True)
 class VariantType:
-    """Custom data class for product variants"""
+    """
+    VariantType dataclass for product variants.
 
-    uuid: str | int | None = None
-    """Unique identifier used by supplier"""
+    This contains some of the same attributes as the ProductType datatype.
 
-    title: str | None = None
+    :param title: The title of the variant
+    :type title: str
+    :param price: The actual price of the variant
+    :type price: DecimalLikeType
+    :param currency:  The currency symbol (eg: $)
+    :type currency: str
+    :param currency_code: The currency the price is in (USD, EUR, etc)
+    :type currency_code: str
+    :param quantity: The quantity the variant has
+    :type quantity: DecimalLikeType
+    :param uom: Unit of measurement the quantity represents
+    :type uom: str
+    :param url: URL for variant web page
+    :type url: str
+    :param usd: If currency_code is not usd, then this should be the USD conversion value, defaults to None
+    :type usd: DecimalLikeType | None, optional
+    :param name: The name of the product, defaults to None
+    :type name: str | None, optional
+    :param description: Descriptor for product, defaults to None
+    :type description: str | None, optional
+    :param container: Container it's stored/shipped in, defaults to None
+    :type container: str | None, optional
+    :param uuid: Unique ID the product may have for supplier, defaults to None
+    :type uuid: str | None, optional
+    :param mpn: Manufacturer Part Number of variant, defaults to None
+    :type mpn: str | None, optional
+    :param sku: Stock Keeping Unit of variant, defaults to None
+    :type sku: str | None, optional
+    :param upc: Universal Product Code of variant, defaults to None
+    :type upc: str | None, optional
+    :param is_restricted: Is this specific product restricted or not, defaults to None
+    :type is_restricted: bool | None, optional
+    :param restriction: If is_restricted is True, details go here, defaults to None
+    :type restriction: str | None, optional
+    :param residential: Indicates if this product can ship to residential addresses, defaults to None
+    :type residential: bool | None, optional
+    :param individual: Indicates if this product can ship to private individuals, defaults to None
+    :type individual: str | None, optional
+    """
+
+    title: str
     """Title of the product"""
 
-    name: str | None = None
-    """Product name (sometimes different than title)"""
+    # price: PriceType | None = None
+    price: DecimalLikeType
+    """Price of product"""
+
+    currency: str
+    """Currency the price is in"""
+
+    currency_code: str
+    """The currency code, if one can be determined from the currency symbol"""
+
+    quantity: DecimalLikeType
+    """Quantity of listing"""
+
+    uom: str
+    """Unit of measurement for quantity"""
+
+    url: str | None = None
+    """URL to direcet product (if availabe, will default to product pages url)"""
+
+    usd: DecimalLikeType | None = None
+    """USD equivelant price (if price currency is not USD)"""
 
     description: str | None = None
     """Product description"""
@@ -22,23 +83,8 @@ class VariantType:
     container: str | None = None
     """Container type of the product"""
 
-    url: str | None = None
-    """URL to direcet product (if availabe)"""
-
-    price: float | None = None
-    """Price of product"""
-
-    currency: str | None = None
-    """Currency the price is in"""
-
-    currency_code: str | None = None
-    """The currency code, if one can be determined from the currency symbol"""
-
-    quantity: float | None = None
-    """Quantity of listing"""
-
-    uom: str | None = None
-    """Unit of measurement for quantity"""
+    uuid: str | int | None = None
+    """Unique identifier used by supplier"""
 
     mpn: str | None = None
     """Manufacturer part number"""
@@ -62,50 +108,28 @@ class VariantType:
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
 
-    # def __init__(self, **kwargs):
-    #     super().__init__(kwargs)
-    #     self.update(kwargs)
+    _name: str | None = None
+    """Unique name, if different than title"""
 
-    # def __hash__(self):
-    #     return hash((self.__id, self.name))
+    @property
+    def name(self) -> str | None:
+        """
+        Return the variants name if it is different than title. Sometimes products are
+        listed with a name and a title, one is usually more viewer friendly than the
+        other.
 
-    # def __eq__(self, other):
-    #     return (
-    #         isinstance(VariantType, other) is True
-    #         and self.__hash__() == other.__hash__()
-    #     )
+        Returns:
+            str | None: The name of the product. Will return the title value if no
+                        product name was set.
+        """
+        return self._name or self.title
 
-    # def __str__(self):
-    #     return f"({self.__id}, {self.name})"
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Setter for the product name property.
 
-    # def __repr__(self):
-    #     return f"VariantType(_id='{self._id}', name={self.name})"
-
-    # def set_id(self, id):
-    #     self.__id = id
-
-    # def __iter__(self):
-    #     """Used when dict(variant) is called. This will exclude empty values
-    #     and private properties.
-    #     """
-    #     for key, val in self.__dict__.items():
-    #         if val is not None and not key.startswith("_"):
-    #             yield (key, val)
-
-    # def items(self) -> list:
-    #     """Get Variant dictionary items in list format"""
-    #     # return self.__dict__.items()
-    #     return dict(self).items()
-
-    # def update(self, data: dict) -> None:
-    #     """Update the ProductType instance
-
-    #     Args:
-    #         data (dict): Dictionary to merge into current dictioary
-    #     """
-    #     if data:
-    #         self.__dict__.update(data)
-
-    # def set(self, key, value) -> None:
-    #     """Set a local attribute for this product variant"""
-    #     setattr(self, key, value)
+        Args:
+            name (str): Name of the product.
+        """
+        self._name = name

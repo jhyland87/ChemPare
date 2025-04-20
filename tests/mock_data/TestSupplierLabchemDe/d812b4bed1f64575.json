@@ -1,0 +1,40 @@
+{
+  "created_at": "2025-04-20T22:10:34.884261+00:00",
+  "elapsed": 1.316352,
+  "encoding": "utf-8",
+  "headers": {
+    "Cache-Control": "no-store",
+    "Connection": "Keep-Alive",
+    "Content-Length": "53",
+    "Content-Type": "application/json; charset=utf-8",
+    "Date": "Sun, 20 Apr 2025 22:10:34 GMT",
+    "ETag": "W/\"35-kO3Kot/0oUY8P/CvVZKdb3KE49w\"",
+    "Keep-Alive": "timeout=2, max=100",
+    "Server": "Apache",
+    "Vary": "User-Agent",
+    "X-B3-TraceId": "aAVw2gQqRNAnpHuBdm3ZMAAAAIE",
+    "X-epages-RequestId": "aAVw2gQqRNAnpHuBdm3ZMAAAAIE",
+    "X-epages-ui-version": "v3.27.1"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "dm?6OY;<LEb0Rt*TU{(5B5`$Pa(N;;AR=^VX>(t5Xm53FWM6J?bYEq7X>)WUEFdCtZ*p`ZIv^r)Wo%`3VQyn(B7F",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Content-Length": "70",
+      "Content-Type": "application/json",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "POST",
+    "url": "https://www.labchem.de/api/v2/search?locale=de_DE&page=1&resultsPerPage=12&shop=87762263"
+  },
+  "status_code": 200,
+  "url": "https://www.labchem.de/api/v2/search?locale=de_DE&page=1&resultsPerPage=12&shop=87762263",
+  "_decoded_content": {
+    "facets": {},
+    "products": [],
+    "totalNumberOfProducts": 0
+  }
+}

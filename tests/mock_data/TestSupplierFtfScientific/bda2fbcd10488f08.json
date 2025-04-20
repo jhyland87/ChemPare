@@ -1,6 +1,6 @@
 {
-  "created_at": "2025-04-19T20:18:52.357249+00:00",
-  "elapsed": 0.208195,
+  "created_at": "2025-04-20T21:08:50.889322+00:00",
+  "elapsed": 0.292082,
   "encoding": "utf-8",
   "headers": {
     "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
@@ -8,16 +8,16 @@
     "accept-ranges": "bytes",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "Sat, 19 Apr 2025 20:18:52 GMT",
+    "date": "Sun, 20 Apr 2025 21:08:50 GMT",
     "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,dwc60INy8NFddnU/0WdlOB9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLttHZsgmgXllKjt6K5rPS3gm++C2XkuTvnlRFg2XiSDL,qYxvFa0bBL43z6b6TutC4RJ0YP2m4T/zkk4XV43tW9oOIv81siZFFg8Zg0+ti17jlRc+qtABsJplJXE/YFaIpA==,R8nVwPJv9QJL1m78OROO+CRn6qICGwWfp3GqOGds7es=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIys6dC2r4PF8p8yTRb2hMkFUqiF5x8M68v30btTqxOKWhaT05Y5datH8fM7hzyztCME=,fGftfgZfl2Z7hFMKfqF01GUzurYPGLO8evLMxNQ4D13srNkBLvWa8+dHO/OtCqLBBPWNCcoED9lcDC1ayG5km42gTIySnJUa3HwdMyA15AA=,056Ktf5eQEZQsH6m6bpgrSEsk8W/YOcai5XwfJCrf+BEQfi00LSS7LJu7sdkoLsDL6T6071XL76vk24x4UlJ7g==,056Ktf5eQEZQsH6m6bpgrTDJ7GeXGZQV6uB1Q3t/VuBEQfi00LSS7LJu7sdkoLsDkTjxzyHIR3UDkVYuHIa9vQ==,//VbsS0LoZbpJpx5iMSc6G4ZxcRnSeIM0jr0r70QBlIpLpcrKiot2QDTFQEHGmmZW1rC4OrWpk8Krc9uUh6mWQ==,//VbsS0LoZbpJpx5iMSc6MbQTq3KqbXLhMqioxfG8AMeP97pejcHcGZCQdLzgo3IVWtO5SXohXywo1U/ZZDqVw==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA3Lr07qspSAu2E2FCV3mSTmBOaC5BgEcTkRFBO0yLgAQKh2NK0WCv0/dK3QAdF5YVo=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVSoz6tElvzguVeBVMDTgw5kXvbqqEvj0+paytuScju0RQ==",
-    "x-served-by": "cache-lax-kwhp1940084-LAX",
-    "x-wix-request-id": "1745093932.2018096877691823086",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,9WD8GAcpJgs/Ng1WkD2i0h9slopJdhD+WySraMrpIY8=,dwc60INy8NFddnU/0WdlOB9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLrS/q53T25jsaPnfPkSVOt8m++C2XkuTvnlRFg2XiSDL,qYxvFa0bBL43z6b6TutC4RJ0YP2m4T/zkk4XV43tW9oOIv81siZFFg8Zg0+ti17jlRc+qtABsJplJXE/YFaIpA==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,lwfQR1nWu7VN7IN/08Qb7g7fpgT0fkbu473fLCMaIyvqT5yGGR0r4KZVL0z7EmpdqiF5x8M68v30btTqxOKWhSqcUZ8X2HINnXnKxjfUvTg=,fGftfgZfl2Z7hFMKfqF01GUzurYPGLO8evLMxNQ4D12XWvSfA6ixEaxDQF/ywcGHCCG22tSG9CEeHlS04MuU0otVILhK+PONGuuu6UZdWe0=,056Ktf5eQEZQsH6m6bpgrSoxGJZuvD9T1zKNdyhhJlpEQfi00LSS7LJu7sdkoLsDtIrLAkOulIK4ZjvRcaJYxw==,//VbsS0LoZbpJpx5iMSc6JwGChwGX+y5G+udty4Y3wAz2yKvRvpJug5ZYNtj3fmNbjA53yjQiYS+UGYnJ6qHOQ==,056Ktf5eQEZQsH6m6bpgrbTeW7fDsG/gUKCV6ecOSolEQfi00LSS7LJu7sdkoLsD6wSnoKBT4a1GvG59H7wHNw==,//VbsS0LoZbpJpx5iMSc6M86LNnWLJO19kVrffL7nZFWIBlUM0AmGsa7JQ9OSdxRE1HRuZlRMB7u5s4mQ/yM8Q==,lwfQR1nWu7VN7IN/08Qb7rIP1T1T8oEBRKTHyd9OFA0NaWm9zVfKjdqdyM6mjtP5/82a32Ge/Fnv43diwjn+qAN0pGE0zdbXjCFcMzd8ugo=,yPWiYlqMA151T5dnf7/opOaLkFfp0guaVXdkvKgIGVSgoCfRGdYldJ4q/YQzuKkVnaG6kgxlMevXmcbYM8Q5ZFiB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-lax-kwhp1940109-LAX",
+    "x-wix-request-id": "1745183330.83985412954012364066",
     "x-wix-responded-by": "wix.search.v1.sitedocument:Search:com.wixpress.search.search-services-sitesearch-server"
   },
   "reason": "OK",
@@ -25,19 +25,23 @@
     "body": "dm?0SV|8t1Zgf<6aAhJoAR=&eVr*$+FLQKna%FQbaB^>Cbz^jMA}k;xW?^GxbaNs)AbTQXY+-eCWpg4rAX|GPVP|J@WoKb@X>V>KIv{%@ZeeX@B03-<WNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=LBXL4m{VRUJ4ZX!A$B27t7B7J=<AbTQVXJ>L{XJK?{Z*C$wAbTQiVQpn1Iv^rsX>((5b#8QJWKeQxV`WZtZDn$4V<IddB4KA|a%E>>bZKvHB03-<O+i>9eSIt-dm?mYa&00yAbTQiVQpn1Iv^rrZ)|L3V{~b6ZgV0mAR=sOZE18OIv_bYIemRyeJmg%W@%+?WOE`qAX_47WFjmeB6MkVY-J)WAR=UCb7OL8aCB*JZXzroB4c%Oa%FB~c_J(zB4lZEV{dhCbY)~va%p2_A}k;xWNC9_Z*^{TWn@rtX=7zhb!}yGX=5TRAR=jQQ*>`*Ya%QlB6DkXA}k;xX>Mk3Q)OdxX>V?GA}k;xV{dG1Wn*+{Z*FrUEFdCpZc|}wWg=ZHAR=aUdU|;xIv{j%b!99dB57`8Y;|O1Q)O>RX=G$&ZX!A$W?^h|Wh@{fY+-I^bzx^^B03-<Wo{xYAR=#aWMy(`Zf7DoAbTQja%5$4X>MmCIv`tJeJmg%aA9X@Zf7DoAbTQnYiV#IIv_ACAR=sOZE18OIv_DJeJmg%aB^>OWpZ?BWpg4rAX{B5AR=*fWpa5UIv^rpV`*d}eE",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "XSRF-TOKEN": "1745093932|aXpOjdBZ5wTr",
-      "hs": "889782807",
-      "svSession": "f5e227df1a274e3e2393fa98e2fee243322378709c5224a65f7130e572f14a721e34ed3f35dbed0016f70f5e880670ad1e60994d53964e647acf431e4f798bcdcc632443f7e54f367943440249c35133737fb61d25462280452eef0258a772f0debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
+      "client-session-bind": "8ed54b8d-121d-42f0-80a7-5f0dcd8db8de",
+      "server-session-bind": "8ed54b8d-121d-42f0-80a7-5f0dcd8db8de",
+      "XSRF-TOKEN": "1745183330|vDrQ-ti4hyDd",
+      "hs": "204441161",
+      "svSession": "34d566a0c3e0748b4c4936a55d41481224137ae6aa852e66f36869e6359ebebccf5df515428b4b4ec70ea2b6023384211e60994d53964e647acf431e4f798bcdf6c7c0ce140a93b77d02a0644a84839cfd2363321d6b8503ccfc4057d75184b6debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
       "Connection": "keep-alive",
       "Content-Length": "585",
       "Content-Type": "application/json",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; XSRF-TOKEN=1745093932|aXpOjdBZ5wTr; hs=889782807; svSession=f5e227df1a274e3e2393fa98e2fee243322378709c5224a65f7130e572f14a721e34ed3f35dbed0016f70f5e880670ad1e60994d53964e647acf431e4f798bcdcc632443f7e54f367943440249c35133737fb61d25462280452eef0258a772f0debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=8ed54b8d-121d-42f0-80a7-5f0dcd8db8de; server-session-bind=8ed54b8d-121d-42f0-80a7-5f0dcd8db8de; XSRF-TOKEN=1745183330|vDrQ-ti4hyDd; hs=204441161; svSession=34d566a0c3e0748b4c4936a55d41481224137ae6aa852e66f36869e6359ebebccf5df515428b4b4ec70ea2b6023384211e60994d53964e647acf431e4f798bcdf6c7c0ce140a93b77d02a0644a84839cfd2363321d6b8503ccfc4057d75184b6debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=8ed54b8d-121d-42f0-80a7-5f0dcd8db8de; XSRF-TOKEN=1745183330|vDrQ-ti4hyDd",
       "User-Agent": "python-requests/2.32.3",
-      "authorization": "6mqvc_elugiP75k7PcKQtyDAY5zAxnS8XxjXHJ0kyuM.eyJpbnN0YW5jZUlkIjoiNmEwMmJiN2MtNjMwNi00MTI1LTk4YzItYWIxMDE2OGRhNGM5IiwiYXBwRGVmSWQiOiIxNDg0Y2I0NC00OWNkLTViMzktOTY4MS03NTE4OGFiNDI5ZGUiLCJtZXRhU2l0ZUlkIjoiYjM0MjJhNzItNzJjNC00ZmIxLWJlYzctMzEyYjNlZmJlMmI4Iiwic2lnbkRhdGUiOiIyMDI1LTA0LTE5VDIwOjE4OjUyLjA4N1oiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjhjYjQ5YTg2LWZhMTEtNGUwNC1iNTQwLWMyYjZlZWZiNzdiMSIsImJpVG9rZW4iOiJkOTQwOTEwZS0xMWMyLTBlOTQtMjYwNS05YTNiMjg3NjQ2NzEiLCJzaXRlT3duZXJJZCI6ImI0NGE1YzhjLWIyZTQtNGVkYy1iNmI3LWQ4Yzk0N2FlNTIyYyIsInNjZCI6IjIwMjEtMTAtMDdUMDE6NTc6MTQuMTUxWiJ9"
+      "XSRF-TOKEN": "1745183330|vDrQ-ti4hyDd",
+      "client-binding": "8ed54b8d-121d-42f0-80a7-5f0dcd8db8de"
     },
     "method": "POST",
     "url": "https://www.ftfscientific.com/_api/search-services-sitesearch/v1/search"
@@ -47,7 +51,7 @@
   "_decoded_content": {
     "documents": [
       {
-        "_score": 327.01984,
+        "_score": 326.9631,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.086Z",
         "sku": null,
@@ -80,7 +84,7 @@
         "title": "Periodic Acid"
       },
       {
-        "_score": 303.22797,
+        "_score": 303.1667,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.688Z",
         "sku": null,
@@ -113,7 +117,7 @@
         "title": "D-(-)- Tartaric Acid"
       },
       {
-        "_score": 286.3501,
+        "_score": 286.28635,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.688Z",
         "sku": null,
@@ -146,7 +150,7 @@
         "title": "Nitric Acid ACS Reagent"
       },
       {
-        "_score": 283.78564,
+        "_score": 283.7219,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.775Z",
         "sku": null,
@@ -179,7 +183,7 @@
         "title": "Glacial Acetic Acid ACS"
       },
       {
-        "_score": 283.304,
+        "_score": 283.24023,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.221Z",
         "sku": null,
@@ -212,7 +216,7 @@
         "title": "Hydrobromic Acid 48% ACS"
       },
       {
-        "_score": 279.04465,
+        "_score": 278.9879,
         "inStock": true,
         "_updated": "2025-04-13T17:07:15.446Z",
         "sku": null,
@@ -245,7 +249,7 @@
         "title": "Trifluoroacetic acid"
       },
       {
-        "_score": 279.04465,
+        "_score": 278.9879,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.269Z",
         "sku": null,
@@ -278,7 +282,7 @@
         "title": "Dichloroacetic acid"
       },
       {
-        "_score": 279.04465,
+        "_score": 278.9879,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.269Z",
         "sku": null,
@@ -311,7 +315,7 @@
         "title": "Oxalic acid"
       },
       {
-        "_score": 279.04465,
+        "_score": 278.9879,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.692Z",
         "sku": null,
@@ -344,7 +348,7 @@
         "title": "Trichloroacetic acid"
       },
       {
-        "_score": 279.04465,
+        "_score": 278.9879,
         "inStock": true,
         "_updated": "2025-04-13T17:07:29.775Z",
         "sku": null,
@@ -377,7 +381,7 @@
         "title": "Malonic acid"
       },
       {
-        "_score": 266.41748,
+        "_score": 266.35257,
         "inStock": true,
         "_updated": "2025-04-13T17:07:16.306Z",
         "sku": null,
@@ -410,7 +414,7 @@
         "title": "Hydrochloric acid 37% ACS grade"
       },
       {
-        "_score": 238.52777,
+        "_score": 238.46402,
         "inStock": true,
         "_updated": "2025-04-13T17:07:28.310Z",
         "sku": null,
