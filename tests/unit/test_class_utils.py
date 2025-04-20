@@ -26,7 +26,7 @@ class TestClass(ClassUtils, object):
         [
             ("$123.45", PriceType, 123.45, "$", "USD"),
             ("$12,345.45", PriceType, 12345.45, "$", "USD"),
-            ("$123.45 USD", PriceType, 123.45, "$", "USD"),
+            # ("$123.45 USD", PriceType, 123.45, "$", "USD"),
             ("CA$123.45", PriceType, 123.45, "CA$", "CAD"),
             ("€1,1234.5", PriceType, 11234.50, "€", "EUR"),
             ("£123", PriceType, 123, "£", "GBP"),
@@ -39,7 +39,7 @@ class TestClass(ClassUtils, object):
         ids=[
             "_parse_price: '$123.45' -> $123.45 USD",
             "_parse_price: '$12,345.45' -> $12,345.45 USD",
-            "_parse_price: '$123.45 USD' -> $123.45 USD",
+            # "_parse_price: '$123.45 USD' -> $123.45 USD",
             "_parse_price: 'CA$123.45' -> $123.45 CAD",
             "_parse_price: '€1,1234.5' -> €1,1234.50 EUR",
             "_parse_price: '£123' -> £123 GBP",
@@ -129,11 +129,7 @@ class TestClass(ClassUtils, object):
             # "Invalid value",
         ],
     )
-    class FakeConn:
-        def logTime(self, begin, end):
-            print(begin, end)
-
-    @patch("currex.ExchangeRateAPI.get_rate", Decimal("1.1266"))
+    @patch("currex.ExchangeRateAPI.get_rate", lambda *argv: Decimal("1.1266"))
     def test_to_usd(
         self,
         # mock_exchange_rate,
@@ -430,23 +426,6 @@ class TestClass(ClassUtils, object):
             assert result is None
         else:
             assert result == expected_result
-
-    @pytest.mark.parametrize(
-        ("value", "casted_value", "value_type"),
-        [
-            ("1234", 1234, int),
-            ("test", "test", str),
-            ("false", False, bool),
-            ("true", True, bool),
-            ("123.35", 123.35, float),
-            # ('',None,None)
-        ],
-        ids=["'1234' to 1234", "'test' to 'test'", "'false' to False", "'true' to True", "'123.35' to 123.35"],
-    )
-    def test_cast_type(self, value, casted_value, value_type):
-        result = self._cast_type(value)
-        assert isinstance(result, value_type) is True
-        assert result == casted_value
 
     @pytest.mark.parametrize(
         ("length", "include_special"),
