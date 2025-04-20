@@ -154,7 +154,6 @@ class TestSupplierLaballey(BaseTestClass):
     negative_query = "this_should_not_exist"
 
 
-@pytest.mark.skip(reason="Under development")
 class TestSupplierLabchem(BaseTestClass):
     results = {}
     supplier = "supplier_lachem"
