@@ -60,7 +60,7 @@ test = [
     "isort"
     #"coverage",
 ]
-dev = ["pycodestyle==2.4.0"]
+dev = ["pycodestyle==2.4.0", "sphinx"]
 api = ["uvicorn","fastapi"]
 
 [project.readme]
