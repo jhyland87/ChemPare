@@ -60,7 +60,7 @@ test = [
     "isort"
     #"coverage",
 ]
-dev = ["pycodestyle==2.4.0"]
+dev = ["pycodestyle==2.4.0", "sphinx"]
 api = ["uvicorn","fastapi"]
 
 [project.readme]
@@ -171,7 +171,7 @@ line_length = 120
 split_on_trailing_comma = true
 lines_after_imports = 2
 force_single_line = true
-skip_glob = ["docs/*", "setup.py"]
+skip_glob = ["docs/*", "setup.py", "datatypes/__init__.py"]
 filter_files = true
 
 [tool.ruff]

@@ -1,0 +1,46 @@
+{
+  "created_at": "2025-04-20T21:39:30.328965+00:00",
+  "elapsed": 0.801375,
+  "encoding": "utf-8",
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "9337cb6ebf0f525d-LAX",
+    "Cf-Cache-Status": "DYNAMIC",
+    "Connection": "keep-alive",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json",
+    "Date": "Sun, 20 Apr 2025 21:39:30 GMT",
+    "Server": "cloudflare",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "Transfer-Encoding": "chunked",
+    "Vary": "origin,access-control-request-method,access-control-request-headers",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "XSRF-TOKEN": "1745185169|2yaAhHY4vWbk"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "GET",
+    "url": "https://hexarate.paikama.co/api/rates/latest/AUD?target=USD"
+  },
+  "status_code": 200,
+  "url": "https://hexarate.paikama.co/api/rates/latest/AUD?target=USD",
+  "_decoded_content": {
+    "status_code": 200,
+    "data": {
+      "base": "AUD",
+      "target": "USD",
+      "mid": 0.6376,
+      "unit": 1,
+      "timestamp": "2025-04-20T00:00:32.948Z"
+    }
+  }
+}

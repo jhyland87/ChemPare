@@ -17,14 +17,10 @@ class SupplierEsDrei(SupplierBase):
     )
     """Supplier specific data"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
-        Args:
-            query (str): Query string to use
-        """
-
-        self._query = query
+        self._query = self._query
 
         self._debug(f"Querying for {self._query}")
 
@@ -121,6 +117,3 @@ class SupplierEsDrei(SupplierBase):
             product_data["price"] = price_string
 
         return ProductType(**product_data)
-
-
-__supplier_class = SupplierEsDrei

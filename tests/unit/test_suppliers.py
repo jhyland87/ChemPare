@@ -28,7 +28,6 @@ class BaseTestClass:
     supplier = None
     positive_query = None
     negative_query = None
-    supplier_class = None
     query_limit = 5
 
     @classmethod
@@ -43,11 +42,14 @@ class BaseTestClass:
         monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
         monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
 
-        supplier_module = getattr(chempare.suppliers, str(cls.supplier_class))
+        # Get the supplier class name from the executing test class (eg: TestSupplierFoo would be SupplierFoo)
+        supplier_class = cls.__name__.replace('Test', '', 1)
+
+        supplier_module = getattr(chempare.suppliers, supplier_class)
         cls.results["positive_query"] = supplier_module(cls.positive_query, cls.query_limit)
 
         with pytest.raises(NoProductsFoundError) as no_products_found:
-            cls.results["negative_query"] = supplier_module(cls.negative_query, cls.query_limit)
+            supplier_module(cls.negative_query, cls.query_limit)
         cls.results["negative_query"] = no_products_found
 
     @classmethod
@@ -57,7 +59,6 @@ class BaseTestClass:
         cls.supplier = None
         cls.positive_query = None
         cls.negative_query = None
-        cls.supplier_class = None
         cls.query_limit = 5
 
     def test_result_type(self):
@@ -108,16 +109,14 @@ class BaseTestClass:
 
 class TestSupplierBioFuranChem(BaseTestClass):
     results = {}
-    supplier_class = "SupplierBioFuranChem"
     supplier = "supplier_biofuranchem"
-    positive_query = "water"
+    positive_query = "acid"
     negative_query = "this_should_not_exist"
 
 
 class TestSupplierFtfScientific(BaseTestClass):
     results = {}
     supplier = "supplier_ftfscientific"
-    supplier_class = "SupplierFtfScientific"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
 
@@ -125,15 +124,13 @@ class TestSupplierFtfScientific(BaseTestClass):
 class TestSupplierChemsavers(BaseTestClass):
     results = {}
     supplier = "supplier_chemsavers"
-    supplier_class = "SupplierChemsavers"
-    positive_query = "water"
+    positive_query = "acid"
     negative_query = "this_should_not_exist"
 
 
 class TestSupplier3SChem(BaseTestClass):
     results = {}
     supplier = "supplier_3SChem"
-    supplier_class = "Supplier3SChem"
     positive_query = "clean"
     negative_query = "this_should_not_exist"
 
@@ -141,7 +138,6 @@ class TestSupplier3SChem(BaseTestClass):
 class TestSupplierEsDrei(BaseTestClass):
     results = {}
     supplier = "supplier_esdrei"
-    supplier_class = "SupplierEsDrei"
     positive_query = "Wasser"
     negative_query = "this_should_not_exist"
 
@@ -149,7 +145,6 @@ class TestSupplierEsDrei(BaseTestClass):
 class TestSupplierLaballey(BaseTestClass):
     results = {}
     supplier = "supplier_laballey"
-    supplier_class = "SupplierLaballey"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
 
@@ -158,7 +153,6 @@ class TestSupplierLaballey(BaseTestClass):
 class TestSupplierLabchem(BaseTestClass):
     results = {}
     supplier = "supplier_lachem"
-    supplier_class = "SupplierLabchem"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
 
@@ -166,7 +160,6 @@ class TestSupplierLabchem(BaseTestClass):
 class TestSupplierLaboratoriumDiscounter(BaseTestClass):
     results = {}
     supplier = "supplier_laboratoriumdiscounter"
-    supplier_class = "SupplierLaboratoriumDiscounter"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
 
@@ -174,7 +167,6 @@ class TestSupplierLaboratoriumDiscounter(BaseTestClass):
 class TestSupplierLoudwolf(BaseTestClass):
     results = {}
     supplier = "supplier_loudwolf"
-    supplier_class = "SupplierLoudwolf"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
 
@@ -182,7 +174,6 @@ class TestSupplierLoudwolf(BaseTestClass):
 class TestSupplierOnyxmet(BaseTestClass):
     results = {}
     supplier = "supplier_onyxmet"
-    supplier_class = "SupplierOnyxmet"
     positive_query = "rhodium"
     negative_query = "this_should_not_exist"
 
@@ -190,7 +181,6 @@ class TestSupplierOnyxmet(BaseTestClass):
 class TestSupplierSynthetika(BaseTestClass):
     results = {}
     supplier = "supplier_synthetika"
-    supplier_class = "SupplierSynthetika"
     positive_query = "Tartaric Acid"
     negative_query = "this_should_not_exist"
 
@@ -198,7 +188,6 @@ class TestSupplierSynthetika(BaseTestClass):
 class TestSupplierTciChemicals(BaseTestClass):
     results = {}
     supplier = "supplier_tcichemicals"
-    supplier_class = "SupplierTciChemicals"
     positive_query = "acetamide"
     negative_query = "this_should_not_exist"
 
@@ -206,6 +195,33 @@ class TestSupplierTciChemicals(BaseTestClass):
 class TestSupplierWarchem(BaseTestClass):
     results = {}
     supplier = "supplier_warchem"
-    supplier_class = "SupplierWarchem"
     positive_query = "WODA"
+    negative_query = "this_should_not_exist"
+
+
+class TestSupplierLabchemDe(BaseTestClass):
+    results = {}
+    supplier = "supplier_labchemde"
+    positive_query = "acet"
+    negative_query = "this_should_not_exist"
+
+
+class TestSupplierBunmurraLabs(BaseTestClass):
+    results = {}
+    supplier = "supplier_bunmurralabs"
+    positive_query = "sodium"
+    negative_query = "this_should_not_exist"
+
+
+class TestSupplierHbarSci(BaseTestClass):
+    results = {}
+    supplier = "supplier_hbarsci"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
+
+
+class TestSupplierCarolinaChemical(BaseTestClass):
+    results = {}
+    supplier = "supplier_carolinachemical"
+    positive_query = "acid"
     negative_query = "this_should_not_exist"

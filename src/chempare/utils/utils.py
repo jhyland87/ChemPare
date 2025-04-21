@@ -4,12 +4,12 @@ import os
 import platform
 import plistlib
 import sys
-from collections.abc import Iterable
 from functools import reduce
 from pathlib import Path
 from typing import Any
 from typing import Callable
 from typing import Iterable
+import regex
 
 from chempare.datatypes import PrimitiveType
 from chempare.datatypes import Undefined
@@ -273,3 +273,68 @@ def replace_dict_values_by_value(
             if v is find_value:
                 obj[k] = replace_value
     return obj
+
+
+def split_set_cookie(set_cookie: str) -> list:
+    """
+    split_set_cookie Splits a 'set-cookie' header up into its segments.
+
+    This is needed because you typically split them up by the ',' (comma), but then sometimes
+    there's a date included in there, which is in the format of "Sun, 20 Apr 2025 15:51:54 GMT",
+    which causes issues with splitting by commas.
+
+    :param set_cookie: The set-cookie value from the header
+    :type set_cookie: str
+    :return: list of set-cookie values, split by the comma delimiter
+    :rtype: list
+    """
+    return regex.split(r'(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?', set_cookie)
+
+
+def parse_cookie(value: str) -> dict[str, Any] | None:
+    """
+    Get cookie name/value out of the full set-cookie header segment.
+
+    Args:
+        value (str): The set-cookie segment.
+
+    See:
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie
+
+    Returns:
+        dict[str, str]: The cookie info (name, value, attrs, etc)
+
+    Example:
+        >>> utils.parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
+        {'name': 'ssr-caching', 'value': 'cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g', 'max-age': '20'}
+        >>> utils.parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
+        {'name': 'client-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax'
+        >>> utils.parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
+        {'name': 'server-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax', 'httponly': True}
+    """
+
+    cookie_matches = regex.match(
+        r'^(?P<name>[a-zA-Z0-9_-]+)=(?P<value>[^;]+)(?:$|;\s)(?P<args>(.*)+)?$', value, regex.IGNORECASE
+    )
+
+    # print(cookie_matches.capturesdict())
+
+    cookie_match_dict = cookie_matches.capturesdict()
+
+    result = {"name": cookie_match_dict.get('name', [None])[0], "value": cookie_match_dict.get('value', [None])[0]}
+
+    args = cookie_match_dict.get('args', [])[0].rstrip(';').split(';')
+
+    cookie_args = {}
+
+    for a in args:
+        arg_segs = a.strip().split('=')
+        if len(arg_segs) == 1:
+            cookie_args[arg_segs[0].lower()] = True
+            continue
+
+        cookie_args[arg_segs[0].lower()] = arg_segs[1]
+
+    result.update(cookie_args)
+
+    return result

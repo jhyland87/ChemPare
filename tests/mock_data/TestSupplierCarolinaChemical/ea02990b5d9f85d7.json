@@ -1,0 +1,290 @@
+{
+  "created_at": "2025-04-21T00:02:43.953492+00:00",
+  "elapsed": 1.229146,
+  "encoding": "UTF-8",
+  "headers": {
+    "Access-Control-Allow-Headers": "Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type",
+    "Access-Control-Expose-Headers": "X-WP-Total, X-WP-TotalPages, Link",
+    "Allow": "GET",
+    "Connection": "Upgrade, Keep-Alive",
+    "Content-Security-Policy": "upgrade-insecure-requests",
+    "Content-Type": "application/json; charset=UTF-8",
+    "Date": "Mon, 21 Apr 2025 00:02:43 GMT",
+    "Keep-Alive": "timeout=60, max=10000",
+    "Link": "<https://carolinachemical.com/wp-json/wp/v2/search?search=acid&page=2>; rel=\"next\"",
+    "Server": "Apache",
+    "Transfer-Encoding": "chunked",
+    "Upgrade": "h2",
+    "Vary": "Origin",
+    "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex",
+    "X-WP-Total": "32",
+    "X-WP-TotalPages": "4"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "User-Agent": "python-requests/2.32.3"
+    },
+    "method": "GET",
+    "url": "https://carolinachemical.com/wp-json/wp/v2/search?search=acid"
+  },
+  "status_code": 200,
+  "url": "https://carolinachemical.com/wp-json/wp/v2/search?search=acid",
+  "_decoded_content": [
+    {
+      "id": 3202,
+      "title": "Hydrochloric Acid 22 BE (36.25%)",
+      "url": "https://carolinachemical.com/product/hydrochloric-acid-22-be-36-25-copy/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/3202"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3068,
+      "title": "Citric Acid Anhydrous, FCC/USP",
+      "url": "https://carolinachemical.com/product/citric-acid-anhydrous-fccix-usp-granular/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/3068"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2149,
+      "title": "Sulfuric Acid 95.0 \u2013 98.0%",
+      "url": "https://carolinachemical.com/product/sulfuric-acid-technical-95-0-98-0/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/2149"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1226,
+      "title": "Nitric Acid 42BE 67.2%",
+      "url": "https://carolinachemical.com/product/nitric-acid-42be/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/1226"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 799,
+      "title": "Sulfuric Acid, ACS Reagent, 95.0 \u2013 98.0%",
+      "url": "https://carolinachemical.com/product/sulfuric-acid/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/799"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 746,
+      "title": "Acetic Acid, ACS Reagent, \u226599.7%",
+      "url": "https://carolinachemical.com/product/pure-glacial-acetic-acid/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/746"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 734,
+      "title": "Trichloroacetic Acid, 50% w/v",
+      "url": "https://carolinachemical.com/product/trichloroacetic-acid-50-w-v/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/734"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 721,
+      "title": "Trichloroacetic Acid, 100% w/v",
+      "url": "https://carolinachemical.com/product/trichloroacetic-acid/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/721"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 684,
+      "title": "Salicylic Acid Powder, USP Grade",
+      "url": "https://carolinachemical.com/product/pure-salicylic-acid-powde/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/684"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    },
+    {
+      "id": 675,
+      "title": "Salicylic Acid Powder, USP/Pharmaceutical Grade",
+      "url": "https://carolinachemical.com/product/pure-salicylic-acid-powder/",
+      "type": "post",
+      "subtype": "product",
+      "_links": {
+        "self": [
+          {
+            "embeddable": true,
+            "href": "https://carolinachemical.com/wp-json/wp/v2/product/675"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/types/product"
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://carolinachemical.com/wp-json/wp/v2/search"
+          }
+        ]
+      }
+    }
+  ]
+}

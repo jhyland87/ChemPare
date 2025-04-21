@@ -60,9 +60,8 @@ class ClassUtils(metaclass=ABCMeta):
 
         Args:
             value (str): String with price
-            symbol_to_code (bool): Attempt to convert the currency symbols to
-                                   country codes if this is set to True
-                                   (defaults to True)
+            symbol_to_code (bool): Attempt to convert the currency symbols to country
+                                   codes if this is set to True. defaults to True.
 
         Returns:
             PriceType: Returns a dictionary with 'currency' and 'price' values
@@ -304,10 +303,10 @@ class ClassUtils(metaclass=ABCMeta):
 
         # https://regex101.com/r/lDLuVX/4
         pattern = (
-            r"(?P<quantity>[0-9][0-9\.\,]*)\s?"
-            r"(?P<uom>(?:milli|kilo|centi)"
+            r"(?P<quantity>[0-9][0-9\.\,]*)?\s?"
+            r"(?P<uom>gal(?:lon)|(?:milli|kilo|centi)"
             r"(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal"
-            r"|kg|g|lbs?|pounds?|l|qt|m?[glm])"
+            r"|kg|g|lbs?|pounds?|l|qt|m?[glm]|piece|drum)"
         )
 
         matches = regex.search(pattern, value, regex.IGNORECASE)
@@ -869,7 +868,7 @@ class ClassUtils(metaclass=ABCMeta):
         keys.sort(key=len, reverse=True)
         for phrase in keys:
             found = False
-            for l_phrase in longest_phrases:
+            for l_phrase in longest_phrases.items():
                 intersection = set(l_phrase).intersection(phrase)
                 if len(intersection) != len(phrase):
                     continue
@@ -919,59 +918,6 @@ class ClassUtils(metaclass=ABCMeta):
             for key in source
             if (isinstance(key, tuple) and element in key) or (isinstance(key, str) and element == key)
         ]
-
-    @finalmethod
-    def _split_set_cookie(self, set_cookie: str) -> list:
-        return regex.split(r'(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?', set_cookie)
-
-    @finalmethod
-    def _parse_cookie(self, value: str) -> dict[str, Any] | None:
-        """
-        Get cookie name/value out of the full set-cookie header segment.
-
-        Args:
-            value (str): The set-cookie segment.
-
-        See:
-            https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie
-
-        Returns:
-            dict[str, str]: The cookie info (name, value, attrs, etc)
-
-        Example:
-            >>> self._parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
-            {'name': 'ssr-caching', 'value': 'cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g', 'max-age': '20'}
-            >>> self._parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
-            {'name': 'client-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax'
-            >>> self._parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
-            {'name': 'server-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax', 'httponly': True}
-        """
-
-        cookie_matches = regex.match(
-            r'^(?P<name>[a-zA-Z0-9_-]+)=(?P<value>[^;]+)(?:$|;\s)(?P<args>(.*)+)?$', value, regex.IGNORECASE
-        )
-
-        # print(cookie_matches.capturesdict())
-
-        cookie_match_dict = cookie_matches.capturesdict()
-
-        result = {"name": cookie_match_dict.get('name', [None])[0], "value": cookie_match_dict.get('value', [None])[0]}
-
-        args = cookie_match_dict.get('args', [])[0].rstrip(';').split(';')
-
-        cookie_args = {}
-
-        for a in args:
-            arg_segs = a.strip().split('=')
-            if len(arg_segs) == 1:
-                cookie_args[arg_segs[0].lower()] = True
-                continue
-
-            cookie_args[arg_segs[0].lower()] = arg_segs[1]
-
-        result.update(cookie_args)
-
-        return result
 
 
 __all__ = ["ClassUtils"]

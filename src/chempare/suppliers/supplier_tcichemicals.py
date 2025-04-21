@@ -1,5 +1,3 @@
-import re
-
 from bs4 import BeautifulSoup
 
 from chempare.datatypes import ProductType
@@ -37,12 +35,8 @@ class SupplierTciChemicals(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for Synthetika
         # JSON (limited search results)
@@ -100,7 +94,7 @@ class SupplierTciChemicals(SupplierBase):
                 __query_search_page(query, page_idx + 1)
                 return
 
-        __query_search_page(query, 0)
+        __query_search_page(self._query, 0)
 
     def _parse_products(self) -> None:
         """Method iterates over the product query results stored at
@@ -139,7 +133,7 @@ class SupplierTciChemicals(SupplierBase):
         price_obj = self._parse_price(price.get_text(strip=True))
 
         product_dict = dict(
-            name=title.get_text(strip=True),
+            title=title.get_text(strip=True),
             quantity=quantity.get_text(strip=True),
             supplier=self._supplier.name,
             url=self._supplier.base_url + str(title.attrs["href"]),
@@ -160,13 +154,14 @@ class SupplierTciChemicals(SupplierBase):
                 product_dict["cas"] = data[idx + 1].get_text(strip=True)
                 continue
 
-        quantity_pattern = re.compile(
-            (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
-        )
-        quantity_matches = quantity_pattern.search(product_dict["quantity"])
+        quantity = self._parse_quantity(product_dict["quantity"])
+        # quantity_pattern = re.compile(
+        #     (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
+        # )
+        # quantity_matches = quantity_pattern.search(product_dict["quantity"])
 
-        if quantity_matches:
-            product_dict.update(quantity_matches.groupdict())
+        if quantity is not None:
+            product_dict.update(quantity.__dict__)
 
         # price_pattern = re.compile(r"^(?P<currency>.)(?P<price>\d+\.\d+)$")
         # price_matches = price_pattern.search(product.price)
@@ -177,6 +172,3 @@ class SupplierTciChemicals(SupplierBase):
         product = ProductType(**product_dict)
 
         self._products.append(product.cast_properties())
-
-
-__supplier_class = SupplierTciChemicals

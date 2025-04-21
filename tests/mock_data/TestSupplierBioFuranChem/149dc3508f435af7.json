@@ -1,10 +1,10 @@
 {
   "_content": "",
   "cookies": {
-    "XSRF-TOKEN": "1745093932|SQ3nElXfb9Nf"
+    "XSRF-TOKEN": "1745183400|gYZ-2zqt5Ylk"
   },
-  "created_at": "2025-04-19T20:18:52.205781+00:00",
-  "elapsed": 0.215516,
+  "created_at": "2025-04-20T21:10:00.645803+00:00",
+  "elapsed": 0.237533,
   "encoding": "utf-8",
   "headers": {
     "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
@@ -13,36 +13,34 @@
     "cache-control": "no-cache",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "Sat, 19 Apr 2025 20:18:52 GMT",
+    "date": "Sun, 20 Apr 2025 21:10:00 GMT",
     "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
     "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
-    "set-cookie": "_wixAB3=1292391#1|4195310#1|4217282#2; Max-Age=15724800; Expires=Sat, 18 Oct 2025 20:18:52 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1745093932|SQ3nElXfb9Nf; Path=/; Domain=www.biofuranchem.com; Secure; SameSite=None",
+    "set-cookie": "_wixAB3=1292391#1|4195310#2; Max-Age=15724800; Expires=Sun, 19 Oct 2025 21:10:00 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1745183400|gYZ-2zqt5Ylk; Path=/; Domain=www.biofuranchem.com; Secure; SameSite=None",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "MISS",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,T7xPrjRFKDMHVv938PYVfx9slopJdhD+WySraMrpIY8=,m0j2EEknGIVUW/liY8BLLt4IRtmbVvKklG4Zpf3E4eIG/hKs8AeY1T4OIbgnD+yx,qYxvFa0bBL43z6b6TutC4bfTGVYL1JP+MVK20oF3aaUOIv81siZFFg8Zg0+ti17jv8TJzHWGgqC5+r8vxecuLQ==,R8nVwPJv9QJL1m78OROO+EOuTTPRBBS++PRaxs794ZE=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5cO3v9r1Kj1Eqy37/tu6CyHXqCdais99w+Bu7ipfHEzcliB5QmpRe2J37zq9nDD6cs=",
-    "x-served-by": "cache-lax-kwhp1940097-LAX",
-    "x-wix-request-id": "1745093932.1538100311581251683",
-    "x-wixaspect-00-_wixab3": "1292391#1|4195310#1|4217282#2",
-    "x-wixaspect-00-x-wix-petri-cookie-domain": ".wix.com"
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,qYxvFa0bBL43z6b6TutC4aEXSLWH47e8gXRwaqiYMD4OIv81siZFFg8Zg0+ti17j3cVh5iBa2Wf73usPjvlONw==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5cO3v9r1Kj1Eqy37/tu6CyHXqCdais99w+Bu7ipfHEzcliB5QmpRe2J37zq9nDD6cs=",
+    "x-served-by": "cache-lax-kwhp1940137-LAX",
+    "x-wix-request-id": "1745183400.69483877769622666743"
   },
   "reason": "OK",
   "request": {
     "body": "",
     "cookies": {
       "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
-      "client-session-bind": "9ca7159e-3ee8-4c27-a6f2-bece4faa0981",
-      "server-session-bind": "9ca7159e-3ee8-4c27-a6f2-bece4faa0981"
+      "client-session-bind": "3953107d-8d01-43d1-826a-44a4f5bc3dca",
+      "server-session-bind": "3953107d-8d01-43d1-826a-44a4f5bc3dca"
     },
     "headers": {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=9ca7159e-3ee8-4c27-a6f2-bece4faa0981; server-session-bind=9ca7159e-3ee8-4c27-a6f2-bece4faa0981; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=9ca7159e-3ee8-4c27-a6f2-bece4faa0981",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=3953107d-8d01-43d1-826a-44a4f5bc3dca; server-session-bind=3953107d-8d01-43d1-826a-44a4f5bc3dca; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=3953107d-8d01-43d1-826a-44a4f5bc3dca",
       "User-Agent": "python-requests/2.32.3",
-      "client-binding": "9ca7159e-3ee8-4c27-a6f2-bece4faa0981"
+      "client-binding": "3953107d-8d01-43d1-826a-44a4f5bc3dca"
     },
     "method": "HEAD",
     "url": "https://www.biofuranchem.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"

@@ -3,27 +3,27 @@
 import logging
 import os
 import sys
+from importlib import import_module
+from inspect import isclass
+from pathlib import Path
+from pkgutil import iter_modules
 
+from chempare.suppliers.supplier_base import SupplierBase
 
-_logger = logging.getLogger("suppliers/__init__")
-logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
+__subclasses__ = []
+# iterate through the modules in the current package
+package_dir = Path(__file__).resolve().parent
+for _, module_name, _ in iter_modules([package_dir]):
 
-path = os.path.dirname(os.path.abspath(__file__))
+    # import the module and iterate through its attributes
+    module = import_module(f"{__name__}.{module_name}")
+    for attribute_name in dir(module):
+        attribute = getattr(module, attribute_name)
 
+        # Skip anything that isn't a subclass of SupplierBase (including SupplierBase itself)
+        if not isclass(attribute) or not issubclass(attribute, SupplierBase) or attribute_name.endswith("Base"):
+            continue
 
-suppliers_dir_files = [f[:-3] for f in os.listdir(path) if f.endswith(".py") and f.startswith("supplier_")]
-
-# I get it. This file looks like shit. Not sure what the best way to
-# do dynamic imports in Python is though ¯\_(ツ)_/¯
-
-__all__ = []
-
-for supplier_file in suppliers_dir_files:
-    supplier_module = __import__(".".join(["chempare", "suppliers", supplier_file]), fromlist=[supplier_file])
-    if hasattr(supplier_module, "__disabled__") and supplier_module.__disabled__ is True:
-        _logger.debug("Skipping module %s (disabled)", supplier_file)
-        continue
-
-    setattr(sys.modules[__name__], supplier_module.__supplier_class.__name__, supplier_module.__supplier_class)
-
-    __all__.append(supplier_module.__supplier_class.__name__)  # type: ignore
+        globals()[attribute_name] = attribute
+        if attribute_name not in __subclasses__:
+            __subclasses__.append(attribute_name)
