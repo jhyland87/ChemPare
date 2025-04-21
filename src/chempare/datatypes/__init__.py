@@ -3,6 +3,13 @@
 from decimal import Decimal
 from enum import Enum
 from typing import Literal
+from typing import Protocol
+from typing import Any
+
+
+class SupportsDict(Protocol):
+    __dict__: dict[str, Any]
+
 
 DecimalLikeType = int | float | Decimal
 PrimitiveType = int | float | str | bool
@@ -32,6 +39,5 @@ __all__ = [
     "ProductType",
     "QuantityType",
     "SupplierType",
+    "SupportsDict",
 ]
-
-# QuantityType.__name__

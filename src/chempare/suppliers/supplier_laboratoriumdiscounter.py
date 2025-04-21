@@ -1,3 +1,5 @@
+from functools import partial
+
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
@@ -24,6 +26,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     searches"""
 
     _defaults = {}
+
+    def _setup(self) -> None:
+        self._partial_product = partial(ProductType, supplier='Foo', currency_code='USD', currency='$')
 
     def _query_products(self) -> None:
         """Query products from supplier     None: Nothing"""

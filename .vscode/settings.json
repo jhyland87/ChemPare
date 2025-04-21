@@ -213,11 +213,13 @@
     "autoDocstring.includeName": true,
     "autoDocstring.docstringFormat": "sphinx",
     "autoDocstring.startOnNewLine": true,
-    "editor.defaultFoldingRangeProvider": "njpwerner.autodocstring",
+    "editor.defaultFoldingRangeProvider": "mintlify.document",
     "cSpell.words": [
         "bunmurralabs",
         "chempare",
+        "finalmethod",
         "rtype",
         "wixbase"
-    ]
+    ],
+    "python.terminal.shellIntegration.enabled": true
 }
