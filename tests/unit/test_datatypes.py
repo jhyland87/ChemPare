@@ -12,17 +12,15 @@ class TestProductType:
     @pytest.mark.parametrize(
         ("data"),
         [
-            (
-                dict(
-                    country_code='USD',
-                    currency='$',
-                    price='123.45',
-                    quantity='5',
-                    supplier='Bar',
-                    title='Test from partial',
-                    uom='L',
-                    url='http://website.com',
-                ),
+            dict(
+                country_code='USD',
+                currency='$',
+                price='123.45',
+                quantity='5',
+                supplier='Bar',
+                title='Test from partial',
+                uom='L',
+                url='http://website.com',
             )
         ],
         ids=["ProductType Init"],
