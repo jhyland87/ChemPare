@@ -1,18 +1,14 @@
 """Biofuran Chem supplier test module"""
 
-from dataclasses import dataclass
 from typing import Iterable
-from typing import override
 
 import pytest
 import requests
 from pytest import MonkeyPatch
-from pytest_attributes import attributes
 
 import chempare.suppliers
 from chempare.datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
-from chempare.search_factory import SearchFactory
 from tests import mock_request_cache
 
 

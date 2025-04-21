@@ -1,14 +1,18 @@
 """ProductType datatype"""
 
+from functools import partial
+
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from typing import Any
 from typing import ItemsView
 from typing import Self
-
+from typing import overload
+from typing import Callable
 
 from chempare.datatypes import DecimalLikeType
+from chempare.datatypes import SupportsDict
 from chempare.datatypes.variant import VariantType
 from chempare import utils
 
@@ -166,6 +170,79 @@ class ProductType:
 
         self.__dict__.update(kwargs)
 
+    def __iter__(self):
+        return iter({k: v for k, v in self.__dict__.items() if v is not None})
+
+    def __repr__(self):
+        args = str(', '.join([f"{k}='{v}'" for k, v in sorted(self.__dict__.items()) if v is not None]))
+        return f"{self.__class__.__name__}({args})"
+
+    @overload
+    @staticmethod
+    def partial(**data: str) -> Callable:
+        """
+        partial Partial product creation
+
+        Create a partial ProductType object that can be used as a template to make complete objects
+
+        :param data: Dictionary with kwargs used to create partial ProductType
+        :type data: dict
+        :return: Partial ProductType instance
+        :rtype: Callable
+        :Example:
+        >>> partialProduct = ProductType.partial(supplier='Foo', currency_code='USD', currency='$')
+        >>> partialProduct(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
+        ProductType(currency='$', currency_code='USD', price='123.45', quantity='5', supplier='Foo',
+        title='Test from partial', uom='L', url='http://website.com')
+        """
+
+    @overload
+    @staticmethod
+    def partial(data: SupportsDict) -> Callable:
+        """
+        partial Partial product creation
+
+        Create a partial ProductType object that can be used as a template to make complete objects
+
+        :param data: Dictionary (or dictionary-ish) to create the partial from
+        :type data: dict
+        :return: Partial ProductType instance
+        :rtype: Callable
+        :Example:
+        >>> partialProduct = ProductType.partial({'supplier': 'Bar', 'country_code': 'USD', 'currency': '$'})
+        >>> partialProduct(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
+        ProductType(country_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
+        title='Test from partial', uom='L', url='http://website.com')
+        """
+
+    @staticmethod
+    def partial(*args, **kwargs) -> Callable:
+        """
+        partial Create a partial ProductType object
+
+        This is the method that can take either a dictionary or kwargs to make the ProductType instance
+
+
+        :return: Partial ProductType instance
+        :rtype: Callable
+        :Example:
+        >>> partialProductA = ProductType.partial(supplier='Foo', currency_code='USD', currency='$')
+        >>> partialProductA(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
+        ProductType(currency='$', currency_code='USD', price='123.45', quantity='5', supplier='Foo',
+        title='Test from partial', uom='L', url='http://website.com')
+        >>> partialProductB = ProductType.partial({'supplier': 'Bar', 'country_code': 'USD', 'currency': '$'})
+        >>> partialProductB(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
+        ProductType(country_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
+        title='Test from partial', uom='L', url='http://website.com')
+        """
+        data = {}
+        if len(args) > 0 and isinstance(args[0], dict):
+            data.update(args[0])
+
+        if len(kwargs.keys()) != 0:
+            data.update(**kwargs)
+        return partial(ProductType, **data)
+
     @property
     def name(self) -> str | None:
         """
@@ -193,10 +270,6 @@ class ProductType:
         """
         self._name = name
 
-    # def __init__(self, **kwargs):
-    #     super().__init__(**kwargs)
-    #     self.update(kwargs)
-
     def update(self, data: dict) -> None:
         """
         update the product
@@ -212,12 +285,41 @@ class ProductType:
         self.__dict__.update(data)
 
     def setdefault(self, key: str, val: Any) -> None:
-        """Set the default value of a property"""
+        """
+        setdefault Set the default value of a property
+
+        Just to make it compatible with some dict style functions
+
+        :param key: Key of the default attribute being defined
+        :type key: str
+        :param val: Value of the attribute
+        :type val: Any
+        """
         self.__dict__.setdefault(key, val)
 
+    def setdefaults(self, data: SupportsDict) -> None:
+        """
+        setdefaults uses setdefault for a full dictionary
+
+        Makes it easier if one needs to run setdefault() for a dictionary of values
+
+        :param data: Any dictionary like object (anything with __dict__)
+        :type data: SupportsDict
+
+        """
+        for key, val in data.__dict__.items():
+            self.setdefault(key, val)
+
     def __bool__(self) -> bool:
-        """This just allows us to use 'if not product' checks"""
-        return True
+        """
+        This just allows us to use 'if not product' checks.
+
+        :return: This will always be true since the object couldn't be created without
+                 the necessary values (title, price, currency, currency_code, quality,
+                 uom, supplier, url)
+        :rtype: bool
+        """
+        return bool(len(self.items()))
 
     def __nonzero__(self) -> bool:
         """This just allows us to use 'if not product'"""

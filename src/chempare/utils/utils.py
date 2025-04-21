@@ -40,11 +40,11 @@ def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
     """
 
     try:
-        X = reduce(dict.__getitem__, keys, dict_)
+        result = reduce(dict.__getitem__, keys, dict_)
     except (KeyError, TypeError):
         return default
     else:
-        return X
+        return result
 
 
 # PYTEST_CURRENT_TEST
@@ -119,36 +119,22 @@ def getenv(
     setting: str, default: PrimitiveType | None | type[Undefined] = Undefined, typecast: bool = True
 ) -> PrimitiveType | None:
     """
-    Get an environmental variable. Also casts the value to the most likely type
+    The getenv function retrieves an environment variable value, with an optional default value and typecasting support.
 
-    Args:
-        setting (str): Name of the environmental variable
-        default (PrimitiveType | None, optional): Default value of variable.
-        cast (bool): Cast the variable to its most likely type. Defaults to True
-
-    Raises:
-        ValueError: ValueError if the env var is not set and no default is provided
-
-    Returns:
-        PrimitiveType | None: Environmental variable of types: int, float, str,  bool or None
-
-    Example:
-        >>> os.environ["FOO"] = "BAR"
-        >>> utils.getenv("FOO")
-        'BAR'
-        >>> utils.getenv("BAZ")
-        ValueError: Environment variable 'BAZ' not set.
-        >>> utils.getenv("BAZ", None)
-        >>> utils.getenv("BAZ", "qux")
-        'qux'
-        >>> utils.getenv("BAZ", 123)
-        123
-        >>> utils.getenv("BAZ", "123")
-        123
-        >>> utils.getenv("DEBUG_LVLd", "123", cast=False)
-        '123'
-        >>> utils.getenv("BAZ", "test123")
-        'test123'
+    :param setting: The `setting` parameter is a string that represents the name of the environment variable that you want
+    to retrieve the value for
+    :type setting: str
+    :param default: The `default` parameter in the `getenv` function is used to specify a default value that will be
+    returned if the environment variable specified by the `setting` parameter is not found in the system environment
+    variables. If no `default` value is provided, the function will raise a `ValueError
+    :type default: PrimitiveType | None | type[Undefined]
+    :param typecast: The `typecast` parameter in the `getenv` function determines whether the retrieved environment variable
+    should be typecasted to a string or not. If `typecast` is set to `True`, the function will attempt to cast the retrieved
+    value to a string before returning it. If `type, defaults to True
+    :type typecast: bool (optional)
+    :return: The `getenv` function returns the value of the specified environment variable `setting` if it is found in the
+    environment variables. If the `setting` is not found and a `default` value is provided, it returns the `default` value.
+    If the `setting` is not found and no `default` value is provided, it raises a `ValueError`.
     """
     if setting not in os.environ and default is Undefined:
         raise ValueError(f"Environment variable '{setting}' not set.")
@@ -163,14 +149,16 @@ def getenv(
 
 def find_first(arr: Iterable, condition: Callable) -> Any:
     """
-    Find the first element in an array that matches a condition
+    The `find_first` function returns the first element in an iterable that satisfies a given condition.
 
-    Args:
-        arr (Iterable): Array to iterate over and search
-        condition (Callable): Function to do the filtering
-
-    Returns:
-        Any: Result from the array
+    :param arr: An iterable object (list, tuple, etc.) containing elements to be checked against the condition function
+    :type arr: Iterable
+    :param condition: The `condition` parameter is a function that takes an element from the `arr` iterable as input and
+    returns a boolean value based on some criteria. This function is used to filter elements from the `arr` iterable, and
+    the `find_first` function returns the first element in the iterable that satisfies
+    :type condition: Callable
+    :return: The `find_first` function returns the first element in the `arr` iterable that satisfies the `condition`
+    function. If no element satisfies the condition, it returns `None`.
     """
 
     return next((element for element in arr if condition(element)), None)
@@ -222,47 +210,24 @@ def get_default_browser() -> str | None:
     os._exit(1)
 
 
-def dict_hash(dictionary: dict[str, Any], sort: bool = True) -> str:
-    """
-    MD5 hash of a dictionary.
-
-    Args:
-        dictionary (dict[str, Any]): Dictionary to hash
-        sort (bool): Should we sort the dictionary before the checksum?
-
-    Returns:
-        str: md5 checksum
-    """
-    dhash = hashlib.md5()
-    # We need to sort arguments so {'a': 1, 'b': 2} is
-    # the same as {'b': 2, 'a': 1}
-    if sort:
-        dictionary = dict(sorted(dictionary.items()))
-
-    encoded = json.dumps(dictionary, sort_keys=True).encode()
-    dhash.update(encoded)
-    return dhash.hexdigest()
-
-
 def replace_dict_values_by_value(
     obj: dict, find_value: PrimitiveType | None, replace_value: PrimitiveType
 ) -> dict[str, str]:
     """
-    Replace values in a dictionary with another value.
+    The function `replace_dict_values_by_value` recursively replaces specified values in a dictionary with a new value.
 
-    Args:
-        obj (dict): Object to manipulate
-        find_value (NonIterable): Value to find
-        replace_value (NonIterable): Value to replace it with
-
-    Returns:
-        dict[str, str]: Modified object
-
-    Example:
-        >>> replace_dict_values_by_value({'foo':'bar','enabled':True,'verbose':False}, True, 'true')
-        {'foo':'bar','enabled':'true','verbose':False}
-        >>> replace_dict_values_by_value({'foo':'bar','enabled':True,'verbose':False}, 'bar', 'BAR')
-        {'foo':'BAR','enabled':True,'verbose':False}
+    :param obj: A dictionary object that you want to modify by replacing certain values
+    :type obj: dict
+    :param find_value: The `find_value` parameter in the `replace_dict_values_by_value` function is the value that you want
+    to search for in the dictionary `obj`. If a key in the dictionary has this `find_value`, it will be replaced with the
+    `replace_value` provided in the function call
+    :type find_value: PrimitiveType | None
+    :param replace_value: The `replace_value` parameter in the `replace_dict_values_by_value` function is the value that
+    will replace any matching values found in the dictionary. For example, if you want to replace all occurrences of a
+    specific value with a new value in the dictionary, you would pass the new value as the
+    :type replace_value: PrimitiveType
+    :return: The function `replace_dict_values_by_value` returns a dictionary where the values have been replaced based on
+    the provided criteria.
     """
     for k, v in obj.items():
         if isinstance(v, dict):

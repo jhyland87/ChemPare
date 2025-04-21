@@ -1,10 +1,11 @@
 # ChemPare
+[![Python application](https://github.com/jhyland87/ChemPare/actions/workflows/python-app.yml/badge.svg)](https://github.com/jhyland87/ChemPare/actions/workflows/python-app.yml)
 ### Intro
 Compares prices from chemical vendors that sell to individuals and residential addresses.
 
 > _*Note:* This project is a work in progress, not yet in Beta mode_
 
----
+--- 
 
 ### How does it work
 Magic, mostly.
@@ -35,7 +36,7 @@ make run
 
 ##### Manual setup
 
-1. Install Python 3.13.1
+1. Install Python 3.13
 
 2. Checkout this repo
 ```bash
@@ -79,13 +80,17 @@ code --install-extension rodolphebarbanneau.python-docstring-highlighter
 
 5. Install project packages
 ```bash
-./venv/bin/pip install -r requirements.txt
+./venv/bin/pip install -e .
 ```
 
-6. Run main script, and provide a chemical name or CAS.
+6. Run chempare command, and provide a chemical name or CAS.
 
-```
-python3 main.py
+```bash
+# Main script
+chemparemain
+
+# CLI Script
+chemparecli
 ```
 
 Example output:
@@ -126,9 +131,3 @@ The output should look simiar to the following:
 - https://www.jk-sci.com
 - https://www.chemworld.com/searchresults.asp?Search=potassium&Submit=
 - https://www.sciencecompany.com/Search?Keywords=acid&ManufacturerId=0&categoryId=670&PageSize=48
-- https://carolinachemical.com/
-    https://carolinachemical.com/wp-json/wp/v2/search?search=borohydride
-    https://carolinachemical.com/wp-json/wp/v2/product/6981
-- https://www.labchem.de/
-- https://www.hbarsci.com/collections/chemicals
-    

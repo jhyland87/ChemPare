@@ -1,8 +1,7 @@
 """SupplierBase module to be inherited by any supplier modules"""
 
-import json
+import json as json_
 import logging
-import os
 from collections.abc import Iterable
 from http import HTTPMethod
 from http import HTTPStatus
@@ -44,7 +43,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
     _headers = {}
 
-    LOG_LEVEL: Final = utils.getenv("LOG_LEVEL", "WARNING")
+    LOG_LEVEL: Final = str(utils.getenv("LOG_LEVEL", "WARNING"))
 
     DEBUG_CURL: Final = utils.getenv("DEBUG", False)
 
@@ -306,7 +305,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
             for v in params:
                 if isinstance(v, list) or isinstance(v, dict):
-                    params[k] = json.dumps(v)
+                    params[v] = json_.dumps(v)
 
         args = dict(
             params=params,
@@ -537,9 +536,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         """
 
         res = self.http_get(path, params=params, **kwargs)
-
-        if res is None:
-            return None
 
         return res.json()
 
