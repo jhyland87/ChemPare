@@ -9,7 +9,7 @@ class TestProductType:
         ("data"),
         [
             dict(
-                country_code='USD',
+                currency_code='USD',
                 currency='$',
                 price=123.45,
                 quantity='5',
@@ -30,7 +30,7 @@ class TestProductType:
         ("partial_attrs", "residual_attrs"),
         [
             (
-                dict(country_code='USD', currency='$', supplier='Bar'),
+                dict(currency_code='USD', currency='$', supplier='Bar'),
                 dict(quantity='5', uom='L', url='http://website.com', price=123.45, title='Test from partial'),
             )
         ],
