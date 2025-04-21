@@ -303,10 +303,10 @@ class ClassUtils(metaclass=ABCMeta):
 
         # https://regex101.com/r/lDLuVX/4
         pattern = (
-            r"(?P<quantity>[0-9][0-9\.\,]*)\s?"
+            r"(?P<quantity>[0-9][0-9\.\,]*)?\s?"
             r"(?P<uom>gal(?:lon)|(?:milli|kilo|centi)"
             r"(?:gram|meter|liter|metre)s?|z|ounces?|grams?|gallon|gal"
-            r"|kg|g|lbs?|pounds?|l|qt|m?[glm]|piece)"
+            r"|kg|g|lbs?|pounds?|l|qt|m?[glm]|piece|drum)"
         )
 
         matches = regex.search(pattern, value, regex.IGNORECASE)
@@ -868,7 +868,7 @@ class ClassUtils(metaclass=ABCMeta):
         keys.sort(key=len, reverse=True)
         for phrase in keys:
             found = False
-            for l_key, l_phrase in longest_phrases.items():
+            for l_phrase in longest_phrases.items():
                 intersection = set(l_phrase).intersection(phrase)
                 if len(intersection) != len(phrase):
                     continue

@@ -211,3 +211,17 @@ class TestSupplierBunmurraLabs(BaseTestClass):
     supplier = "supplier_bunmurralabs"
     positive_query = "sodium"
     negative_query = "this_should_not_exist"
+
+
+class TestSupplierHbarSci(BaseTestClass):
+    results = {}
+    supplier = "supplier_hbarsci"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
+
+
+class TestSupplierCarolinaChemical(BaseTestClass):
+    results = {}
+    supplier = "supplier_carolinachemical"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"

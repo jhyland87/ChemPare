@@ -1,16 +1,16 @@
 {
-  "created_at": "2025-04-20T22:25:50.798835+00:00",
-  "elapsed": 0.195314,
+  "created_at": "2025-04-21T03:31:41.301521+00:00",
+  "elapsed": 0.355901,
   "encoding": "utf-8",
   "headers": {
     "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
     "Transfer-Encoding": "chunked",
     "accept-ranges": "bytes",
-    "age": "4550",
+    "age": "22900",
     "cache-control": "public,max-age=0,must-revalidate",
     "content-encoding": "gzip",
     "content-type": "application/json;charset=utf-8",
-    "date": "Sun, 20 Apr 2025 22:25:50 GMT",
+    "date": "Mon, 21 Apr 2025 03:31:41 GMT",
     "etag": "W/\"27e9eaae51833aaedf93e98cb66b6bc\"",
     "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "server": "Pepyaka",
@@ -19,9 +19,9 @@
     "via": "1.1 google",
     "x-cache": "HIT",
     "x-content-type-options": "nosniff",
-    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
-    "x-served-by": "cache-lax-kwhp1940021-LAX",
-    "x-wix-request-id": "1745187950.778068940066146113"
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,2d58ifebGbosy5xc+FRalo/+dm590hgO0N3PQlLzebZJao/t209VZN3A79VD4FGtA9X6+nUFopzln28ij+jpZw==,2UNV7KOq4oGjA5+PKsX47CYKtnq/i16Ua9ONma3Iswwm++C2XkuTvnlRFg2XiSDL,R8nVwPJv9QJL1m78OROO+CRn6qICGwWfp3GqOGds7es=",
+    "x-served-by": "cache-lax-kwhp1940058-LAX",
+    "x-wix-request-id": "1745206301.315978575684728664"
   },
   "reason": "OK",
   "request": {
@@ -4096,12 +4096,6 @@
                 "brand": null
               }
             ]
-          }
-        }
-      }
-    }
-  }
-}
           }
         }
       }

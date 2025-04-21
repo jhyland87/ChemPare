@@ -95,6 +95,7 @@ class SupplierCarolinaChemical(SupplierBase):
         product = dict(
             **self.__defaults,
             url=product_obj["url"],
+            supplier=self._supplier.name,
             # uuid=product_obj["product_id"],
             # name=product_obj["title"],
             # title=product_obj["title"],
@@ -124,64 +125,66 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product_page_data = {"url": product_url, "variants": []}
 
-        try:
-            product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(
-                "data-product_variations"
+        product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(
+            "data-product_variations"
+        )
+        if product_variations is None:
+            raise ValueError("Failed to retrieve variant information for product")
+
+        product_variations = json.loads(str(product_variations))
+
+        for index, variant in enumerate(product_variations):
+            variant_desc = BeautifulSoup(variant.get("variation_description"), "html.parser")
+
+            variation = dict(
+                # _id=index,
+                title=variant_desc.get_text(strip=True),
+                uuid=variant.get("variation_id"),
+                sku=variant.get("sku"),
+                # description=variant_desc,
+                price=variant.get("display_price"),
+                currency="$",
             )
+            quantity = self._parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
-            if product_variations:
-                product_variations = json.loads(product_variations)
+            # Basic
+            if quantity is not None:
+                if quantity.quantity is None and isinstance(quantity.uom, str):
+                    quantity.quantity = 1
 
-            for index, variant in enumerate(product_variations):
-                variation = VariantType(
-                    # _id=index,
-                    uuid=variant["variation_id"],
-                    sku=variant["sku"],
-                    description=variant["variation_description"],
-                    price=variant["display_price"],
-                    quantity=variant["attributes"]["attribute_pa_size"],
-                )
+                variation.update(dict(quantity))
 
-                variation.set_id(index)
+            product_page_data["variants"].append(VariantType(**variation))
 
-                if variation.description:
-                    variation.description = BeautifulSoup(variation.description, "html.parser")
-                    variation.description = variation.description.get_text(strip=True)
+            if index == 0:
+                product_page_data.update(dict(variation))
 
-                product_page_data["variants"].append(variation)
+        # Get the title
+        title_elem = product_page_soup.find("h1", class_="product_title")
 
-                if index == 0:
-                    product_page_data.update(dict(variation))
+        product_page_data["title"] = title_elem.get_text(strip=True)
+        product_page_data["name"] = product_page_data["title"]
 
-            # Get the title
-            title_elem = product_page_soup.find("h1", class_="product_title")
+        # Get the CAS/formula/etc
+        # .woocommerce-product-details__short-description > table > tbody > tr
+        description_rows = (
+            product_page_soup.find("div", class_="woocommerce-product-details__short-description")
+            .find('table')
+            .find('tbody')
+            .find_all('tr')
+        )
 
-            product_page_data["title"] = title_elem.get_text(strip=True)
-            product_page_data["name"] = product_page_data["title"]
+        for desc_row in description_rows:
+            td = desc_row.find_all("td")
+            attr = td[0].get_text(strip=True)
+            val = td[1].get_text(strip=True)
 
-            # Get the CAS/formula/etc
-            # .woocommerce-product-details__short-description > table > tbody > tr
-            description_rows = (
-                product_page_soup.find("div", class_="woocommerce-product-details__short-description")
-                .find('table')
-                .find('tbody')
-                .find_all('tr')
-            )
+            if self._is_cas(val):
+                product_page_data["cas"] = val
+                continue
 
-            for desc_row in description_rows:
-                td = desc_row.find_all("td")
-                attr = td[0].get_text(strip=True)
-                val = td[1].get_text(strip=True)
-
-                if self._is_cas(val):
-                    product_page_data["cas"] = val
-                    continue
-
-                if attr == "Molecular Formula" and val:
-                    product_page_data["formula"] = val
-                    continue
-
-        except Exception as err:
-            print("Something failed:", err)
+            if attr == "Molecular Formula" and val:
+                product_page_data["formula"] = val
+                continue
 
         return product_page_data

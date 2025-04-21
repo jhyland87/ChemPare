@@ -1,11 +1,11 @@
 """VariantType datatype"""
 
 from dataclasses import dataclass
-
+from typing import Any
 from chempare.datatypes import DecimalLikeType
 
 
-@dataclass(init=False, match_args=True, kw_only=True)
+@dataclass
 class VariantType:
     """
     VariantType dataclass for product variants.
@@ -58,11 +58,6 @@ class VariantType:
     # price: PriceType | None = None
     price: DecimalLikeType
     """Price of product"""
-
-    currency: str
-    """Currency the price is in"""
-
-    currency_code: str
     """The currency code, if one can be determined from the currency symbol"""
 
     quantity: DecimalLikeType
@@ -70,6 +65,11 @@ class VariantType:
 
     uom: str
     """Unit of measurement for quantity"""
+
+    currency: str | None = None
+    """Currency the price is in"""
+
+    currency_code: str | None = None
 
     url: str | None = None
     """URL to direcet product (if availabe, will default to product pages url)"""
@@ -127,9 +127,24 @@ class VariantType:
     @name.setter
     def name(self, name: str) -> None:
         """
-        Setter for the product name property.
+        Setter for the variant name property.
 
         Args:
-            name (str): Name of the product.
+            name (str): Name of the variant.
         """
         self._name = name
+
+    def update(self, data: dict) -> None:
+        """
+        update the variant
+
+        Update/extend the variant data using a dictionary.
+
+        :param data: Dictionary with keys used in this datatype
+        :type data: dict
+        """
+        self.__dict__.update(data)
+
+    def setdefault(self, key: str, val: Any) -> None:
+        """Set the default value of a property"""
+        self.__dict__.setdefault(key, val)
