@@ -2,7 +2,7 @@ import json
 from typing import Any
 
 from bs4 import BeautifulSoup
-
+from chempare.datatypes import DecimalLikeType
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.datatypes import VariantType
@@ -51,7 +51,7 @@ class SupplierCarolinaChemical(SupplierBase):
             product_result = self._query_and_parse_product(product_obj)
             self._products.append(product_result)
 
-    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _query_and_parse_product(self, product_obj: dict) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:
@@ -92,23 +92,7 @@ class SupplierCarolinaChemical(SupplierBase):
         #     }
         # },
 
-        product = dict(
-            **self.__defaults,
-            url=product_obj["url"],
-            supplier=self._supplier.name,
-            # uuid=product_obj["product_id"],
-            # name=product_obj["title"],
-            # title=product_obj["title"],
-            # description=(
-            #     str(product_obj["description"]).strip()
-            #     if product_obj["description"]
-            #     else None
-            # ),
-            # price=f"{float(product_obj['price']):.2f}",
-            # url="{0}{1}".format(self._supplier["base_url"], product_obj["link"]),
-            # manufacturer=product_obj["vendor"],
-            # supplier=self._supplier["name"],
-        )
+        product = dict(**self.__defaults, url=product_obj.get("url"), supplier=self._supplier.name)
 
         product_data = self.__query_product_page(product_obj["url"])
 
@@ -125,7 +109,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product_page_data = {"url": product_url, "variants": []}
 
-        product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(
+        product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(  # type: ignore
             "data-product_variations"
         )
         if product_variations is None:
@@ -138,11 +122,11 @@ class SupplierCarolinaChemical(SupplierBase):
 
             variation = dict(
                 # _id=index,
-                title=variant_desc.get_text(strip=True),
+                title=str(variant_desc.get_text(strip=True)),
                 uuid=variant.get("variation_id"),
                 sku=variant.get("sku"),
                 # description=variant_desc,
-                price=variant.get("display_price"),
+                price=float(variant.get("display_price")),
                 currency="$",
             )
             quantity = self._parse_quantity(variant.get("attributes").get("attribute_pa_size"))

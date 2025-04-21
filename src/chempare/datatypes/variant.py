@@ -58,7 +58,6 @@ class VariantType:
     # price: PriceType | None = None
     price: DecimalLikeType
     """Price of product"""
-    """The currency code, if one can be determined from the currency symbol"""
 
     quantity: DecimalLikeType
     """Quantity of listing"""
@@ -70,6 +69,7 @@ class VariantType:
     """Currency the price is in"""
 
     currency_code: str | None = None
+    """The currency code, if one can be determined from the currency symbol"""
 
     url: str | None = None
     """URL to direcet product (if availabe, will default to product pages url)"""
