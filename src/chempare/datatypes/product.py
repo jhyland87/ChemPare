@@ -17,7 +17,7 @@ from chempare.datatypes.variant import VariantType
 from chempare import utils
 
 
-@dataclass
+@dataclass(repr=False)
 class ProductType:
     """
     ProductType dataclass for products.
@@ -159,16 +159,21 @@ class ProductType:
     formula: str | None = None
     """Chemical formula"""
 
-    _name: str | None = None
+    name: str | None = None
     """Unique name, if different than title"""
 
-    def __init__(self, **kwargs):
-        if 'name' in kwargs:
-            kwargs['_name'] = kwargs.get('name')
+    # def __init__(self, **kwargs):
+    #     if 'name' in kwargs:
+    #         kwargs['_name'] = kwargs.get('name')
 
-            del kwargs['name']
+    #         del kwargs['name']
 
-        self.__dict__.update(kwargs)
+    #     self.__dict__.update(kwargs)
+    #     super().__init__(self)
+
+    def __post_init__(self):
+        if self.name is None:
+            self.name = self.title
 
     def __iter__(self):
         return iter({k: v for k, v in self.__dict__.items() if v is not None})
@@ -209,9 +214,9 @@ class ProductType:
         :return: Partial ProductType instance
         :rtype: Callable
         :Example:
-        >>> partialProduct = ProductType.partial({'supplier': 'Bar', 'country_code': 'USD', 'currency': '$'})
+        >>> partialProduct = ProductType.partial({'supplier': 'Bar', 'currency_code': 'USD', 'currency': '$'})
         >>> partialProduct(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
-        ProductType(country_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
+        ProductType(currency_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
         title='Test from partial', uom='L', url='http://website.com')
         """
 
@@ -230,9 +235,9 @@ class ProductType:
         >>> partialProductA(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
         ProductType(currency='$', currency_code='USD', price='123.45', quantity='5', supplier='Foo',
         title='Test from partial', uom='L', url='http://website.com')
-        >>> partialProductB = ProductType.partial({'supplier': 'Bar', 'country_code': 'USD', 'currency': '$'})
+        >>> partialProductB = ProductType.partial({'supplier': 'Bar', 'currency_code': 'USD', 'currency': '$'})
         >>> partialProductB(title='Test from partial', price=123.45, quantity=5, uom='L', url='http://website.com')
-        ProductType(country_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
+        ProductType(currency_code='USD', currency='$', price='123.45', quantity='5', supplier='Bar',
         title='Test from partial', uom='L', url='http://website.com')
         """
         data = {}
@@ -243,32 +248,32 @@ class ProductType:
             data.update(**kwargs)
         return partial(ProductType, **data)
 
-    @property
-    def name(self) -> str | None:
-        """
-        name - Name of property, may be different than the title
+    # @property
+    # def name(self) -> str | None:
+    #     """
+    #     name - Name of property, may be different than the title
 
-        Sometimes products are listed with a name and a title, one is usually more viewer
-        friendly than the other.
+    #     Sometimes products are listed with a name and a title, one is usually more viewer
+    #     friendly than the other.
 
-        :return: The name of the product. Will return the title value if no product name was set.
-        :rtype: str | None
-        """
-        return getattr(self, '_name', self.title)
+    #     :return: The name of the product. Will return the title value if no product name was set.
+    #     :rtype: str | None
+    #     """
+    #     return getattr(self, '_name', self.title)
 
-    # name: str | None = property(get_name)
+    # # name: str | None = property(get_name)
 
-    @name.setter
-    def name(self, name: str) -> None:
-        """
-        name setter
+    # @name.setter
+    # def name(self, name: str) -> None:
+    #     """
+    #     name setter
 
-        Setter for the product name property.
+    #     Setter for the product name property.
 
-        :param name: Value to set the name property to
-        :type name: str
-        """
-        self._name = name
+    #     :param name: Value to set the name property to
+    #     :type name: str
+    #     """
+    #     self._name = name
 
     def update(self, data: dict) -> None:
         """
