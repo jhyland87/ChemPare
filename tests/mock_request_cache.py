@@ -14,6 +14,8 @@ requests = None
 
 # print(f"{save_responses=}")
 
+# requests_cache.install_cache('cache_name')
+
 
 def set_supplier_cache_session(supplier: str = "default"):
     testing_supplier = os.getenv("PYTEST_CURRENT_TEST")
@@ -35,6 +37,7 @@ def set_supplier_cache_session(supplier: str = "default"):
         _cache_sessions[supplier] = CachedSession(
             cache_name=save_to,
             only_if_cached=only_mock,
+            use_cache_dir=True,
             force_refresh=force_refresh,
             backend="filesystem",
             serializer="json",

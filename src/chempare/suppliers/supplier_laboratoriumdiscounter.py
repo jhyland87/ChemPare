@@ -25,15 +25,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
     _defaults = {}
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string for search
-
-        Returns:
-            None: Nothing
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier     None: Nothing"""
 
         # Example request url for Laboratorium Discounter
         # https://www.laboratoriumdiscounter.nl/en/search/{search_query}/page1.ajax?limit=100
@@ -51,7 +44,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             "format": "json",
         }
 
-        search_result = self.http_get_json(f"en/search/{query}", params=get_params)
+        search_result = self.http_get_json(f"en/search/{self._query}", params=get_params)
 
         self._defaults = {}
 
@@ -65,8 +58,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         self._query_results = utils.get_nested(search_result, "collection", "products")
 
         if self._query_results is False:
-            print(f"No products found for search query: {query}")
-            raise NoProductsFoundError(supplier=self._supplier.name, query=query)
+            print(f"No products found for search query: {self._query}")
+            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -84,6 +77,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product.get("variant"))
             # price = self._parse_price(product["price"])
+            if not quantity:
+                continue
 
             price = utils.get_nested(product, "price", "price")
 
@@ -100,11 +95,13 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 url=product.get("url", None),
                 supplier=self._supplier.name,
                 usd=self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
+                **self._defaults,
+                **quantity.__dict__,
                 # quantity=quantity["quantity"],
                 # uom=quantity["uom"],
             )
 
-            product_obj.update(self._defaults)
+            # product_obj.update(self._defaults)
 
             if quantity:
                 product_obj.update(quantity)
@@ -128,6 +125,3 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         if variant_dict is not None and "CAS" in variant_dict:
             return variant_dict["CAS"]
-
-
-__supplier_class = SupplierLaboratoriumDiscounter

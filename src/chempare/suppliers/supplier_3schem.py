@@ -1,6 +1,9 @@
+import json
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+from bs4 import BeautifulSoup
 
 
 # File: /suppliers/supplier_3schem.py
@@ -12,12 +15,8 @@ class Supplier3SChem(SupplierBase):
     )
     """Supplier specific data"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for 3S Supplier
         # https://3schemicalsllc.com/search/suggest.json?
@@ -27,7 +26,7 @@ class Supplier3SChem(SupplierBase):
         #   &resources[options][unavailable_products]=last
         #
         get_params = {
-            "q": query,
+            "q": self._query,
             "resources[type]": "product",
             # Setting the limit here to 1000, since the limit parameter should
             # apply to results returned from Supplier3SChem, not the rquests
@@ -50,30 +49,48 @@ class Supplier3SChem(SupplierBase):
             if product.get("available") is False:
                 continue
 
-            product_obj = dict(
+            if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
+                raise ValueError("Failed to retrieve the product page for product")
+
+            quantity = self._parse_quantity(product_json["variants"][0]["options"][0])
+
+            product_obj = ProductType(
                 uuid=product.get("id"),
                 name=product.get("title"),
                 title=product.get("title"),
-                price=product.get("price"),
+                price=product_json["variants"][0]["price"],
                 currency="$",
-                currency_code="UAT",
+                currency_code="USD",
                 url=self._supplier.base_url + product.get("url"),
                 supplier=self._supplier.name,
+                **quantity.__dict__,
             )
 
-            # price = self._parse_price(product.get("price"))
+            self._products.append(product_obj)
 
-            # if not price:
-            #     continue
+    def _get_product_data(self, url: str, product_id: int) -> dict:
+        """
+        _get_product_data Get specific info about a product
 
-            # product_obj.update(price)
+        Some additional info is stored in a <script/> element with the product ID in
+        the class name. The content is in JSON format and can easily be retrieved. This
+        also contains the variant information.
 
-            # print("product_obj:", product_obj)
+        :param url: URL of product
+        :type url: str
+        :param product_id: ID of product
+        :type product_id: int
+        :return: Parsed JSON object for product
+        :rtype: dict
+        """
+        product_page = self.http_get_html(url)
 
-            self._products.append(ProductType(**product_obj))
+        product_page_soup = BeautifulSoup(product_page, "html.parser")
 
+        product_data = product_page_soup.find("script", class_=f"ProductJson-{product_id}")
 
-__supplier_class = Supplier3SChem
+        return json.loads(product_data.get_text(strip=True))
+
 
 if __package__ == "suppliers":
     __disabled__ = False

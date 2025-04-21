@@ -30,12 +30,8 @@ class SupplierLoudwolf(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         self.__product_pages = dict()
 
@@ -106,7 +102,7 @@ class SupplierLoudwolf(SupplierBase):
 
                 self.__product_pages[product_id] = product_href.strip()
 
-        __query_search_page(query)
+        __query_search_page(self._query)
 
     # Method iterates over the product query results stored at
     # self._query_results and
@@ -136,13 +132,13 @@ class SupplierLoudwolf(SupplierBase):
             href (str): URL for product
         """
 
-        product_params = self._get_param_from_url(href)
-        product_page = self.__query_product_page(product_params)
+        product_params: dict = self._get_param_from_url(href)
+        product_page: bytes = self.__query_product_page(product_params)
 
         if not product_page:
             return
 
-        product = self.__parse_product_page(product_page)
+        product: ProductType = self.__parse_product_page(product_page)
 
         if not product:
             return
@@ -169,7 +165,7 @@ class SupplierLoudwolf(SupplierBase):
             bytes: The html content
         """
 
-        product_html = self.http_get_html("storefront/index.php", params=params)
+        product_html: bytes = self.http_get_html("storefront/index.php", params=params)
         return product_html or None
 
     def __parse_product_page(self, product_html: bytes) -> ProductType | None:
@@ -255,6 +251,3 @@ class SupplierLoudwolf(SupplierBase):
 
         product = ProductType(**product)
         return product.cast_properties()
-
-
-__supplier_class = SupplierLoudwolf

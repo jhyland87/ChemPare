@@ -32,12 +32,8 @@ class SupplierChemsavers(SupplierBase):
     #     super().__init__(id, query, limit)
     # Do extra stuff here
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # Example request url for Laboratorium Discounter
         # https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?
@@ -54,7 +50,7 @@ class SupplierChemsavers(SupplierBase):
                     "sort_by": "price:asc",
                     "highlight_full_fields": ("name, CAS, description, sku, " "meta_description, meta_keywords"),
                     "collection": "products",
-                    "q": query,
+                    "q": self._query,
                     "facet_by": "price",
                     # Setting the limit here to 100, since the limit parameter
                     # should apply to results returned from the supplier. Some
@@ -104,10 +100,15 @@ class SupplierChemsavers(SupplierBase):
             ProductType: Instance of ProductType
         """
 
+        quantity = self._parse_quantity(product_obj["description"])
+
+        if not quantity:
+            quantity = self._parse_quantity(product_obj["name"])
+
         product = ProductType(
             **self.__defaults,
             uuid=product_obj["product_id"],
-            name=product_obj["name"],
+            title=product_obj["name"],
             description=product_obj["description"],
             cas=product_obj.get("CAS", None),
             price=product_obj.get("price"),
@@ -115,6 +116,7 @@ class SupplierChemsavers(SupplierBase):
             sku=product_obj.get("sku", None),
             upc=product_obj.get("upc", None),
             supplier=self._supplier.name,
+            **quantity.__dict__,
         )
 
         # Since the description contains HTML, and it may contain restrictions,
@@ -148,6 +150,3 @@ class SupplierChemsavers(SupplierBase):
                 product.description = "; ".join(desc_parts)
 
         return product.cast_properties()
-
-
-__supplier_class = SupplierChemsavers

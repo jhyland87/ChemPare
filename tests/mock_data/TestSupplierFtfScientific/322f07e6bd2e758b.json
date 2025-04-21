@@ -1,0 +1,50 @@
+{
+  "_content": "",
+  "cookies": {
+    "XSRF-TOKEN": "1745183330|fwSyq6oWLqJG"
+  },
+  "created_at": "2025-04-20T21:08:50.325955+00:00",
+  "elapsed": 0.169631,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "cache-control": "no-cache",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Sun, 20 Apr 2025 21:08:50 GMT",
+    "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "set-cookie": "_wixAB3=1292391#1|4195310#2; Max-Age=15724800; Expires=Sun, 19 Oct 2025 21:08:50 GMT; Path=/_api/wix-laboratory-server/laboratory/conductAllInScope; Domain=.wix.com, XSRF-TOKEN=1745183330|fwSyq6oWLqJG; Path=/; Domain=www.ftfscientific.com; Secure; SameSite=None",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "MISS",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==,qYxvFa0bBL43z6b6TutC4fNjUakNWJRbdep8YI9EUVAOIv81siZFFg8Zg0+ti17joE2aorKwtRimSyvIHo/6HA==,R8nVwPJv9QJL1m78OROO+Nc4fHxTiE33kcCYOAxvT9E=,mvxQ9qSAmY38asKjFCcmG6Q5EwyLzElGn9JrA1EfA5eddAG9hwhkf35vjAoSunma/mec4/DaMW+a62IRw/5E6B9slopJdhD+WySraMrpIY8=",
+    "x-served-by": "cache-lax-kwhp1940039-LAX",
+    "x-wix-request-id": "1745183330.36283874803642448618"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "client-session-bind": "593b423a-6732-49a2-88a2-99bfb401e6c4",
+      "server-session-bind": "593b423a-6732-49a2-88a2-99bfb401e6c4"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4; server-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4",
+      "User-Agent": "python-requests/2.32.3",
+      "client-binding": "593b423a-6732-49a2-88a2-99bfb401e6c4"
+    },
+    "method": "HEAD",
+    "url": "https://www.ftfscientific.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"
+  },
+  "status_code": 200,
+  "url": "https://www.ftfscientific.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=wix-one-app"
+}

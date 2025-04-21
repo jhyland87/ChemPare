@@ -10,3 +10,4 @@ dev/
 .DS_Store
 .coverage
 build
+coverage-html

@@ -1,0 +1,109 @@
+{
+  "created_at": "2025-04-20T22:11:39.749292+00:00",
+  "elapsed": 0.190778,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "1930",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Sun, 20 Apr 2025 22:11:39 GMT",
+    "etag": "W/\"4d917b36704b45b89fb1b2d574fad906\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=miss, varnish;desc=miss_hit, dc;desc=fastly_g",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
+    "x-served-by": "cache-bur-kbur8200099-BUR",
+    "x-wix-request-id": "1745187099.793602021317054367"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "server-session-bind": "82215072-896e-4027-b6c5-09aa3ded7d80",
+      "XSRF-TOKEN": "1745185169|2ODyIc14P40h"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=82215072-896e-4027-b6c5-09aa3ded7d80; XSRF-TOKEN=1745185169|2ODyIc14P40h",
+      "User-Agent": "python-requests/2.32.3",
+      "XSRF-TOKEN": "1745185169|2ODyIc14P40h",
+      "client-binding": "82215072-896e-4027-b6c5-09aa3ded7d80"
+    },
+    "method": "GET",
+    "url": "https://www.bunmurralabs.store/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Asodium%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D"
+  },
+  "status_code": 200,
+  "url": "https://www.bunmurralabs.store/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Asodium%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D",
+  "_decoded_content": {
+    "data": {
+      "catalog": {
+        "category": {
+          "numOfProducts": 15,
+          "productsWithMetaData": {
+            "totalCount": 1,
+            "list": [
+              {
+                "id": "c26c2235-4a52-4dca-8f08-e6dd69481b79",
+                "options": [
+                  {
+                    "id": "22de9831-6ec1-4b41-bcf0-1cee1e609b47",
+                    "key": "Mass",
+                    "title": "Mass",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 2,
+                        "value": "5g",
+                        "description": "5g",
+                        "key": "5g",
+                        "inStock": null
+                      },
+                      {
+                        "id": 3,
+                        "value": "10g",
+                        "description": "10g",
+                        "key": "10g",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "ab3904d5-2719-4cda-9242-1c0a080677f7",
+                    "optionsSelections": [
+                      3
+                    ],
+                    "price": 90.0,
+                    "formattedPrice": "AU$90.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 75.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "ruthenium-catalyst",
+                "formattedPrice": "AU$75.00",
+                "name": "Sodium Nitrite (ACS reagent, \u2265 97%)",
+                "description": "<p>Sodium nitrite (NaNO2) is an inorganic compound that is commonly used as a reagent and catalyst in synthetic organic chemistry.</p><p>&nbsp;</p><p>CAS: 7632-00-0</p><p>Molecular weight: 69.00 g/mol</p><p>Chemical formula: NaNO2</p><p>&nbsp;</p>",
+                "brand": "Bunmurra Labs"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

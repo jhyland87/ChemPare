@@ -22,7 +22,7 @@ class SupplierWarchem(SupplierBase):
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    def _setup(self, query: str | None = None) -> None:
+    def _setup(self) -> None:
         """The setup for WarChem is to store a randomly generated string in the
         eGold cookie, then set the product return count to the max (36), which
         will be carried on to any request afterwords.
@@ -42,20 +42,16 @@ class SupplierWarchem(SupplierBase):
         self._cookies["eGold"] = self._random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
-        self.http_post(f"szukaj.html/szukaj={query}", data=dict(ilosc_na_stronie=36))
+        self.http_post(f"szukaj.html/szukaj={self._query}", data=dict(ilosc_na_stronie=36))
 
-    def _query_products(self, query: str) -> None:
-        """Query products from supplier
-
-        Args:
-            query (str): Query string to use
-        """
+    def _query_products(self) -> None:
+        """Query products from supplier"""
 
         # https://warchem.pl/szukaj.html/szukaj=ACET/s=2
 
         search_result = self.http_get_html(
             # f"szukaj.html/szukaj={query}/opis=tak/fraza=nie/nrkat=tak/kodprod=tak/ean=tak/kategoria=1/podkat=tak"
-            f"szukaj.html/szukaj={query}"
+            f"szukaj.html/szukaj={self._query}"
         )
 
         search_result_soup = BeautifulSoup(search_result, "html.parser")
@@ -132,6 +128,7 @@ class SupplierWarchem(SupplierBase):
         if price_elem:
             product["price"] = str(price_elem.attrs["content"])
             product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
+            product["currency_code"] = str(self._currency_code_from_symbol(product["currency"]))
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
         quantity_options = quantity_elem_container.find_all("div", class_="PoleWyboruCechy")
@@ -142,6 +139,3 @@ class SupplierWarchem(SupplierBase):
 
         product = ProductType(**product)
         self._products.append(product.cast_properties())
-
-
-__supplier_class = SupplierWarchem

@@ -81,3 +81,19 @@ class NoMockDataError(Exception):
         if self.details:
             ret += " - {self.details}"
         return ret
+
+
+class ProductListQueryError(Exception):
+    def __init__(self, url: str, supplier: str):
+        """
+        Initializes the NoMockDataError exception
+
+        Args:
+            url (str): URL the unit test called.
+            supplier (str | None, optional): Supplier module/name. Defaults to None.
+        """
+        self.url = url
+        self.supplier = supplier
+
+    def __str__(self):
+        return f"Initial request for products list from {self.supplier} returned falsy - {self.url}"

@@ -1,35 +1,37 @@
 {
   "cookies": {
-    "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g"
+    "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+    "client-session-bind": "8ed54b8d-121d-42f0-80a7-5f0dcd8db8de",
+    "server-session-bind": "8ed54b8d-121d-42f0-80a7-5f0dcd8db8de"
   },
-  "created_at": "2025-04-19T20:18:51.983894+00:00",
-  "elapsed": 0.151016,
+  "created_at": "2025-04-20T21:08:50.150488+00:00",
+  "elapsed": 0.140593,
   "encoding": "UTF-8",
   "headers": {
     "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
     "Transfer-Encoding": "chunked",
     "accept-ranges": "bytes",
-    "age": "86742",
+    "age": "176141",
     "cache-control": "public,max-age=0,must-revalidate",
     "content-encoding": "gzip",
     "content-language": "en-US",
     "content-type": "text/html; charset=UTF-8",
-    "date": "Sat, 19 Apr 2025 20:18:51 GMT",
+    "date": "Sun, 20 Apr 2025 21:08:50 GMT",
     "etag": "W/\"dc820b8383c2484929637dc9a50fc950\"",
     "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
     "html-cacheable": "true",
     "link": "<https://static.parastorage.com/>; rel=preconnect; crossorigin;,<https://static.parastorage.com/>; rel=preconnect;,<https://static.wixstatic.com/>; rel=preconnect; crossorigin;,<https://static.wixstatic.com/>; rel=preconnect;,<https://siteassets.parastorage.com>; rel=preconnect; crossorigin;,",
     "server": "Pepyaka",
     "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
-    "set-cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20",
+    "set-cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20, client-session-bind=8ed54b8d-121d-42f0-80a7-5f0dcd8db8de; Path=/; Secure; SameSite=Lax;, server-session-bind=8ed54b8d-121d-42f0-80a7-5f0dcd8db8de; Path=/; Secure; SameSite=Lax; HttpOnly;",
     "strict-transport-security": "max-age=86400",
     "vary": "Accept-Encoding",
     "via": "1.1 google",
     "x-cache": "HIT",
     "x-content-type-options": "nosniff",
     "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
-    "x-served-by": "cache-bur-kbur8200063-BUR",
-    "x-wix-request-id": "1745093931.975733814051647679"
+    "x-served-by": "cache-lax-kwhp1940113-LAX",
+    "x-wix-request-id": "1745183330.242898665309421269"
   },
   "reason": "OK",
   "request": {
@@ -38,12 +40,15 @@
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate",
       "Connection": "keep-alive",
-      "User-Agent": "python-requests/2.32.3"
+      "User-Agent": "python-requests/2.32.3",
+      "sec-fetch-dest": "document",
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-site": "none"
     },
     "method": "HEAD",
-    "url": "https://www.ftfscientific.com/"
+    "url": "https://www.ftfscientific.com//"
   },
   "status_code": 200,
-  "url": "https://www.ftfscientific.com/",
+  "url": "https://www.ftfscientific.com//",
   "_decoded_content": ""
 }

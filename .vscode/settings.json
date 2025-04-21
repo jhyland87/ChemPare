@@ -98,8 +98,8 @@
     "python.missingPackage.severity": "Error",
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "black-formatter.importStrategy": "fromEnvironment",
-    "isort.check": true,
-    "isort.importStrategy": "fromEnvironment",
+    //"isort.check": true,
+    //"isort.importStrategy": "fromEnvironment",
     "ruff.organizeImports": false,
     "ruff.fixAll": false,
     "autoDocstring.generateDocstringOnEnter": true,
@@ -202,11 +202,22 @@
         "./src/chempare/suppliers",
         "./src/chempare/datatypes"
     ],
-    "editor.defaultFormatter": "ms-python.pylint",
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "files.exclude": {
         "**/__pycache__": true
-    }
+    },
+    "autoDocstring.includeExtendedSummary": true,
+    "autoDocstring.includeName": true,
+    "autoDocstring.docstringFormat": "sphinx",
+    "autoDocstring.startOnNewLine": true,
+    "editor.defaultFoldingRangeProvider": "njpwerner.autodocstring",
+    "cSpell.words": [
+        "bunmurralabs",
+        "chempare",
+        "rtype",
+        "wixbase"
+    ]
 }

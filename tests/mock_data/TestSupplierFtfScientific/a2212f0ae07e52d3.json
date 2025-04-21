@@ -1,0 +1,940 @@
+{
+  "created_at": "2025-04-20T21:08:50.597992+00:00",
+  "elapsed": 0.052551,
+  "encoding": "utf-8",
+  "headers": {
+    "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "Transfer-Encoding": "chunked",
+    "accept-ranges": "bytes",
+    "age": "0",
+    "cache-control": "public,max-age=0,must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json;charset=utf-8",
+    "date": "Sun, 20 Apr 2025 21:08:50 GMT",
+    "etag": "W/\"50355deb2ceca4cff10832a0dd406175\"",
+    "glb-x-seen-by": "bS8wRlGzu0Hc+WrYuHB8QIg44yfcdCMJRkBoQ1h6Vjc=",
+    "server": "Pepyaka",
+    "server-timing": "cache;desc=hit, varnish;desc=hit_hit, dc;desc=fastly_g",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google",
+    "x-cache": "HIT",
+    "x-content-type-options": "nosniff",
+    "x-seen-by": "yvSunuo/8ld62ehjr5B7kA==",
+    "x-served-by": "cache-lax-kwhp1940137-LAX",
+    "x-wix-request-id": "1745183330.677171378713132791"
+  },
+  "reason": "OK",
+  "request": {
+    "body": "",
+    "cookies": {
+      "ssr-caching": "cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g",
+      "client-session-bind": "593b423a-6732-49a2-88a2-99bfb401e6c4",
+      "server-session-bind": "593b423a-6732-49a2-88a2-99bfb401e6c4",
+      "XSRF-TOKEN": "1745183330|fwSyq6oWLqJG",
+      "hs": "1431762167",
+      "svSession": "e4db7087387672f45a57094faabce848db0643960d73a0e64842128f4060ec413e428251a6887393ef923c3eaa8257e21e60994d53964e647acf431e4f798bcdf6c7c0ce140a93b77d02a0644a84839cbde76fb8e02a2e804b515a22755d5597debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2"
+    },
+    "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate",
+      "Authorization": "REDACTED",
+      "Connection": "keep-alive",
+      "Cookie": "ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; client-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4; server-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4; XSRF-TOKEN=1745183330|fwSyq6oWLqJG; hs=1431762167; svSession=e4db7087387672f45a57094faabce848db0643960d73a0e64842128f4060ec413e428251a6887393ef923c3eaa8257e21e60994d53964e647acf431e4f798bcdf6c7c0ce140a93b77d02a0644a84839cbde76fb8e02a2e804b515a22755d5597debc2135b61f35f029964e4b037b89960664ea99fd14bdd368bcfd09e985826022a70596f78b87de23b283c34e35d8d2; ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; server-session-bind=593b423a-6732-49a2-88a2-99bfb401e6c4; XSRF-TOKEN=1745183330|fwSyq6oWLqJG",
+      "User-Agent": "python-requests/2.32.3",
+      "XSRF-TOKEN": "1745183330|fwSyq6oWLqJG",
+      "client-binding": "593b423a-6732-49a2-88a2-99bfb401e6c4"
+    },
+    "method": "GET",
+    "url": "https://www.ftfscientific.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Aacid%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D"
+  },
+  "status_code": 200,
+  "url": "https://www.ftfscientific.com/_api/wix-ecommerce-storefront-web/api?o=getFilteredProducts&q=query%2CgetFilteredProductsWithHasDiscount%28%24mainCollectionId%3AString%21%2C%24filters%3AProductFilters%2C%24sort%3AProductSort%2C%24offset%3AInt%2C%24limit%3AInt%2C%24withOptions%3ABoolean%2C%3D%2Cfalse%2C%24withPriceRange%3ABoolean%2C%3D%2Cfalse%29%7Bcatalog%7Bcategory%28categoryId%3A%24mainCollectionId%29%7BnumOfProducts%2CproductsWithMetaData%28filters%3A%24filters%2Climit%3A%24limit%2Csort%3A%24sort%2Coffset%3A%24offset%2ConlyVisible%3Atrue%29%7BtotalCount%2Clist%7Bid%2Coptions%7Bid%2Ckey%2Ctitle%2C%40include%28if%3A%24withOptions%29%2CoptionType%2C%40include%28if%3A%24withOptions%29%2Cselections%2C%40include%28if%3A%24withOptions%29%7Bid%2Cvalue%2Cdescription%2Ckey%2CinStock%7D%7DproductItems%2C%40include%28if%3A%24withOptions%29%7Bid%2CoptionsSelections%2Cprice%2CformattedPrice%7DproductType%2Cprice%2Csku%2CisInStock%2CurlPart%2CformattedPrice%2Cname%2Cdescription%2Cbrand%2CpriceRange%28withSubscriptionPriceRange%3Atrue%29%2C%40include%28if%3A%24withPriceRange%29%7BfromPriceFormatted%7D%7D%7D%7D%7D%7D&s=WixStoresWebClient&v=%7B%22mainCollectionId%22%3A+%2200000000-000000-000000-000000000001%22%2C+%22offset%22%3A+0%2C+%22limit%22%3A+100%2C+%22sort%22%3A+null%2C+%22filters%22%3A+%7B%22term%22%3A+%7B%22field%22%3A+%22name%22%2C+%22op%22%3A+%22CONTAINS%22%2C+%22values%22%3A+%5B%22%2Aacid%2A%22%5D%7D%7D%2C+%22withOptions%22%3A+true%2C+%22withPriceRange%22%3A+false%7D",
+  "_decoded_content": {
+    "data": {
+      "catalog": {
+        "category": {
+          "numOfProducts": 228,
+          "productsWithMetaData": {
+            "totalCount": 14,
+            "list": [
+              {
+                "id": "0dd7098f-f6bd-f54a-1464-ad6671912985",
+                "options": [
+                  {
+                    "id": "6bcdecc5-8205-4045-9f62-7fb520c7ddcb",
+                    "key": "Volume",
+                    "title": "Volume",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 42,
+                        "value": "15 x 4000 Ml",
+                        "description": "15 x 4000 Ml",
+                        "key": "15 x 4000 Ml",
+                        "inStock": null
+                      },
+                      {
+                        "id": 39,
+                        "value": "500ML",
+                        "description": "500ML",
+                        "key": "500ML",
+                        "inStock": null
+                      },
+                      {
+                        "id": 40,
+                        "value": "1000ML",
+                        "description": "1000ML",
+                        "key": "1000ML",
+                        "inStock": null
+                      },
+                      {
+                        "id": 41,
+                        "value": "1000 ML x 4",
+                        "description": "1000 ML x 4",
+                        "key": "1000 ML x 4",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "edb18e64-8318-4097-b252-6f916d62f0e1",
+                    "optionsSelections": [
+                      39
+                    ],
+                    "price": 30.0,
+                    "formattedPrice": "$30.00"
+                  },
+                  {
+                    "id": "a3ea1a19-4729-4541-83ca-ba51ed207e26",
+                    "optionsSelections": [
+                      40
+                    ],
+                    "price": 35.0,
+                    "formattedPrice": "$35.00"
+                  },
+                  {
+                    "id": "44f951f3-baa8-4b1f-afd5-a6420bd276b6",
+                    "optionsSelections": [
+                      41
+                    ],
+                    "price": 105.0,
+                    "formattedPrice": "$105.00"
+                  },
+                  {
+                    "id": "9a42d128-85ce-40d3-bf82-801ed3dabd8f",
+                    "optionsSelections": [
+                      42
+                    ],
+                    "price": 1150.0,
+                    "formattedPrice": "$1,150.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 30.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "glacial-acetic-acid-acs",
+                "formattedPrice": "$30.00",
+                "name": "Glacial Acetic Acid ACS",
+                "description": "<ul>\t<li><strong>Manufacturing of Vinyl Acetate Monomer (VAM):</strong> Glacial acetic acid is a key ingredient in the production of VAM, which is a precursor to polyvinyl acetate and polyvinyl alcohol. These polymers are used in adhesives, paints, films, and textiles.</li>\t<li><strong>Food Industry:</strong> In its diluted form, acetic acid is widely known as vinegar, which is used as a condiment and preservative. Glacial acetic acid can be used to adjust acidity in food products and as a food additive for flavoring.</li>\t<li><strong>Chemical Synthesis and Pharmaceuticals:</strong> It serves as a solvent and reagent in the synthesis of various chemicals, including aspirin and other pharmaceuticals. Its properties facilitate the production of fine chemicals and active pharmaceutical ingredients (APIs) with high purity.</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_1ffefb4757fa41bab8c954e481827428.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_49d6ad6eaa704c5988d417603429f961.pdf\" target=\"_blank\">Specification-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "399f25dd-9af1-16cc-38be-7b8178adb622",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 156,
+                        "value": "100 Grams",
+                        "description": "100 Grams",
+                        "key": "100 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 162,
+                        "value": "250 Grams",
+                        "description": "250 Grams",
+                        "key": "250 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 167,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 168,
+                        "value": "1000 Grams",
+                        "description": "1000 Grams",
+                        "key": "1000 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 169,
+                        "value": "2500 Grams",
+                        "description": "2500 Grams",
+                        "key": "2500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 170,
+                        "value": "5000 Grams",
+                        "description": "5000 Grams",
+                        "key": "5000 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "64b42ade-a924-498e-9e05-a027b80f108b",
+                    "optionsSelections": [
+                      169
+                    ],
+                    "price": 290.0,
+                    "formattedPrice": "$290.00"
+                  },
+                  {
+                    "id": "6c5d02a2-4a71-49e5-a2b7-45a3708285e4",
+                    "optionsSelections": [
+                      170
+                    ],
+                    "price": 460.0,
+                    "formattedPrice": "$460.00"
+                  },
+                  {
+                    "id": "d94d2018-7d59-4f7c-ab38-6ce238c00a83",
+                    "optionsSelections": [
+                      162
+                    ],
+                    "price": 60.0,
+                    "formattedPrice": "$60.00"
+                  },
+                  {
+                    "id": "6ecd6651-6940-4c77-b223-118a12c3b8c2",
+                    "optionsSelections": [
+                      167
+                    ],
+                    "price": 85.0,
+                    "formattedPrice": "$85.00"
+                  },
+                  {
+                    "id": "81baa158-35ff-416a-a348-d41df9acca7d",
+                    "optionsSelections": [
+                      168
+                    ],
+                    "price": 140.0,
+                    "formattedPrice": "$140.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 40.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "malonic-acid",
+                "formattedPrice": "$40.00",
+                "name": "Malonic acid",
+                "description": "<ul>\t<li>CAS# - 141-82-2</li>\t<li>Purity - 99+%&nbsp;</li></ul>",
+                "brand": null
+              },
+              {
+                "id": "937d9adc-0069-8e31-0688-fd79ed3e6d1d",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 134,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 135,
+                        "value": "1000 Grams",
+                        "description": "1000 Grams",
+                        "key": "1000 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "446f68ce-29dc-4f39-8f2d-56cdb69d1f7f",
+                    "optionsSelections": [
+                      135
+                    ],
+                    "price": 165.0,
+                    "formattedPrice": "$165.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 115.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "trichloroacetic-acid",
+                "formattedPrice": "$115.00",
+                "name": "Trichloroacetic acid",
+                "description": "<ul>\t<li>CAS# - 76-03-9</li>\t<li>Purity - 99+%</li>\t<li>Density - 1.62 G/ML</li></ul>",
+                "brand": null
+              },
+              {
+                "id": "03dfa724-16ad-4733-edc2-31bb48b442fb",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 16,
+                        "value": "1000 Grams",
+                        "description": "1000 Grams",
+                        "key": "1000 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "5040f6b5-a29e-4804-8faa-876271de9a18",
+                    "optionsSelections": [
+                      16
+                    ],
+                    "price": 80.0,
+                    "formattedPrice": "$80.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 80.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "polyphosphoric-acid-115-h3po4-1",
+                "formattedPrice": "$80.00",
+                "name": "Polyphosphoric acid 115% H3PO4",
+                "description": "<ul>\t<li>Non-cyclic compounds composed of multiple orthophosphoric acid molecules joined by condensation</li>\t<li>Multiple applications - Biochemistry, agriculture, pharmacy and chemical research</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_ca24acddffac4c968be45d70184f9977.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "c9aa3a6e-0a71-dd87-3d67-b6c5ee6db10e",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 114,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 115,
+                        "value": "1000 Grams",
+                        "description": "1000 Grams",
+                        "key": "1000 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "d1c67ffb-d048-4590-8550-10662fae7329",
+                    "optionsSelections": [
+                      115
+                    ],
+                    "price": 150.0,
+                    "formattedPrice": "$150.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 100.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "oxalic-acid",
+                "formattedPrice": "$100.00",
+                "name": "Oxalic acid",
+                "description": "<ul>\t<li>CAS# 144-62-7</li>\t<li>Purity 98+%</li></ul>",
+                "brand": null
+              },
+              {
+                "id": "b107b694-72b7-d3e2-f04e-354e4852d079",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 115,
+                        "value": "100 Grams",
+                        "description": "100 Grams",
+                        "key": "100 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 116,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "cc4ba8c5-b857-46e9-887a-2aff147a2b1b",
+                    "optionsSelections": [
+                      116
+                    ],
+                    "price": 295.0,
+                    "formattedPrice": "$295.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 135.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "dichloroacetic-acid",
+                "formattedPrice": "$135.00",
+                "name": "Dichloroacetic acid",
+                "description": "<ul>\t<li>CAS# 79-43-6</li>\t<li>Density - 1.563 G/ML</li>\t<li>Purity 99+%</li></ul>",
+                "brand": null
+              },
+              {
+                "id": "d423260c-342c-5035-fa63-f410c4c52eaa",
+                "options": [
+                  {
+                    "id": "6bcdecc5-8205-4045-9f62-7fb520c7ddcb",
+                    "key": "Volume",
+                    "title": "Volume",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 19,
+                        "value": "100ML",
+                        "description": "100ML",
+                        "key": "100ML",
+                        "inStock": null
+                      },
+                      {
+                        "id": 24,
+                        "value": "500 ML",
+                        "description": "500 ML",
+                        "key": "500 ML",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "fd79c96b-3975-4151-892b-9f57799f8828",
+                    "optionsSelections": [
+                      19
+                    ],
+                    "price": 55.0,
+                    "formattedPrice": "$55.00"
+                  },
+                  {
+                    "id": "721f669b-a807-4355-a6e7-f30ce0d0cbfd",
+                    "optionsSelections": [
+                      24
+                    ],
+                    "price": 130.0,
+                    "formattedPrice": "$130.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 55.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "hydrobromic-acid-48-acs",
+                "formattedPrice": "$55.00",
+                "name": "Hydrobromic Acid 48% ACS",
+                "description": "<ul>\t<li>Used for production of inorganic bromides</li>\t<li>Useful as a catalyst</li>\t<li>Strong acid</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_b7142da9a8a043d8bf73cd4df0f84997.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "049b4aa8-8064-1ae0-2d38-2bb0c1e40c60",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 12,
+                        "value": "50 Grams",
+                        "description": "50 Grams",
+                        "key": "50 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 13,
+                        "value": "100 Grams",
+                        "description": "100 Grams",
+                        "key": "100 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 14,
+                        "value": "250 Grams",
+                        "description": "250 Grams",
+                        "key": "250 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "c57270af-c0c4-4765-bc7a-443e21ea8718",
+                    "optionsSelections": [
+                      12
+                    ],
+                    "price": 50.0,
+                    "formattedPrice": "$50.00"
+                  },
+                  {
+                    "id": "24373f3d-09b0-4783-b70e-66df13499cc4",
+                    "optionsSelections": [
+                      13
+                    ],
+                    "price": 80.0,
+                    "formattedPrice": "$80.00"
+                  },
+                  {
+                    "id": "1a9e5d1d-91c5-488d-816a-e074a79dea6f",
+                    "optionsSelections": [
+                      14
+                    ],
+                    "price": 150.0,
+                    "formattedPrice": "$150.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 50.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "periodic-acid",
+                "formattedPrice": "$50.00",
+                "name": "Periodic Acid",
+                "description": "<ul>\t<li>Inorganic acid</li>\t<li>Used as an oxidizing agent</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_0160f9cff1c1423cb119aec032d87627.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "26da382a-3d50-9382-4576-42ffcb04851c",
+                "options": [
+                  {
+                    "id": "6bcdecc5-8205-4045-9f62-7fb520c7ddcb",
+                    "key": "Volume",
+                    "title": "Volume",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 6,
+                        "value": "1 Liter",
+                        "description": "1 Liter",
+                        "key": "1 Liter",
+                        "inStock": null
+                      },
+                      {
+                        "id": 8,
+                        "value": "1 Liter x 4",
+                        "description": "1 Liter x 4",
+                        "key": "1 Liter x 4",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "0706077e-91bf-4588-9a9b-eed8bb92cb34",
+                    "optionsSelections": [
+                      6
+                    ],
+                    "price": 50.0,
+                    "formattedPrice": "$50.00"
+                  },
+                  {
+                    "id": "9cb7110d-2a81-4167-9ec4-a87cc5da0b91",
+                    "optionsSelections": [
+                      8
+                    ],
+                    "price": 125.0,
+                    "formattedPrice": "$125.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 50.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "sulfuric-acid-95-98-acs",
+                "formattedPrice": "$50.00",
+                "name": "Sulfuric Acid 95-98% ACS",
+                "description": "<ul>\t<li>Common strong acid</li>\t<li>Commonly used in many applications&nbsp;within chemistry</li>\t<li>Packaged in amber glass bottle</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_6e8e5e847f784c8ca68a2cd11a6de6c7.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "b229d6a3-ed21-ec0b-df0d-de9a320641ff",
+                "options": [
+                  {
+                    "id": "6bcdecc5-8205-4045-9f62-7fb520c7ddcb",
+                    "key": "Volume",
+                    "title": "Volume",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 6,
+                        "value": "1 Liter",
+                        "description": "1 Liter",
+                        "key": "1 Liter",
+                        "inStock": null
+                      },
+                      {
+                        "id": 8,
+                        "value": "1 Liter x 4",
+                        "description": "1 Liter x 4",
+                        "key": "1 Liter x 4",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "959f7604-d928-4224-9873-842eb201695e",
+                    "optionsSelections": [
+                      6
+                    ],
+                    "price": 40.0,
+                    "formattedPrice": "$40.00"
+                  },
+                  {
+                    "id": "fbf7ca6a-acc7-4e12-ade1-8aed694f7202",
+                    "optionsSelections": [
+                      8
+                    ],
+                    "price": 105.0,
+                    "formattedPrice": "$105.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 40.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "hydrochloric-acid-37-acs-grade",
+                "formattedPrice": "$40.00",
+                "name": "Hydrochloric acid 37% ACS grade",
+                "description": "<ul>\t<li>Strong mineral acid</li>\t<li>Commonly used in many applications&nbsp;within chemistry</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_8a43ef58458047f5920ff5c5e3117212.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "3f9c6721-3b17-df6f-5044-cc15b9639ca2",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 4,
+                        "value": "100 Grams",
+                        "description": "100 Grams",
+                        "key": "100 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 5,
+                        "value": "250 Grams",
+                        "description": "250 Grams",
+                        "key": "250 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 6,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 7,
+                        "value": "1000 Grams",
+                        "description": "1000 Grams",
+                        "key": "1000 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 8,
+                        "value": "2500 Grams",
+                        "description": "2500 Grams",
+                        "key": "2500 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "7e596d57-e997-4705-b784-82d442d38e3b",
+                    "optionsSelections": [
+                      8
+                    ],
+                    "price": 280.0,
+                    "formattedPrice": "$280.00"
+                  },
+                  {
+                    "id": "e5c0f43e-d9cf-4d8b-8529-dfe4264fc92c",
+                    "optionsSelections": [
+                      4
+                    ],
+                    "price": 40.0,
+                    "formattedPrice": "$40.00"
+                  },
+                  {
+                    "id": "01cc6843-0070-43f9-8dad-f357f473842d",
+                    "optionsSelections": [
+                      5
+                    ],
+                    "price": 65.0,
+                    "formattedPrice": "$65.00"
+                  },
+                  {
+                    "id": "fd06d605-4833-4539-b130-e46206c5208e",
+                    "optionsSelections": [
+                      6
+                    ],
+                    "price": 100.0,
+                    "formattedPrice": "$100.00"
+                  },
+                  {
+                    "id": "aca3eef7-1b41-49dc-b78b-7e88d500b758",
+                    "optionsSelections": [
+                      7
+                    ],
+                    "price": 175.0,
+                    "formattedPrice": "$175.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 40.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "d-tartaric-acid",
+                "formattedPrice": "$40.00",
+                "name": "D-(-)- Tartaric Acid",
+                "description": "<ul>\t<li>Resolving agent</li>\t<li>Organic acid</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_0af69d01ccda4b178a96405219c4bcd9.pdf\" target=\"_blank\">Safety_Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "7b7ade9f-abc9-af98-644f-073991cbc30b",
+                "options": [
+                  {
+                    "id": "1d966178-05af-431d-8c98-9cfbaa8c3e4a",
+                    "key": "Quantity",
+                    "title": "Quantity",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 21,
+                        "value": "2500ML",
+                        "description": "2500ML",
+                        "key": "2500ML",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "d12c9ea9-6f9a-4ee4-920a-bcd4e91b6cb8",
+                    "optionsSelections": [
+                      21
+                    ],
+                    "price": 155.0,
+                    "formattedPrice": "$155.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 155.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "nitric-acid-acs-reagent",
+                "formattedPrice": "$155.00",
+                "name": "Nitric Acid ACS Reagent",
+                "description": "<ul>\t<li>ACS reagent grade</li>\t<li>2500 ML</li>\t<li>Ships in glass bottle</li>\t<li>Oxidizing acid</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_67ef2e989ed841639be0cb977fbe668b.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "2727632b-5e12-2014-2dcf-f5300240af71",
+                "options": [
+                  {
+                    "id": "1d966178-05af-431d-8c98-9cfbaa8c3e4a",
+                    "key": "Quantity",
+                    "title": "Quantity",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 19,
+                        "value": "100ML",
+                        "description": "100ML",
+                        "key": "100ML",
+                        "inStock": null
+                      },
+                      {
+                        "id": 20,
+                        "value": "250ML",
+                        "description": "250ML",
+                        "key": "250ML",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "abf8652a-bf52-4ddd-a3f7-05537ddb2255",
+                    "optionsSelections": [
+                      19
+                    ],
+                    "price": 155.0,
+                    "formattedPrice": "$155.00"
+                  },
+                  {
+                    "id": "a2bca847-db56-4eba-b6f8-f55b11032021",
+                    "optionsSelections": [
+                      20
+                    ],
+                    "price": 230.0,
+                    "formattedPrice": "$230.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 155.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "trifluoroacetic-acid",
+                "formattedPrice": "$155.00",
+                "name": "Trifluoroacetic acid",
+                "description": "<ul>\t<li>Organofluorine compound</li>\t<li>Used in organic chemistry for a variety of purposes</li>\t<li>Solvent used in NMR spectroscopy&nbsp;</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_60d603fe85cf4e63be18fffee4881663.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              },
+              {
+                "id": "2a8fa339-3980-90fc-0979-1c54f8f335b9",
+                "options": [
+                  {
+                    "id": "342cd5c8-fa4e-4b19-916a-e070bca40054",
+                    "key": "Weight",
+                    "title": "Weight",
+                    "optionType": "DROP_DOWN",
+                    "selections": [
+                      {
+                        "id": 8,
+                        "value": "100 Grams",
+                        "description": "100 Grams",
+                        "key": "100 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 11,
+                        "value": "250 Grams",
+                        "description": "250 Grams",
+                        "key": "250 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 12,
+                        "value": "500 Grams",
+                        "description": "500 Grams",
+                        "key": "500 Grams",
+                        "inStock": null
+                      },
+                      {
+                        "id": 14,
+                        "value": "2x500 Grams",
+                        "description": "2x500 Grams",
+                        "key": "2x500 Grams",
+                        "inStock": null
+                      }
+                    ]
+                  }
+                ],
+                "productItems": [
+                  {
+                    "id": "76ef74c5-c3a0-462f-8320-7cf3d15f86f2",
+                    "optionsSelections": [
+                      8
+                    ],
+                    "price": 60.0,
+                    "formattedPrice": "$60.00"
+                  },
+                  {
+                    "id": "3439ab68-95ea-48a6-bc60-ebdf5a6d6d2a",
+                    "optionsSelections": [
+                      11
+                    ],
+                    "price": 110.0,
+                    "formattedPrice": "$110.00"
+                  },
+                  {
+                    "id": "15cd0baa-a63c-4fcb-860f-5e6bf6660a93",
+                    "optionsSelections": [
+                      12
+                    ],
+                    "price": 175.0,
+                    "formattedPrice": "$175.00"
+                  },
+                  {
+                    "id": "df4fac39-daa3-4a12-8862-90322eb56994",
+                    "optionsSelections": [
+                      14
+                    ],
+                    "price": 320.0,
+                    "formattedPrice": "$320.00"
+                  }
+                ],
+                "productType": "physical",
+                "price": 60.0,
+                "sku": "",
+                "isInStock": true,
+                "urlPart": "indole-3-acetic-acid",
+                "formattedPrice": "$60.00",
+                "name": "Indole-3-Acetic Acid",
+                "description": "<ul>\t<li>High purity all natural plant auxin</li>\t<li>Ideal for formulating cloning gels and solutions</li>\t<li><a href=\"https://b44a5c8c-b2e4-4edc-b6b7-d8c947ae522c.usrfiles.com/ugd/b44a5c_b8e6714a309d4c3488f716641b5d6872.pdf\" target=\"_blank\">Safety-Data-Sheet</a></li></ul>",
+                "brand": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
