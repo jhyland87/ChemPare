@@ -1,7 +1,6 @@
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": true,
-
     "editor.codeActionsOnSave": {
         "source.fixAll": "never"
     },
@@ -80,7 +79,9 @@
     "editor.wordWrap": "off",
     "python.defaultInterpreterPath": "python",
     "python.analysis.extraPaths": [
-        "tests"
+        "tests",
+        "typings",
+        "."
     ],
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
@@ -161,15 +162,15 @@
         "reportPrivateImportUsage": false,
         // # Incompatible overrides and property type mismatches are out of our stubs' control
         // # as they are inherited from the implementation.
-        "reportIncompatibleMethodOverride":false,
-        "reportIncompatibleVariableOverride":false,
-        "reportPropertyTypeMismatch":false,
+        "reportIncompatibleMethodOverride": false,
+        "reportIncompatibleVariableOverride": false,
+        "reportPropertyTypeMismatch": false,
         // # Overlapping overloads are often necessary in a stub, meaning pyright's check
         // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
         // # would cause many false positives and catch few bugs.
         "reportOverlappingOverload": false,
         // # The name of the self/cls parameter is out of third-party stubs' control.
-        "reportSelfClsParameterName":false,
+        "reportSelfClsParameterName": false,
         // # Not an error by default in standard mode
         "reportUnsupportedDunderAll": "error",
         "reportUnusedImport": "information"
@@ -188,9 +189,10 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
+        ".",
         "typings",
     ],
-    "python.analysis.autoSearchPaths":true,
+    "python.analysis.autoSearchPaths": true,
     "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
     "python.analysis.typeEvaluation.strictDictionaryInference": false,
     "python.analysis.supportAllPythonDocuments": true,
@@ -198,6 +200,7 @@
     "python.analysis.extraPaths": [
         "typings",
         "./src",
+        ".",
         "./src/chempare",
         "./src/chempare/suppliers"
     ],
@@ -249,5 +252,6 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "explorer.copyRelativePathSeparator": "/",
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "python.terminal.launchArgs": []
 }

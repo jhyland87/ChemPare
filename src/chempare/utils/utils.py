@@ -11,15 +11,11 @@ import regex
 
 from price_parser.parser import Price
 from datatypes import PrimitiveType
+from datatypes import PriceType
 from currex import Currency
 from datatypes import Undefined
 
 import babel.numbers as babelnum
-
-
-CURRENCY_MAP: dict[str, str] = {
-    babelnum.get_currency_symbol(x): x for x in babelnum.list_currencies() if x != babelnum.get_currency_symbol(x)
-}
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -314,21 +310,35 @@ def parse_cookie(value: str) -> dict[str, Any] | None:
     return result
 
 
-def parse_price(value):
+def parse_price(value) -> PriceType | None:
     price = Price.fromstring(value)
+
+    if price is None:
+        return None
     # this gives us the currency (symbol), amount, amount_text and amount_float
 
     currency_code = get_currency_code(price.currency)
 
-    result = {"currency": currency_code, "currency_symbol": price.currency, "price": price.amount_float}
+    result: PriceType = {
+        "currency": str(currency_code),
+        "currency_symbol": price.currency,
+        "price": float(price.amount_float),
+    }
 
     if currency_code != 'USD':
         from_currency_obj = Currency(currency_code, price.amount_float)  # type: ignore
 
-        result["usd"] = from_currency_obj.to("USD")
+        to_usd = from_currency_obj.to("USD")
+
+        result["usd"] = to_usd.amount
 
     return result
 
 
 def get_currency_code(currency_symbol):
-    return CURRENCY_MAP.get(currency_symbol, currency_symbol)
+    if not currency_symbol:
+        return None
+    CURRENCY_MAP: dict[str, str] = {
+        babelnum.get_currency_symbol(x): x for x in babelnum.list_currencies() if x != babelnum.get_currency_symbol(x)
+    }
+    return CURRENCY_MAP.get(currency_symbol, None)

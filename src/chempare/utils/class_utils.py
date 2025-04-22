@@ -22,7 +22,6 @@ from abcplus import ABCMeta
 from abcplus import finalmethod
 from currex import CURRENCIES
 from currex import Currency
-from price_parser.parser import Price
 
 from chempare import utils
 from datatypes import DecimalLikeType
@@ -85,37 +84,34 @@ class ClassUtils(metaclass=ABCMeta):
             r"\s?){2}$"
         )
 
-        matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
-        if not matches:
-            return None
+        # matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
+        # if not matches:
+        #     return None
 
-        matches_groups = matches.groupdict()
+        # matches_groups = matches.groupdict()
 
-        # If we failed to match the currency and amount, then just quit early.
-        # We may choose to default the currency to $ or something else later.
-        if "currency_symbol" not in matches_groups or "amount" not in matches_groups:
-            return None
+        # # If we failed to match the currency and amount, then just quit early.
+        # # We may choose to default the currency to $ or something else later.
+        # if "currency_symbol" not in matches_groups or "amount" not in matches_groups:
+        #     return None
 
-        price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
+        # price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
 
-        print("numbers", numbers)
-        # Failed to parse the currency?
-        if price is None or not hasattr(price, "currency"):
-            return None
+        # # Failed to parse the currency?
+        # if price is None or not hasattr(price, "currency"):
+        #     return None
 
         # currency = self._currency_code_from_symbol(price.currency)
-        currency = utils.get_currency_code(price.currency)
+        currency = utils.parse_price(value)
 
-        result: PriceType = {
-            "currency_symbol": price.currency,
-            "price": float(price.amount),
-            "currency": currency or price.currency,
-        }
+        print("currency:", currency)
 
-        if currency != "USD" and price.currency is not None and price.currency != currency:
-            usd_price = self._to_usd(from_currency=currency, amount=float(price.amount))
-            if usd_price:
-                result["usd"] = usd_price
+        result: PriceType = currency
+
+        # if currency != "USD" and price.currency is not None and price.currency != currency:
+        #     usd_price = self._to_usd(from_currency=currency, amount=float(price.amount))
+        #     if usd_price:
+        #         result["usd"] = usd_price
 
         return result
 
