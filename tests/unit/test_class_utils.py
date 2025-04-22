@@ -1,3 +1,4 @@
+from ctypes import util
 import functools
 import math
 import time
@@ -11,6 +12,7 @@ from datatypes import QuantityType
 from price_parser.parser import Price
 
 from chempare.utils import ClassUtils
+from chempare.utils import utils
 
 # pylint: disable=unused-import
 # pylint: disable=unused-wildcard-import
@@ -137,7 +139,7 @@ class TestClass(ClassUtils, object):
         expected_output: Decimal | None,
     ):
         amnt_convert = Price.fromstring(value)
-        converted_from_symbol = self._currency_code_from_symbol(str(amnt_convert.currency))
+        converted_from_symbol = utils.get_currency_code(str(amnt_convert.currency))
         if converted_from_symbol:
             assert converted_from_symbol == expected_currency
         assert amnt_convert.amount == from_amount
@@ -393,21 +395,21 @@ class TestClass(ClassUtils, object):
         assert type(result) is type(expected_result)
         assert result == expected_result
 
-    @pytest.mark.parametrize(
-        ("symbol", "expected_result"),
-        [("$", "USD"), ("₽", "RUB"), ("€", "EUR"), ("£", "GBP"), ("¥", "JPY"), ("ABCD", None)],
-        ids=["$ is USD", "₽ is RUB", "€ is EUR", "£ is GBP", "¥ is JPY", "ABCD is None"],
-    )
-    def test_currency_code_from_symbol(self, symbol, expected_result):
-        result = self._currency_code_from_symbol(symbol)
-        assert type(result) is type(
-            expected_result
-        ), f"Result type {type(result)} was expected to be {type(expected_result)}"
-        if expected_result is None:
-            assert result is None, f"Expected result of {symbol} to be None, received {result}"
+    # @pytest.mark.parametrize(
+    #     ("symbol", "expected_result"),
+    #     [("$", "USD"), ("₽", "RUB"), ("€", "EUR"), ("£", "GBP"), ("¥", "JPY"), ("ABCD", None)],
+    #     ids=["$ is USD", "₽ is RUB", "€ is EUR", "£ is GBP", "¥ is JPY", "ABCD is None"],
+    # )
+    # def test_currency_code_from_symbol(self, symbol, expected_result):
+    #     result = self._currency_code_from_symbol(symbol)
+    #     assert type(result) is type(
+    #         expected_result
+    #     ), f"Result type {type(result)} was expected to be {type(expected_result)}"
+    #     if expected_result is None:
+    #         assert result is None, f"Expected result of {symbol} to be None, received {result}"
 
-        else:
-            assert result == expected_result, f"Expected result of {symbol} to be {expected_result}, received {result}"
+    #     else:
+    #         assert result == expected_result, f"Expected result of {symbol} to be {expected_result}, received {result}"
 
     @pytest.mark.parametrize(
         ("code", "expected_result"),

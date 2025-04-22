@@ -2,7 +2,6 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from datatypes import ProductType
 from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 

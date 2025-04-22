@@ -32,7 +32,6 @@ from datatypes import QuantityType
 
 # import chempare
 
-
 _logger = logging.getLogger("chempare/class_utils")
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 
@@ -77,12 +76,6 @@ class ClassUtils(metaclass=ABCMeta):
         """
 
         value = normalize('NFKC', value)
-        # if chempare.called_from_test is True:
-        #     print(
-        #         "\n\n\nchempare.called_from_test:",
-        #         chempare.called_from_test,
-        #         "\n\n\n",
-        #     )
 
         iso_4217_pattern = (
             r"^(?:"
@@ -105,11 +98,13 @@ class ClassUtils(metaclass=ABCMeta):
 
         price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
 
+        print("numbers", numbers)
         # Failed to parse the currency?
         if price is None or not hasattr(price, "currency"):
             return None
 
-        currency = self._currency_code_from_symbol(price.currency)
+        # currency = self._currency_code_from_symbol(price.currency)
+        currency = utils.get_currency_code(price.currency)
 
         result: PriceType = {
             "currency_symbol": price.currency,
@@ -685,7 +680,7 @@ class ClassUtils(metaclass=ABCMeta):
             char_list += string.punctuation
 
         # trunk-ignore(bandit/B311)
-        return "".join(random.choice(char_list) for _ in range(max_length))
+        return str("".join(random.choice(char_list) for _ in range(max_length)))
 
     @finalmethod
     def _find_cas(self, value: str) -> str | None:

@@ -9,7 +9,7 @@ from typing import Any
 
 from enum import Enum
 
-# export MYPYPATH=/Users/justinhyland/Documents/projects/ChemPare/src/chempare/stubs
+# export PYTHONPATH=typings
 DecimalLikeType = int | float | Decimal
 PrimitiveType = int | float | str | bool
 TimeoutType = float | tuple[float, float] | tuple[float, None]
@@ -20,8 +20,10 @@ UndefinedType = Enum('UndefinedType', ['undefined'])
 undefined = UndefinedType.undefined
 type Undefined = Literal[UndefinedType.undefined]
 
+
 class SupportsDict(Protocol):
     __dict__: dict[str, Any]
+
 
 class PriceType(TypedDict, total=False):
     price: Required[DecimalLikeType]
@@ -29,9 +31,11 @@ class PriceType(TypedDict, total=False):
     currency_symbol: str | None
     usd: DecimalLikeType | None
 
+
 class QuantityType(TypedDict, total=False):
     quantity: Required[DecimalLikeType]
     uom: str
+
 
 class SupplierType(TypedDict, total=False):
     """
@@ -64,6 +68,7 @@ class SupplierType(TypedDict, total=False):
 
     location: str | None
     """Location of supplier"""
+
 
 class VariantType(TypedDict, total=False):
     """
@@ -160,6 +165,7 @@ class VariantType(TypedDict, total=False):
     individual: bool
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
+
 
 class ProductType(TypedDict, total=False):
     """
