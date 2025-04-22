@@ -7,7 +7,8 @@ import requests
 from pytest import MonkeyPatch
 
 import chempare.suppliers
-from chempare.datatypes import ProductType
+
+# from chempare.datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
 from tests import mock_request_cache
 
@@ -33,10 +34,10 @@ class BaseTestClass:
 
         mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
 
-        monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)
-        monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)
-        monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)
-        monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)
+        monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)  # type: ignore
+        monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)  # type: ignore
+        monkeypatch.setattr(requests, "head", mock_request_cache.requests.head)  # type: ignore
+        monkeypatch.setattr(requests, "request", mock_request_cache.requests.request)  # type: ignore
 
         # Get the supplier class name from the executing test class (eg: TestSupplierFoo would be SupplierFoo)
         supplier_class = cls.__name__.replace('Test', '', 1)
@@ -62,9 +63,9 @@ class BaseTestClass:
             isinstance(self.results["positive_query"], Iterable) is True
         ), "Expected an iterable result from supplier query"
 
-        assert all(
-            isinstance(product, ProductType) for product in self.results["positive_query"]
-        ), "Items in resulting array are not ProductTypes"
+        # assert all(
+        #     isinstance(product, ProductType) for product in self.results["positive_query"]
+        # ), "Items in resulting array are not ProductTypes"
 
         assert len(self.results["positive_query"]) > 0, "No product results found"
 
@@ -76,25 +77,24 @@ class BaseTestClass:
 
     @pytest.mark.parametrize(
         ("attribute"),
-        [("supplier"), ("url"), ("title"), ("price"), ("currency"), ("currency_code"), ("quantity"), ("uom")],
+        [("supplier"), ("url"), ("title"), ("price"), ("currency"), ("quantity"), ("uom")],
         ids=[
             "'supplier' attribute check",
             "'url' attribute check",
             "'title' attribute check",
             "'price' attribute check",
             "'currency' attribute check",
-            "'currency_code' attribute check",
             "'quantity' attribute check",
             "'uom' attribute check",
         ],
     )
     def test_product_attributes(self, attribute):
         assert all(
-            hasattr(product, attribute) for product in self.results["positive_query"]
+            attribute in product for product in self.results["positive_query"]
         ), f"Found items with no {attribute} attribute"
 
         assert all(
-            getattr(product, attribute) not in [None, "None", ""] for product in self.results["positive_query"]
+            product.get(attribute) not in [None, "None", ""] for product in self.results["positive_query"]
         ), f"Found items with empty/invalid {attribute} attribute"
 
     def test_nonsense_query_results(self):

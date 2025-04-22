@@ -35,21 +35,21 @@ class TestProductType:
         assert iter(product), "Product was not iterable"
 
         product.setdefault("description", "FOO")
-        assert product.description == "FOO", "setdefault() did not define 'description'"
+        assert product["description"] == "FOO", "setdefault() did not define 'description'"
 
         product.setdefault("description", "BAR")
-        assert product.description != "BAR", "setdefault() should not have redefined 'description'"
+        assert product["description"] != "BAR", "setdefault() should not have redefined 'description'"
 
-        product.setdefaults({"purity": "95%", "grade": "ACS", "price": 999.9})
-        assert product.purity == "95%", "setdefaults() did not set the 'purity'"
-        assert product.grade == "ACS", "setdefaults() did not set the 'grade'"
-        assert product.price == data["price"], "setdefaults() should not have updated the 'price'"
+        # product.setdefaults({"purity": "95%", "grade": "ACS", "price": 999.9})
+        # assert product["purity"] == "95%", "setdefaults() did not set the 'purity'"
+        # assert product["grade"] == "ACS", "setdefaults() did not set the 'grade'"
+        # assert product["price"] == data["price"], "setdefaults() should not have updated the 'price'"
 
-        product.price = "999.99"  # type: ignore
-        p = product.cast_properties()
-        print(type(product.price))
-        print("p:", type(p.price))
-        assert isinstance(product.price, Decimal), "cast_properties did not cast the '999.99' to a Decimal value"
+        # product.price = "999.99"  # type: ignore
+        # p = product.cast_properties()
+        # print(type(product["price"]))
+        # print("p:", type(p.price))
+        # assert isinstance(product.price, Decimal), "cast_properties did not cast the '999.99' to a Decimal value"
 
     @pytest.mark.parametrize(
         ("partial_attrs", "residual_attrs"),

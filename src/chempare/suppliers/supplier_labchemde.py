@@ -16,8 +16,8 @@ class SupplierLabchemDe(SupplierBase):
     searches"""
 
     __defaults: dict = {
-        "currency": "€",
-        "currency_code": "EUR",
+        "currency_symbol": "€",
+        "currency": "EUR",
         # "is_restricted": False,
     }
     """Default values applied to products from this supplier"""
@@ -61,26 +61,29 @@ class SupplierLabchemDe(SupplierBase):
               This could maybe be included?
         """
 
-        product = dict(
-            **self.__defaults,
-            supplier=self._supplier.name,
-            url=product_obj.get("url"),
-            quantity=product_obj.get("orderUnitInfo", {}).get("priceQuantity"),
-            uom=product_obj.get("orderUnitInfo", {}).get("orderUnit"),
-            name=product_obj.get("name"),
-            title=product_obj.get("title"),
-            uuid=product_obj.get("productId"),
-            sku=product_obj.get("sku"),
-            description=product_obj.get("description"),
-        )
-
         if (price := product_obj.get("price")) is None:
             price = product_obj.get("lowestPrice")
 
-        price_data = self._parse_price(price.get("formatted"))
+        product: ProductType = {
+            # **self.__defaults,
+            "supplier": self._supplier.name,
+            "url": product_obj.get("url"),
+            "quantity": product_obj.get("orderUnitInfo", {}).get("priceQuantity"),
+            "uom": product_obj.get("orderUnitInfo", {}).get("orderUnit"),
+            "name": product_obj.get("name"),
+            "title": product_obj.get("title"),
+            "uuid": product_obj.get("productId"),
+            "sku": product_obj.get("sku"),
+            "description": product_obj.get("description"),
+            "currency": self.__defaults["currency"],
+            "price": price,
+        }
 
-        product.update(price_data.__dict__)
+        # price_data = self._parse_price(price.get("formatted"))
 
-        product = ProductType(**product)
+        # product.update(price_data.__dict__)
 
-        return product.cast_properties()
+        # product = ProductType(**product)
+
+        # return product.cast_properties()
+        return product

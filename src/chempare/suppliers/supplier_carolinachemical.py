@@ -98,9 +98,10 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product.update(product_data)
 
-        product = ProductType(**product)
+        # product = ProductType(**product)
 
-        return product.cast_properties()
+        # return product.cast_properties()
+        return product
 
     def __query_product_page(self, product_url: str) -> dict[str, Any]:
         product_page = self.http_get_html(product_url)
@@ -120,21 +121,21 @@ class SupplierCarolinaChemical(SupplierBase):
         for index, variant in enumerate(product_variations):
             variant_desc = BeautifulSoup(variant.get("variation_description"), "html.parser")
 
-            variation = dict(
+            variation = {
                 # _id=index,
-                title=str(variant_desc.get_text(strip=True)),
-                uuid=variant.get("variation_id"),
-                sku=variant.get("sku"),
+                "title": str(variant_desc.get_text(strip=True)),
+                "uuid": variant.get("variation_id"),
+                "sku": variant.get("sku"),
                 # description=variant_desc,
-                price=float(variant.get("display_price")),
-                currency="$",
-            )
+                "price": float(variant.get("display_price")),
+                "currency": "$",
+            }
             quantity = self._parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
             # Basic
             if quantity is not None:
-                if quantity.quantity is None and isinstance(quantity.uom, str):
-                    quantity.quantity = 1
+                if quantity.get("quantity") is None and isinstance(quantity.get("uom"), str):
+                    quantity["quantity"] = 1
 
                 variation.update(dict(quantity))
 

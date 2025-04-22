@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-
+from typing import Any
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
@@ -81,16 +81,16 @@ class SupplierChemsavers(SupplierBase):
             product = self._parse_product(product_obj["document"])
 
             # Ignore items with no price
-            if float(product.price) == 0 or product.price is None:
+            if float(product.get("price")) == 0 or product.get("price") is None:
                 continue
 
-            # Ignore items that don't send to residences
-            if product.is_restricted is True:
-                continue
+            # # Ignore items that don't send to residences
+            # if product.is_restricted is True:
+            #     continue
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: dict) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:
@@ -105,19 +105,24 @@ class SupplierChemsavers(SupplierBase):
         if not quantity:
             quantity = self._parse_quantity(product_obj["name"])
 
-        product = ProductType(
-            **self.__defaults,
-            uuid=product_obj["product_id"],
-            title=product_obj["name"],
-            description=product_obj["description"],
-            cas=product_obj.get("CAS", None),
-            price=product_obj.get("price"),
-            url=f"{self._supplier.base_url}{product_obj["url"]}",
-            sku=product_obj.get("sku", None),
-            upc=product_obj.get("upc", None),
-            supplier=self._supplier.name,
-            **quantity.__dict__,
-        )
+        product: ProductType = {
+            # **self.__defaults,
+            "uuid": product_obj["product_id"],
+            "title": product_obj["name"],
+            "description": product_obj["description"],
+            "cas": product_obj.get("CAS", None),
+            "price": float(product_obj.get("price", "0.00")),
+            # "currency": product_obj.get("currency", None),
+            "currency": "USD",
+            # "currency": product_obj.get("currency"),
+            "url": f"{self._supplier.base_url}{product_obj["url"]}",
+            "sku": product_obj.get("sku", None),
+            "upc": product_obj.get("upc", None),
+            "supplier": self._supplier.name,
+            "quantity": quantity.get("quantity"),
+            "uom": quantity.get("uom", None),
+            # **quantity.__dict__,
+        }
 
         # Since the description contains HTML, and it may contain restrictions,
         # use BS
@@ -132,8 +137,7 @@ class SupplierChemsavers(SupplierBase):
             and hasattr(restriction, 'string') is True
             and "Restricted to qualified labs and businesses only (no residences)" in str(restriction.string)
         ):
-            product.restriction = restriction.string
-            product.is_restricted = True
+            product["restriction"] = restriction.string
 
         # The whole desc is usually in <b></b> tags
         desc = description_soup.find_all(["b", "p", "strong", "font"])
@@ -143,10 +147,10 @@ class SupplierChemsavers(SupplierBase):
             desc_parts = list(set(desc_parts))
             desc_parts = list(filter(None, desc_parts))
 
-            if product.restriction and product.restriction in desc_parts:
-                desc_parts.remove(product.restriction)
+            if product.get("restriction", None) in desc_parts:
+                desc_parts.remove(product["restriction"])
 
             if desc_parts:
-                product.description = "; ".join(desc_parts)
+                product["description"] = "; ".join(desc_parts)
 
-        return product.cast_properties()
+        return product

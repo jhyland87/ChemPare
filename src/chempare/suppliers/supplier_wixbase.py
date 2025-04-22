@@ -2,6 +2,7 @@
 
 import json
 import regex
+from typing import Any
 from chempare.utils import utils
 from chempare.datatypes import ProductType
 from chempare.suppliers import SupplierBase
@@ -158,7 +159,7 @@ class SupplierWixBase(SupplierBase):
 
             self._products.append(product)
 
-    def _parse_product(self, product_obj: dict) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """
         Parse single product and return single ProductType object
 
@@ -174,26 +175,27 @@ class SupplierWixBase(SupplierBase):
               This could maybe be included?
         """
 
-        product = dict(
-            uuid=product_obj.get("id"),
-            name=product_obj.get("name"),
-            title=product_obj.get("name"),
-            description=product_obj.get("description"),
-            url=f"${self._supplier.base_url}/product-page/{product_obj["urlPart"]}",
-            supplier=self._supplier.name,
-            currency="$",
-            cas=self._find_cas(str(product_obj.get("name"))),
-        )
-
         qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
         price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
 
-        if qty is not None:
-            product.update(qty)
+        product: ProductType = {
+            # "uuid": product_obj.get("id"),
+            "title": str(product_obj.get("name")),
+            "description": str(product_obj.get("description")),
+            "url": f"${self._supplier.base_url}/product-page/{product_obj["urlPart"]}",
+            "supplier": self._supplier.name,
+            "currency": "USD",
+            "cas": self._find_cas(str(product_obj.get("name"))),
+            "quantity": qty.get("quantity", None),
+            "uom": qty.get("uom", None),
+            "price": price.get("price"),
+        }
 
-        if price is not None:
-            product.update(price)
+        # if qty is not None:
+        #     product.update(qty)
 
-        product = ProductType(**product)
-        return product.cast_properties()
+        # if price is not None:
+        #     product.update(price)
+
+        return product

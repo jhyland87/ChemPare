@@ -2,6 +2,7 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
+from chempare.datatypes import PriceType
 from chempare.datatypes import ProductType
 from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
@@ -32,7 +33,7 @@ class SupplierLoudwolf(SupplierBase):
     def _query_products(self) -> None:
         """Query products from supplier"""
 
-        self.__product_pages = dict()
+        self.__product_pages = {}
 
         def __query_search_page(query: str, limit: int = 10, page_idx: int = 1):
             """Handles the pagination on the search page"""
@@ -154,6 +155,19 @@ class SupplierLoudwolf(SupplierBase):
 
         self._products.append(product)
 
+    # def __query_product_page(self, params: dict) -> bytes | None:
+    #     """Query a specific product page given the GET params
+
+    #     Args:
+    #         params (dict): The HTTP Get parameters (with product_id)
+
+    #     Returns:
+    #         bytes: The html content
+    #     """
+
+    #     product_html: bytes = self.http_get_html("storefront/index.php", params=params)
+    #     return product_html or None
+
     def __parse_product_page(self, url: str) -> ProductType | None:
         """Parse a specific product page's HTML
 
@@ -175,12 +189,14 @@ class SupplierLoudwolf(SupplierBase):
         if not title_elem:
             return None
 
-        product = dict(
-            title=title_elem.get_text(strip=True),
-            supplier=self._supplier.name,
-            url=f"{self._supplier.base_url}/{url}",
+        # product_id = product_soup.find('input', {'name':'product_id'})
+
+        product = {
+            "title": title_elem.get_text(strip=True),
+            "supplier": self._supplier.name,
+            "url": "test",
             # uuid=product_id.attrs['value'].strip()
-        )
+        }
 
         # find the price (should be only h2 tag), and require one be found
         price_elem = product_content.find("h2")
@@ -194,6 +210,8 @@ class SupplierLoudwolf(SupplierBase):
         # Attempt to parse the price out to get the currency and price
         price_data = self._parse_price(price_txt)
 
+        # if isinstance(price_data, PriceType):
+        # if isinstance(price_data, PriceType) and price_data:
         if price_data:
             product.update(price_data)
         else:
@@ -235,5 +253,4 @@ class SupplierLoudwolf(SupplierBase):
             if idx > 13:
                 break
 
-        product = ProductType(**product)
-        return product.cast_properties()
+        return product

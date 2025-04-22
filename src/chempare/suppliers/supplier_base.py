@@ -57,11 +57,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._fuzz_ratio = fuzz_ratio
         self._limit = limit or 20
 
-        self._products = []
-        self._query_results = []
-        self._index = 0
-        self._query = query
-        self._cookies = {}
+        self._products: list[ProductType] = []
+        self._query_results: list = []
+        self._index: int = 0
+        self._query: str = query
+        self._cookies: dict = {}
 
         # Run the setup if there is one. This is for requesting prerequisite data that's
         # needed for cookies, headers, API Keys, etc
@@ -231,8 +231,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         x = [
             product
             for product in self._products
-            if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
-            or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
+            if (
+                product["title"]
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+            )
+            or (
+                product["title"]
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+            )
         ]
 
         self._products = x
@@ -307,12 +313,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 if isinstance(v, list) or isinstance(v, dict):
                     params[v] = json_.dumps(v)
 
-        args = dict(
-            params=params,
-            headers=headers or self._headers,
-            cookies=cookies or self._cookies,
+        args = {
+            "params": params,
+            "headers": headers or self._headers,
+            "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
-        )
+        }
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
         #     # if chempare.test_monkeypatching and chempare.called_from_test:
         #     args["only_if_cached"] = self.SAVE_RESPONSES
@@ -337,22 +343,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res
 
     def request(self, method: str, url, **kwargs):
-        """
-        Just a simple wrapper around the requests.request method, where any common logic can be added before or after
-        the call.
-
-        Args:
-            method (_type_): _description_
-            url (_type_): _description_
-
-        Raises:
-            NoMockDataError: _description_
-            CaptchaError: _description_
-
-        Returns:
-            _type_: _description_
-        """
-
         kwargs.setdefault("timeout", self.REQUEST_TIMEOUT)
 
         res = requests.request(method, url, **kwargs)  # pylint: disable=missing-timeout
@@ -403,14 +393,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             path = f"{base_url}/{path}"
 
         # chempare.test_monkeypatching chempare.called_from_test
-        args = dict(
-            params=params,
-            json=json,
-            data=data,
-            headers=headers or self._headers,
-            cookies=cookies or self._cookies,
+        args = {
+            "params": params,
+            "json": json,
+            "data": data,
+            "headers": headers or self._headers,
+            "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
-        )
+        }
 
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")

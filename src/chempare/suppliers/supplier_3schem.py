@@ -1,5 +1,6 @@
 import json
 from chempare.datatypes import ProductType
+from chempare.datatypes import QuantityType
 from chempare.datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
@@ -52,19 +53,32 @@ class Supplier3SChem(SupplierBase):
             if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
                 raise ValueError("Failed to retrieve the product page for product")
 
-            quantity = self._parse_quantity(product_json["variants"][0]["options"][0])
+            quantity: QuantityType = self._parse_quantity(product_json["variants"][0]["options"][0])
 
-            product_obj = ProductType(
-                uuid=product.get("id"),
-                name=product.get("title"),
-                title=product.get("title"),
-                price=product_json["variants"][0]["price"],
-                currency="$",
-                currency_code="USD",
-                url=self._supplier.base_url + product.get("url"),
-                supplier=self._supplier.name,
-                **quantity.__dict__,
-            )
+            product_obj: ProductType = {
+                "uuid": product.get("id"),
+                "title": product.get("title"),
+                "price": product_json["variants"][0]["price"],
+                "currency_symbol": "$",
+                "currency": "USD",
+                "url": self._supplier.base_url + product.get("url"),
+                "supplier": self._supplier.name,
+                "quantity": quantity.get("quantity"),
+                "uom": quantity.get("uom", ""),
+                # **quantity.__dict__,
+            }
+
+            # ProductType(
+            #     uuid=product.get("id"),
+            #     name=product.get("title"),
+            #     title=product.get("title"),
+            #     price=product_json["variants"][0]["price"],
+            #     currency="$",
+            #     currency_code="USD",
+            #     url=self._supplier.base_url + product.get("url"),
+            #     supplier=self._supplier.name,
+            #     **quantity.__dict__,
+            # )
 
             self._products.append(product_obj)
 

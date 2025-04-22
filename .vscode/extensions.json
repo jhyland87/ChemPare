@@ -1,0 +1,38 @@
+{
+    "recommendations": [
+        "bierner.github-markdown-preview",
+        "charliermarsh.ruff",
+        "editorconfig.editorconfig",
+        "leonhard-s.python-sphinx-highlight",
+        "mintlify.document",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "ms-python.debugpy",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml",
+        "franneck94.vscode-python-config",
+        "gydunhn.python3-essentials",
+        "vlaraort.opencoverage"
+
+    ],
+    "unwantedRecommendations": [
+        // even-better-toml has format on save
+        "bungcip.better-toml",
+        // Don't use two mypy extensions simultaneously
+        "matangover.mypy",
+        // Use Ruff instead
+        "ms-python.isort",
+        // We use Black
+        "ms-python.autopep8",
+        // Not using pylint
+        "ms-python.pylint",
+        // VSCode has implemented an optimized version
+        "coenraads.bracket-pair-colorizer",
+        "coenraads.bracket-pair-colorizer-2",
+        // Obsoleted by Pylance
+        "ms-pyright.pyright",
+    ],
+}

@@ -137,5 +137,4 @@ class SupplierWarchem(SupplierBase):
         if quantity:
             product.update(self._parse_quantity(quantity.get_text(strip=True)))
 
-        product = ProductType(**product)
-        self._products.append(product.cast_properties())
+        self._products.append(product)

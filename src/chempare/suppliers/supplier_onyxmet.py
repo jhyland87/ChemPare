@@ -179,6 +179,6 @@ class SupplierOnyxmet(SupplierBase):
             del title_matches["product"]
             product_obj.update(title_matches)
 
-        product_obj = ProductType(**product_obj)
-        self._products.append(product_obj.cast_properties())
+        # product_obj = ProductType(**product_obj)
+        self._products.append(product_obj)
         # self.__test_lock.release()

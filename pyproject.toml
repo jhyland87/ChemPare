@@ -187,20 +187,20 @@ unfixable = []
 preview = true
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-[tool.ruff.lint.isort]
-force-single-line = true
-force-sort-within-sections = false
-lines-after-imports = 2
-known-first-party = []
-known-local-folder = []
-known-third-party = []
-section-order = [
-    "future",
-    "standard-library",
-    "third-party",
-    "first-party",
-    "local-folder",
-]
+# [tool.ruff.lint.isort]
+# force-single-line = true
+# force-sort-within-sections = false
+# lines-after-imports = 2
+# known-first-party = []
+# known-local-folder = []
+# known-third-party = []
+# section-order = [
+#     "future",
+#     "standard-library",
+#     "third-party",
+#     "first-party",
+#     "local-folder",
+# ]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 24
@@ -324,5 +324,27 @@ omit = ["*tests*","*/__init__.py", "**/__init__.py"]
 output = "coverage.lcov"
 
 
-[tool.pyright]
-reportOptionalMemberAccess = false
+# [tool.pyright]
+# reportOptionalMemberAccess = false
+
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+# Prevent aliasing these, as it causes false-negatives for certain rules
+typing_extensions = "typing_extensions"
+typing = "typing"
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+combine-as-imports = true
+extra-standard-library = [
+    # Group these with stdlib
+    "_typeshed",
+    "typing_extensions",
+    # Extra modules not recognized by Ruff
+    # Added in Python 3.9
+    "zoneinfo",
+]
+known-first-party = ["_utils", "ts_utils"]
+
+[tool.typeshed]
+oldest_supported_python = "3.9"

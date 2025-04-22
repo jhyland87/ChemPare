@@ -103,18 +103,18 @@ class ClassUtils(metaclass=ABCMeta):
         if "currency" not in matches_groups or "amount" not in matches_groups:
             return None
 
-        price = Price.fromstring(str(matches_groups.get('currency')) + str(matches_groups.get('amount')))
+        price = Price.fromstring(str(matches_groups.get("currency")) + str(matches_groups.get("amount")))
 
         # Failed to parse the currency?
-        if not hasattr(price, "currency"):
+        if price is None or not hasattr(price, "currency"):
             return None
 
         currency_code = self._currency_code_from_symbol(price.currency)
 
-        result = {
+        result: PriceType = {
             "currency": price.currency,
             "price": float(price.amount),
-            "currency_code": currency_code or price.currency,
+            "currency_symbol": currency_code or price.currency,
         }
 
         if currency_code != "USD" and price.currency is not None and price.currency != currency_code:
@@ -122,7 +122,7 @@ class ClassUtils(metaclass=ABCMeta):
             if usd_price:
                 result["usd"] = usd_price
 
-        return PriceType(**result)
+        return result
 
     @finalmethod
     def _to_usd(
@@ -152,7 +152,7 @@ class ClassUtils(metaclass=ABCMeta):
         # the currency type (eg: "$123.23"), and can be parsed
         if from_currency is None and isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, PriceType):
+            if not isinstance(parsed_price, dict):
                 _logger.debug(
                     "Unable to determine from currency from amount %s of type %s (expected dict)",
                     parsed_price,
@@ -160,8 +160,8 @@ class ClassUtils(metaclass=ABCMeta):
                 )
                 return None
 
-            from_currency = parsed_price.currency_code
-            amount = parsed_price.price
+            from_currency = parsed_price.get("currency")
+            amount = parsed_price.get("price")
 
         # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
         # an exception
@@ -262,7 +262,7 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> QuantityType | None:
+    def _parse_quantity(self, value: str) -> QuantityType:
         """
         Parse a string for the quantity and unit of measurement
 
@@ -294,12 +294,12 @@ class ClassUtils(metaclass=ABCMeta):
         }
 
         if isinstance(value, str) is False:
-            return None
+            return {}
 
         value = value.strip()
 
         if not value or value.isspace():
-            return None
+            return {}
 
         # https://regex101.com/r/lDLuVX/4
         pattern = (
@@ -312,9 +312,9 @@ class ClassUtils(metaclass=ABCMeta):
         matches = regex.search(pattern, value, regex.IGNORECASE)
 
         if not matches:
-            return None
+            return {}
 
-        quantity_obj = matches.groupdict()
+        quantity_obj: QuantityType = matches.groupdict()
 
         # Look for any proper substitution UOM's
         proper_uom = self._find_values_with_element(uom_cases, str(quantity_obj["uom"]).lower())
@@ -322,7 +322,7 @@ class ClassUtils(metaclass=ABCMeta):
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return QuantityType(**quantity_obj)
+        return quantity_obj
 
     @finalmethod
     def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:

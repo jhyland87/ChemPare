@@ -84,15 +84,6 @@ class SupplierEsDrei(SupplierBase):
         price_string = re.sub(r"\s+", r" ", price_string)
         price_data = self._parse_price(price_string)
 
-        product_data = dict(
-            title=title_elem.attrs["title"],
-            name=title_elem.attrs["title"],
-            description=product_desc.get_text(strip=True),
-            url=title_elem.attrs["href"],
-            supplier=self._supplier.name,
-            cas=self._find_cas(product_desc.string.strip()),
-        )
-
         # Since the pattern were matching for will name the matched groups
         # 'price' and 'currency', we can use the `groupdict()` method to return
         # a dictionary like {price: 123, currency: '$'}, which we can then just
@@ -105,15 +96,28 @@ class SupplierEsDrei(SupplierBase):
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
         quantity_data = self._parse_quantity(quantity)
-        if quantity_data:
-            product_data.update(quantity_data)
+        # if quantity_data:
+        #     product_data.update(quantity_data)
 
         # I notice the prices sometimes will have a 'from     32.24', so lets
         # reduce any multi-spaced gaps down to a single space
         # product.price = re.sub(r"\s+", r" ", product.price)
-        if price_data:
-            product_data.update(price_data)
-        elif price_string:
-            product_data["price"] = price_string
+        # if price_data:
+        #     product_data.update(price_data)
+        # elif price_string:
+        #     product_data["price"] = price_string
 
-        return ProductType(**product_data)
+        product_data: ProductType = {
+            "title": str(title_elem.attrs["title"]),
+            # "name": title_elem.attrs["title"],
+            "description": product_desc.get_text(strip=True),
+            "url": str(title_elem.attrs["href"]),
+            "supplier": self._supplier.name,
+            "cas": self._find_cas(product_desc.string.strip()),
+            "quantity": int(quantity_data.get("quantity", "")),
+            "uom": quantity_data.get("uom"),
+            "price": float(price_data.get("price", "")),
+            "currency": price_data.get("currency"),
+        }
+
+        return product_data

@@ -104,6 +104,4 @@ class SupplierSynthetika(SupplierBase):
         if price_obj:
             product.update(price_obj)
 
-        product = ProductType(**product)
-
-        return product.cast_properties()
+        return product

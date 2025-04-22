@@ -153,11 +153,9 @@ class SupplierLabchem(SupplierBase):
 
             product_obj["price"] = product_prices.get(product_obj["mpn"])
 
-            product = ProductType(**product_obj)
+            product: ProductType = product_obj
 
-            p = product.cast_properties()
-
-            self._products.append(p)
+            self._products.append(product)
 
     def __parse_product(self, product_elem: BeautifulSoup) -> dict:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
