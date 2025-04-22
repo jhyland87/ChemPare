@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from typing import Any
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -39,7 +39,7 @@ class SupplierChemsavers(SupplierBase):
         # https://0ul35zwtpkx14ifhp-1.a1.typesense.net/multi_search?
         #   x-typesense-api-key=iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd
         #
-        params = {"x-typesense-api-key": self._supplier.api_key}
+        params = {"x-typesense-api-key": self._supplier["api_key"]}
 
         body = {
             "searches": [
@@ -115,10 +115,10 @@ class SupplierChemsavers(SupplierBase):
             # "currency": product_obj.get("currency", None),
             "currency": "USD",
             # "currency": product_obj.get("currency"),
-            "url": f"{self._supplier.base_url}{product_obj["url"]}",
+            "url": f"{self._supplier["base_url"]}{product_obj["url"]}",
             "sku": product_obj.get("sku", None),
             "upc": product_obj.get("upc", None),
-            "supplier": self._supplier.name,
+            "supplier": self._supplier["name"],
             "quantity": quantity.get("quantity"),
             "uom": quantity.get("uom", None),
             # **quantity.__dict__,

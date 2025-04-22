@@ -2,9 +2,9 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import PriceType
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import PriceType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -151,7 +151,7 @@ class SupplierLoudwolf(SupplierBase):
 
         # product.uuid = product_params["product_id"]
         # product.url = href
-        # product.supplier = self._supplier.name
+        # product.supplier = self._supplier["name"]
 
         self._products.append(product)
 
@@ -193,7 +193,7 @@ class SupplierLoudwolf(SupplierBase):
 
         product = {
             "title": title_elem.get_text(strip=True),
-            "supplier": self._supplier.name,
+            "supplier": self._supplier["name"],
             "url": "test",
             # uuid=product_id.attrs['value'].strip()
         }

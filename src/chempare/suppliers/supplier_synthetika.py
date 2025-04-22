@@ -1,7 +1,7 @@
 import re
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -88,9 +88,9 @@ class SupplierSynthetika(SupplierBase):
             name=product_obj["name"],
             title=product_obj["name"],
             price=product_obj["price"],
-            url=f"{self._supplier.base_url}{product_obj["url"]}",
+            url=f"{self._supplier["base_url"]}{product_obj["url"]}",
             manufacturer=product_obj["attributes"].get("producer_name", None),
-            supplier=self._supplier.name,
+            supplier=self._supplier["name"],
         )
 
         quantity_pattern = re.compile((r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"))

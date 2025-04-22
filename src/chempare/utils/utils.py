@@ -11,8 +11,8 @@ from typing import Callable
 from typing import Iterable
 import regex
 
-from chempare.datatypes import PrimitiveType
-from chempare.datatypes import Undefined
+from datatypes import PrimitiveType
+from datatypes import Undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:

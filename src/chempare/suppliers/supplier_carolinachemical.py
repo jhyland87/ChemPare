@@ -2,10 +2,10 @@ import json
 from typing import Any
 
 from bs4 import BeautifulSoup
-from chempare.datatypes import DecimalLikeType
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
-from chempare.datatypes import VariantType
+from datatypes import DecimalLikeType
+from datatypes import ProductType
+from datatypes import SupplierType
+from datatypes import VariantType
 from chempare.suppliers import SupplierBase
 
 
@@ -92,7 +92,7 @@ class SupplierCarolinaChemical(SupplierBase):
         #     }
         # },
 
-        product = dict(**self.__defaults, url=product_obj.get("url"), supplier=self._supplier.name)
+        product = dict(**self.__defaults, url=product_obj.get("url"), supplier=self._supplier["name"])
 
         product_data = self.__query_product_page(product_obj["url"])
 

@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -112,7 +112,7 @@ class SupplierEsDrei(SupplierBase):
             # "name": title_elem.attrs["title"],
             "description": product_desc.get_text(strip=True),
             "url": str(title_elem.attrs["href"]),
-            "supplier": self._supplier.name,
+            "supplier": self._supplier["name"],
             "cas": self._find_cas(product_desc.string.strip()),
             "quantity": int(quantity_data.get("quantity", "")),
             "uom": quantity_data.get("uom"),

@@ -116,6 +116,7 @@
     //"python.coveragepy.file":".coverage",
     "python.autoComplete.extraPaths": [
         ".",
+        "typings",
         "./src",
         "./src/chempare",
         "./src/chempare/suppliers",
@@ -135,6 +136,7 @@
         "--ignore=src/chempare/api",
         "--ignore=src/chempare/cli",
         "--cov-append"
+
     ],
     //     //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
     //     // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
@@ -168,7 +170,7 @@
     //     // "tests"
     // ],
     "python.testing.unittestEnabled": false,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "python.testing.pytestEnabled": true,
     "autoDocstring.quoteStyle": "\"\"\"",
     "editor.wordWrapColumn": 120,
@@ -178,12 +180,12 @@
         "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
     },
-    // "python.analysis.extraPaths": [
-    //     "./src",
-    //     "./src/chempare",
-    //     "./src/chempare/suppliers"
-    // ],
-    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.extraPaths": [
+        "typings",
+        "./src",
+        "./src/chempare",
+        "./src/chempare/suppliers"
+    ],
     "testing.coverageBarThresholds": {
         "red": 0,
         "yellow": 60,
@@ -195,13 +197,6 @@
     "testing.coverageToolbarEnabled": true,
     "python.experiments.enabled": false,
     "openCoverage.coverageFilePath": "coverage-html/index.html",
-    "python.analysis.extraPaths": [
-        "./tests/mock_data",
-        "./src",
-        "./src/chempare",
-        "./src/chempare/suppliers",
-        "./src/chempare/datatypes"
-    ],
     "editor.defaultFormatter": "ms-python.black-formatter",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
@@ -213,7 +208,7 @@
     "autoDocstring.includeName": true,
     "autoDocstring.docstringFormat": "sphinx",
     "autoDocstring.startOnNewLine": true,
-    "editor.defaultFoldingRangeProvider": "mintlify.document",
+    "editor.defaultFoldingRangeProvider": "ms-python.black-formatter",
     "cSpell.words": [
         "bunmurralabs",
         "chempare",
@@ -221,5 +216,69 @@
         "rtype",
         "wixbase"
     ],
-    "python.terminal.shellIntegration.enabled": true
+    "python.analysis.diagnosticSeverityOverrides": {
+        // # Partial stubs are acceptable
+        "reportUnknownArgumentType": false,
+        // # Stubs-only packages are fine for testing
+        "reportMissingModuleSource": false,
+        // # Stubs are allowed to use private variables
+        "reportPrivateUsage": false,
+        "reportPrivateImportUsage": false,
+        // # Incompatible overrides and property type mismatches are out of our stubs' control
+        // # as they are inherited from the implementation.
+        "reportIncompatibleMethodOverride":false,
+        "reportIncompatibleVariableOverride":false,
+        "reportPropertyTypeMismatch":false,
+        // # Overlapping overloads are often necessary in a stub, meaning pyright's check
+        // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
+        // # would cause many false positives and catch few bugs.
+        "reportOverlappingOverload": false,
+        // # The name of the self/cls parameter is out of third-party stubs' control.
+        "reportSelfClsParameterName":false,
+        // # Not an error by default in standard mode
+        "reportUnsupportedDunderAll": "error",
+        "reportUnusedImport": "information",
+        //"reportMissingImports": "none"
+
+        // typeCheckingMode = "standard"
+        // # Partial stubs are acceptable
+        // reportUnknownArgumentType = false
+        // # Stubs-only packages are fine for testing
+        // reportMissingModuleSource = false
+        // # Stubs are allowed to use private variables
+        // reportPrivateUsage = false
+        // reportPrivateImportUsage = false
+        // reportIncompatibleMethodOverride = false
+        // reportIncompatibleVariableOverride = false
+        // reportPropertyTypeMismatch = false
+        // # Overlapping overloads are often necessary in a stub, meaning pyright's check
+        // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
+        // # would cause many false positives and catch few bugs.
+        // reportOverlappingOverload = false
+        // # The name of the self/cls parameter is out of third-party stubs' control.
+        // reportSelfClsParameterName = false
+        // # Not an error by default in standard mode
+        // reportUnsupportedDunderAll = "error"
+    },
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.terminal.shellIntegration.enabled": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.includeAliasesFromUserFiles": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    //"python.analysis.showOnlyDirectDependenciesInAutoImport": true,
+    "python.analysis.regenerateStdLibIndices": false,
+    "files.trimTrailingWhitespaceInRegexAndStrings": false,
+    "python.analysis.stubPath": "typings",
+    "python.analysis.languageServerMode": "full",
+    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.enablePytestSupport": true,
+    "python.analysis.include": [
+        "typings",
+    ],
+    "python.analysis.autoSearchPaths":true,
+    "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
+    "python.analysis.typeEvaluation.strictDictionaryInference": false,
+    "python.analysis.supportAllPythonDocuments": true,
+    "python.analysis.useLibraryCodeForTypes": true,
 }

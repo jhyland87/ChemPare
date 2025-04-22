@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -135,8 +135,8 @@ class SupplierTciChemicals(SupplierBase):
         product_dict = dict(
             title=title.get_text(strip=True),
             quantity=quantity.get_text(strip=True),
-            supplier=self._supplier.name,
-            url=self._supplier.base_url + str(title.attrs["href"]),
+            supplier=self._supplier["name"],
+            url=self._supplier["base_url"] + str(title.attrs["href"]),
         )
 
         if price_obj:

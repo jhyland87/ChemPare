@@ -2,8 +2,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -103,7 +103,7 @@ class SupplierWarchem(SupplierBase):
         product_page_html = self.http_get_html(href)
         product_soup = BeautifulSoup(product_page_html, "html.parser")
 
-        product = dict(title=product_soup.find("h1").get_text(strip=True), supplier=self._supplier.name, url=href)
+        product = dict(title=product_soup.find("h1").get_text(strip=True), supplier=self._supplier["name"], url=href)
 
         details = product_soup.find("div", class_="DodatkowyProduktuOpis").find_all("tr")
 

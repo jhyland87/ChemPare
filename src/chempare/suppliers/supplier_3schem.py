@@ -1,7 +1,8 @@
 import json
-from chempare.datatypes import ProductType
-from chempare.datatypes import QuantityType
-from chempare.datatypes import SupplierType
+
+from datatypes import ProductType
+from datatypes import QuantityType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 from bs4 import BeautifulSoup
@@ -11,9 +12,8 @@ from bs4 import BeautifulSoup
 class Supplier3SChem(SupplierBase):
     _limit: int = 20
 
-    _supplier: SupplierType = SupplierType(
-        name="3S Chemicals LLC", location=None, base_url="https://3schemicalsllc.com"
-    )
+    _supplier: SupplierType = {"name": "3S Chemicals LLC", "base_url": "https://3schemicalsllc.com"}
+
     """Supplier specific data"""
 
     def _query_products(self) -> None:
@@ -61,8 +61,8 @@ class Supplier3SChem(SupplierBase):
                 "price": product_json["variants"][0]["price"],
                 "currency_symbol": "$",
                 "currency": "USD",
-                "url": self._supplier.base_url + product.get("url"),
-                "supplier": self._supplier.name,
+                "url": self._supplier["base_url"] + product.get("url"),
+                "supplier": self._supplier["name"],
                 "quantity": quantity.get("quantity"),
                 "uom": quantity.get("uom", ""),
                 # **quantity.__dict__,
@@ -75,8 +75,8 @@ class Supplier3SChem(SupplierBase):
             #     price=product_json["variants"][0]["price"],
             #     currency="$",
             #     currency_code="USD",
-            #     url=self._supplier.base_url + product.get("url"),
-            #     supplier=self._supplier.name,
+            #     url=self._supplier["base_url"] + product.get("url"),
+            #     supplier=self._supplier["name"],
             #     **quantity.__dict__,
             # )
 

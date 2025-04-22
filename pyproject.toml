@@ -107,6 +107,7 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
+    "typings",
     ".",
     "src",
     # "tests/mock_data",
@@ -117,16 +118,16 @@ where = [
 
 [tool.pytest.ini_options]
 pythonpath = [
-    #".",
-    #"tests/mock_data",
+    ".",
+    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
-    #"tests/mock_data"
 ]
 verbosity_assertions = 2
 enable_assertion_pass_hook = true
+
 
 env = [
     # DEBUG, WARNING, ERROR, INFO
@@ -148,6 +149,8 @@ addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doct
 
 # "--capture=tee-sys" "--show-capture=all",
 testpaths = ["tests/unit"]
+
+consider_namespace_packages = true
 python_files = ["test_*.py", "tests/*.py", "tests/*/*.py", "*_test.py"]
 markers = [
     "supplier: Supplier module",
@@ -231,8 +234,8 @@ docstring-code-format = true
 
 [tool.mypy]
 python_version = "3.12"
-ignore_missing_imports = true
-follow_imports = "silent"
+ignore_missing_imports = false #
+follow_imports ="normal"
 no_implicit_optional = false
 strict_optional = false
 warn_unused_configs = true
@@ -286,6 +289,7 @@ extend-ignore = [
 
 [tool.coverage.paths]
 source = [
+    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
@@ -305,7 +309,7 @@ command_line = "pytest"
 branch = true
 #parallel = true
 source = [
-    #".",
+    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
@@ -326,6 +330,11 @@ output = "coverage.lcov"
 
 # [tool.pyright]
 # reportOptionalMemberAccess = false
+[tool.pylance]
+stubPath = "typings"
+exclude = ["build", ".git"]
+pythonversion = "3.12" # Target oldest supported Python version
+
 
 
 [tool.ruff.lint.flake8-import-conventions.aliases]
@@ -343,8 +352,8 @@ extra-standard-library = [
     # Extra modules not recognized by Ruff
     # Added in Python 3.9
     "zoneinfo",
+
 ]
 known-first-party = ["_utils", "ts_utils"]
-
 [tool.typeshed]
 oldest_supported_python = "3.9"

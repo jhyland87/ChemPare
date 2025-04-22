@@ -3,8 +3,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -153,7 +153,7 @@ class SupplierOnyxmet(SupplierBase):
             title=title_elem.contents[0],
             name=title_elem.contents[0],
             # price=price_elem.contents[0],
-            supplier=self._supplier.name,
+            supplier=self._supplier["name"],
             url=href,
         )
 

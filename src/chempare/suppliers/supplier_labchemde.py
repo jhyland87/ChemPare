@@ -1,5 +1,5 @@
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -66,7 +66,7 @@ class SupplierLabchemDe(SupplierBase):
 
         product: ProductType = {
             # **self.__defaults,
-            "supplier": self._supplier.name,
+            "supplier": self._supplier["name"],
             "url": product_obj.get("url"),
             "quantity": product_obj.get("orderUnitInfo", {}).get("priceQuantity"),
             "uom": product_obj.get("orderUnitInfo", {}).get("orderUnit"),

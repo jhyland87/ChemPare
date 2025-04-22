@@ -1,7 +1,7 @@
 from functools import partial
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
 from chempare.utils import utils
@@ -64,7 +64,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         if self._query_results is False:
             print(f"No products found for search query: {self._query}")
-            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
+            raise NoProductsFoundError(supplier=self._supplier["name"], query=self._query)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -99,7 +99,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 # currency=shop_currency_symbol,
                 "currency": self._defaults["currency"],
                 "url": product.get("url", None),
-                "supplier": self._supplier.name,
+                "supplier": self._supplier["name"],
                 "usd": self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
                 # **self._defaults,
                 # **quantity.__dict__,

@@ -16,8 +16,8 @@ from abcplus import finalmethod
 from fuzzywuzzy import fuzz
 
 
-from chempare.datatypes import SupplierType
-from chempare.datatypes import ProductType
+from datatypes import SupplierType
+from datatypes import ProductType
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
@@ -79,7 +79,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         # If no products were found, raise a NoProductsFoundError exception
         if not isinstance(self._products, Iterable) or len(self._products) == 0:
-            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
+            raise NoProductsFoundError(supplier=self._supplier["name"], query=self._query)
 
     def __getitem__(self, index: int) -> ProductType:
         """
@@ -294,8 +294,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.get()
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
 
         if not path:
             path = api_url
@@ -357,10 +357,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             and res.reason.lower() == "not cached"
             and res.__class__.__name__ == "CachedResponse"
         ):
-            raise NoMockDataError(url=url, supplier=self._supplier.name)
+            raise NoMockDataError(url=url, supplier=self._supplier["name"])
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
-            raise CaptchaError(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
+            raise CaptchaError(supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare")
         return res
 
     @finalmethod
@@ -386,8 +386,9 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.post()
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
+        self._supplier["api_url"] = api_url
 
         if base_url not in path and (api_url is None or api_url not in path):
             path = f"{base_url}/{path}"
@@ -431,7 +432,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             requests.Headers: Header object
         """
 
-        url = self._supplier.api_url or self._supplier.base_url  # type: ignore
+        url: str = self._supplier["api_url"]  # type: ignore
 
         if path:
             url = f"{url}/{path}"
@@ -476,7 +477,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             Union[dict, list]: JSON response, if there was one
         """
 
-        url = self._supplier.api_url or self._supplier.base_url  # type: ignore
+        url: str = self._supplier["api_url"]  # type: ignore
 
         if path:
             url = f"{url}/{path}"
@@ -502,8 +503,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             HTML content of response object
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
 
         if path and api_url not in path:
             path = f"{api_url}/{path}"

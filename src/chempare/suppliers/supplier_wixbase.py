@@ -4,7 +4,7 @@ import json
 import regex
 from typing import Any
 from chempare.utils import utils
-from chempare.datatypes import ProductType
+from datatypes import ProductType
 from chempare.suppliers import SupplierBase
 from chempare.exceptions import ProductListQueryError
 
@@ -183,8 +183,8 @@ class SupplierWixBase(SupplierBase):
             # "uuid": product_obj.get("id"),
             "title": str(product_obj.get("name")),
             "description": str(product_obj.get("description")),
-            "url": f"${self._supplier.base_url}/product-page/{product_obj["urlPart"]}",
-            "supplier": self._supplier.name,
+            "url": f"${self._supplier["base_url"]}/product-page/{product_obj["urlPart"]}",
+            "supplier": self._supplier["name"],
             "currency": "USD",
             "cas": self._find_cas(str(product_obj.get("name"))),
             "quantity": qty.get("quantity", None),

@@ -2,8 +2,8 @@ import re
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -195,10 +195,10 @@ class SupplierLabchem(SupplierBase):
             **self.__defaults,
             name=title_elem,
             title=title_elem,
-            supplier=self._supplier.name,
+            supplier=self._supplier["name"],
             mpn=variant_part_number or part_number or mpn_value,
             uuid=compare_id,
-            url=self._supplier.base_url + link,
+            url=self._supplier["base_url"] + link,
         )
 
         if cas:

@@ -8,7 +8,7 @@ from pytest import MonkeyPatch
 
 import chempare.suppliers
 
-# from chempare.datatypes import ProductType
+# from datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
 from tests import mock_request_cache
 

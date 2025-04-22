@@ -1,6 +1,6 @@
 """Biofuran Chem Supplier Module"""
 
-from chempare.datatypes import SupplierType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_wixbase import SupplierWixBase
 
 
