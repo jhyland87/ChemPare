@@ -1,0 +1,205 @@
+{
+    // Don't format on save for formatters we don't explicitely control
+    "editor.formatOnSave": true,
+
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never"
+    },
+    // Set file associations to support comments syntax highlight
+    "files.associations": {
+        ".vscode/settings.default.json": "jsonc",
+        ".vscode/settings.json": "jsonc",
+        "pyrightconfig*.json": "jsonc",
+        ".flake8": "properties",
+        "stubtest_allowlist*.txt": "properties",
+        "**/stubtest_allowlists/*.txt": "properties",
+        "pytype_exclude_list.txt": "properties",
+        "*.pyx": "cython"
+    },
+    "files.exclude": {
+        "**/.*_cache": true, // mypy and Ruff cache
+        "**/__pycache__": true
+    },
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.comments.insertSpace": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "[json][jsonc][python][toml]": {
+        "editor.tabSize": 4
+    },
+    "editor.rulers": [
+        90,
+        130
+    ],
+    "[git-commit]": {
+        "editor.rulers": [
+            72
+        ]
+    },
+    // Format on save for formatters we explicitely control
+    "[json][jsonc][yaml][python][toml]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+    "[json][jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[toml]": {
+        "editor.rulers": [
+            90
+        ],
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.wordWrapColumn": 120,
+        "editor.rulers": [
+            130
+        ],
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            // Let Ruff lint fixes handle imports
+            "source.organizeImports": "never",
+            "source.unusedImports": "never"
+        }
+    },
+    "python.createEnvironment.contentButton": "show",
+    "python.missingPackage.severity": "Error",
+    "python.languageServer": "Pylance",
+    "autoDocstring.generateDocstringOnEnter": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    // python.analysis is Pylance (pyright) configurations
+    "python.analysis.fixAll": [
+        // Explicitly omiting "source.convertImportFormat", some stubs use relative imports
+        // Explicitly omiting "source.unusedImports", Let Ruff lint fixes handle imports
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "autoDocstring.quoteStyle": "\"\"\"",
+    "editor.wordWrapColumn": 120,
+    "editor.wordWrap": "off",
+    "python.defaultInterpreterPath": "python",
+    "python.analysis.extraPaths": [
+        "tests"
+    ],
+    "mypy-type-checker.args": [
+        "--custom-typeshed-dir=${workspaceFolder}",
+        // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
+        "--python-version=3.9",
+        "--strict",
+        // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
+        "--ignore-missing-imports"
+    ],
+    // Ensure typeshed's configs are used, and not user's VSCode settings
+    "flake8.args": [
+        "--config=.flake8"
+    ],
+    "flake8.importStrategy": "fromEnvironment",
+    // Using Ruff instead of isort
+    "isort.check": false,
+    "ruff.importStrategy": "fromEnvironment",
+    "mypy-type-checker.importStrategy": "fromEnvironment",
+    "black-formatter.importStrategy": "fromEnvironment",
+    "ruff.fixAll": true,
+    "ruff.organizeImports": true,
+    "evenBetterToml.formatter.alignComments": false,
+    "evenBetterToml.formatter.alignEntries": false,
+    "evenBetterToml.formatter.allowedBlankLines": 1,
+    "evenBetterToml.formatter.arrayAutoCollapse": true,
+    "evenBetterToml.formatter.arrayAutoExpand": true,
+    "evenBetterToml.formatter.arrayTrailingComma": true,
+    "evenBetterToml.formatter.columnWidth": 90,
+    "evenBetterToml.formatter.compactArrays": true,
+    "evenBetterToml.formatter.compactEntries": false,
+    "evenBetterToml.formatter.compactInlineTables": false,
+    "evenBetterToml.formatter.indentEntries": false,
+    "evenBetterToml.formatter.indentTables": false,
+    "evenBetterToml.formatter.inlineTableExpand": false,
+    "evenBetterToml.formatter.reorderArrays": true,
+    "evenBetterToml.formatter.trailingNewline": true,
+    // We like keeping TOML keys in a certain non-alphabetical order that feels more natural
+    "evenBetterToml.formatter.reorderKeys": false,
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.openRepositoryInParentFolders": "always",
+    "markdown.validate.enabled": true,
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+        "editor.wordWrapColumn": 120,
+        "editor.wordWrap": "wordWrapColumn",
+        //"editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.formatOnSave": false
+    },
+    "testing.coverageBarThresholds": {
+        "red": 0,
+        "yellow": 60,
+        "green": 90
+    },
+    "python.testing.pytestPath": "pytest",
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "cmake.ctest.allowParallelJobs": false,
+    "testing.coverageToolbarEnabled": true,
+    "python.experiments.enabled": false,
+    "openCoverage.coverageFilePath": "coverage-html/index.html",
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "autoDocstring.includeExtendedSummary": true,
+    "autoDocstring.includeName": true,
+    "autoDocstring.docstringFormat": "sphinx",
+    "autoDocstring.startOnNewLine": true,
+    "editor.defaultFoldingRangeProvider": "ms-python.black-formatter",
+    "python.analysis.diagnosticSeverityOverrides": {
+        // # Partial stubs are acceptable
+        "reportUnknownArgumentType": false,
+        // # Stubs-only packages are fine for testing
+        "reportMissingModuleSource": false,
+        // # Stubs are allowed to use private variables
+        "reportPrivateUsage": false,
+        "reportPrivateImportUsage": false,
+        // # Incompatible overrides and property type mismatches are out of our stubs' control
+        // # as they are inherited from the implementation.
+        "reportIncompatibleMethodOverride":false,
+        "reportIncompatibleVariableOverride":false,
+        "reportPropertyTypeMismatch":false,
+        // # Overlapping overloads are often necessary in a stub, meaning pyright's check
+        // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
+        // # would cause many false positives and catch few bugs.
+        "reportOverlappingOverload": false,
+        // # The name of the self/cls parameter is out of third-party stubs' control.
+        "reportSelfClsParameterName":false,
+        // # Not an error by default in standard mode
+        "reportUnsupportedDunderAll": "error",
+        "reportUnusedImport": "information"
+    },
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.terminal.shellIntegration.enabled": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.includeAliasesFromUserFiles": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    //"python.analysis.showOnlyDirectDependenciesInAutoImport": true,
+    "python.analysis.regenerateStdLibIndices": false,
+    "files.trimTrailingWhitespaceInRegexAndStrings": false,
+    "python.analysis.stubPath": "typings",
+    "python.analysis.languageServerMode": "full",
+    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.enablePytestSupport": true,
+    "python.analysis.include": [
+        "typings",
+    ],
+    "python.analysis.autoSearchPaths":true,
+    "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
+    "python.analysis.typeEvaluation.strictDictionaryInference": false,
+    "python.analysis.supportAllPythonDocuments": true,
+    "python.analysis.useLibraryCodeForTypes": true,
+
+}
