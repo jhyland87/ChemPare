@@ -25,9 +25,9 @@ from currex import Currency
 from price_parser.parser import Price
 
 from chempare import utils
-from chempare.datatypes import DecimalLikeType
-from chempare.datatypes import PriceType
-from chempare.datatypes import QuantityType
+from datatypes import DecimalLikeType
+from datatypes import PriceType
+from datatypes import QuantityType
 
 
 # import chempare
@@ -54,7 +54,7 @@ class ClassUtils(metaclass=ABCMeta):
         return math.floor(time.time() * 1000)
 
     @finalmethod
-    def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType | None:
+    def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType:
         """
         Parse a string for a price value (currency and value)
 
@@ -86,7 +86,7 @@ class ClassUtils(metaclass=ABCMeta):
 
         iso_4217_pattern = (
             r"^(?:"
-            r"(?P<currency>[\p{Sc}ƒ]|A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|D(?:JF|KK|OP|ZD)|E(?:GP|RN|TB|UR?)|F(?:JD|KP)|G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|H(?:KD|NL|RK|TG|UF)|I(?:[NRD]R|LS|MP|QD|SK)|J(?:EP|MD|OD|PY)|K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|L(?:AK|BP|KR|[RY]D|SL)|M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|N(?:[AZ]D|GN|IO|OK|PR)|(?:QA|OM|YE)R|P(?:AB|[EKL]N|GK|HP|KR|YG)|R(?:ON|SD|UB|WF)|S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|U(?:AH|GX|SD?|YU|ZS)|V(?:EF|ND|UV)|WST|X(?:[AOP]F|CD|DR)|Z(?:AR|MW|WD))"
+            r"(?P<currency_symbol>[\p{Sc}ƒ]|A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|D(?:JF|KK|OP|ZD)|E(?:GP|RN|TB|UR?)|F(?:JD|KP)|G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|H(?:KD|NL|RK|TG|UF)|I(?:[NRD]R|LS|MP|QD|SK)|J(?:EP|MD|OD|PY)|K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|L(?:AK|BP|KR|[RY]D|SL)|M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|N(?:[AZ]D|GN|IO|OK|PR)|(?:QA|OM|YE)R|P(?:AB|[EKL]N|GK|HP|KR|YG)|R(?:ON|SD|UB|WF)|S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|U(?:AH|GX|SD?|YU|ZS)|V(?:EF|ND|UV)|WST|X(?:[AOP]F|CD|DR)|Z(?:AR|MW|WD))"
             r"(?:\s(?!$))?|"
             r"(?P<amount>[0-9\.\,]+)"
             r"\s?){2}$"
@@ -100,29 +100,29 @@ class ClassUtils(metaclass=ABCMeta):
 
         # If we failed to match the currency and amount, then just quit early.
         # We may choose to default the currency to $ or something else later.
-        if "currency" not in matches_groups or "amount" not in matches_groups:
+        if "currency_symbol" not in matches_groups or "amount" not in matches_groups:
             return None
 
-        price = Price.fromstring(str(matches_groups.get('currency')) + str(matches_groups.get('amount')))
+        price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
 
         # Failed to parse the currency?
-        if not hasattr(price, "currency"):
+        if price is None or not hasattr(price, "currency"):
             return None
 
-        currency_code = self._currency_code_from_symbol(price.currency)
+        currency = self._currency_code_from_symbol(price.currency)
 
-        result = {
-            "currency": price.currency,
+        result: PriceType = {
+            "currency_symbol": price.currency,
             "price": float(price.amount),
-            "currency_code": currency_code or price.currency,
+            "currency": currency or price.currency,
         }
 
-        if currency_code != "USD" and price.currency is not None and price.currency != currency_code:
-            usd_price = self._to_usd(from_currency=currency_code, amount=float(price.amount))
+        if currency != "USD" and price.currency is not None and price.currency != currency:
+            usd_price = self._to_usd(from_currency=currency, amount=float(price.amount))
             if usd_price:
                 result["usd"] = usd_price
 
-        return PriceType(**result)
+        return result
 
     @finalmethod
     def _to_usd(
@@ -152,7 +152,7 @@ class ClassUtils(metaclass=ABCMeta):
         # the currency type (eg: "$123.23"), and can be parsed
         if from_currency is None and isinstance(amount, str) is True:
             parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, PriceType):
+            if not isinstance(parsed_price, dict):
                 _logger.debug(
                     "Unable to determine from currency from amount %s of type %s (expected dict)",
                     parsed_price,
@@ -160,8 +160,8 @@ class ClassUtils(metaclass=ABCMeta):
                 )
                 return None
 
-            from_currency = parsed_price.currency_code
-            amount = parsed_price.price
+            from_currency = parsed_price.get("currency")
+            amount = parsed_price.get("price")
 
         # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
         # an exception
@@ -262,7 +262,7 @@ class ClassUtils(metaclass=ABCMeta):
     #         return
 
     @finalmethod
-    def _parse_quantity(self, value: str) -> QuantityType | None:
+    def _parse_quantity(self, value: str) -> QuantityType:
         """
         Parse a string for the quantity and unit of measurement
 
@@ -294,12 +294,12 @@ class ClassUtils(metaclass=ABCMeta):
         }
 
         if isinstance(value, str) is False:
-            return None
+            return {}
 
         value = value.strip()
 
         if not value or value.isspace():
-            return None
+            return {}
 
         # https://regex101.com/r/lDLuVX/4
         pattern = (
@@ -312,9 +312,9 @@ class ClassUtils(metaclass=ABCMeta):
         matches = regex.search(pattern, value, regex.IGNORECASE)
 
         if not matches:
-            return None
+            return {}
 
-        quantity_obj = matches.groupdict()
+        quantity_obj: QuantityType = matches.groupdict()
 
         # Look for any proper substitution UOM's
         proper_uom = self._find_values_with_element(uom_cases, str(quantity_obj["uom"]).lower())
@@ -322,7 +322,7 @@ class ClassUtils(metaclass=ABCMeta):
         if len(proper_uom) > 0:
             quantity_obj["uom"] = proper_uom[0]
 
-        return QuantityType(**quantity_obj)
+        return quantity_obj
 
     @finalmethod
     def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:

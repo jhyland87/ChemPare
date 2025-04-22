@@ -2,9 +2,9 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import PriceType
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import PriceType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -33,7 +33,7 @@ class SupplierLoudwolf(SupplierBase):
     def _query_products(self) -> None:
         """Query products from supplier"""
 
-        self.__product_pages = dict()
+        self.__product_pages = {}
 
         def __query_search_page(query: str, limit: int = 10, page_idx: int = 1):
             """Handles the pagination on the search page"""
@@ -132,13 +132,13 @@ class SupplierLoudwolf(SupplierBase):
             href (str): URL for product
         """
 
-        product_params: dict = self._get_param_from_url(href)
-        product_page: bytes = self.__query_product_page(product_params)
+        product_params = self._get_param_from_url(href)
+        product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
 
-        if not product_page:
-            return
+        # if not product_page:
+        #     return
 
-        product: ProductType = self.__parse_product_page(product_page)
+        product = self.__parse_product_page(href)
 
         if not product:
             return
@@ -149,26 +149,26 @@ class SupplierLoudwolf(SupplierBase):
             if not product.cas or product.cas != self._query:
                 return
 
-        product.uuid = product_params["product_id"]
-        product.url = href
-        product.supplier = self._supplier.name
+        # product.uuid = product_params["product_id"]
+        # product.url = href
+        # product.supplier = self._supplier["name"]
 
         self._products.append(product)
 
-    def __query_product_page(self, params: dict) -> bytes | None:
-        """Query a specific product page given the GET params
+    # def __query_product_page(self, params: dict) -> bytes | None:
+    #     """Query a specific product page given the GET params
 
-        Args:
-            params (dict): The HTTP Get parameters (with product_id)
+    #     Args:
+    #         params (dict): The HTTP Get parameters (with product_id)
 
-        Returns:
-            bytes: The html content
-        """
+    #     Returns:
+    #         bytes: The html content
+    #     """
 
-        product_html: bytes = self.http_get_html("storefront/index.php", params=params)
-        return product_html or None
+    #     product_html: bytes = self.http_get_html("storefront/index.php", params=params)
+    #     return product_html or None
 
-    def __parse_product_page(self, product_html: bytes) -> ProductType | None:
+    def __parse_product_page(self, url: str) -> ProductType | None:
         """Parse a specific product page's HTML
 
         Args:
@@ -179,6 +179,8 @@ class SupplierLoudwolf(SupplierBase):
             ProductType: A new product object, if valid
         """
 
+        product_params = self._get_param_from_url(url)
+        product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
         product_soup = BeautifulSoup(product_html, "html.parser")
         product_content = product_soup.find("div", id="content")
 
@@ -189,10 +191,12 @@ class SupplierLoudwolf(SupplierBase):
 
         # product_id = product_soup.find('input', {'name':'product_id'})
 
-        product = dict(
-            title=title_elem.get_text(strip=True),
+        product = {
+            "title": title_elem.get_text(strip=True),
+            "supplier": self._supplier["name"],
+            "url": "test",
             # uuid=product_id.attrs['value'].strip()
-        )
+        }
 
         # find the price (should be only h2 tag), and require one be found
         price_elem = product_content.find("h2")
@@ -249,5 +253,4 @@ class SupplierLoudwolf(SupplierBase):
             if idx > 13:
                 break
 
-        product = ProductType(**product)
-        return product.cast_properties()
+        return product

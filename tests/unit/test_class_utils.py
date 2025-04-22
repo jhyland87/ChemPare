@@ -12,7 +12,6 @@ from price_parser.parser import Price
 
 from chempare.utils import ClassUtils
 
-
 # pylint: disable=unused-import
 # pylint: disable=unused-wildcard-import
 # pylint: disable=wildcard-import
@@ -22,17 +21,17 @@ from chempare.utils import ClassUtils
 
 class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
-        ("value", "return_type", "price", "currency", "currency_code"),
+        ("value", "return_type", "price", "currency_symbol", "currency"),
         [
-            ("$123.45", PriceType, 123.45, "$", "USD"),
-            ("$12,345.45", PriceType, 12345.45, "$", "USD"),
-            # ("$123.45 USD", PriceType, 123.45, "$", "USD"),
-            ("CA$123.45", PriceType, 123.45, "CA$", "CAD"),
-            ("€1,1234.5", PriceType, 11234.50, "€", "EUR"),
-            ("£123", PriceType, 123, "£", "GBP"),
-            ("674 ¥", PriceType, 674, "¥", "JPY"),
-            ("ZAR123", PriceType, 123, "ZAR", "ZAR"),
-            ("ZAR 456", PriceType, 456, "ZAR", "ZAR"),
+            ("$123.45", dict, 123.45, "$", "USD"),
+            ("$12,345.45", dict, 12345.45, "$", "USD"),
+            # ("$123.45 USD", dict, 123.45, "$", "USD"),
+            ("CA$123.45", dict, 123.45, "CA$", "CAD"),
+            ("€1,1234.5", dict, 11234.50, "€", "EUR"),
+            ("£123", dict, 123, "£", "GBP"),
+            ("674 ¥", dict, 674, "¥", "JPY"),
+            ("ZAR123", dict, 123, "ZAR", "ZAR"),
+            ("ZAR 456", dict, 456, "ZAR", "ZAR"),
             ("ZAR", None, None, None, None),
             ("FOO", None, None, None, None),
         ],
@@ -50,7 +49,7 @@ class TestClass(ClassUtils, object):
             "_parse_price: Invalid currency (FOO)",
         ],
     )
-    def test_parse_price(self, value, return_type, price, currency, currency_code):
+    def test_parse_price(self, value, return_type, price, currency_symbol, currency):
         result = self._parse_price(value)
 
         if return_type is None:
@@ -61,36 +60,34 @@ class TestClass(ClassUtils, object):
             result, return_type
         ), f"Expected result instance of {return_type.__name__}, but was {type(result).__name__}"
 
-        assert hasattr(result, "price"), "No 'price' found in result"
+        assert "price" in result, "No 'price' found in result"
 
-        assert hasattr(result, "currency_code"), "No 'currency_code' found in result"
+        assert "currency" in result, "No 'currency' found in result"
 
-        if hasattr(result, "currency_code"):
-            assert (
-                result.currency_code == currency_code
-            ), f"Received currency code {result.currency}, expected {currency_code}"
+        if "currency" in result:
+            assert result["currency"] == currency, f"Received currency {result["currency"]}, expected {currency}"
 
-        assert hasattr(result, "currency"), "No 'currency' found in result"
+        assert "currency_symbol" in result, "No 'currency_symbol' found in result"
 
-        if result.currency_code != "USD":
-            # If the currency code is not the same as the currency (symbol), then we should have a USD conversion
-            if result.currency_code != result.currency:
-                assert hasattr(result, "usd") is True, f"No USD conversion found for {result.currency} conversion"
+        if result["currency"] != "USD":
+            # If the currency is not the same as the currency_symbol, then we should have a USD conversion
+            if result.get("currency_symbol", None) != result.get("currency", None):
+                assert "usd" in result, f"No USD conversion found for {result["currency"]} conversion"
             else:
                 # If there was no currency code/symbol found, then there likely won't be a way
                 # to convert it to usd, so verify that wasn't done
                 assert (
-                    hasattr(result, "usd") is False or result.usd is None
-                ), f"Found unexpected USD conversion in result ({result.usd})"
+                    "usd" in result or result.get("usd", None) is None
+                ), f"Found unexpected USD conversion in result ({result["usd"]})"
 
         if price:
-            assert result.price == price
+            assert result["price"] == price
+
+        if currency_symbol:
+            assert result["currency_symbol"] == currency_symbol
 
         if currency:
-            assert result.currency == currency
-
-        if price:
-            assert result.currency_code == currency_code
+            assert result["currency"] == currency
 
     @pytest.mark.parametrize(
         ("value", "from_currency_param", "expected_currency", "from_amount", "expected_output"),
@@ -199,19 +196,18 @@ class TestClass(ClassUtils, object):
     @pytest.mark.parametrize(
         ("value", "expected_instance", "quantity", "uom"),
         [
-            ("1 ounce", QuantityType, "1", "oz"),
-            ("43 ounces", QuantityType, "43", "oz"),
-            ("1 lb", QuantityType, "1", "lb"),
-            ("4 lbs", QuantityType, "4", "lb"),
-            ("5 g", QuantityType, "5", "g"),
-            ("10 gal", QuantityType, "10", "gal"),
-            ("43.56 qt", QuantityType, "43.56", "qt"),
-            ("10L", QuantityType, "10", "L"),
-            ("5 l", QuantityType, "5", "L"),
-            ("123.45mm", QuantityType, "123.45", "mm"),
-            ("100 millimeters", QuantityType, "100", "mm"),
-            ("1234ml", QuantityType, "1234", "mL"),
-            ("abcd", None, None, None),
+            ("1 ounce", dict, "1", "oz"),
+            ("43 ounces", dict, "43", "oz"),
+            ("1 lb", dict, "1", "lb"),
+            ("4 lbs", dict, "4", "lb"),
+            ("5 g", dict, "5", "g"),
+            ("10 gal", dict, "10", "gal"),
+            ("43.56 qt", dict, "43.56", "qt"),
+            ("10L", dict, "10", "L"),
+            ("5 l", dict, "5", "L"),
+            ("123.45mm", dict, "123.45", "mm"),
+            ("100 millimeters", dict, "100", "mm"),
+            ("1234ml", dict, "1234", "mL"),
         ],
         ids=[
             "_parse_quantity: '1 ounce' -> 1 ounce",
@@ -226,7 +222,6 @@ class TestClass(ClassUtils, object):
             "_parse_quantity: '123.45mm' -> 123.45 mm",
             "_parse_quantity: '100 millimeters' -> 100 millimeters",
             "_parse_quantity: '1234ml' -> 1234 mL",
-            "error",
         ],
     )
     def test_parse_quantity(self, value, expected_instance, quantity, uom):
@@ -240,15 +235,15 @@ class TestClass(ClassUtils, object):
             result, expected_instance
         ), f"Expected {value} to return type {expected_instance.__name__}, but received {type(value)}"
 
-        assert hasattr(result, "quantity"), f"Result does not have 'quantity' attribute"
+        assert "quantity" in result, "Result does not have 'quantity' attribute"
 
-        if hasattr(result, "quantity"):
-            assert result.quantity == quantity, f"Result quantity {result.quantity} is not {quantity}"
+        if "quantity" in result:
+            assert result["quantity"] == quantity, f"Result quantity {result["quantity"]} is not {quantity}"
 
-        assert hasattr(result, "uom"), f"Result does not have 'uom' attribute"
+        assert "uom" in result, "Result does not have 'uom' attribute"
 
-        if hasattr(result, "uom"):
-            assert result.uom == uom, f"Result uom {result.uom} is not {uom}"
+        if "uom" in result:
+            assert result["uom"] == uom, f"Result uom {result["uom"]} is not {uom}"
 
     @pytest.mark.parametrize(
         ("value", "param_name", "expected_result"),

@@ -16,8 +16,8 @@ from abcplus import finalmethod
 from fuzzywuzzy import fuzz
 
 
-from chempare.datatypes import SupplierType
-from chempare.datatypes import ProductType
+from datatypes import SupplierType
+from datatypes import ProductType
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
@@ -57,11 +57,11 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         self._fuzz_ratio = fuzz_ratio
         self._limit = limit or 20
 
-        self._products = []
-        self._query_results = []
-        self._index = 0
-        self._query = query
-        self._cookies = {}
+        self._products: list[ProductType] = []
+        self._query_results: list = []
+        self._index: int = 0
+        self._query: str = query
+        self._cookies: dict = {}
 
         # Run the setup if there is one. This is for requesting prerequisite data that's
         # needed for cookies, headers, API Keys, etc
@@ -79,7 +79,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
 
         # If no products were found, raise a NoProductsFoundError exception
         if not isinstance(self._products, Iterable) or len(self._products) == 0:
-            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
+            raise NoProductsFoundError(supplier=self._supplier["name"], query=self._query)
 
     def __getitem__(self, index: int) -> ProductType:
         """
@@ -231,8 +231,14 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         x = [
             product
             for product in self._products
-            if (product.name and fuzz.partial_ratio(self._query.lower(), product.name.lower()) >= self._fuzz_ratio)
-            or (product.title and fuzz.partial_ratio(self._query.lower(), product.title.lower()) >= self._fuzz_ratio)
+            if (
+                product["title"]
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+            )
+            or (
+                product["title"]
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+            )
         ]
 
         self._products = x
@@ -288,8 +294,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.get()
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
 
         if not path:
             path = api_url
@@ -307,12 +313,12 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 if isinstance(v, list) or isinstance(v, dict):
                     params[v] = json_.dumps(v)
 
-        args = dict(
-            params=params,
-            headers=headers or self._headers,
-            cookies=cookies or self._cookies,
+        args = {
+            "params": params,
+            "headers": headers or self._headers,
+            "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
-        )
+        }
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
         #     # if chempare.test_monkeypatching and chempare.called_from_test:
         #     args["only_if_cached"] = self.SAVE_RESPONSES
@@ -337,22 +343,6 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
         return res
 
     def request(self, method: str, url, **kwargs):
-        """
-        Just a simple wrapper around the requests.request method, where any common logic can be added before or after
-        the call.
-
-        Args:
-            method (_type_): _description_
-            url (_type_): _description_
-
-        Raises:
-            NoMockDataError: _description_
-            CaptchaError: _description_
-
-        Returns:
-            _type_: _description_
-        """
-
         kwargs.setdefault("timeout", self.REQUEST_TIMEOUT)
 
         res = requests.request(method, url, **kwargs)  # pylint: disable=missing-timeout
@@ -367,10 +357,10 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             and res.reason.lower() == "not cached"
             and res.__class__.__name__ == "CachedResponse"
         ):
-            raise NoMockDataError(url=url, supplier=self._supplier.name)
+            raise NoMockDataError(url=url, supplier=self._supplier["name"])
 
         if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
-            raise CaptchaError(supplier=self._supplier.name, url=res.url, captcha_type="cloudflare")
+            raise CaptchaError(supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare")
         return res
 
     @finalmethod
@@ -396,21 +386,22 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
              Result from requests.post()
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
+        self._supplier["api_url"] = api_url
 
         if base_url not in path and (api_url is None or api_url not in path):
             path = f"{base_url}/{path}"
 
         # chempare.test_monkeypatching chempare.called_from_test
-        args = dict(
-            params=params,
-            json=json,
-            data=data,
-            headers=headers or self._headers,
-            cookies=cookies or self._cookies,
+        args = {
+            "params": params,
+            "json": json,
+            "data": data,
+            "headers": headers or self._headers,
+            "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
-        )
+        }
 
         # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")
@@ -441,7 +432,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             requests.Headers: Header object
         """
 
-        url = self._supplier.api_url or self._supplier.base_url  # type: ignore
+        url: str = self._supplier["api_url"]  # type: ignore
 
         if path:
             url = f"{url}/{path}"
@@ -486,7 +477,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             Union[dict, list]: JSON response, if there was one
         """
 
-        url = self._supplier.api_url or self._supplier.base_url  # type: ignore
+        url: str = self._supplier["api_url"]  # type: ignore
 
         if path:
             url = f"{url}/{path}"
@@ -512,8 +503,8 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
             HTML content of response object
         """
 
-        base_url = self._supplier.base_url
-        api_url = self._supplier.api_url or base_url
+        base_url = self._supplier["base_url"]
+        api_url = self._supplier.get("api_url", base_url)
 
         if path and api_url not in path:
             path = f"{api_url}/{path}"

@@ -11,8 +11,8 @@ from typing import Callable
 from typing import Iterable
 import regex
 
-from chempare.datatypes import PrimitiveType
-from chempare.datatypes import Undefined
+from datatypes import PrimitiveType
+from datatypes import Undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -214,20 +214,22 @@ def replace_dict_values_by_value(
     obj: dict, find_value: PrimitiveType | None, replace_value: PrimitiveType
 ) -> dict[str, str]:
     """
-    The function `replace_dict_values_by_value` recursively replaces specified values in a dictionary with a new value.
+    The function `replace_dict_values_by_value` recursively replaces specified values in a
+    dictionary with a new value.
 
     :param obj: A dictionary object that you want to modify by replacing certain values
     :type obj: dict
-    :param find_value: The `find_value` parameter in the `replace_dict_values_by_value` function is the value that you want
-    to search for in the dictionary `obj`. If a key in the dictionary has this `find_value`, it will be replaced with the
-    `replace_value` provided in the function call
+    :param find_value: The `find_value` parameter in the `replace_dict_values_by_value` function
+    is the value that you want to search for in the dictionary `obj`. If a key in the dictionary
+    has this `find_value`, it will be replaced with the `replace_value` provided in the args
     :type find_value: PrimitiveType | None
-    :param replace_value: The `replace_value` parameter in the `replace_dict_values_by_value` function is the value that
-    will replace any matching values found in the dictionary. For example, if you want to replace all occurrences of a
-    specific value with a new value in the dictionary, you would pass the new value as the
+    :param replace_value: The `replace_value` parameter in the `replace_dict_values_by_value`
+    function is the value that will replace any matching values found in the dictionary. For
+    example, if you want to replace all occurrences of a specific value with a new value in the
+    dictionary, you would pass the new value as the `replace_value`
     :type replace_value: PrimitiveType
-    :return: The function `replace_dict_values_by_value` returns a dictionary where the values have been replaced based on
-    the provided criteria.
+    :return: The function `replace_dict_values_by_value` returns a dictionary where the values
+    have been replaced based on the provided criteria.
     """
     for k, v in obj.items():
         if isinstance(v, dict):

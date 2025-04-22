@@ -1,7 +1,7 @@
 from functools import partial
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
 from chempare.utils import utils
@@ -27,8 +27,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
     _defaults = {}
 
-    def _setup(self) -> None:
-        self._partial_product = partial(ProductType, supplier='Foo', currency_code='USD', currency='$')
+    # def _setup(self) -> None:
+    #     self._partial_product = partial(ProductType, supplier='Foo', currency="USD", currency='$')
 
     def _query_products(self) -> None:
         """Query products from supplier     None: Nothing"""
@@ -64,7 +64,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         if self._query_results is False:
             print(f"No products found for search query: {self._query}")
-            raise NoProductsFoundError(supplier=self._supplier.name, query=self._query)
+            raise NoProductsFoundError(supplier=self._supplier["name"], query=self._query)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -87,24 +87,25 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             price = utils.get_nested(product, "price", "price")
 
-            product_obj = ProductType(
-                uuid=str(product.get("id", "")).strip(),
-                name=product.get("title", None),
-                title=product.get("fulltitle", None),
+            product_obj = {
+                "uuid": str(product.get("id", "")).strip(),
+                "name": product.get("title", None),
+                "title": product.get("fulltitle", None),
                 # cas=self._get_cas_from_variant(product["variant"]),
-                cas=self._find_cas(str(product.get("variant", ""))),
-                description=str(product.get("description", "")).strip() or None,
-                price=price,
+                "cas": self._find_cas(str(product.get("variant", ""))),
+                "description": str(product.get("description", "")).strip() or None,
+                "price": price,
                 # currency_code=self._defaults["curre"],
                 # currency=shop_currency_symbol,
-                url=product.get("url", None),
-                supplier=self._supplier.name,
-                usd=self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
-                **self._defaults,
-                **quantity.__dict__,
+                "currency": self._defaults["currency"],
+                "url": product.get("url", None),
+                "supplier": self._supplier["name"],
+                "usd": self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
+                # **self._defaults,
+                # **quantity.__dict__,
                 # quantity=quantity["quantity"],
                 # uom=quantity["uom"],
-            )
+            }
 
             # product_obj.update(self._defaults)
 

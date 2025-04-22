@@ -1,6 +1,6 @@
 import os
 
-from chempare.datatypes import ProductType
+from datatypes import ProductType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -48,7 +48,7 @@ class SupplierShopifyBase(SupplierBase):
             # Setting the limit here to 1000, since the limit parameter should
             # apply to results returned from Supplier3SChem, not the rquests
             # made by it.
-            "api_key": self._supplier.api_key,
+            "api_key": self._supplier["api_key"],
             "q": self._query,
             "maxResults": 15,
             "startIndex": 0,
@@ -116,9 +116,9 @@ class SupplierShopifyBase(SupplierBase):
             title=product_obj.get("title"),
             description=str(product_obj.get("description", "")).strip() or None,
             price=f"{float(product_obj.get("price")):.2f}",
-            url="{0}{1}".format(self._supplier.base_url, product_obj.get("link")),
+            url="{0}{1}".format(self._supplier["base_url"], product_obj.get("link")),
             manufacturer=product_obj.get("vendor"),
-            supplier=self._supplier.name,
+            supplier=self._supplier["name"],
             quantity=quantity,
             uom=uom,
         )

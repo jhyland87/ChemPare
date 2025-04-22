@@ -6,7 +6,7 @@ from typing import Self
 from abcplus import finalmethod
 
 from chempare import suppliers
-from chempare.datatypes import ProductType
+from datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
 
 # pylint: disable=wildcard-import

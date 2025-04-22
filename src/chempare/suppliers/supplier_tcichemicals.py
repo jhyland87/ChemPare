@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
-from chempare.datatypes import ProductType
-from chempare.datatypes import SupplierType
+from datatypes import ProductType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
 
 
@@ -135,8 +135,8 @@ class SupplierTciChemicals(SupplierBase):
         product_dict = dict(
             title=title.get_text(strip=True),
             quantity=quantity.get_text(strip=True),
-            supplier=self._supplier.name,
-            url=self._supplier.base_url + str(title.attrs["href"]),
+            supplier=self._supplier["name"],
+            url=self._supplier["base_url"] + str(title.attrs["href"]),
         )
 
         if price_obj:
@@ -161,7 +161,7 @@ class SupplierTciChemicals(SupplierBase):
         # quantity_matches = quantity_pattern.search(product_dict["quantity"])
 
         if quantity is not None:
-            product_dict.update(quantity.__dict__)
+            product_dict.update(quantity)
 
         # price_pattern = re.compile(r"^(?P<currency>.)(?P<price>\d+\.\d+)$")
         # price_matches = price_pattern.search(product.price)
@@ -169,6 +169,4 @@ class SupplierTciChemicals(SupplierBase):
         # if price_matches:
         #     product.update(price_matches.groupdict())
 
-        product = ProductType(**product_dict)
-
-        self._products.append(product.cast_properties())
+        self._products.append(product_dict)
