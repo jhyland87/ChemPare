@@ -64,12 +64,17 @@ If you're doing development work and using VSCode, then install some useful Pyth
 ```bash
 code --install-extension ms-python.black-formatter
 code --install-extension ms-python.debugpy
-code --install-extension ms-python.python
 code --install-extension ms-python.isort
+code --install-extension ms-python.pylint
+code --install-extension ms-python.python
 code --install-extension ms-python.vscode-pylance
+code --install-extension franneck94.vscode-python-config
+code --install-extension gydunhn.python3-essentials
+code --install-extension leonhard-s.python-sphinx-highlight
+code --install-extension mintlify.document
 code --install-extension njqdev.vscode-python-typehint
-code --install-extension wolfieshorizon.python-auto-venv
 code --install-extension rodolphebarbanneau.python-docstring-highlighter
+code --install-extension vlaraort.opencoverage
 ```
 
 <small>_On Windows:_</small>

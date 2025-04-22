@@ -1,4 +1,4 @@
-from chempare.datatypes import SupplierType
+from datatypes import SupplierType
 from chempare.suppliers.supplier_shopifybase import SupplierShopifyBase
 
 
