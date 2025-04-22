@@ -1,6 +1,7 @@
 import pytest
 from chempare import datatypes
 from typing import Any
+from decimal import Decimal
 import functools
 
 
@@ -25,6 +26,30 @@ class TestProductType:
         product = datatypes.ProductType(**data)
 
         assert product is not None, "ProductType returned nothing"
+        assert repr(product) == (
+            "ProductType(currency='$', currency_code='USD', name='Test from partial', "
+            "price='123.45', quantity='5', supplier='Bar', title='Test from partial', "
+            "uom='L', url='http://website.com')"
+        ), "repr did not show expected output"
+
+        assert iter(product), "Product was not iterable"
+
+        product.setdefault("description", "FOO")
+        assert product.description == "FOO", "setdefault() did not define 'description'"
+
+        product.setdefault("description", "BAR")
+        assert product.description != "BAR", "setdefault() should not have redefined 'description'"
+
+        product.setdefaults({"purity": "95%", "grade": "ACS", "price": 999.9})
+        assert product.purity == "95%", "setdefaults() did not set the 'purity'"
+        assert product.grade == "ACS", "setdefaults() did not set the 'grade'"
+        assert product.price == data["price"], "setdefaults() should not have updated the 'price'"
+
+        product.price = "999.99"  # type: ignore
+        p = product.cast_properties()
+        print(type(product.price))
+        print("p:", type(p.price))
+        assert isinstance(product.price, Decimal), "cast_properties did not cast the '999.99' to a Decimal value"
 
     @pytest.mark.parametrize(
         ("partial_attrs", "residual_attrs"),

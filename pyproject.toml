@@ -128,8 +128,6 @@ pythonpath = [
 verbosity_assertions = 2
 enable_assertion_pass_hook = true
 
-#pytest -o verbosity_assertions=2 -o enable_assertion_pass_hook=true tests/unit/suppliers/test_supplier_3schem.py
-
 env = [
     # DEBUG, WARNING, ERROR, INFO
     "LOG_LEVEL=ERROR",

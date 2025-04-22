@@ -10,9 +10,10 @@ from typing import ItemsView
 from typing import Self
 from typing import overload
 from typing import Callable
+from typing import Iterable
+from collections.abc import Mapping
 
 from chempare.datatypes import DecimalLikeType
-from chempare.datatypes import SupportsDict
 from chempare.datatypes.variant import VariantType
 from chempare import utils
 
@@ -162,23 +163,29 @@ class ProductType:
     name: str | None = None
     """Unique name, if different than title"""
 
-    # def __init__(self, **kwargs):
-    #     if 'name' in kwargs:
-    #         kwargs['_name'] = kwargs.get('name')
-
-    #         del kwargs['name']
-
-    #     self.__dict__.update(kwargs)
-    #     super().__init__(self)
-
-    def __post_init__(self):
+    def __post_init__(self) -> None:
+        """
+        The function sets the 'name' attribute to 'title' if 'name' is None
+        """
         if self.name is None:
             self.name = self.title
 
-    def __iter__(self):
+    def __iter__(self) -> Iterable:
+        """
+        The function returns an iterator for key-value pairs in the object's dictionary excluding None values.
+        :return: A dictionary comprehension is being used to filter out any key-value pairs where the value is
+        None from the object's `__dict__` attribute. The filtered key-value pairs are then returned as an iterator
+        using the `iter()` function.
+        """
         return iter({k: v for k, v in self.__dict__.items() if v is not None})
 
     def __repr__(self):
+        """
+        The `__repr__` function returns a string representation of an object's attributes in a formatted way.
+        :return: The `__repr__` method is returning a string representation of the object's class name and
+        its attributes. The attributes are formatted as key-value pairs with single quotes around the values,
+        and only attributes with non-None values are included in the string.
+        """
         args = str(', '.join([f"{k}='{v}'" for k, v in sorted(self.__dict__.items()) if v is not None]))
         return f"{self.__class__.__name__}({args})"
 
@@ -203,7 +210,7 @@ class ProductType:
 
     @overload
     @staticmethod
-    def partial(data: SupportsDict) -> Callable:
+    def partial(data: Mapping) -> Callable:
         """
         partial Partial product creation
 
@@ -225,8 +232,7 @@ class ProductType:
         """
         partial Create a partial ProductType object
 
-        This is the method that can take either a dictionary or kwargs to make the ProductType instance
-
+        This is the method that can take either a dictionary or kwargs to make the ProductType instance.
 
         :return: Partial ProductType instance
         :rtype: Callable
@@ -246,34 +252,8 @@ class ProductType:
 
         if len(kwargs.keys()) != 0:
             data.update(**kwargs)
+
         return partial(ProductType, **data)
-
-    # @property
-    # def name(self) -> str | None:
-    #     """
-    #     name - Name of property, may be different than the title
-
-    #     Sometimes products are listed with a name and a title, one is usually more viewer
-    #     friendly than the other.
-
-    #     :return: The name of the product. Will return the title value if no product name was set.
-    #     :rtype: str | None
-    #     """
-    #     return getattr(self, '_name', self.title)
-
-    # # name: str | None = property(get_name)
-
-    # @name.setter
-    # def name(self, name: str) -> None:
-    #     """
-    #     name setter
-
-    #     Setter for the product name property.
-
-    #     :param name: Value to set the name property to
-    #     :type name: str
-    #     """
-    #     self._name = name
 
     def update(self, data: dict) -> None:
         """
@@ -289,7 +269,7 @@ class ProductType:
         """
         self.__dict__.update(data)
 
-    def setdefault(self, key: str, val: Any) -> None:
+    def setdefault(self, key: str, val: Any) -> Self:
         """
         setdefault Set the default value of a property
 
@@ -300,20 +280,25 @@ class ProductType:
         :param val: Value of the attribute
         :type val: Any
         """
-        self.__dict__.setdefault(key, val)
+        if self.__dict__.get(key) is None:
+            self.__dict__[key] = val
 
-    def setdefaults(self, data: SupportsDict) -> None:
+        return self
+
+    def setdefaults(self, data: Mapping) -> Self:
         """
         setdefaults uses setdefault for a full dictionary
 
         Makes it easier if one needs to run setdefault() for a dictionary of values
 
         :param data: Any dictionary like object (anything with __dict__)
-        :type data: SupportsDict
+        :type data: Mapping
 
         """
-        for key, val in data.__dict__.items():
+        for key, val in data.items():
             self.setdefault(key, val)
+
+        return self
 
     def __bool__(self) -> bool:
         """
@@ -327,14 +312,30 @@ class ProductType:
         return bool(len(self.items()))
 
     def __nonzero__(self) -> bool:
-        """This just allows us to use 'if not product'"""
+        """
+        The function __nonzero__ always returns True, to make `if product` checks easier
+        :return: The method `__nonzero__` is returning a boolean value `True`.
+        """
         return True
 
     def items(self) -> ItemsView[str, Any]:
+        """
+        The function returns a view of the items in the object's dictionary.
+        :return: The `items()` method is being called on the `self.__dict__` attribute, which returns a view
+        object that displays a list of a dictionary's key-value tuple pairs.
+        """
         return self.__dict__.items()
 
     def set(self, key, value) -> None:
-        """Set a local attribute for this product"""
+        """
+        The function sets an attribute with a specified key and value in the object.
+
+        :param key: The `key` parameter in the `set` method is used to specify the attribute name that you want to
+        set on the object instance
+        :param value: The `value` parameter in the `set` method represents the value that you want to associate
+        with the specified `key`. When you call the `set` method with a `key` and a `value`, it sets the attribute
+        with the name `key` on the object to the specified `value`
+        """
         setattr(self, key, value)
 
     def cast_properties(self, include_none: bool = False) -> Self:
@@ -354,22 +355,16 @@ class ProductType:
         >>> product.cast_properties()
         ProductType(... uuid=123, sku="abc")
         """
-
         for key, val in self.items():
-            _val = val
+            if val is None and include_none is False:
+                continue
+
             if key == "usd" and val is not None:
-                _val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
-                continue
-
-            if key == "price" and val is not None:
-                _val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
-                continue
-
-            if isinstance(val, str):
-                _val = utils.cast(value=val)
-
-            if _val is None and include_none is True:
-                continue
+                val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
+            elif key == "price" and val is not None:
+                val = Decimal(val).quantize(Decimal("0.00"), ROUND_HALF_UP)
+            elif isinstance(val, str):
+                val = utils.cast(value=val)
 
             self.set(key, val)
 
