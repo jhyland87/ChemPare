@@ -78,11 +78,6 @@
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "off",
     "python.defaultInterpreterPath": "python",
-    "python.analysis.extraPaths": [
-        "tests",
-        "typings",
-        "."
-    ],
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
         // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
@@ -189,8 +184,11 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
-        ".",
         "typings",
+        "./src",
+        ".",
+        "./src/chempare",
+        "./src/chempare/suppliers"
     ],
     "python.analysis.autoSearchPaths": true,
     "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,

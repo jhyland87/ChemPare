@@ -100,7 +100,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 "currency": self._defaults["currency"],
                 "url": product.get("url", None),
                 "supplier": self._supplier["name"],
-                "usd": self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
+                "usd": utils.to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
                 # **self._defaults,
                 # **quantity.__dict__,
                 # quantity=quantity["quantity"],

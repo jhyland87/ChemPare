@@ -22,9 +22,11 @@ dependencies = [
     "urllib3==1.26.6",
     #"curl_cffi",
     "babel",
+    "dynamic-cast",
     "inflection",
     "regex",
     "requests-cache",
+    "str2bool",
     "translate",
 ]
 
@@ -61,7 +63,19 @@ test = [
     "requests-mock",
     #"coverage",
 ]
-dev = ["pycodestyle==2.4.0", "sphinx"]
+dev = [
+    "mypy-typing-asserts",
+    "pycodestyle==2.4.0",
+    "sphinx",
+    "type-comparable",
+    "types-babel",
+    "types-beautifulsoup4",
+    "types-dataclasses",
+    "types-regex",
+    "types-requests",
+    "types-str2bool",
+    "typing-json",
+]
 api = ["fastapi", "uvicorn"]
 
 [project.readme]

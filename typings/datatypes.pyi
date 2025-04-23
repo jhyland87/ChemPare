@@ -13,8 +13,6 @@ from enum import Enum
 DecimalLikeType = int | float | Decimal
 PrimitiveType = int | float | str | bool
 TimeoutType = float | tuple[float, float] | tuple[float, None]
-TruthyType = Literal["on", "true", "True", "TRUE", "1", True]
-FalsyType = Literal["off", "false", "False", "FALSE", "0", False]
 
 UndefinedType = Enum('UndefinedType', ['undefined'])
 undefined = UndefinedType.undefined

@@ -20,12 +20,8 @@ from urllib.parse import urlparse
 import regex
 from abcplus import ABCMeta
 from abcplus import finalmethod
-from currex import CURRENCIES
-from currex import Currency
 
-from chempare import utils
 from datatypes import DecimalLikeType
-from datatypes import PriceType
 from datatypes import QuantityType
 
 
@@ -51,144 +47,144 @@ class ClassUtils(metaclass=ABCMeta):
 
         return math.floor(time.time() * 1000)
 
-    @finalmethod
-    def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType:
-        """
-        Parse a string for a price value (currency and value)
+    # @finalmethod
+    # def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType:
+    #     """
+    #     Parse a string for a price value (currency and value)
 
-        Args:
-            value (str): String with price
-            symbol_to_code (bool): Attempt to convert the currency symbols to country
-                                   codes if this is set to True. defaults to True.
+    #     Args:
+    #         value (str): String with price
+    #         symbol_to_code (bool): Attempt to convert the currency symbols to country
+    #                                codes if this is set to True. defaults to True.
 
-        Returns:
-            PriceType: Returns a dictionary with 'currency' and 'price' values
+    #     Returns:
+    #         PriceType: Returns a dictionary with 'currency' and 'price' values
 
-        See:
-            https://en.wikipedia.org/wiki/Currency_symbol
+    #     See:
+    #         https://en.wikipedia.org/wiki/Currency_symbol
 
-        Todo:
-            - Need to deal with:
-                A symbol may be positioned in various ways, according to
-                national convention: before, between or after the
-                numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
-        """
+    #     Todo:
+    #         - Need to deal with:
+    #             A symbol may be positioned in various ways, according to
+    #             national convention: before, between or after the
+    #             numeric amounts: €2.50, 2,50€ and 2$50 with two vertical lines.
+    #     """
 
-        value = normalize('NFKC', value)
+    #     value = normalize('NFKC', value)
 
-        iso_4217_pattern = (
-            r"^(?:"
-            r"(?P<currency_symbol>[\p{Sc}ƒ]|A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|D(?:JF|KK|OP|ZD)|E(?:GP|RN|TB|UR?)|F(?:JD|KP)|G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|H(?:KD|NL|RK|TG|UF)|I(?:[NRD]R|LS|MP|QD|SK)|J(?:EP|MD|OD|PY)|K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|L(?:AK|BP|KR|[RY]D|SL)|M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|N(?:[AZ]D|GN|IO|OK|PR)|(?:QA|OM|YE)R|P(?:AB|[EKL]N|GK|HP|KR|YG)|R(?:ON|SD|UB|WF)|S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|U(?:AH|GX|SD?|YU|ZS)|V(?:EF|ND|UV)|WST|X(?:[AOP]F|CD|DR)|Z(?:AR|MW|WD))"
-            r"(?:\s(?!$))?|"
-            r"(?P<amount>[0-9\.\,]+)"
-            r"\s?){2}$"
-        )
+    #     iso_4217_pattern = (
+    #         r"^(?:"
+    #         r"(?P<currency_symbol>[\p{Sc}ƒ]|A(?:[EM]D|[FZ]N|LL|[NW]G|OA|RS|U[D\$]?)|B(?:AM|[BHMNZS]D|DT|[GT]N|IF|OB|RL|WP|YR)|C(?:A[D$]|[DH]F|[LOU]P|NY|[RU]C|VE|ZK)|D(?:JF|KK|OP|ZD)|E(?:GP|RN|TB|UR?)|F(?:JD|KP)|G(?:[BGI]P|EL|HS|[YM]D|NF|TQ)|H(?:KD|NL|RK|TG|UF)|I(?:[NRD]R|LS|MP|QD|SK)|J(?:EP|MD|OD|PY)|K(?:[GE]S|HR|MF|[PR]W|[WY]D|ZT)|L(?:AK|BP|KR|[RY]D|SL)|M(?:[AK]D|DL|GA|[MW]K|NT|OP|RO|[UVY]R|[XZ]N)|N(?:[AZ]D|GN|IO|OK|PR)|(?:QA|OM|YE)R|P(?:AB|[EKL]N|GK|HP|KR|YG)|R(?:ON|SD|UB|WF)|S(?:[AC]R|[BRGDT]D|DG|EK|[HY]P|[LZP]L|OS|VC)|T(?:HB|[JZ]S|MT|[NTVW]D|OP|RY)|U(?:AH|GX|SD?|YU|ZS)|V(?:EF|ND|UV)|WST|X(?:[AOP]F|CD|DR)|Z(?:AR|MW|WD))"
+    #         r"(?:\s(?!$))?|"
+    #         r"(?P<amount>[0-9\.\,]+)"
+    #         r"\s?){2}$"
+    #     )
 
-        # matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
-        # if not matches:
-        #     return None
+    #     # matches = regex.match(iso_4217_pattern, value, regex.IGNORECASE)
+    #     # if not matches:
+    #     #     return None
 
-        # matches_groups = matches.groupdict()
+    #     # matches_groups = matches.groupdict()
 
-        # # If we failed to match the currency and amount, then just quit early.
-        # # We may choose to default the currency to $ or something else later.
-        # if "currency_symbol" not in matches_groups or "amount" not in matches_groups:
-        #     return None
+    #     # # If we failed to match the currency and amount, then just quit early.
+    #     # # We may choose to default the currency to $ or something else later.
+    #     # if "currency_symbol" not in matches_groups or "amount" not in matches_groups:
+    #     #     return None
 
-        # price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
+    #     # price = Price.fromstring(str(matches_groups.get("currency_symbol")) + str(matches_groups.get("amount")))
 
-        # # Failed to parse the currency?
-        # if price is None or not hasattr(price, "currency"):
-        #     return None
+    #     # # Failed to parse the currency?
+    #     # if price is None or not hasattr(price, "currency"):
+    #     #     return None
 
-        # currency = self._currency_code_from_symbol(price.currency)
-        currency = utils.parse_price(value)
+    #     # currency = self._currency_code_from_symbol(price.currency)
+    #     currency = utils.parse_price(value)
 
-        print("currency:", currency)
+    #     print("currency:", currency)
 
-        result: PriceType = currency
+    #     result: PriceType = currency
 
-        # if currency != "USD" and price.currency is not None and price.currency != currency:
-        #     usd_price = self._to_usd(from_currency=currency, amount=float(price.amount))
-        #     if usd_price:
-        #         result["usd"] = usd_price
+    #     # if currency != "USD" and price.currency is not None and price.currency != currency:
+    #     #     usd_price = self._to_usd(from_currency=currency, amount=float(price.amount))
+    #     #     if usd_price:
+    #     #         result["usd"] = usd_price
 
-        return result
+    #     return result
 
-    @finalmethod
-    def _to_usd(
-        self, from_currency: str | None = None, amount: int | float | str | None = None
-    ) -> DecimalLikeType | None:
-        """
-        Convert a no USD price to the USD price
+    # @finalmethod
+    # def _to_usd(
+    #     self, from_currency: str | None = None, amount: int | float | str | None = None
+    # ) -> DecimalLikeType | None:
+    #     """
+    #     Convert a no USD price to the USD price
 
-        Args:
-            from_currency (str, optional): Currency the price currently is in.
-                                           Defaults to None.
-            amount (Union[int, float, str], optional): Amount/price to convert.
-                                                       Defaults to None.
+    #     Args:
+    #         from_currency (str, optional): Currency the price currently is in.
+    #                                        Defaults to None.
+    #         amount (Union[int, float, str], optional): Amount/price to convert.
+    #                                                    Defaults to None.
 
-        Raises:
-            Exception: If amount is string that is not parseable
-            TypeError: Invalid from_currency value/type
-            TypeError: No amount provided
+    #     Raises:
+    #         Exception: If amount is string that is not parseable
+    #         TypeError: Invalid from_currency value/type
+    #         TypeError: No amount provided
 
-        Returns:
-            Optional[float]: USD price (if one was found)
+    #     Returns:
+    #         Optional[float]: USD price (if one was found)
 
-        Example:
-            >>> self._to_usd()
-        """
-        # If no source currency type is provided, but we were given a string for the amount, then it may include
-        # the currency type (eg: "$123.23"), and can be parsed
-        if from_currency is None and isinstance(amount, str) is True:
-            parsed_price = self._parse_price(amount)  # type: ignore
-            if not isinstance(parsed_price, dict):
-                _logger.debug(
-                    "Unable to determine from currency from amount %s of type %s (expected dict)",
-                    parsed_price,
-                    type(parsed_price),
-                )
-                return None
+    #     Example:
+    #         >>> self._to_usd()
+    #     """
+    #     # If no source currency type is provided, but we were given a string for the amount, then it may include
+    #     # the currency type (eg: "$123.23"), and can be parsed
+    #     if from_currency is None and isinstance(amount, str) is True:
+    #         parsed_price = self._parse_price(amount)  # type: ignore
+    #         if not isinstance(parsed_price, dict):
+    #             _logger.debug(
+    #                 "Unable to determine from currency from amount %s of type %s (expected dict)",
+    #                 parsed_price,
+    #                 type(parsed_price),
+    #             )
+    #             return None
 
-            from_currency = parsed_price.get("currency")
-            amount = parsed_price.get("price")
+    #         from_currency = parsed_price.get("currency")
+    #         amount = parsed_price.get("price")
 
-        # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
-        # an exception
-        if not from_currency or isinstance(from_currency, str) is False:
-            _logger.debug(
-                "Source currency '%s' (type %s) either not provided or wrong type", from_currency, type(from_currency)
-            )
-            return None
+    #     # If there is no from_currency (either provided as a parameter or set using _parse_price), then throw
+    #     # an exception
+    #     if not from_currency or isinstance(from_currency, str) is False:
+    #         _logger.debug(
+    #             "Source currency '%s' (type %s) either not provided or wrong type", from_currency, type(from_currency)
+    #         )
+    #         return None
 
-        from_currency = from_currency.upper()
+    #     from_currency = from_currency.upper()
 
-        if from_currency not in CURRENCIES:
-            # raise LookupError(f"Unable to convert from '{from_currency}")
-            return None
+    #     if from_currency not in CURRENCIES:
+    #         # raise LookupError(f"Unable to convert from '{from_currency}")
+    #         return None
 
-        if isinstance(amount, str):
-            amount = utils.cast(amount)
+    #     if isinstance(amount, str):
+    #         amount = utils.cast(amount)
 
-        if not isinstance(amount, DecimalLikeType):
-            _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
+    #     if not isinstance(amount, DecimalLikeType):
+    #         _logger.debug("Amount of '%s' is either invalid type or not provided (%s)", amount, type(amount))
 
-        # if not amount:
-        #     raise ValueError("No amount provided or found")
+    #     # if not amount:
+    #     #     raise ValueError("No amount provided or found")
 
-        # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
-        #      raise TypeError("amount needs to be float or int")
+    #     # if isinstance(amount, int) is Falseand isinstance(amount, float) is False
+    #     #      raise TypeError("amount needs to be float or int")
 
-        from_currency_obj = Currency(from_currency, amount)  # type: ignore
+    #     from_currency_obj = Currency(from_currency, amount)  # type: ignore
 
-        usd = from_currency_obj.to("USD")
+    #     usd = from_currency_obj.to("USD")
 
-        # return self._to_hundreths(usd.amount)
-        return round(float(usd.amount), 2)
-        # except Exception as err:
-        #     # print("Exception:", err)
-        #     return None
+    #     # return self._to_hundreths(usd.amount)
+    #     return round(float(usd.amount), 2)
+    #     # except Exception as err:
+    #     #     # print("Exception:", err)
+    #     #     return None
 
     def _to_hundreths(self, value: DecimalLikeType | str) -> Decimal:
         """

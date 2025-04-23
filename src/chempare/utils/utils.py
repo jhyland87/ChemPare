@@ -8,14 +8,15 @@ from typing import Any
 from typing import Callable
 from typing import Iterable
 import regex
-
+from str2bool import str2bool
 from price_parser.parser import Price
 from datatypes import PrimitiveType
 from datatypes import PriceType
 from currex import Currency
+from decimal import Decimal
+from decimal import ROUND_HALF_UP
 from datatypes import Undefined
-
-import babel.numbers as babelnum
+from chempare._constants import CURRENCY_CODES_MAP, CURRENCY_SYMBOLS_MAP
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -50,11 +51,7 @@ def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
         return result
 
 
-# PYTEST_CURRENT_TEST
-# DEBUGPY_RUNNING
-
-
-def cast(value: str) -> PrimitiveType | None:
+def cast(value: str) -> int | float | str | bool | None:
     """
     Cast a str value to its most likely primitive type.
 
@@ -98,11 +95,11 @@ def cast(value: str) -> PrimitiveType | None:
         return None
 
     # Boolean type True
-    if value.lower() == "true":
+    if str2bool(value) is True:
         return True
 
     # Boolean type False
-    if value.lower() == "false":
+    if str2bool(value) is False:
         return False
 
     try:
@@ -313,32 +310,46 @@ def parse_cookie(value: str) -> dict[str, Any] | None:
 def parse_price(value) -> PriceType | None:
     price = Price.fromstring(value)
 
-    if price is None:
+    if price is None or price.amount is None:
         return None
     # this gives us the currency (symbol), amount, amount_text and amount_float
 
-    currency_code = get_currency_code(price.currency)
+    if not hasattr(price, 'currency'):
+        raise ValueError("Price has no currency")
+
+    currency_code = get_currency_code_from_symbol(price.currency)
 
     result: PriceType = {
-        "currency": str(currency_code),
+        "currency": str(currency_code or price.currency),
         "currency_symbol": price.currency,
-        "price": float(price.amount_float),
+        "price": price.amount_float,
     }
 
-    if currency_code != 'USD':
-        from_currency_obj = Currency(currency_code, price.amount_float)  # type: ignore
-
-        to_usd = from_currency_obj.to("USD")
-
-        result["usd"] = to_usd.amount
+    if currency_code is not None and currency_code != 'USD':
+        if (usd_price := to_usd(price.amount_float, currency_code)) is not None:
+            result["usd"] = usd_price
 
     return result
 
 
-def get_currency_code(currency_symbol):
-    if not currency_symbol:
+def to_usd(amount, from_currency):
+    from_currency_obj = Currency(from_currency, amount)  # type: ignore
+
+    if (in_usd := from_currency_obj.to("USD")) is None:
         return None
-    CURRENCY_MAP: dict[str, str] = {
-        babelnum.get_currency_symbol(x): x for x in babelnum.list_currencies() if x != babelnum.get_currency_symbol(x)
-    }
-    return CURRENCY_MAP.get(currency_symbol, None)
+
+    return in_usd.amount.quantize(Decimal("0.00"), ROUND_HALF_UP)
+
+
+def get_currency_code_from_symbol(symbol):
+    if not symbol:
+        return None
+
+    return CURRENCY_CODES_MAP.get(symbol, None)
+
+
+def get_currency_symbol_from_code(currency):
+    if not currency:
+        return None
+
+    return CURRENCY_SYMBOLS_MAP.get(currency, None)
