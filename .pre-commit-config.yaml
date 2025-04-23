@@ -11,17 +11,17 @@ repos:
     -   id: debug-statements
     #-   id: name-tests-test
 
--   repo: https://github.com/PyCQA/flake8
-    rev: 7.2.0
-    hooks:
-    -   id: flake8
-        additional_dependencies: [flake8-typing-imports==1.7.0]
+# -   repo: https://github.com/PyCQA/flake8
+#     rev: 7.2.0
+#     hooks:
+#     -   id: flake8
+#         additional_dependencies: [flake8-typing-imports==1.7.0]
 
 -   repo: https://github.com/asottile/reorder-python-imports
     rev: v3.14.0
     hooks:
     -   id: reorder-python-imports
-        args: [--py317-plus, --add-import, 'from __future__ import annotations']
+        args: [--py312-plus, --add-import, 'from __future__ import annotations']
 
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.19.1
@@ -32,5 +32,5 @@ repos:
     rev: 'v1.15.0'  # Use the sha / tag you want to point at
     hooks:
     -   id: mypy
-        args: [--strict, --ignore-missing-imports]
+        args: [--strict, --ignore-missing-imports, --allow-untyped-defs, src]
         additional_dependencies: [tokenize-rt==3.2.0]

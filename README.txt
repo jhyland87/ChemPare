@@ -5,7 +5,7 @@ Compares prices from chemical vendors that sell to individuals and residential a
 
 > _*Note:* This project is a work in progress, not yet in Beta mode_
 
---- 
+---
 
 ### How does it work
 Magic, mostly.

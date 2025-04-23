@@ -5,7 +5,7 @@ Compares prices from chemical vendors that sell to individuals and residential a
 
 > _*Note:* This project is a work in progress, not yet in Beta mode_
 
---- 
+---
 
 ### How does it work
 Magic, mostly.
@@ -59,24 +59,6 @@ python3 -m venv venv
 source ./venv/bin/activate
 ```
 
-If you're doing development work and using VSCode, then install some useful Python extensions using the [code command](https://code.visualstudio.com/docs/setup/mac#_launch-vs-code-from-the-command-line):
-
-```bash
-code --install-extension ms-python.black-formatter
-code --install-extension ms-python.debugpy
-code --install-extension ms-python.isort
-code --install-extension ms-python.pylint
-code --install-extension ms-python.python
-code --install-extension ms-python.vscode-pylance
-code --install-extension franneck94.vscode-python-config
-code --install-extension gydunhn.python3-essentials
-code --install-extension leonhard-s.python-sphinx-highlight
-code --install-extension mintlify.document
-code --install-extension njqdev.vscode-python-typehint
-code --install-extension rodolphebarbanneau.python-docstring-highlighter
-code --install-extension vlaraort.opencoverage
-```
-
 <small>_On Windows:_</small>
 
 ```powershell
@@ -117,20 +99,58 @@ If you're on OSX, just run `make install-dev` then `make test`.
 
 ```bash
 ./venv/bin/pip3 install --upgrade pip
-./venv/bin/pip3 install -r requirements/dev.txt
+./venv/bin/pip3 install -e .[test]
 . ./venv/bin/activate
 
 ```
 3. Run the below to execute all unit tests in `./tests` directory:
 
 ```bash
-venv/bin/python3 -m pytest -vvv tests
+pytest -c pyproject.toml
 ```
 
-The output should look simiar to the following:
+## Development
 
-![image](assets/images/chempare_unit_tests_output.png)
+```bash
+pip install -e .[dev]
+pre-commit install
+```
 
+If you're doing development work and using VSCode, then install some useful Python extensions using the [code command](https://code.visualstudio.com/docs/setup/mac#_launch-vs-code-from-the-command-line):
+
+```bash
+code --install-extension charliermarsh.ruff
+code --install-extension franneck94.vscode-python-config
+code --install-extension gydunhn.python3-essentials
+code --install-extension leonhard-s.python-sphinx-highlight
+code --install-extension leonhard-s.python-sphinx-highlight
+code --install-extension mintlify.document
+code --install-extension ms-python.black-formatter
+code --install-extension ms-python.debugpy
+code --install-extension ms-python.flake8
+code --install-extension ms-python.isort
+code --install-extension ms-python.mypy-type-checker
+code --install-extension ms-python.pylint
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension njpwerner.autodocstring
+code --install-extension njqdev.vscode-python-typehint
+code --install-extension rodolphebarbanneau.python-docstring-highlighter
+code --install-extension sr-team.lcov-generator
+code --install-extension visualstudioexptteam.vscodeintellicode
+code --install-extension vlaraort.opencoverage
+```
+
+Running pre-commit hooks manually
+```bash
+pre-commit run pyupgrade --all-files
+pre-commit run trailing-whitespace --all-files
+```
+
+mypy
+```bash
+mypy --exclude dev --strict --ignore-missing-imports --allow-untyped-defs src/
+```
 
 ## Suppliers To Add
 - https://www.jk-sci.com
