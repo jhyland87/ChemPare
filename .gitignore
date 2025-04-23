@@ -5,8 +5,11 @@ lib
 pyvenv.cfg
 __pycache__
 *.egg-info
-dev/
+/dev
 .DS_Store
 .coverage
 build
 coverage-html
+/.mypy_cache
+/.pytest_cache
+/.trunk
