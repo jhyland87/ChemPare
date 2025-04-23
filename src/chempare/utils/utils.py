@@ -396,3 +396,8 @@ def random_string(max_length: int = 10, include_special: bool = False) -> str:
 
     # trunk-ignore(bandit/B311)
     return str("".join(random.choice(char_list) for _ in range(max_length)))
+
+
+def set_multiple_defaults(dictionary, defaults):
+    for key, value in defaults.items():
+        dictionary.setdefault(key, value)

@@ -21,7 +21,7 @@ from chempare.utils import utils
 # pylint: disable=unused-argument
 
 
-class TestClass(ClassUtils, object):
+class TestClass(ClassUtils):
 
     # _to_hundreths
     @pytest.mark.parametrize(

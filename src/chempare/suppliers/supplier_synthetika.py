@@ -93,7 +93,7 @@ class SupplierSynthetika(SupplierBase):
             supplier=self._supplier["name"],
         )
 
-        quantity_pattern = re.compile((r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"))
+        quantity_pattern = re.compile(r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])")
         quantity_matches = quantity_pattern.search(product_obj["name"])
 
         if quantity_matches:

@@ -15,7 +15,7 @@ from chempare.exceptions import NoProductsFoundError
 from chempare.utils import ClassUtils
 
 
-class SearchFactory(ClassUtils, object):
+class SearchFactory(ClassUtils):
     """Simple factory to make searching easier"""
 
     suppliers = suppliers.__subclasses__

@@ -2,6 +2,7 @@ import os
 
 from datatypes import ProductType
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import set_multiple_defaults
 
 
 # File: /suppliers/supplier_shopifybase.py.py
@@ -109,18 +110,20 @@ class SupplierShopifyBase(SupplierBase):
             uom = getattr(quantity_matches, "uom", uom)
             quantity = getattr(quantity_matches, "quantity", quantity)
 
-        product = ProductType(
-            **self.__defaults,
-            uuid=product_obj.get("product_id"),
-            name=product_obj.get("title"),
-            title=product_obj.get("title"),
-            description=str(product_obj.get("description", "")).strip() or None,
-            price=f"{float(product_obj.get("price")):.2f}",
-            url="{0}{1}".format(self._supplier["base_url"], product_obj.get("link")),
-            manufacturer=product_obj.get("vendor"),
-            supplier=self._supplier["name"],
-            quantity=quantity,
-            uom=uom,
-        )
+        price = float(product_obj.get("price"))
+        product = {
+            # **self.__defaults,
+            "uuid": product_obj.get("product_id"),
+            "name": product_obj.get("title"),
+            "title": product_obj.get("title"),
+            "description": str(product_obj.get("description", "")).strip() or None,
+            "price": f"{price:.2f}",
+            "url": "{}{}".format(self._supplier["base_url"], product_obj.get("link")),
+            "manufacturer": product_obj.get("vendor"),
+            "supplier": self._supplier["name"],
+            "quantity": quantity,
+            "uom": uom,
+        }
 
+        set_multiple_defaults(product, self.__defaults)
         return product
