@@ -274,41 +274,6 @@ class TestClass(ClassUtils, object):
             assert result == expected_result
 
     @pytest.mark.parametrize(
-        ("length", "include_special"),
-        [(None, None), (5, None), (100, None), (10, True)],
-        ids=[
-            "_random_string: None -> return unique 10 character alphanumeric string",
-            "_random_string: 5 -> return unique 5 character alphanumeric string",
-            "_random_string: 100 -> return unique 100 character alphanumeric string",
-            "_random_string: 10 (include_special) -> return unique 10 character alphanumeric+special string",
-        ],
-    )
-    def test_random_string(self, length, include_special):
-        result_a = self._random_string(length, include_special)
-        result_b = self._random_string(length, include_special)
-
-        assert isinstance(result_a, str) is True
-        assert isinstance(result_b, str) is True
-
-        assert len(result_a) == length or 10
-        assert len(result_b) == length or 10
-        # All results should be ascii..
-        assert str(result_a).isascii() is True
-        assert str(result_b).isascii() is True
-        # assert str.isascii(result_a) is True
-        # assert str.isascii(result_b) is True
-
-        # If were including special chars then isalnum should be
-        # False (inverse of include_special)
-        # assert str.isalnum(result_a) is not include_special
-        # assert str.isalnum(result_b) is not include_special
-        assert str(result_a).isalnum() is not include_special
-        assert str(result_b).isalnum() is not include_special
-
-        # Obviously they should never be the same value
-        assert result_a != result_b
-
-    @pytest.mark.parametrize(
         ("value", "expected_result"),
         [({"foo": 123, "bar": 555}, {"bar": 555}), ({"foo": 999999, "bar": 123}, {"foo": 999999})],
         ids=["Pulling bar from object", "Pulling foo from object"],

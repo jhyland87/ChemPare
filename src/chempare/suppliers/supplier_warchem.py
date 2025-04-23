@@ -127,7 +127,7 @@ class SupplierWarchem(SupplierBase):
         if price_elem:
             product["price"] = str(price_elem.attrs["content"])
             product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
-            product["currency_code"] = str(self._currency_code_from_symbol(product["currency"]))
+            product["currency_code"] = str(util.get_currency_code_from_symbol(product["currency"]))
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
         quantity_options = quantity_elem_container.find_all("div", class_="PoleWyboruCechy")

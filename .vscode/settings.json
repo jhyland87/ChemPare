@@ -251,5 +251,6 @@
     "explorer.confirmDelete": false,
     "explorer.copyRelativePathSeparator": "/",
     "files.autoSave": "onFocusChange",
-    "python.terminal.launchArgs": []
+    "python.terminal.launchArgs": [],
+    "ruff.format.preview": true
 }

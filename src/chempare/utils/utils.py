@@ -1,22 +1,38 @@
+from __future__ import annotations
+
 import os
 import platform
 import plistlib
+import random
+import string
 import sys
+from decimal import ROUND_HALF_UP, Decimal
 from functools import reduce
 from pathlib import Path
-from typing import Any
-from typing import Callable
-from typing import Iterable
+from typing import TYPE_CHECKING
+from typing import Callable, Iterable
 import regex
-from str2bool import str2bool
-from price_parser.parser import Price
-from datatypes import PrimitiveType
-from datatypes import PriceType
 from currex import Currency
-from decimal import Decimal
-from decimal import ROUND_HALF_UP
-from datatypes import Undefined
+from datatypes import PriceType  # , Undefined
+from price_parser.parser import Price
+from str2bool import str2bool
 from chempare._constants import CURRENCY_CODES_MAP, CURRENCY_SYMBOLS_MAP
+
+from typing import Literal, NewType
+
+if TYPE_CHECKING:
+    from typing import Any, Callable, Iterable, LiteralString
+    from datatypes import PriceType, PrimitiveType  # , Undefined
+
+    # # Undefined = Enum('Undefined', ['undefined'])
+    # # undefined = Undefined.undefined
+    # Undefined = NewType('Undefined', str)
+
+    # UndefinedStr = str | Undefined
+    # undef = Undefined('undefined')
+
+Undefined = NewType('Undefined', str)
+undefined = str | Undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -116,7 +132,7 @@ def cast(value: str) -> int | float | str | bool | None:
 
 
 def getenv(
-    setting: str, default: PrimitiveType | None | type[Undefined] = Undefined, typecast: bool = True
+    setting: str, default: PrimitiveType | None | Literal[Undefined.undefined] = undefined, typecast: bool = True
 ) -> PrimitiveType | None:
     """
     The getenv function retrieves an environment variable value, with an optional default value and typecasting support.
@@ -136,7 +152,7 @@ def getenv(
     environment variables. If the `setting` is not found and a `default` value is provided, it returns the `default` value.
     If the `setting` is not found and no `default` value is provided, it raises a `ValueError`.
     """
-    if setting not in os.environ and default is Undefined:
+    if setting not in os.environ and default is undefined:
         raise ValueError(f"Environment variable '{setting}' not set.")
 
     value = os.getenv(setting, default)
@@ -353,3 +369,30 @@ def get_currency_symbol_from_code(currency):
         return None
 
     return CURRENCY_SYMBOLS_MAP.get(currency, None)
+
+
+def random_string(max_length: int = 10, include_special: bool = False) -> str:
+    """
+    Generate random string
+
+    Args:
+        max_length (int, optional): Length to generate string to. Defaults to 10
+        include_special (bool, optional): Include special chars in output.
+                                          Defaults to False
+
+    Returns:
+        str: Random string, {len} chars long
+    """
+    if isinstance(max_length, int) is False:
+        max_length = 10
+
+    # ascii_letters = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+    # digits = 0123456789
+    # punctuation = !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+    char_list: LiteralString = string.ascii_letters + string.digits
+
+    if include_special is True:
+        char_list += string.punctuation
+
+    # trunk-ignore(bandit/B311)
+    return str("".join(random.choice(char_list) for _ in range(max_length)))

@@ -24,7 +24,10 @@ dependencies = [
     "babel",
     "dynamic-cast",
     "inflection",
+    "pre-commit",
+    "pyupgrade",
     "regex",
+    "reorder-python-imports",
     "requests-cache",
     "str2bool",
     "translate",
@@ -53,6 +56,7 @@ test = [
     "pytest-assertcount",
     "pytest-attributes",
     "pytest-cov",
+    "pytest-dependency",
     "pytest-describe-it",
     "pytest-env",
     "pytest-instafail",
@@ -229,6 +233,9 @@ convention = "numpy"
 allow-star-arg-any = true
 ignore-fully-untyped = true
 
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+
 [tool.ruff.lint.pylint]
 max-args = 5
 max-branches = 12
@@ -236,12 +243,15 @@ max-locals = 15
 max-statements = 50
 
 [tool.ruff.format]
-quote-style = "double"
+quote-style = "single"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 preview = false
 docstring-code-format = true
+
+# [tool.ruff.lint.flake8-type-checking]
+# exempt-modules = ["typing", "typing_extensions"]
 
 [tool.mypy]
 python_version = "3.12"
