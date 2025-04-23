@@ -9,8 +9,8 @@ from typing import Literal
 from unittest.mock import patch
 
 import pytest
+import chempare.utils as utils
 from chempare.utils import ClassUtils
-from chempare.utils import utils
 from datatypes import PriceType
 from datatypes import QuantityType
 from price_parser.parser import Price
@@ -112,118 +112,6 @@ class TestClass(ClassUtils):
 
         if "uom" in result:
             assert result["uom"] == uom, f"Result uom {result["uom"]} is not {uom}"
-
-    @pytest.mark.parametrize(
-        ("value", "param_name", "expected_result"),
-        [
-            ("http://google.com?foo=bar&product_id=12345", None, {"foo": "bar", "product_id": "12345"}),
-            ("http://google.com?foo=bar&product_id=12345", "product_id", "12345"),
-        ],
-        ids=["no param_name", "with param_name"],
-    )
-    def test_get_param_from_url(
-        self,
-        value: Literal["http://google.com?foo=bar&product_id=12345"],
-        param_name: None | Literal["product_id"],
-        expected_result: dict[str, str] | Literal["12345"],
-    ):
-        result = self._get_param_from_url(value, param_name)
-
-        if type(result) is not type(expected_result):
-            pytest.fail(
-                f"type of result ({type(result)}) does not match expected result type ({type(expected_result)})"
-            )
-        elif result != expected_result:
-            pytest.fail("result is not identical to expected reslt")
-
-    @pytest.mark.parametrize(
-        ("array", "expected_result"),
-        [
-            (["Variant", "500 g", "CAS", "1762-95-4"], [["Variant", "500 g"], ["CAS", "1762-95-4"]]),
-            (["name", "23", "address"], [["name", "23"], ["address"]]),
-        ],
-    )
-    def test_split_array_into_groups(self, array, expected_result):
-        result = self._split_array_into_groups(array)
-
-        if type(result) is not type(expected_result):
-            pytest.fail(f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'")
-
-        assert result == expected_result
-        # if len(result) != 2:
-        #     pytest.fail(f"length of result ({len(result)}) is not equal to 2")
-
-        # if len(result[0]) != 2:
-        #     pytest.fail(f"length of result[0] ({len(result[0])}) is not equal to 2")
-
-        # if len(result[1]) != 2:
-        #     pytest.fail(f"length of result[1] ({len(result[1])}) is not equal to 2")
-
-        # if result[0][0] != "Variant":
-        #     pytest.fail(
-        #         f'expected to find "Variant" at result[0][0], found "{result[0][0]}'
-        #     )
-
-        # if result[0][1] != "500 g":
-        #     pytest.fail(
-        #         f'expected to find "500 g" at result[0][1], found "{result[0][1]}'
-        #     )
-
-        # if result[1][0] != "CAS":
-        #     pytest.fail(
-        #         f'expected to find "CAS" at result[1][0], found "{result[1][0]}'
-        #     )
-
-        # if result[1][1] != "1762-95-4":
-        #     pytest.fail(
-        #         f'expected to find "1762-95-4" at result[1][1], found "{result[1][1]}'
-        #     )
-
-    @pytest.mark.parametrize(
-        ("array", "expected_result"),
-        [
-            # ([["a", "b"]], {"a": "b"}),
-            ([["c", "d"], ["e", "f"]], {"c": "d", "e": "f"}),
-            ([["foo"]], None),
-        ],
-        ids=[
-            # "[[a,b]] to {a:b}",
-            "[[c,d],[e,123]] to {c:d,e:123}",
-            "[[foo]] should return None",
-        ],
-    )
-    def test_nested_arr_to_dict(self, array, expected_result):
-        result = self._nested_arr_to_dict(array)
-
-        if expected_result is None:
-            assert result is None
-        else:
-            assert result == expected_result
-            assert isinstance(result, dict) is True
-
-    def test_epoch(self):
-        now = math.floor(time.time() * 1000) - 1
-        result = self._epoch
-        assert isinstance(result, int) is True
-        assert result > now
-
-    @pytest.mark.parametrize(
-        ("char", "is_currency"),
-        [("$", True), ("¥", True), ("£", True), ("€", True), ("₽", True), ("A", False), ("Test", False)],
-        ids=[
-            "_is_currency('$') is True",
-            "_is_currency('¥') is True",
-            "_is_currency('£') is True",
-            "_is_currency('€') is True",
-            "_is_currency('₽') is True",
-            "_is_currency('A') is False",
-            "_is_currency('Test') is False",
-        ],
-    )
-    def test_is_currency_symbol(self, char, is_currency):
-        result = self._is_currency_symbol(char)
-        assert isinstance(result, bool) is True
-        assert result is is_currency
 
     @pytest.mark.parametrize(
         ("cas", "valid_cas"),

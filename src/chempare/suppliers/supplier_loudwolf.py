@@ -4,7 +4,6 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import PriceType
 from datatypes import ProductType
 from datatypes import SupplierType
 
@@ -91,7 +90,7 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(product_href.strip())
+                product_href_params = utils.get_param_from_url(product_href.strip())
 
                 if not product_href_params or not product_href_params.get("product_id", None):
                     continue
@@ -133,7 +132,7 @@ class SupplierLoudwolf(SupplierBase):
             href (str): URL for product
         """
 
-        product_params = self._get_param_from_url(href)
+        product_params = utils.get_param_from_url(href)
         product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
 
         # if not product_page:
@@ -180,7 +179,7 @@ class SupplierLoudwolf(SupplierBase):
             ProductType: A new product object, if valid
         """
 
-        product_params = self._get_param_from_url(url)
+        product_params = utils.get_param_from_url(url)
         product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
         product_soup = BeautifulSoup(product_html, "html.parser")
         product_content = product_soup.find("div", id="content")

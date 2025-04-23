@@ -1,4 +1,5 @@
 """SupplierBase module to be inherited by any supplier modules"""
+
 from __future__ import annotations
 
 import json as json_
@@ -18,7 +19,7 @@ from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
 from chempare.utils import ClassUtils
-from chempare.utils import utils
+from chempare import utils
 from datatypes import ProductType
 from datatypes import SupplierType
 from fuzzywuzzy import fuzz

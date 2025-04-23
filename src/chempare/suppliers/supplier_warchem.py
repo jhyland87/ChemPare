@@ -5,6 +5,7 @@ from threading import Thread
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import SupplierType
+from chempare import utils
 
 
 # File: /suppliers/supplier_warchem.py
@@ -39,7 +40,7 @@ class SupplierWarchem(SupplierBase):
 
         # This eGold cookie seems to be what they use to keep track of your
         # settings
-        self._cookies["eGold"] = self._random_string(26)
+        self._cookies["eGold"] = utils.random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
         self.http_post(f"szukaj.html/szukaj={self._query}", data=dict(ilosc_na_stronie=36))

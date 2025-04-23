@@ -6,27 +6,23 @@ import plistlib
 import random
 import string
 import sys
+import math
+import time
 from collections.abc import Callable
 from collections.abc import Iterable
-from decimal import Decimal
-from decimal import ROUND_HALF_UP
 from functools import reduce
 from pathlib import Path
 from typing import Literal
 from typing import NewType
 from typing import TYPE_CHECKING
-
+from urllib.parse import parse_qs
+from urllib.parse import urlparse
 import regex
-from chempare._constants import CURRENCY_CODES_MAP
-from chempare._constants import CURRENCY_SYMBOLS_MAP
-from currex import Currency
-from datatypes import PriceType  # , Undefined
-from price_parser.parser import Price
 from str2bool import str2bool
 
 if TYPE_CHECKING:
     from typing import Any, Callable, Iterable, LiteralString
-    from datatypes import PriceType, PrimitiveType  # , Undefined
+    from datatypes import PrimitiveType  # , Undefined
 
     # # Undefined = Enum('Undefined', ['undefined'])
     # # undefined = Undefined.undefined
@@ -82,7 +78,7 @@ def cast(value: str) -> int | float | str | bool | None:
         PrimitiveType | None: Casted result
 
     Example:
-        >>> from chempare.utils import utils
+        >>> from chempare import utils
         >>> utils.cast("123")
         123
         >>> utils.cast("123.34")
@@ -327,54 +323,6 @@ def parse_cookie(value: str) -> dict[str, Any] | None:
     return result
 
 
-def parse_price(value) -> PriceType | None:
-    price = Price.fromstring(value)
-
-    if price is None or price.amount is None:
-        return None
-    # this gives us the currency (symbol), amount, amount_text and amount_float
-
-    if not hasattr(price, 'currency'):
-        raise ValueError("Price has no currency")
-
-    currency_code = get_currency_code_from_symbol(price.currency)
-
-    result: PriceType = {
-        "currency": str(currency_code or price.currency),
-        "currency_symbol": price.currency,
-        "price": price.amount_float,
-    }
-
-    if currency_code is not None and currency_code != 'USD':
-        if (usd_price := to_usd(price.amount_float, currency_code)) is not None:
-            result["usd"] = usd_price
-
-    return result
-
-
-def to_usd(amount, from_currency):
-    from_currency_obj = Currency(from_currency, amount)  # type: ignore
-
-    if (in_usd := from_currency_obj.to("USD")) is None:
-        return None
-
-    return in_usd.amount.quantize(Decimal("0.00"), ROUND_HALF_UP)
-
-
-def get_currency_code_from_symbol(symbol):
-    if not symbol:
-        return None
-
-    return CURRENCY_CODES_MAP.get(symbol, None)
-
-
-def get_currency_symbol_from_code(currency):
-    if not currency:
-        return None
-
-    return CURRENCY_SYMBOLS_MAP.get(currency, None)
-
-
 def random_string(max_length: int = 10, include_special: bool = False) -> str:
     """
     Generate random string
@@ -405,3 +353,107 @@ def random_string(max_length: int = 10, include_special: bool = False) -> str:
 def set_multiple_defaults(dictionary, defaults):
     for key, value in defaults.items():
         dictionary.setdefault(key, value)
+
+
+def split_array_into_groups(arr: list, size: int = 2) -> list:
+    """
+    Splits an array into sub-arrays of 2 elements each.
+
+    Args:
+        arr: The input array.
+        size: Size to group array elements by
+
+    Returns:
+        A list of sub-arrays, where each sub-array contains {size} elements,
+        or an empty list if the input array is empty.
+
+    Example:
+        >>> utils.split_array_into_groups([
+        ...    'Variant', '500 g', 'CAS', '1762-95-4'
+        ... ])
+        [['Variant', '500 g'],['CAS', '1762-95-4']]
+    """
+
+    result = []
+    for i in range(0, len(arr), size):
+        result.append(arr[i : i + size])
+
+    return result
+
+
+def nested_arr_to_dict(arr: list[list]) -> dict | None:
+    """
+    Takes an array of arrays (ie: result from
+    utils.split_array_into_groups) and converts that into a dictionary.
+
+    Args:
+        arr (list[list]): The input array.
+
+    Returns:
+        Optional[dict]: A dictionary based off of the input alues
+
+    Example:
+        >>> utils.nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
+        {'foo':'bar','baz":'quux"}
+    """
+
+    # Only works if the array has even amount of elements
+    if len(arr) % 2 != 0:
+        return None
+
+    grouped_elem = split_array_into_groups(arr, 2)
+    variant_dict = [dict(item) for item in grouped_elem]
+
+    return variant_dict[0] or None
+
+
+def get_param_from_url(url: str, param: str | None = None) -> Any | None:
+    """
+    Get a specific arameter from a GET URL
+
+    Args:
+        url (str): HREF address
+        param (str): Param key to find (optional)
+
+    Returns:
+        Any: Whatver the value was of the key, or nothing
+
+    Example:
+        >>> utils.get_param_from_url(
+        ...    'http://google.com?foo=bar&product_id=12345'
+        ... )
+        {'foo':'bar','product_id':'12345'}
+        >>> utils.get_param_from_url(
+        ...    'http://google.com?foo=bar&product_id=12345', 'product_id'
+        ... )
+        '12345'
+    """
+
+    parsed_url = urlparse(url)
+    parsed_query = parse_qs(parsed_url.query)
+
+    # Replace any ['values'] with just 'values'
+    parsed_query = {k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()}
+
+    if not param:
+        return parsed_query
+
+    # If no specific parameter was defined, then just return this
+    if param not in parsed_query:
+        return None
+
+    if not parsed_query[param]:
+        return None
+
+    return parsed_query[param]
+
+
+def epoch() -> int:
+    """
+    Get epoch string - Used for unique values in searches (sometimes _)
+
+    Returns:
+        int: Current time in epoch
+    """
+
+    return math.floor(time.time() * 1000)

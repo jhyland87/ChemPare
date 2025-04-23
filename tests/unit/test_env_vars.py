@@ -8,7 +8,7 @@ from __future__ import annotations
 import os
 
 import pytest
-from chempare.utils import utils
+import chempare.utils as utils
 
 
 # def get_environment_variable(name):

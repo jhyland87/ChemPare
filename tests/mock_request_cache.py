@@ -4,7 +4,7 @@ import os
 from http import HTTPMethod
 from http import HTTPStatus
 
-from chempare.utils import utils
+from chempare import utils
 from requests_cache import CachedSession
 
 

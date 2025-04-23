@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from functools import partial
 
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.utils import utils
-from datatypes import ProductType
+from chempare import utils
 from datatypes import SupplierType
 
 
@@ -129,7 +127,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         """
         print("variant:", variant)
 
-        variant_dict = self._nested_arr_to_dict(variant.split(","))
+        variant_dict = utils.nested_arr_to_dict(variant.split(","))
 
         if variant_dict is not None and "CAS" in variant_dict:
             return variant_dict["CAS"]

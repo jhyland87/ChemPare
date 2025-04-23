@@ -42,7 +42,7 @@ class SupplierShopifyBase(SupplierBase):
         #   &output=json
         #   &_=1740051794061
         #
-        epoch_ts = self._epoch
+        epoch_ts = utils.epoch()
 
         if os.environ.get("PYTEST_VERSION") is not None:
             epoch_ts = 1234567890

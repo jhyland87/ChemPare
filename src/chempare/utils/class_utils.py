@@ -1,26 +1,22 @@
 """
 Utility class meant to provide functionality to any inheriting classes"""
+
 from __future__ import annotations
 
 import logging
-import math
 import os
-import random
 import re
-import string
-import time
 from decimal import Decimal
 from decimal import ROUND_HALF_UP
 from typing import Any
 from unicodedata import normalize
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
 
 import regex
 from abcplus import ABCMeta
 from abcplus import finalmethod
 from datatypes import DecimalLikeType
 from datatypes import QuantityType
+
 # import sys
 
 
@@ -33,18 +29,6 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "WARNING"))
 class ClassUtils(metaclass=ABCMeta):
     """
     Utility class meant to provide functionality to any inheriting classes"""
-
-    @property
-    @finalmethod
-    def _epoch(self) -> int:
-        """
-        Get epoch string - Used for unique values in searches (sometimes _)
-
-        Returns:
-            int: Current time in epoch
-        """
-
-        return math.floor(time.time() * 1000)
 
     # @finalmethod
     # def _parse_price(self, value: str, symbol_to_code: bool = True) -> PriceType:
@@ -274,148 +258,6 @@ class ClassUtils(metaclass=ABCMeta):
             quantity_obj["uom"] = proper_uom[0]
 
         return quantity_obj
-
-    @finalmethod
-    def _get_param_from_url(self, url: str, param: str | None = None) -> Any | None:
-        """
-        Get a specific arameter from a GET URL
-
-        Args:
-            url (str): HREF address
-            param (str): Param key to find (optional)
-
-        Returns:
-            Any: Whatver the value was of the key, or nothing
-
-        Example:
-            >>> self._get_param_from_url(
-            ...    'http://google.com?foo=bar&product_id=12345'
-            ... )
-            {'foo':'bar','product_id':'12345'}
-            >>> self._get_param_from_url(
-            ...    'http://google.com?foo=bar&product_id=12345', 'product_id'
-            ... )
-            '12345'
-        """
-
-        parsed_url = urlparse(url)
-        parsed_query = parse_qs(parsed_url.query)
-
-        # Replace any ['values'] with just 'values'
-        parsed_query = {k: v[0] if len(v) == 1 else v for k, v in parsed_query.items()}
-
-        if not param:
-            return parsed_query
-
-        # If no specific parameter was defined, then just return this
-        if param not in parsed_query:
-            return None
-
-        if not parsed_query[param]:
-            return None
-
-        return parsed_query[param]
-
-    @finalmethod
-    def _split_array_into_groups(self, arr: list, size: int = 2) -> list:
-        """
-        Splits an array into sub-arrays of 2 elements each.
-
-        Args:
-            arr: The input array.
-            size: Size to group array elements by
-
-        Returns:
-            A list of sub-arrays, where each sub-array contains {size} elements,
-            or an empty list if the input array is empty.
-
-        Example:
-            >>> self._split_array_into_groups([
-            ...    'Variant', '500 g', 'CAS', '1762-95-4'
-            ... ])
-            [['Variant', '500 g'],['CAS', '1762-95-4']]
-        """
-
-        result = []
-        for i in range(0, len(arr), size):
-            result.append(arr[i : i + size])
-
-        return result
-
-    @finalmethod
-    def _nested_arr_to_dict(self, arr: list[list]) -> dict | None:
-        """
-        Takes an array of arrays (ie: result from
-        self._split_array_into_groups) and converts that into a dictionary.
-
-        Args:
-            arr (list[list]): The input array.
-
-        Returns:
-            Optional[dict]: A dictionary based off of the input alues
-
-        Example:
-            >>> self._nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
-            {'foo':'bar','baz":'quux"}
-        """
-
-        # Only works if the array has even amount of elements
-        if len(arr) % 2 != 0:
-            return None
-
-        grouped_elem = self._split_array_into_groups(arr, 2)
-        variant_dict = [dict(item) for item in grouped_elem]
-
-        return variant_dict[0] or None
-
-    @finalmethod
-    def _is_currency_symbol(self, char: str) -> bool:
-        """
-        Determines if a value is a currency symbol or not
-
-        Args:
-            char (str): Value to analyze
-
-        Returns:
-            bool: True if it's a currency symbol
-
-        Example:
-            >>> self._is_currency_symbol("$")
-            True
-            >>> self._is_currency_symbol("foo")
-            False
-        """
-
-        # Use Pythons nifty \p{Sc} pattern to make sure the value given is
-        # actually a currency symbol
-        return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
-
-    @finalmethod
-    def _random_string(self, max_length: int = 10, include_special: bool = False) -> str:
-        """
-        Generate random string
-
-        Args:
-            max_length (int, optional): Length to generate string to. Defaults to 10
-            include_special (bool, optional): Include special chars in output.
-                                              Defaults to False
-
-        Returns:
-            str: Random string, {len} chars long
-        """
-        if isinstance(max_length, int) is False:
-            max_length = 10
-
-        # ascii_letters = abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
-        # digits = 0123456789
-        # punctuation = !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
-        char_list = string.ascii_letters + string.digits
-
-        if include_special is True:
-            char_list += string.punctuation
-
-        # trunk-ignore(bandit/B311)
-        return str("".join(random.choice(char_list) for _ in range(max_length)))
 
     @finalmethod
     def _find_cas(self, value: str) -> str | None:
