@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 import json
 
+from bs4 import BeautifulSoup
+from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import QuantityType
 from datatypes import SupplierType
-from chempare.suppliers.supplier_base import SupplierBase
-
-from bs4 import BeautifulSoup
 
 
 # File: /suppliers/supplier_3schem.py

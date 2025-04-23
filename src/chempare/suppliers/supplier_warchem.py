@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 from threading import Thread
 
 from bs4 import BeautifulSoup
-
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_warchem.py

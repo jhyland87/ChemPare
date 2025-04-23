@@ -1,17 +1,16 @@
 """
 Utility class meant to provide functionality to any inheriting classes"""
+from __future__ import annotations
 
 import logging
 import math
 import os
-
-# import sys
 import random
 import re
 import string
 import time
-from decimal import ROUND_HALF_UP
 from decimal import Decimal
+from decimal import ROUND_HALF_UP
 from typing import Any
 from unicodedata import normalize
 from urllib.parse import parse_qs
@@ -20,9 +19,9 @@ from urllib.parse import urlparse
 import regex
 from abcplus import ABCMeta
 from abcplus import finalmethod
-
 from datatypes import DecimalLikeType
 from datatypes import QuantityType
+# import sys
 
 
 # import chempare

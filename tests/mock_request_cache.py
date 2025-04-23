@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import os
 from http import HTTPMethod
 from http import HTTPStatus
 
-from requests_cache import CachedSession
-
 from chempare.utils import utils
+from requests_cache import CachedSession
 
 
 _cache_sessions = {}

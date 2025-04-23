@@ -1,6 +1,9 @@
+from __future__ import annotations
+
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
 
 
 def fetch_from_lab_chem(chem):

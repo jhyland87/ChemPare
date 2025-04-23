@@ -145,6 +145,7 @@ Running pre-commit hooks manually
 ```bash
 pre-commit run pyupgrade --all-files
 pre-commit run trailing-whitespace --all-files
+pre-commit run reorder-python-imports --all-files
 ```
 
 mypy

@@ -1,18 +1,19 @@
-from ctypes import util
+from __future__ import annotations
+
 import functools
 import math
 import time
+from ctypes import util
 from decimal import Decimal
 from typing import Literal
 from unittest.mock import patch
 
 import pytest
+from chempare.utils import ClassUtils
+from chempare.utils import utils
 from datatypes import PriceType
 from datatypes import QuantityType
 from price_parser.parser import Price
-
-from chempare.utils import ClassUtils
-from chempare.utils import utils
 
 # pylint: disable=unused-import
 # pylint: disable=unused-wildcard-import

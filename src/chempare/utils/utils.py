@@ -6,19 +6,23 @@ import plistlib
 import random
 import string
 import sys
-from decimal import ROUND_HALF_UP, Decimal
+from collections.abc import Callable
+from collections.abc import Iterable
+from decimal import Decimal
+from decimal import ROUND_HALF_UP
 from functools import reduce
 from pathlib import Path
+from typing import Literal
+from typing import NewType
 from typing import TYPE_CHECKING
-from typing import Callable, Iterable
+
 import regex
+from chempare._constants import CURRENCY_CODES_MAP
+from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
 from datatypes import PriceType  # , Undefined
 from price_parser.parser import Price
 from str2bool import str2bool
-from chempare._constants import CURRENCY_CODES_MAP, CURRENCY_SYMBOLS_MAP
-
-from typing import Literal, NewType
 
 if TYPE_CHECKING:
     from typing import Any, Callable, Iterable, LiteralString

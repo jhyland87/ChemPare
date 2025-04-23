@@ -1,5 +1,7 @@
-from datatypes import SupplierType
+from __future__ import annotations
+
 from chempare.suppliers.supplier_wixbase import SupplierWixBase
+from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_bunmurralabs.py

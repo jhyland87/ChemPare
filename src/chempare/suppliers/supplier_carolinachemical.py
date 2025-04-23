@@ -1,12 +1,14 @@
+from __future__ import annotations
+
 import json
 from typing import Any
 
 from bs4 import BeautifulSoup
+from chempare.suppliers import SupplierBase
 from datatypes import DecimalLikeType
 from datatypes import ProductType
 from datatypes import SupplierType
 from datatypes import VariantType
-from chempare.suppliers import SupplierBase
 
 
 # File: /suppliers/supplier_carolinachemical.py

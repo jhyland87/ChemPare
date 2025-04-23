@@ -1,21 +1,19 @@
 """query supplier"""
-
 # pylint: disable=unused-import
 # pylint: disable=unused-wildcard-import
 # pylint: disable=wildcard-import
 # pylint: disable=missing-function-docstring
 # pylint: disable=unused-argument
-
+from __future__ import annotations
 
 import os
 import signal
 import sys
 
 import inquirer
-
-# from curl_cffi.requests.exceptions import ConnectionError
 from chempare.search_factory import SearchFactory  # noqa: F401
 from chempare.suppliers import *  # noqa: F401,F403
+# from curl_cffi.requests.exceptions import ConnectionError
 
 
 def signal_handler(sig, frame):

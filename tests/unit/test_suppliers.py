@@ -1,16 +1,16 @@
 """Biofuran Chem supplier test module"""
+from __future__ import annotations
 
-from typing import Iterable
-
-import pytest
-import requests
-from pytest import MonkeyPatch
+from collections.abc import Iterable
 
 import chempare.suppliers
-
-# from datatypes import ProductType
+import pytest
+import requests
 from chempare.exceptions import NoProductsFoundError
+from pytest import MonkeyPatch
+
 from tests import mock_request_cache
+# from datatypes import ProductType
 
 
 monkeypatch = MonkeyPatch()

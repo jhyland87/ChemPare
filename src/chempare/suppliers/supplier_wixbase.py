@@ -1,12 +1,14 @@
 """Base class for wix websites"""
+from __future__ import annotations
 
 import json
-import regex
 from typing import Any
+
+import regex
+from chempare.exceptions import ProductListQueryError
+from chempare.suppliers import SupplierBase
 from chempare.utils import utils
 from datatypes import ProductType
-from chempare.suppliers import SupplierBase
-from chempare.exceptions import ProductListQueryError
 
 
 class SupplierWixBase(SupplierBase):

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from chempare.search_factory import SearchFactory
 
 

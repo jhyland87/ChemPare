@@ -1,5 +1,4 @@
 """SupplierBase module to be inherited by any supplier modules"""
-
 from __future__ import annotations
 
 from chempare import ClassUtils

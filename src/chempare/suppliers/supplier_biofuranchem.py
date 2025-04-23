@@ -1,7 +1,8 @@
 """Biofuran Chem Supplier Module"""
+from __future__ import annotations
 
-from datatypes import SupplierType
 from chempare.suppliers.supplier_wixbase import SupplierWixBase
+from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_biofuranchem.py

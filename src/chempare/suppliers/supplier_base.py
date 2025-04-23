@@ -1,4 +1,5 @@
 """SupplierBase module to be inherited by any supplier modules"""
+from __future__ import annotations
 
 import json as json_
 import logging
@@ -13,16 +14,14 @@ import requests
 from abcplus import ABCMeta
 from abcplus import abstractmethod
 from abcplus import finalmethod
-from fuzzywuzzy import fuzz
-
-
-from datatypes import SupplierType
-from datatypes import ProductType
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
 from chempare.utils import ClassUtils
 from chempare.utils import utils
+from datatypes import ProductType
+from datatypes import SupplierType
+from fuzzywuzzy import fuzz
 
 # ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype PageElement NavigableString
 # from bs4 import ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype

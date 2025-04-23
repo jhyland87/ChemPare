@@ -3,10 +3,11 @@
 # pylint: disable=wildcard-import
 # pylint: disable=missing-function-docstring
 # pylint: disable=unused-argument
+from __future__ import annotations
+
 import os
 
 import pytest
-
 from chempare.utils import utils
 
 

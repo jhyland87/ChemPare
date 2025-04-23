@@ -1,6 +1,9 @@
+from __future__ import annotations
+
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
 
 def fetch_from_es_drei(chem):
     name_list = []
@@ -35,4 +38,3 @@ def fetch_from_es_drei(chem):
         pass  # Handle cases where elements are not found
 
     return name_list, price_list, supplier_name, location, url, quantity_list
-    

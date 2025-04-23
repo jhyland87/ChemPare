@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import regex
 
 # pattern = r'(?P<B>(?<=A)B|B(?=A))|(?P<A>(?<=B)A|A(?=B))'

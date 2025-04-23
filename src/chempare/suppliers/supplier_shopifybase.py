@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import os
 
-from datatypes import ProductType
 from chempare.suppliers.supplier_base import SupplierBase
 from chempare.utils import set_multiple_defaults
+from datatypes import ProductType
 
 
 # File: /suppliers/supplier_shopifybase.py.py

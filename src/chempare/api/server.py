@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uvicorn
 from fastapi import Depends
 from fastapi import FastAPI

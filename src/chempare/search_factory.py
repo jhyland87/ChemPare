@@ -1,18 +1,16 @@
 """Search factory"""
-
 # from curl_cffi import requests
+from __future__ import annotations
+
 from typing import Self
 
 from abcplus import finalmethod
-
 from chempare import suppliers
-from datatypes import ProductType
 from chempare.exceptions import NoProductsFoundError
-
+from chempare.utils import ClassUtils
+from datatypes import ProductType
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
-
-from chempare.utils import ClassUtils
 
 
 class SearchFactory(ClassUtils):

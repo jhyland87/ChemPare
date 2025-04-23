@@ -1,9 +1,12 @@
-from types import NoneType
-import pytest
-from datatypes import Undefined
-from unittest.mock import patch
+from __future__ import annotations
+
 from decimal import Decimal
+from types import NoneType
+from unittest.mock import patch
+
+import pytest
 from chempare import utils
+from datatypes import Undefined
 
 
 @pytest.mark.parametrize(

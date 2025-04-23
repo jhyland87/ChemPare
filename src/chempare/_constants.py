@@ -1,3 +1,4 @@
+from __future__ import annotations
 CURRENCY_SYMBOLS_MAP = {
     "AED": "د.إ",
     "AFN": "؋",

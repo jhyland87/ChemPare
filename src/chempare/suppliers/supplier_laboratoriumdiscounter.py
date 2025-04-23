@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 from functools import partial
 
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
 from chempare.utils import utils
+from datatypes import ProductType
+from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
