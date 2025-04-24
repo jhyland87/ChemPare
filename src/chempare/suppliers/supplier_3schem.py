@@ -7,6 +7,7 @@ from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import QuantityType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_3schem.py
@@ -54,7 +55,7 @@ class Supplier3SChem(SupplierBase):
             if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
                 raise ValueError("Failed to retrieve the product page for product")
 
-            quantity: QuantityType = self._parse_quantity(product_json["variants"][0]["options"][0])
+            quantity: QuantityType = utils.parse_quantity(product_json["variants"][0]["options"][0])
 
             product_obj: ProductType = {
                 "uuid": product.get("id"),

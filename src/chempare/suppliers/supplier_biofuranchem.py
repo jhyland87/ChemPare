@@ -1,4 +1,5 @@
 """Biofuran Chem Supplier Module"""
+
 from __future__ import annotations
 
 from chempare.suppliers.supplier_wixbase import SupplierWixBase

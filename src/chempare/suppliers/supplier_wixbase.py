@@ -178,7 +178,7 @@ class SupplierWixBase(SupplierBase):
               This could maybe be included?
         """
 
-        qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
+        qty = utils.parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
         price = utils.parse_price(product_obj["productItems"][0]["formattedPrice"])
 
@@ -189,7 +189,7 @@ class SupplierWixBase(SupplierBase):
             "url": f"${self._supplier["base_url"]}/product-page/{product_obj["urlPart"]}",
             "supplier": self._supplier["name"],
             "currency": "USD",
-            "cas": self._find_cas(str(product_obj.get("name"))),
+            "cas": utils.find_cas(str(product_obj.get("name"))),
             "quantity": qty.get("quantity", None),
             "uom": qty.get("uom", None),
             "price": price.get("price"),

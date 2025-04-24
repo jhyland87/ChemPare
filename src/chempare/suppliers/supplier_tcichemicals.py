@@ -155,7 +155,7 @@ class SupplierTciChemicals(SupplierBase):
                 product_dict["cas"] = data[idx + 1].get_text(strip=True)
                 continue
 
-        quantity = self._parse_quantity(product_dict["quantity"])
+        quantity = utils.parse_quantity(product_dict["quantity"])
         # quantity_pattern = re.compile(
         #     (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
         # )

@@ -1,15 +1,19 @@
 """Biofuran Chem supplier test module"""
+
 from __future__ import annotations
 
 from collections.abc import Iterable
 
+import chempare.search_factory
 import chempare.suppliers
 import pytest
 import requests
 from chempare.exceptions import NoProductsFoundError
 from pytest import MonkeyPatch
 
+from chempare.search_factory import SearchFactory
 from tests import mock_request_cache
+
 # from datatypes import ProductType
 
 
@@ -33,6 +37,9 @@ class BaseTestClass:
         monkeypatch.setenv("CALLED_FROM_TEST", "true")
 
         mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
+
+        if cls.supplier == 'search_factory':
+            setattr(chempare.suppliers, 'SearchFactory', SearchFactory)
 
         monkeypatch.setattr(requests, "get", mock_request_cache.requests.get)  # type: ignore
         monkeypatch.setattr(requests, "post", mock_request_cache.requests.post)  # type: ignore
@@ -219,5 +226,12 @@ class TestSupplierHbarSci(BaseTestClass):
 class TestSupplierCarolinaChemical(BaseTestClass):
     results = {}
     supplier = "supplier_carolinachemical"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
+
+
+class TestSearchFactory(BaseTestClass):
+    results = {}
+    supplier = "search_factory"
     positive_query = "acid"
     negative_query = "this_should_not_exist"

@@ -5,14 +5,13 @@ from types import NoneType
 from unittest.mock import patch
 from typing import Literal
 import pytest
-from chempare import utils
+import chempare.utils as utils
 from datatypes import Undefined
 import math
 
 import time
 
 
-# _to_hundreths
 @pytest.mark.parametrize(
     ("value", "expected_result", "expected_instance"),
     [
@@ -96,17 +95,17 @@ def test_get_currency_symbol_from_code(currency, expected_result):
         ("FOO", NoneType, None, None, None),
     ],
     ids=[
-        "_parse_price: '$123.45' -> $123.45 USD",
-        "_parse_price: '$12,345.45' -> $12,345.45 USD",
-        # "_parse_price: '$123.45 USD' -> $123.45 USD",
-        "_parse_price: 'CA$123.45' -> $123.45 CAD",
-        "_parse_price: '€1,1234.5' -> €1,1234.50 EUR",
-        "_parse_price: '£123' -> £123 GBP",
-        "_parse_price: '674 ¥' -> 674 ¥ JPY",
-        "_parse_price: 'ZAR123' -> 123 ZAR",
-        "_parse_price: 'ZAR 456' -> 456 ZAR",
-        "_parse_price: No value (ZAR)",
-        "_parse_price: Invalid currency (FOO)",
+        "utils.parse_price: '$123.45' -> $123.45 USD",
+        "utils.parse_price: '$12,345.45' -> $12,345.45 USD",
+        # "utils.parse_price: '$123.45 USD' -> $123.45 USD",
+        "utils.parse_price: 'CA$123.45' -> $123.45 CAD",
+        "utils.parse_price: '€1,1234.5' -> €1,1234.50 EUR",
+        "utils.parse_price: '£123' -> £123 GBP",
+        "utils.parse_price: '674 ¥' -> 674 ¥ JPY",
+        "utils.parse_price: 'ZAR123' -> 123 ZAR",
+        "utils.parse_price: 'ZAR 456' -> 456 ZAR",
+        "utils.parse_price: No value (ZAR)",
+        "utils.parse_price: Invalid currency (FOO)",
     ],
 )
 def test_parse_price(value, return_type, price, currency_symbol, currency):

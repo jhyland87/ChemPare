@@ -97,7 +97,7 @@ class SupplierEsDrei(SupplierBase):
         # product.update(price_matches.groupdict())
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
-        quantity_data = self._parse_quantity(quantity)
+        quantity_data = utils.parse_quantity(quantity)
         # if quantity_data:
         #     product_data.update(quantity_data)
 
@@ -115,7 +115,7 @@ class SupplierEsDrei(SupplierBase):
             "description": product_desc.get_text(strip=True),
             "url": str(title_elem.attrs["href"]),
             "supplier": self._supplier["name"],
-            "cas": self._find_cas(product_desc.string.strip()),
+            "cas": utils.find_cas(product_desc.string.strip()),
             "quantity": int(quantity_data.get("quantity", "")),
             "uom": quantity_data.get("uom"),
             "price": float(price_data.get("price", "")),

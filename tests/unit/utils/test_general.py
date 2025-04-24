@@ -1,15 +1,85 @@
 from __future__ import annotations
 
+import functools
+import math
+import time
+from ctypes import util
 from decimal import Decimal
-from types import NoneType
-from unittest.mock import patch
 from typing import Literal
+from unittest.mock import patch
+
 import pytest
 import chempare.utils as utils
-from datatypes import Undefined
-import math
+from datatypes import PriceType, Undefined, undefined, UndefinedType
+from datatypes import QuantityType
+from price_parser.parser import Price
 
-import time
+
+import chempare.utils as utils
+
+
+@pytest.mark.parametrize(
+    ("value", "expected_result"),
+    [({"foo": 123, "bar": 555}, {"bar": 555}), ({"foo": 999999, "bar": 123}, {"foo": 999999})],
+    ids=["Pulling bar from object", "Pulling foo from object"],
+)
+def test_filter_highest_item_value(value, expected_result):
+    result = utils.filter_highest_item_value(value)
+    assert result == expected_result
+
+
+@pytest.mark.parametrize(
+    ("phrases", "expected_result"),
+    [
+        (
+            [
+                "oxidane",
+                "WATER",
+                "Atomic oxygen",
+                "Monooxygen",
+                "Oxygen(sup 3P)",
+                "Oxygen, atomic",
+                "Photooxygen",
+                "Singlet oxygen",
+                "acqua",
+                "agua",
+                "aqua",
+                "H2O",
+                "HYD",
+                "HYDROXY GROUP",
+                "BOUND OXYGEN",
+            ],
+            {("atomic",): 2, ("oxygen",): 4},
+        )
+    ],
+    ids=["Parse array of phrases"],
+)
+def test_get_common_phrases(phrases, expected_result):
+    result = utils.get_common_phrases(phrases)
+    assert isinstance(result, dict) is True
+    assert result == expected_result
+
+
+@pytest.mark.parametrize(
+    ("values", "element", "expected_result"),
+    [
+        ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, 1, ["a"]),
+        ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, 2, ["a", "b", "e"]),
+        ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, "hello", ["d"]),
+        ({(1, 2): "a", (2, 3): "b", (3, 4): "c", "hello": "d", (2, 5, 6): "e"}, "test", []),
+    ],
+    ids=[
+        "Search for element with one result",
+        "Search for element with multiple results",
+        "Search for key instead of element",
+        "Search for element/key that does not exist",
+    ],
+)
+def test_find_values_with_element(values, element, expected_result):
+    res = utils.find_values_with_element(values, element)
+    assert res is not None
+    assert type(res) is type(expected_result)
+    assert res == expected_result
 
 
 @pytest.mark.parametrize(
@@ -72,29 +142,6 @@ def test_cast_uncastables(value, expected_result):
     assert value_error.errisinstance(expected_result) is True, f"Expected a '{type(expected_result).__name__}' error"
 
     assert str(value_error.value) == f"Unable to cast value type '{type(value).__name__}' - Must be a string"
-
-
-@pytest.mark.parametrize(
-    ("name", "value", "default", "expected_result"),
-    [
-        #
-        ("foo", "bar", None, "bar"),
-        ("foo", "bar", "baz", "bar"),
-        ("foo", Undefined, "baz", "baz"),
-        ("foo", Undefined, None, None),
-    ],
-    ids=[
-        #
-        "Env var 'foo' set to 'bar'",
-        "Env var 'foo' set to 'bar' (ignoring default)",
-        "Env var 'foo' defaulted to 'baz'",
-        "Env var 'foo' defaulted to 'None'",
-    ],
-)
-def test_getenv(name, value, default, expected_result, monkeypatch):
-    if value is not Undefined:
-        monkeypatch.setenv(name, value)
-    assert utils.getenv(name, default=default) == expected_result
 
 
 @pytest.mark.parametrize(

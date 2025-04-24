@@ -79,8 +79,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             # Add each product to the self._products list in the form of a
             # ProductType object.
-            # quantity = self._parse_quantity(product["title"])
-            quantity = self._parse_quantity(product.get("variant"))
+            # quantity = utils.parse_quantity(product["title"])
+            quantity = utils.parse_quantity(product.get("variant"))
             # price = utils.parse_price(product["price"])
             if not quantity:
                 continue
@@ -92,7 +92,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 "name": product.get("title", None),
                 "title": product.get("fulltitle", None),
                 # cas=self._get_cas_from_variant(product["variant"]),
-                "cas": self._find_cas(str(product.get("variant", ""))),
+                "cas": utils.find_cas(str(product.get("variant", ""))),
                 "description": str(product.get("description", "")).strip() or None,
                 "price": price,
                 # currency_code=self._defaults["curre"],

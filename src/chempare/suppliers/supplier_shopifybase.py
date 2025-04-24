@@ -104,7 +104,7 @@ class SupplierShopifyBase(SupplierBase):
               This could maybe be included?
         """
 
-        quantity_matches = self._parse_quantity(product_obj.get("product_code"))
+        quantity_matches = utils.parse_quantity(product_obj.get("product_code"))
 
         uom = "item(s)"
         quantity = product_obj.get("quantity")

@@ -136,6 +136,6 @@ class SupplierWarchem(SupplierBase):
 
         quantity = quantity_options[0].find("label").find("span")
         if quantity:
-            product.update(self._parse_quantity(quantity.get_text(strip=True)))
+            product.update(utils.parse_quantity(quantity.get_text(strip=True)))
 
         self._products.append(product)

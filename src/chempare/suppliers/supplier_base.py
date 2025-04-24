@@ -18,7 +18,6 @@ from abcplus import finalmethod
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
-from chempare.utils import ClassUtils
 import chempare.utils as utils
 from datatypes import ProductType
 from datatypes import SupplierType
@@ -29,7 +28,7 @@ from fuzzywuzzy import fuzz
 
 
 # import chempare
-class SupplierBase(ClassUtils, metaclass=ABCMeta):
+class SupplierBase(metaclass=ABCMeta):
     """SupplierBase module to be inherited by any supplier modules"""
 
     _supplier: SupplierType
@@ -225,7 +224,7 @@ class SupplierBase(ClassUtils, metaclass=ABCMeta):
                 Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
                 ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
         """
-        if not self._products or isinstance(self._fuzz_ratio, int) is False or self._is_cas(self._query):
+        if not self._products or isinstance(self._fuzz_ratio, int) is False or utils.is_cas(self._query):
             return
 
         x = [

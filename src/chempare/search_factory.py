@@ -1,4 +1,5 @@
 """Search factory"""
+
 # from curl_cffi import requests
 from __future__ import annotations
 
@@ -7,13 +8,14 @@ from typing import Self
 from abcplus import finalmethod
 from chempare import suppliers
 from chempare.exceptions import NoProductsFoundError
-from chempare.utils import ClassUtils
 from datatypes import ProductType
+import chempare.utils as utils
+
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
 
 
-class SearchFactory(ClassUtils):
+class SearchFactory:
     """Simple factory to make searching easier"""
 
     suppliers = suppliers.__subclasses__
@@ -80,7 +82,7 @@ class SearchFactory(ClassUtils):
                                    to None.
         """
 
-        query_is_cas = self._is_cas(query)
+        query_is_cas = utils.is_cas(query)
 
         if __debug__:
             print(f"Searching suppliers for '{query}'...\n")

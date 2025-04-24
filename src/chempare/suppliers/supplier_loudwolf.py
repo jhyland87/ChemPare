@@ -53,7 +53,7 @@ class SupplierLoudwolf(SupplierBase):
 
             # If were doing a CAS search, then we must include description
             # matching
-            if self._is_cas(query) is True:
+            if utils.is_cas(query) is True:
                 get_params["description"] = True
 
             search_result = self.http_get_html("storefront/index.php", params=get_params)
@@ -146,7 +146,7 @@ class SupplierLoudwolf(SupplierBase):
 
         # If this is a CAS search, but there is no CAS found, or it's a
         # mismatch, then skip this product.
-        if self._is_cas(self._query) is True:
+        if utils.is_cas(self._query) is True:
             if not product.cas or product.cas != self._query:
                 return
 
@@ -234,7 +234,7 @@ class SupplierLoudwolf(SupplierBase):
             if "TOTAL WEIGHT OF PRODUCT" in p_txt:
                 idx = idx + 1
                 quantity = paragraphs[idx].get_text(strip=True)
-                qty = self._parse_quantity(quantity)
+                qty = utils.parse_quantity(quantity)
                 if qty is not None:
                     product.update(qty)
                 continue

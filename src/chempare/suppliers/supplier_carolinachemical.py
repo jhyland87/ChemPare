@@ -8,6 +8,7 @@ from chempare.suppliers import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
 from datatypes import VariantType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_carolinachemical.py
@@ -131,7 +132,7 @@ class SupplierCarolinaChemical(SupplierBase):
                 "price": float(variant.get("display_price")),
                 "currency": "$",
             }
-            quantity = self._parse_quantity(variant.get("attributes").get("attribute_pa_size"))
+            quantity = utils.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
             # Basic
             if quantity is not None:
@@ -165,7 +166,7 @@ class SupplierCarolinaChemical(SupplierBase):
             attr = td[0].get_text(strip=True)
             val = td[1].get_text(strip=True)
 
-            if self._is_cas(val):
+            if utils.is_cas(val):
                 product_page_data["cas"] = val
                 continue
 

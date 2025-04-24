@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_labchem.py
@@ -84,7 +85,7 @@ class SupplierLabchem(SupplierBase):
         get_params["productIdList"] = (
             "LC101000-L02,LC101600-L03,LC103900-L03,LC179200-M02,LC271000-M02,LC102600-L03,LC258300-L04,LC102600-L04,LC153300-L04,LC153300-L03,LC258300-L02,LC153200-L04"
         )
-        if self._is_cas(self._query) is True:
+        if utils.is_cas(self._query) is True:
             get_params["srchTyp"] = 11
         else:
             get_params["srchTyp"] = -1

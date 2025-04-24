@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -103,10 +104,10 @@ class SupplierChemsavers(SupplierBase):
             ProductType: Instance of ProductType
         """
 
-        quantity = self._parse_quantity(product_obj["description"])
+        quantity = utils.parse_quantity(product_obj["description"])
 
         if not quantity:
-            quantity = self._parse_quantity(product_obj["name"])
+            quantity = utils.parse_quantity(product_obj["name"])
 
         product: ProductType = {
             # **self.__defaults,

@@ -158,7 +158,7 @@ class SupplierOnyxmet(SupplierBase):
             url=href,
         )
 
-        if self._is_cas(self._query):
+        if utils.is_cas(self._query):
             product_obj["cas"] = self._query
 
         price = utils.parse_price(price_elem.contents[0])

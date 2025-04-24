@@ -6,14 +6,13 @@ import plistlib
 import random
 import string
 import sys
+import re
 import math
 import time
 from collections.abc import Callable
 from collections.abc import Iterable
 from functools import reduce
 from pathlib import Path
-from typing import Literal
-from typing import NewType
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
@@ -31,8 +30,10 @@ if TYPE_CHECKING:
     # UndefinedStr = str | Undefined
     # undef = Undefined('undefined')
 
-Undefined = NewType('Undefined', str)
-undefined = str | Undefined
+# Undefined = NewType('Undefined', str)
+# undefined = str | Undefined
+
+from datatypes import Undefined, undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -131,38 +132,6 @@ def cast(value: str) -> int | float | str | bool | None:
     return value
 
 
-def getenv(
-    setting: str, default: PrimitiveType | None | Literal[Undefined.undefined] = undefined, typecast: bool = True
-) -> PrimitiveType | None:
-    """
-    The getenv function retrieves an environment variable value, with an optional default value and typecasting support.
-
-    :param setting: The `setting` parameter is a string that represents the name of the environment variable that you want
-    to retrieve the value for
-    :type setting: str
-    :param default: The `default` parameter in the `getenv` function is used to specify a default value that will be
-    returned if the environment variable specified by the `setting` parameter is not found in the system environment
-    variables. If no `default` value is provided, the function will raise a `ValueError
-    :type default: PrimitiveType | None | type[Undefined]
-    :param typecast: The `typecast` parameter in the `getenv` function determines whether the retrieved environment variable
-    should be typecasted to a string or not. If `typecast` is set to `True`, the function will attempt to cast the retrieved
-    value to a string before returning it. If `type, defaults to True
-    :type typecast: bool (optional)
-    :return: The `getenv` function returns the value of the specified environment variable `setting` if it is found in the
-    environment variables. If the `setting` is not found and a `default` value is provided, it returns the `default` value.
-    If the `setting` is not found and no `default` value is provided, it raises a `ValueError`.
-    """
-    if setting not in os.environ and default is undefined:
-        raise ValueError(f"Environment variable '{setting}' not set.")
-
-    value = os.getenv(setting, default)
-
-    if typecast is False:
-        return value  # type: ignore
-
-    return cast(str(value).strip())
-
-
 def find_first(arr: Iterable, condition: Callable) -> Any:
     """
     The `find_first` function returns the first element in an iterable that satisfies a given condition.
@@ -178,52 +147,6 @@ def find_first(arr: Iterable, condition: Callable) -> Any:
     """
 
     return next((element for element in arr if condition(element)), None)
-
-
-def get_default_browser() -> str | None:
-    """
-    Get the default browser for the current system. This is used for if were given permission
-    to use the browsers cookies.
-
-    Returns:
-        str: Browser
-    """
-
-    # all_browsers = [chrome, chromium, opera, opera_gx, brave, edge, vivaldi, firefox, librewolf, safari, lynx, w3m, arc]
-    def _for_darwin() -> str | None:
-        """
-        Check the with the com.apple.LaunchServices to see what the default 'LSHandler'
-        for the schemes http or https are. It should be someting like com.brave.browser,
-        which this would then return 'brave'
-
-        Returns:
-            str | None: Browser type, if the setting is found.
-        """
-        try:
-            system_preferences = (
-                Path.home()
-                / "Library"
-                / "Preferences"
-                / "com.apple.LaunchServices/com.apple.launchservices.secure.plist"
-            )
-
-            with system_preferences.open("rb") as fp:
-                data = plistlib.load(fp)
-
-            data = find_first(data["LSHandlers"], lambda h: h.get("LSHandlerURLScheme") in ["http", "https"])
-
-            if not isinstance(data, dict):
-                return None
-
-            return data.get("LSHandlerRoleAll").split(".")[1]
-        except:
-            pass
-
-    if platform.system() == "Darwin":
-        return _for_darwin()
-
-    sys.stderr.write(f"ERROR: No logic on getting the default browser for your platform: {platform.system()}\n")
-    os._exit(1)
 
 
 def replace_dict_values_by_value(
@@ -448,12 +371,134 @@ def get_param_from_url(url: str, param: str | None = None) -> Any | None:
     return parsed_query[param]
 
 
-def epoch() -> int:
+def filter_highest_item_value(input_dict: dict) -> dict:
     """
-    Get epoch string - Used for unique values in searches (sometimes _)
+    Filter a dictionary for the entry with the highest numerical value.
+
+    Args:
+        input_dict (dict): Dictionary to iterate through
 
     Returns:
-        int: Current time in epoch
+        dict: Item in dictionary with highest value
+
+    Example:
+        >>> utils.filter_highest_item_value({"foo": 123, "bar": 555})
+        {'bar": 555}
+        >>> utils.filter_highest_item_value({"foo": 999999, "bar": 123})
+        {'foo": 999999}
     """
 
-    return math.floor(time.time() * 1000)
+    if not input_dict:
+        return {}
+    max_value = max(input_dict.values())
+    return {k: v for k, v in input_dict.items() if v == max_value}
+
+
+def find_values_with_element(source: dict, element: str | int | None) -> list:
+    """
+    Finds values in a dictionary that are tuples and contain a specific
+    element.
+
+    Args:
+        source (dict): The dictionary to search.
+        element (str, int): The element to search for within the tuple keys
+
+    Returns:
+        list: A list of values that were found
+
+    Example:
+        >>> my_dict = {
+        ...    (1, 2): "a",
+        ...    (2, 3): "b",
+        ...    (3, 4): "c",
+        ...    "hello": "d",
+        ...    (2, 5, 6): "e"
+        ... }
+        >>> self._find_values_with_element(my_dict, 1)
+        ['a']
+        >>> self._find_values_with_element(my_dict, 2)
+        ['a', 'b', 'e']
+        >>> self._find_values_with_element(my_dict, "hello")
+        ['d']
+    """
+
+    return [
+        source[key]
+        for key in source
+        if (isinstance(key, tuple) and element in key) or (isinstance(key, str) and element == key)
+    ]
+
+
+def get_common_phrases(
+    texts: list, maximum_length: int = 3, minimum_repeat: int = 2, stopwords: list | None = None
+) -> dict:
+    """
+    Get the most common phrases out of a list of phrases.
+
+    This is used to analyze the results from a query to
+    https://cactus.nci.nih.gov/chemical/structure/{NAME OR CAS}/names to
+    find the most common term used in the results. This term may yield
+    better search results on some sites.
+
+    Source:
+        https://dev.to/mattschwartz/quickly-find-common-phrases-in-a-large-list-of-strings-9in
+
+    Args:
+        texts (list): Array of text values to analyze
+        maximum_length (int, optional): Max length of phrse. Defaults to 3.
+        minimum_repeat (int, optional): Min length of phrse. Defaults to 2.
+        stopwords (list, optional): Phrases to exclude. Defaults to [].
+
+    Returns:
+        dict: Dictionary of sets of words and the frequency as the value.
+    """
+
+    stopwords = stopwords or []
+    phrases = {}
+    for text in texts:
+        # Replace separators and punctuation with spaces
+        text = re.sub(r"[.!?,:;/\-\s]", " ", text)
+        # Remove extraneous chars
+        text = re.sub(r"[\\|@#$&~%\(\)*\"]", "", text)
+
+        words = text.split(" ")
+        # Remove stop words and empty strings
+        words = [w for w in words if len(w) and w.lower() not in stopwords]
+        length = len(words)
+        # Look at phrases no longer than maximum_length words long
+        size = length if length <= maximum_length else maximum_length
+        while size > 0:
+            pos = 0
+            # Walk over all sets of words
+            while pos + size <= length:
+                phrase = words[pos : pos + size]
+                phrase = tuple(w.lower() for w in phrase)
+                if phrase in phrases:
+                    phrases[phrase] += 1
+                else:
+                    phrases[phrase] = 1
+                pos += 1
+            size -= 1
+
+    phrases = {k: v for k, v in phrases.items() if v >= minimum_repeat}
+
+    longest_phrases = {}
+    keys = list(phrases.keys())
+    keys.sort(key=len, reverse=True)
+    for phrase in keys:
+        found = False
+        for l_phrase in longest_phrases.items():
+            intersection = set(l_phrase).intersection(phrase)
+            if len(intersection) != len(phrase):
+                continue
+
+            # If the entire phrase is found in a longer tuple...
+            # ... and their frequency overlaps by 75% or more, we'll drop it
+            difference = (phrases[phrase] - longest_phrases[l_phrase]) / longest_phrases[l_phrase]
+            if difference < 0.25:
+                found = True
+                break
+        if not found:
+            longest_phrases[phrase] = phrases[phrase]
+
+    return longest_phrases

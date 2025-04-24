@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from chempare.utils.class_utils import ClassUtils as ClassUtils
 
 # from .utils. import currency as currency
 
@@ -9,3 +8,6 @@ from chempare.utils.class_utils import ClassUtils as ClassUtils
 
 from chempare.utils.currency import *  # noqa: F403
 from chempare.utils.general import *  # noqa: F403
+from chempare.utils.cas import *  # noqa: F403
+from chempare.utils.quantity import *  # noqa: F403
+from chempare.utils.environment import *  # noqa: F403
