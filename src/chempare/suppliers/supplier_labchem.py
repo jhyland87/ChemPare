@@ -41,10 +41,8 @@ class SupplierLabchem(SupplierBase):
         'pc_debug_x': 'null',
         'pc_debug_y': 'null',
         'pc_v_4jVxV9OCTyi5I8mvWtt7fA': 'HgF_3YRvT6qa2weat2bTaw',
-        'JSESSIONID': '7F97CE7A02EE9AE09DEE3ACF87D627A2',
-        'cf_clearance': 'UYcXitTuGdPIYvETd2tUraWNh7iHQSNRR024Bfx6y78-1745115445-1.2.1.1-iC6Ccmiyqy2ENURKL8YlP1acWez8tD0Nzzr3urdUnkMiwvm7XRuWgo525Ho4fvFWu.2N0CqbRupu7Jy.Vw3jXQEE1KElW2NROf0HF_eBJNOIW6ls2RAd5IRBVQN6ARZZND8xTndLNmNWN79NQ9pBIgYEBLkyumjhj9tJs8aiedJE7DktIxp9k8igIl2woA_OGbR8uNBO5F7h_O3jDdC_VpbYzeF4xYwc2.mVEuW0cDrc4di.hzPlkbMbAsM5bYk4zswH06c_vc0sA6FuVa9hfI__y129B85gYaG54PjJUaJy0j9Yz4ZyHplZUVgBuzYdr4uJnD.0.9nzZi3WuDoc8Rr81fVmRdsOLQ2yb5ThmECRZQZV6lD8xChbYdBLr7LU',
-        'pc_sessid_4jVxV9OCTyi5I8mvWtt7fA': '70Rwv0vTQDmG-AXla1eQaQ',
-        'afterLoginUrl': '',
+        'cf_clearance': 'mkd.zwfiby7q7HNBETiJvib4G0vXBggeE.rf7Rk4pBc-1745474251-1.2.1.1-0cSG.9U6P3jYoW3Wszu.ZJI6fLemNP7ZcDzKt9JPDu6nNIM0yQ5tgg2wlDSlc9Vr2g0EezLBUJdtJaq7PMuMWlnh3NSJE85WAbSuHZpOOIsDEQbX_g2iRFRlxJhuteL4TAWxw6hs12mCJSOPcEY0wHiIRsJKNmY9.Xv4eufAtFq6cGHTQTveoq8tKjNO4kcMFiBfsGJ2IJlPV61HSQPHxuxTJWfSucIfcncuKkj5tT8KoMF9kw3xMUB2KXCz8bWXI89XdqbNRgP4n8bqmNNFhHdcmkLOgswet09WCVf7fOXj05hzKyOh_Y59zCQ3gEXSqa7646PkPi_FnCdq07AQ76z0Yjr2g8OJJnCBzoraH0finNXwSV50rbJOp.TbwBwU',
+        'JSESSIONID': '3F1353424A5B96B3E4E989DCC4B073ED',
     }
 
     _headers = {
@@ -52,7 +50,7 @@ class SupplierLabchem(SupplierBase):
         'accept-language': 'en-US,en;q=0.5',
         'cache-control': 'no-cache',
         'pragma': 'no-cache',
-        'priority': 'u=1, i',
+        'priority': 'u=1',
         'referer': 'https://www.labchem.com/',
         'sec-ch-ua': '"Not(A:Brand";v="99", "Brave";v="133", "Chromium";v="133"',
         'sec-ch-ua-arch': '"arm"',
@@ -62,13 +60,12 @@ class SupplierLabchem(SupplierBase):
         'sec-ch-ua-model': '""',
         'sec-ch-ua-platform': '"macOS"',
         'sec-ch-ua-platform-version': '"14.6.1"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'script',
+        'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-        'cookie': 'pagemode=gridView; pc_debug=; pc_debug_x=null; pc_debug_y=null; pc_v_4jVxV9OCTyi5I8mvWtt7fA=HgF_3YRvT6qa2weat2bTaw; JSESSIONID=7F97CE7A02EE9AE09DEE3ACF87D627A2; cf_clearance=UYcXitTuGdPIYvETd2tUraWNh7iHQSNRR024Bfx6y78-1745115445-1.2.1.1-iC6Ccmiyqy2ENURKL8YlP1acWez8tD0Nzzr3urdUnkMiwvm7XRuWgo525Ho4fvFWu.2N0CqbRupu7Jy.Vw3jXQEE1KElW2NROf0HF_eBJNOIW6ls2RAd5IRBVQN6ARZZND8xTndLNmNWN79NQ9pBIgYEBLkyumjhj9tJs8aiedJE7DktIxp9k8igIl2woA_OGbR8uNBO5F7h_O3jDdC_VpbYzeF4xYwc2.mVEuW0cDrc4di.hzPlkbMbAsM5bYk4zswH06c_vc0sA6FuVa9hfI__y129B85gYaG54PjJUaJy0j9Yz4ZyHplZUVgBuzYdr4uJnD.0.9nzZi3WuDoc8Rr81fVmRdsOLQ2yb5ThmECRZQZV6lD8xChbYdBLr7LU; pc_sessid_4jVxV9OCTyi5I8mvWtt7fA=70Rwv0vTQDmG-AXla1eQaQ; afterLoginUrl=',
+        'cookie': 'pagemode=gridView; pc_debug=; pc_debug_x=null; pc_debug_y=null; pc_v_4jVxV9OCTyi5I8mvWtt7fA=HgF_3YRvT6qa2weat2bTaw; cf_clearance=mkd.zwfiby7q7HNBETiJvib4G0vXBggeE.rf7Rk4pBc-1745474251-1.2.1.1-0cSG.9U6P3jYoW3Wszu.ZJI6fLemNP7ZcDzKt9JPDu6nNIM0yQ5tgg2wlDSlc9Vr2g0EezLBUJdtJaq7PMuMWlnh3NSJE85WAbSuHZpOOIsDEQbX_g2iRFRlxJhuteL4TAWxw6hs12mCJSOPcEY0wHiIRsJKNmY9.Xv4eufAtFq6cGHTQTveoq8tKjNO4kcMFiBfsGJ2IJlPV61HSQPHxuxTJWfSucIfcncuKkj5tT8KoMF9kw3xMUB2KXCz8bWXI89XdqbNRgP4n8bqmNNFhHdcmkLOgswet09WCVf7fOXj05hzKyOh_Y59zCQ3gEXSqa7646PkPi_FnCdq07AQ76z0Yjr2g8OJJnCBzoraH0finNXwSV50rbJOp.TbwBwU; JSESSIONID=3F1353424A5B96B3E4E989DCC4B073ED',
     }
 
     def _query_products(self) -> None:

@@ -63,6 +63,7 @@ test = [
     "pytest-xdist",
     "pytest_mock",
     "requests-mock",
+    "typeshed_client",
     #"coverage",
 ]
 dev = [
@@ -80,6 +81,7 @@ dev = [
     "types-regex",
     "types-requests",
     "types-str2bool",
+    "typeshed_client",
     "typing-json",
 ]
 api = ["fastapi", "uvicorn"]
