@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from unicodedata import normalize
+
 import chempare.utils as utils
 import regex
-from datatypes import QuantityType
+from typing import Mapping
 
 
-def parse_quantity(value: str) -> QuantityType:
+def parse_quantity(value: str) -> Mapping | None:
     """
     Parse a string for the quantity and unit of measurement
 
@@ -38,12 +39,12 @@ def parse_quantity(value: str) -> QuantityType:
     }
 
     if isinstance(value, str) is False:
-        return {}
+        return None
 
     value = value.strip()
 
     if not value or value.isspace():
-        return {}
+        return None
 
     # https://regex101.com/r/lDLuVX/4
     pattern = (
@@ -56,9 +57,9 @@ def parse_quantity(value: str) -> QuantityType:
     matches = regex.search(pattern, value, regex.IGNORECASE)
 
     if not matches:
-        return {}
+        return None
 
-    quantity_obj: QuantityType = matches.groupdict()
+    quantity_obj: Mapping = matches.groupdict()
 
     # Look for any proper substitution UOM's
     proper_uom = utils.find_values_with_element(uom_cases, str(quantity_obj["uom"]).lower())

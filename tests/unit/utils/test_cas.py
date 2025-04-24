@@ -7,13 +7,23 @@ import chempare.utils as utils
 
 @pytest.mark.parametrize(
     ("value", "valid_cas"),
-    [("7732-18-5", True), ("7664-93-9", True), ("123-34-34", False), ("321-2-1", False), ("a-1-333", False)],
+    [
+        ("7732-18-5", True),
+        ("7664-93-9", True),
+        ("123-34-34", False),
+        ("321-2-1", False),
+        ("a-1-333", False),
+        (123, False),
+        ("000-00-0", False),
+    ],
     ids=[
         "utils.is_cas('7732-18-5') is True",
         "utils.is_cas('7664-93-9') is True",
         "utils.is_cas('123-34-34') is False",
         "utils.is_cas('321-2-1') is False",
         "utils.is_cas('a-1-333') is False",
+        "utils.is_cas(123) is False",
+        "utils.is_cas('000-00-0') is False",
     ],
 )
 def test_is_cas(value, valid_cas):

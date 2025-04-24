@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+import os
+import pickle
+import sys
+import json
+from typing import Any
+
+
+"""
+pcat - Cat a pickle file
+
+$ ./scripts/pcat tests/mock_data/TestSearchFactory/feb795e87f98d851.pkl
+{
+  "headers": {},
+  "reason": "OK",
+  "request":{
+    "body": {},
+    "cookies": {},
+    "headers":{},
+    "method": "POST",
+    "url": "https://..."
+  },
+  "status_code": 200,
+  "url": "https://...."
+}
+"""
+
+
+def _stderr(text: str, exit_code: int | None = None):
+    print(f"ERROR: {text}", file=sys.stderr)
+    if exit_code is not None:
+        sys.exit(exit_code)
+
+
+def read_pickle_file(file_path) -> dict[str, Any]:
+    """
+    Reads a pickle file and returns the loaded object.
+
+    Args:
+        file_path (str): The path to the pickle file.
+
+    Returns:
+        object: The object loaded from the pickle file.
+                Returns None if an error occurs during loading.
+    """
+    try:
+        with open(file_path, 'rb') as file:
+            data = pickle.load(file)
+            return data
+    except FileNotFoundError:
+        _stderr(f"Error: File not found at path: {file_path}")
+        return None  # type: ignore
+    except pickle.UnpicklingError:
+        _stderr(f"Error: Unable to unpickle data from file: {file_path}")
+        return None  # type: ignore
+    except Exception as e:
+        _stderr(f"An unexpected error occurred: {e}")
+        return None  # type: ignore
+
+
+def recursive_change_bytes(data: Any) -> Any:
+    """
+    Recursively traverses a dictionary and changes the value of a specified key.
+
+    Args:
+        data (dict): The dictionary to traverse.
+        key_to_change: The key whose value needs to be changed.
+        new_value: The new value to assign to the key.
+
+    Returns:
+        dict: The modified dictionary.
+    """
+    if isinstance(data, bytes):
+        return data.decode()
+
+    if isinstance(data, list):
+        for k, v in enumerate(data):
+            data[k] = recursive_change_bytes(v)
+        return data
+
+    for key, value in data.items():
+        if isinstance(value, dict):
+            data[key] = recursive_change_bytes(value)
+            return data
+
+        if isinstance(value, bytes):
+            data[key] = value.decode()
+            return data
+
+    return data
+
+
+files = sys.argv[1:]
+
+if len(files) == 0:
+    _stderr("No files provided", 1)
+
+exit_code = 0
+
+for i, arg in enumerate(files):
+    pickle_file = os.path.join(os.getcwd(), arg)
+    if not os.path.exists(pickle_file):
+        _stderr(f"[file #{i}]: No '{pickle_file}' found")
+        exit_code = 1
+        continue
+
+    if not os.path.isfile(pickle_file):
+        _stderr(f"'{pickle_file}' is not a file")
+        exit_code = 1
+        continue
+
+    pickle_content = read_pickle_file(pickle_file)
+
+    if pickle_content is None:
+        exit_code = 1
+        continue
+
+    pickle_data = recursive_change_bytes(pickle_content)
+    pickle_data['request']['body'] = json.loads(pickle_data['request']['body'])
+
+    print(json.dumps(pickle_data, sort_keys=True, indent=2, separators=(',', ': ')))
+
+sys.exit(exit_code)

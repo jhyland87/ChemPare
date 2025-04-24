@@ -4,8 +4,6 @@ from decimal import Decimal
 from typing import TypedDict
 from typing import Required
 from typing import Literal
-from typing import Protocol
-from typing import Any
 
 from enum import Enum
 
@@ -18,22 +16,15 @@ UndefinedType = Enum('UndefinedType', ['undefined'])
 undefined = UndefinedType.undefined
 type Undefined = Literal[UndefinedType.undefined]
 
-
-class SupportsDict(Protocol):
-    __dict__: dict[str, Any]
-
-
 class PriceType(TypedDict, total=False):
     price: Required[DecimalLikeType]
     currency: Required[str]
     currency_symbol: str | None
     usd: DecimalLikeType | None
 
-
 class QuantityType(TypedDict, total=False):
     quantity: Required[DecimalLikeType]
     uom: str
-
 
 class SupplierType(TypedDict, total=False):
     """
@@ -66,7 +57,6 @@ class SupplierType(TypedDict, total=False):
 
     location: str | None
     """Location of supplier"""
-
 
 class VariantType(TypedDict, total=False):
     """
@@ -163,7 +153,6 @@ class VariantType(TypedDict, total=False):
     individual: bool
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
-
 
 class ProductType(TypedDict, total=False):
     """

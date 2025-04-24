@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import json
 from typing import Any
-
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, ResultSet
 from chempare.suppliers import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
@@ -146,32 +145,34 @@ class SupplierCarolinaChemical(SupplierBase):
             if index == 0:
                 product_page_data.update(dict(variation))
 
+        page_title = utils.text_from_element(product_page_soup.find("h1", class_="product_title"))
         # Get the title
-        title_elem = product_page_soup.find("h1", class_="product_title")
+        # title_elem: bs4.Tag | bs4.NavigableString | None = product_page_soup.find("h1", class_="product_title")
 
-        product_page_data["title"] = title_elem.get_text(strip=True)
-        product_page_data["name"] = product_page_data["title"]
+        product_page_data["title"] = page_title
+        product_page_data["name"] = page_title
 
         # Get the CAS/formula/etc
         # .woocommerce-product-details__short-description > table > tbody > tr
-        description_rows = (
+        description_rows: ResultSet[Any] | Any = (
             product_page_soup.find("div", class_="woocommerce-product-details__short-description")
             .find('table')
             .find('tbody')
             .find_all('tr')
         )
 
-        for desc_row in description_rows:
-            td = desc_row.find_all("td")
-            attr = td[0].get_text(strip=True)
-            val = td[1].get_text(strip=True)
+        if isinstance(description_rows, ResultSet):
+            for desc_row in description_rows:
+                td = desc_row.find_all("td")
+                attr = td[0].get_text(strip=True)
+                val = td[1].get_text(strip=True)
 
-            if utils.is_cas(val):
-                product_page_data["cas"] = val
-                continue
+                if utils.is_cas(val):
+                    product_page_data["cas"] = val
+                    continue
 
-            if attr == "Molecular Formula" and val:
-                product_page_data["formula"] = val
-                continue
+                if attr == "Molecular Formula" and val:
+                    product_page_data["formula"] = val
+                    continue
 
         return product_page_data

@@ -5,6 +5,7 @@ import math
 import time
 from ctypes import util
 from decimal import Decimal
+from types import NoneType
 from typing import Literal
 from unittest.mock import patch
 
@@ -16,7 +17,7 @@ from price_parser.parser import Price
 
 
 @pytest.mark.parametrize(
-    ("value", "expected_instance", "quantity", "uom"),
+    ("value", "expected_type", "quantity", "uom"),
     [
         ("1 ounce", dict, "1", "oz"),
         ("43 ounces", dict, "43", "oz"),
@@ -30,6 +31,7 @@ from price_parser.parser import Price
         ("123.45mm", dict, "123.45", "mm"),
         ("100 millimeters", dict, "100", "mm"),
         ("1234ml", dict, "1234", "mL"),
+        ("foobar", NoneType, None, None),
     ],
     ids=[
         "utils.parse_quantity: '1 ounce' -> 1 ounce",
@@ -44,18 +46,21 @@ from price_parser.parser import Price
         "utils.parse_quantity: '123.45mm' -> 123.45 mm",
         "utils.parse_quantity: '100 millimeters' -> 100 millimeters",
         "utils.parse_quantity: '1234ml' -> 1234 mL",
+        "utils.parse_quantity: 'foobar' -> None",
     ],
 )
-def test_parse_quantity(value, expected_instance, quantity, uom):
+def test_parse_quantity(value, expected_type, quantity, uom):
     result = utils.parse_quantity(value)
 
-    if expected_instance is None:
-        assert result == expected_instance, f"Result {result} incorrect, needs to be {expected_instance}"
-        return
+    assert (
+        type(result) is expected_type
+    ), f"Expected {value} to return type {expected_type.__name__}, but received {type(result)}"
 
-    assert isinstance(
-        result, expected_instance
-    ), f"Expected {value} to return type {expected_instance.__name__}, but received {type(value)}"
+    if expected_type is NoneType:
+        return
+    # assert isinstance(
+    #     result, expected_type
+    # ), f"Expected {value} to return type {expected_type.__name__}, but received {type(value)}"
 
     assert "quantity" in result, "Result does not have 'quantity' attribute"
 

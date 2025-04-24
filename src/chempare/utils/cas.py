@@ -25,6 +25,7 @@ def find_cas(value: str) -> str | None:
             continue
 
         return m
+    return None
 
 
 def is_cas(value: Any) -> bool:

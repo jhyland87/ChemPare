@@ -11,3 +11,4 @@ from chempare.utils.general import *  # noqa: F403
 from chempare.utils.cas import *  # noqa: F403
 from chempare.utils.quantity import *  # noqa: F403
 from chempare.utils.environment import *  # noqa: F403
+from chempare.utils.bsoup4 import *  # noqa: F403

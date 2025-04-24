@@ -377,4 +377,4 @@ known-first-party = ["_utils", "ts_utils"]
 oldest_supported_python = "3.9"
 
 [tool.setuptools]
-script-files = ["scripts/clear-python-cache"]
+script-files = ["scripts/clear-python-cache", "scripts/pcat"]

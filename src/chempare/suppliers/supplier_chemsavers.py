@@ -134,14 +134,14 @@ class SupplierChemsavers(SupplierBase):
 
         # The restrictions always seem to be shown in
         # <strong style="color: red;"></strong> tags
-        restriction = description_soup.find("strong", {"style": "color: red;"})
+
+        restriction: str | None = utils.text_from_element(description_soup.find("strong", {"style": "color: red;"}))
 
         if (
             restriction is not None
-            and hasattr(restriction, 'string') is True
-            and "Restricted to qualified labs and businesses only (no residences)" in str(restriction.string)
+            and "Restricted to qualified labs and businesses only (no residences)" in restriction
         ):
-            product["restriction"] = restriction.string
+            product["restriction"] = restriction
 
         # The whole desc is usually in <b></b> tags
         desc = description_soup.find_all(["b", "p", "strong", "font"])
