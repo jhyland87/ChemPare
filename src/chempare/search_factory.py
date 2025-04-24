@@ -3,7 +3,7 @@
 # from curl_cffi import requests
 from __future__ import annotations
 
-from typing import Self
+from typing import Self, Any
 
 from abcplus import finalmethod
 from chempare import suppliers
@@ -18,14 +18,14 @@ import chempare.utils as utils
 class SearchFactory:
     """Simple factory to make searching easier"""
 
-    suppliers = suppliers.__subclasses__
+    # suppliers: list[Any] = suppliers.__subclasses__
     """suppliers property lets scripts call 'SearchFactory.suppliers' to get a
     list of suppliers"""
 
-    __results: list | None = None
+    # _results: list[dict] = []
     """Contains a list of all the product results"""
 
-    __index: int = 0
+    # _index: int = 0
     """Index used for __iter__ iterations"""
 
     def __init__(self, query: str, limit: int = 3) -> None:
@@ -36,8 +36,9 @@ class SearchFactory:
             limit (int, optional): Limit results to this. Defaults to 3.
         """
 
-        self.__results = []
-
+        self.suppliers: list[Any] = suppliers.__subclasses__
+        self._results: list[dict] = []
+        self._index: int = 0
         self.__query(query, limit)
 
     def __iter__(self) -> Self:
@@ -45,7 +46,7 @@ class SearchFactory:
 
         return self
 
-    def __next__(self) -> ProductType:
+    def __next__(self):
         """Next dunder method for for loop iterations
 
         Raises:
@@ -55,11 +56,11 @@ class SearchFactory:
             ProductType: Individual products
         """
 
-        if self.__index >= len(self.__results):
+        if self._index >= len(self._results):
             raise StopIteration
 
-        value = self.__results[self.__index]
-        self.__index += 1
+        value = self._results[self._index]
+        self._index += 1
 
         return value
 
@@ -70,7 +71,7 @@ class SearchFactory:
             int: Number of results from the last query
         """
 
-        return len(self.__results)
+        return len(self._results)
 
     def __query(self, query: str, limit: int | None = None) -> None:
         """Iterates over the suppliers, running the query, then returning
@@ -122,9 +123,12 @@ class SearchFactory:
             if not res:
                 continue
 
-            # If there were some results found, then extend the self.__results
+            # If there were some results found, then extend the self._results
             # list with those products
-            self.__results.extend(res.products)
+            self._results.extend(res.products)
+
+        if len(self._results) == 0:
+            raise NoProductsFoundError(supplier="factory", query=query)
 
     @property
     @finalmethod
@@ -135,4 +139,4 @@ class SearchFactory:
             list[ProductType]: list of the aggregated ProductType objects from
                                each supplier
         """
-        return self.__results
+        return self._results
