@@ -81,7 +81,7 @@ class SupplierLabchemDe(SupplierBase):
             "price": price,
         }
 
-        # price_data = self._parse_price(price.get("formatted"))
+        # price_data = utils.parse_price(price.get("formatted"))
 
         # product.update(price_data.__dict__)
 

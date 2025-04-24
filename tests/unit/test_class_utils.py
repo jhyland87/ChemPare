@@ -24,43 +24,6 @@ from price_parser.parser import Price
 
 class TestClass(ClassUtils):
 
-    # _to_hundreths
-    @pytest.mark.parametrize(
-        ("value", "expected_result", "expected_instance"),
-        [
-            ("123", "123.00", Decimal),
-            (123, "123.00", Decimal),
-            ("123.0", "123.00", Decimal),
-            (123.0, "123.00", Decimal),
-            ("123.45", "123.45", Decimal),
-            (123.45, "123.45", Decimal),
-            ("123.45678", "123.46", Decimal),
-            (123.45678, "123.46", Decimal),
-            ("123.4511", "123.45", Decimal),
-            (123.4511, "123.45", Decimal),
-        ],
-        ids=[
-            "str('123') to '123.00'",
-            "int(123) to '123.00'",
-            "str('123.0') to '123.00'",
-            "int(123.0) to '123.00'",
-            "str('123.45') to '123.45'",
-            "int(123.45) to '123.45'",
-            "str('123.45678') to '123.46'",
-            "int(123.45678) to '123.46'",
-            "str('123.4511') to '123.45'",
-            "int(123.4511) to '123.45'",
-        ],
-    )
-    def test_to_hundreths(self, value, expected_result, expected_instance):
-        output = self._to_hundreths(value)
-
-        assert (
-            isinstance(output, expected_instance) is True
-        ), "Unexpected instance type returned from self._to_hundreths"
-
-        assert str(output) == str(expected_result), "Output does not match expected result"
-
     @pytest.mark.parametrize(
         ("value", "expected_instance", "quantity", "uom"),
         [
@@ -149,18 +112,18 @@ class TestClass(ClassUtils):
         assert type(result) is type(expected_result)
         assert result == expected_result
 
-    @pytest.mark.parametrize(
-        ("code", "expected_result"),
-        [("USD", "$"), ("RUB", "₽"), ("EUR", "€"), ("GBP", "£"), ("JPY", "¥"), ("ABCD", None)],
-        ids=["USD is $", "RUB is ₽", "EUR is €", "GBP is £", "JPY is ¥", "ABCD is None"],
-    )
-    def test_currency_symbol_from_code(self, code, expected_result):
-        result = self._currency_symbol_from_code(code)
-        assert type(result) is type(expected_result)
-        if expected_result is None:
-            assert result is None
-        else:
-            assert result == expected_result
+    # @pytest.mark.parametrize(
+    #     ("code", "expected_result"),
+    #     [("USD", "$"), ("RUB", "₽"), ("EUR", "€"), ("GBP", "£"), ("JPY", "¥"), ("ABCD", None)],
+    #     ids=["USD is $", "RUB is ₽", "EUR is €", "GBP is £", "JPY is ¥", "ABCD is None"],
+    # )
+    # def test_currency_symbol_from_code(self, code, expected_result):
+    #     result = self._currency_symbol_from_code(code)
+    #     assert type(result) is type(expected_result)
+    #     if expected_result is None:
+    #         assert result is None
+    #     else:
+    #         assert result == expected_result
 
     @pytest.mark.parametrize(
         ("value", "expected_result"),

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_tcichemicals.py
@@ -131,7 +131,7 @@ class SupplierTciChemicals(SupplierBase):
         if not price:
             return
 
-        price_obj = self._parse_price(price.get_text(strip=True))
+        price_obj = utils.parse_price(price.get_text(strip=True))
 
         product_dict = dict(
             title=title.get_text(strip=True),

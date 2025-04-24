@@ -1,8 +1,6 @@
 {
     "recommendations": [
-        "bierner.github-markdown-preview",
         "charliermarsh.ruff",
-        "editorconfig.editorconfig",
         "leonhard-s.python-sphinx-highlight",
         "mintlify.document",
         "ms-python.black-formatter",
@@ -16,7 +14,6 @@
         "franneck94.vscode-python-config",
         "gydunhn.python3-essentials",
         "vlaraort.opencoverage"
-
     ],
     "unwantedRecommendations": [
         // even-better-toml has format on save

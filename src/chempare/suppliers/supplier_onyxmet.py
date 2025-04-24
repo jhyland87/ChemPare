@@ -5,8 +5,8 @@ from threading import Thread
 
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_onyxmet.py
@@ -161,7 +161,7 @@ class SupplierOnyxmet(SupplierBase):
         if self._is_cas(self._query):
             product_obj["cas"] = self._query
 
-        price = self._parse_price(price_elem.contents[0])
+        price = utils.parse_price(price_elem.contents[0])
 
         if not price:
             return

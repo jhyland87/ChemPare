@@ -5,7 +5,6 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 from chempare.suppliers import SupplierBase
-from datatypes import DecimalLikeType
 from datatypes import ProductType
 from datatypes import SupplierType
 from datatypes import VariantType

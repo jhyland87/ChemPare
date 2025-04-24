@@ -12,15 +12,51 @@ import math
 import time
 
 
+# _to_hundreths
+@pytest.mark.parametrize(
+    ("value", "expected_result", "expected_instance"),
+    [
+        ("123", "123.00", Decimal),
+        (123, "123.00", Decimal),
+        ("123.0", "123.00", Decimal),
+        (123.0, "123.00", Decimal),
+        ("123.45", "123.45", Decimal),
+        (123.45, "123.45", Decimal),
+        ("123.45678", "123.46", Decimal),
+        (123.45678, "123.46", Decimal),
+        ("123.4511", "123.45", Decimal),
+        (123.4511, "123.45", Decimal),
+    ],
+    ids=[
+        "str('123') to '123.00'",
+        "int(123) to '123.00'",
+        "str('123.0') to '123.00'",
+        "int(123.0) to '123.00'",
+        "str('123.45') to '123.45'",
+        "int(123.45) to '123.45'",
+        "str('123.45678') to '123.46'",
+        "int(123.45678) to '123.46'",
+        "str('123.4511') to '123.45'",
+        "int(123.4511) to '123.45'",
+    ],
+)
+def test_to_hundreths(value, expected_result, expected_instance):
+    output = utils.to_hundreths(value)
+
+    assert isinstance(output, expected_instance) is True, "Unexpected instance type returned from utils.to_hundreths"
+
+    assert str(output) == str(expected_result), "Output does not match expected result"
+
+
 @pytest.mark.parametrize(
     ("symbol", "expected_result"),
     [("$", "USD"), ("CA$", "CAD"), ("€", "EUR"), ("£", "GBP"), ("¥", "JPY")],
     ids=[
-        "util.get_currency_code_from_symbol('$') -> 'USD'",
-        "util.get_currency_code_from_symbol('CA$') -> 'CAD'",
-        "util.get_currency_code_from_symbol('€') -> 'EUR'",
-        "util.get_currency_code_from_symbol('£') -> 'GBP'",
-        "util.get_currency_code_from_symbol('¥') -> 'JYP'",
+        "utils.get_currency_code_from_symbol('$') -> 'USD'",
+        "utils.get_currency_code_from_symbol('CA$') -> 'CAD'",
+        "utils.get_currency_code_from_symbol('€') -> 'EUR'",
+        "utils.get_currency_code_from_symbol('£') -> 'GBP'",
+        "utils.get_currency_code_from_symbol('¥') -> 'JYP'",
     ],
 )
 def test_get_currency_code_from_symbol(symbol, expected_result):
@@ -32,11 +68,11 @@ def test_get_currency_code_from_symbol(symbol, expected_result):
     ("currency", "expected_result"),
     [("USD", "$"), ("CAD", "CA$"), ("EUR", "€"), ("GBP", "£"), ("JPY", "¥")],
     ids=[
-        "util.get_currency_symbol_from_code('USD') -> '$'",
-        "util.get_currency_symbol_from_code('CAD') -> 'CA$'",
-        "util.get_currency_symbol_from_code('EUR') -> '€'",
-        "util.get_currency_symbol_from_code('GBP') -> '£'",
-        "util.get_currency_symbol_from_code('JYP') -> '¥'",
+        "utils.get_currency_symbol_from_code('USD') -> '$'",
+        "utils.get_currency_symbol_from_code('CAD') -> 'CA$'",
+        "utils.get_currency_symbol_from_code('EUR') -> '€'",
+        "utils.get_currency_symbol_from_code('GBP') -> '£'",
+        "utils.get_currency_symbol_from_code('JYP') -> '¥'",
     ],
 )
 def test_get_currency_symbol_from_code(currency, expected_result):

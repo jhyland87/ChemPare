@@ -3,7 +3,8 @@ from __future__ import annotations
 import os
 
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.utils import set_multiple_defaults
+
+import chempare.utils as utils
 from datatypes import ProductType
 
 
@@ -127,5 +128,5 @@ class SupplierShopifyBase(SupplierBase):
             "uom": uom,
         }
 
-        set_multiple_defaults(product, self.__defaults)
+        utils.set_multiple_defaults(product, self.__defaults)
         return product

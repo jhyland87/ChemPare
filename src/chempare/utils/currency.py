@@ -8,7 +8,7 @@ import regex
 from chempare._constants import CURRENCY_CODES_MAP
 from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
-from datatypes import PriceType  # , Undefined
+from datatypes import PriceType, DecimalLikeType
 from price_parser.parser import Price
 
 if TYPE_CHECKING:
@@ -93,3 +93,31 @@ def get_currency_symbol_from_code(currency):
         return None
 
     return CURRENCY_SYMBOLS_MAP.get(currency, None)
+
+
+def to_hundreths(value: DecimalLikeType | str) -> Decimal:
+    """
+    Convert any number like value to include the hundreths place
+
+    Args:
+        value (DecimalLikeType | str): Value to convert
+
+    Returns:
+        Decimal: Equivelant value with hundreths.
+
+    Example:
+        >>> utils.to_hundreths("123")
+        '123.00'
+        >>> utils.to_hundreths("123.456")
+        '123.45'
+        >>> utils.to_hundreths(123.456)
+        '123.45'
+        >>> utils.to_hundreths(123)
+        '123.00'
+        >>> utils.to_hundreths(Decimal("123.1"))
+        '123.10'
+    """
+    if not isinstance(value, Decimal):
+        value = Decimal(value)
+
+    return value.quantize(Decimal("0.00"), ROUND_HALF_UP)

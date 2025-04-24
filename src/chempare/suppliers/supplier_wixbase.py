@@ -8,7 +8,7 @@ from typing import Any
 import regex
 from chempare.exceptions import ProductListQueryError
 from chempare.suppliers import SupplierBase
-from chempare import utils
+import chempare.utils as utils
 from datatypes import ProductType
 
 
@@ -180,7 +180,7 @@ class SupplierWixBase(SupplierBase):
 
         qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
-        price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
+        price = utils.parse_price(product_obj["productItems"][0]["formattedPrice"])
 
         product: ProductType = {
             # "uuid": product_obj.get("id"),

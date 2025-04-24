@@ -6,15 +6,12 @@ from __future__ import annotations
 import logging
 import os
 import re
-from decimal import Decimal
-from decimal import ROUND_HALF_UP
 from typing import Any
 from unicodedata import normalize
 
 import regex
 from abcplus import ABCMeta
 from abcplus import finalmethod
-from datatypes import DecimalLikeType
 from datatypes import QuantityType
 
 # import sys
@@ -80,7 +77,7 @@ class ClassUtils(metaclass=ABCMeta):
     #     # if price is None or not hasattr(price, "currency"):
     #     #     return None
 
-    #     # currency = util.get_currency_code_from_symbol(price.currency)
+    #     # currency = utils.get_currency_code_from_symbol(price.currency)
     #     currency = utils.parse_price(value)
 
     #     print("currency:", currency)
@@ -121,7 +118,7 @@ class ClassUtils(metaclass=ABCMeta):
     #     # If no source currency type is provided, but we were given a string for the amount, then it may include
     #     # the currency type (eg: "$123.23"), and can be parsed
     #     if from_currency is None and isinstance(amount, str) is True:
-    #         parsed_price = self._parse_price(amount)  # type: ignore
+    #         parsed_price = utils.parse_price(amount)  # type: ignore
     #         if not isinstance(parsed_price, dict):
     #             _logger.debug(
     #                 "Unable to determine from currency from amount %s of type %s (expected dict)",
@@ -163,38 +160,38 @@ class ClassUtils(metaclass=ABCMeta):
 
     #     usd = from_currency_obj.to("USD")
 
-    #     # return self._to_hundreths(usd.amount)
+    #     # return utils.to_hundreths(usd.amount)
     #     return round(float(usd.amount), 2)
     #     # except Exception as err:
     #     #     # print("Exception:", err)
     #     #     return None
 
-    def _to_hundreths(self, value: DecimalLikeType | str) -> Decimal:
-        """
-        Convert any number like value to include the hundreths place
+    # def _to_hundreths(self, value: DecimalLikeType | str) -> Decimal:
+    #     """
+    #     Convert any number like value to include the hundreths place
 
-        Args:
-            value (DecimalLikeType | str): Value to convert
+    #     Args:
+    #         value (DecimalLikeType | str): Value to convert
 
-        Returns:
-            Decimal: Equivelant value with hundreths.
+    #     Returns:
+    #         Decimal: Equivelant value with hundreths.
 
-        Example:
-            >>> self._to_hundreths("123")
-            '123.00'
-            >>> self._to_hundreths("123.456")
-            '123.45'
-            >>> self._to_hundreths(123.456)
-            '123.45'
-            >>> self._to_hundreths(123)
-            '123.00'
-            >>> self._to_hundreths(Decimal("123.1"))
-            '123.10'
-        """
-        if not isinstance(value, Decimal):
-            value = Decimal(value)
+    #     Example:
+    #         >>> utils.to_hundreths("123")
+    #         '123.00'
+    #         >>> utils.to_hundreths("123.456")
+    #         '123.45'
+    #         >>> utils.to_hundreths(123.456)
+    #         '123.45'
+    #         >>> utils.to_hundreths(123)
+    #         '123.00'
+    #         >>> utils.to_hundreths(Decimal("123.1"))
+    #         '123.10'
+    #     """
+    #     if not isinstance(value, Decimal):
+    #         value = Decimal(value)
 
-        return value.quantize(Decimal("0.00"), ROUND_HALF_UP)
+    #     return value.quantize(Decimal("0.00"), ROUND_HALF_UP)
 
     @finalmethod
     def _parse_quantity(self, value: str) -> QuantityType:

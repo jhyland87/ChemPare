@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_esdrei.py
@@ -83,7 +84,7 @@ class SupplierEsDrei(SupplierBase):
         # Parse the price for the useful information
         # Pattern tested at: https://regex101.com/r/R4PQ5K/1
         price_string = re.sub(r"\s+", r" ", price_string)
-        price_data = self._parse_price(price_string)
+        price_data = utils.parse_price(price_string)
 
         # Since the pattern were matching for will name the matched groups
         # 'price' and 'currency', we can use the `groupdict()` method to return

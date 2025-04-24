@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_loudwolf.py
@@ -208,7 +209,7 @@ class SupplierLoudwolf(SupplierBase):
             return None
 
         # Attempt to parse the price out to get the currency and price
-        price_data = self._parse_price(price_txt)
+        price_data = utils.parse_price(price_txt)
 
         # if isinstance(price_data, PriceType):
         # if isinstance(price_data, PriceType) and price_data:

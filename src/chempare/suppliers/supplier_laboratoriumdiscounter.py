@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare import utils
+import chempare.utils as utils
 from datatypes import SupplierType
 
 
@@ -81,7 +81,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # ProductType object.
             # quantity = self._parse_quantity(product["title"])
             quantity = self._parse_quantity(product.get("variant"))
-            # price = self._parse_price(product["price"])
+            # price = utils.parse_price(product["price"])
             if not quantity:
                 continue
 

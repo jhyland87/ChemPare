@@ -336,7 +336,7 @@ source = [
     "src/chempare/suppliers",
     "typings",
 ]
-omit = ["**/__init__.py", "*/__init__.py", "*tests*"]
+#omit = ["**/__init__.py", "*/__init__.py", "*tests*"]
 
 [tool.coverage.report]
 show_missing = true
@@ -373,3 +373,6 @@ extra-standard-library = [
 known-first-party = ["_utils", "ts_utils"]
 [tool.typeshed]
 oldest_supported_python = "3.9"
+
+[tool.setuptools]
+script-files = ["scripts/clear-python-cache"]

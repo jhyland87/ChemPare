@@ -19,7 +19,7 @@ from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
 from chempare.utils import ClassUtils
-from chempare import utils
+import chempare.utils as utils
 from datatypes import ProductType
 from datatypes import SupplierType
 from fuzzywuzzy import fuzz

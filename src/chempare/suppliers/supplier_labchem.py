@@ -186,7 +186,7 @@ class SupplierLabchem(SupplierBase):
         if part_number_elem:
             part_number = part_number_elem.attrs["value"] or None
 
-        mpn_value_elem = product_elem.find("input", attrs={"id": re.compile("^MPNValue_")})
+        mpn_value_elem = product_elem.find("input", attrs={"id": re.compile(r"^MPNValue_")})
 
         mpn_value = None
         if mpn_value_elem:

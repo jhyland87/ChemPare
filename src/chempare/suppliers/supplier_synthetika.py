@@ -5,6 +5,7 @@ import re
 from chempare.suppliers.supplier_base import SupplierBase
 from datatypes import ProductType
 from datatypes import SupplierType
+import chempare.utils as utils
 
 
 # File: /suppliers/supplier_synthetika.py
@@ -101,7 +102,7 @@ class SupplierSynthetika(SupplierBase):
         if quantity_matches:
             product.update(quantity_matches.groupdict())
 
-        price_obj = self._parse_price(product_obj["price"])
+        price_obj = utils.parse_price(product_obj["price"])
 
         if price_obj:
             product.update(price_obj)
