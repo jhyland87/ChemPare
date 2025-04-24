@@ -34,6 +34,8 @@ def parse_css_selector(selector: str) -> list[Mapping]:
     Parses a selector to get a list of groupdicts, each of which could contain the
     element type (div, span, etc), ID, class, and [prop=val] attributes
 
+    https://regex101.com/r/oCq8X8/1
+
     :param selector: CSS Selector path
     :type selector: str
     :return: List of selector dictionaries
