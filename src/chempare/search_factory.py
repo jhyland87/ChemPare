@@ -36,7 +36,7 @@ class SearchFactory:
             limit (int, optional): Limit results to this. Defaults to 3.
         """
 
-        self.suppliers: list[Any] = suppliers.__subclasses__
+        self.suppliers: list[Any] = suppliers.__subclasses__[:1]
         self._results: list[dict] = []
         self._index: int = 0
         self.__query(query, limit)
