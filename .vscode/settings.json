@@ -191,9 +191,9 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
-        "typings",
+        //"typings",
         "./src",
-        ".",
+        //".",
         "./src/chempare",
         "./src/chempare/suppliers"
     ],

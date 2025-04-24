@@ -24,7 +24,7 @@ class SupplierLabchem(SupplierBase):
     _supplier: SupplierType = SupplierType(
         name="Labchem",
         # location = 'Poland',
-        base_url="https://www.labchem.com/",
+        base_url="https://www.labchem.com",
     )
     """Supplier specific data"""
 

@@ -316,7 +316,6 @@ source = [
     "src/chempare/datatypes",
     "src/chempare/exceptions",
     "src/chempare/suppliers",
-    "typings",
 ]
 
 [tool.coverage.run]
@@ -327,22 +326,23 @@ disable_warnings = ["no-data-collected"]
 #     "src/chempare/datatypes",
 #     "src/chempare/suppliers"
 # ]
+omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
 command_line = "pytest"
 branch = true
 #parallel = true
+source_dirs = ["src"]
 source = [
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/exceptions",
     "src/chempare/suppliers",
-    "typings",
 ]
 #omit = ["**/__init__.py", "*/__init__.py", "*tests*"]
 
 [tool.coverage.report]
 show_missing = true
-omit = ["**/__init__.py", "*/__init__.py", "*tests*"]
+omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
 #precision = 2
 
 [tool.lcov]
