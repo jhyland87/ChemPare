@@ -1,27 +1,33 @@
-from bs4 import BeautifulSoup
+from __future__ import annotations
 
-from datatypes import ProductType
-from datatypes import SupplierType
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
+from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Final, Any
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_tcichemicals.py
 class SupplierTciChemicals(SupplierBase):
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if this supplier allows CAS searches"""
 
-    _limit: int = 20
+    _limit: ClassVar[int] = 20
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(
-        name="TCI Chemicals",
+    _supplier: Final[SupplierType] = {
+        "name": "TCI Chemicals",
         # location = 'Eu',
-        base_url="https://www.tcichemicals.com",
-    )
+        "base_url": "https://www.tcichemicals.com",
+    }
     """Supplier specific data"""
 
-    _headers = {
+    _headers: ClassVar[dict[str, Any]] = {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
         "sec-ch-ua-platform": "macOS",
         "sec-fetch-dest": "document",
@@ -31,7 +37,6 @@ class SupplierTciChemicals(SupplierBase):
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
     }
 
-    allow_cas_search: bool = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -130,14 +135,14 @@ class SupplierTciChemicals(SupplierBase):
         if not price:
             return
 
-        price_obj = self._parse_price(price.get_text(strip=True))
+        price_obj = utils.parse_price(price.get_text(strip=True))
 
-        product_dict = dict(
-            title=title.get_text(strip=True),
-            quantity=quantity.get_text(strip=True),
-            supplier=self._supplier["name"],
-            url=self._supplier["base_url"] + str(title.attrs["href"]),
-        )
+        product_dict = {
+            "title": title.get_text(strip=True),
+            "quantity": quantity.get_text(strip=True),
+            "supplier": self._supplier["name"],
+            "url": self._supplier["base_url"] + str(title.attrs["href"]),
+        }
 
         if price_obj:
             product_dict.update(price_obj)
@@ -154,7 +159,7 @@ class SupplierTciChemicals(SupplierBase):
                 product_dict["cas"] = data[idx + 1].get_text(strip=True)
                 continue
 
-        quantity = self._parse_quantity(product_dict["quantity"])
+        quantity = utils.parse_quantity(product_dict["quantity"])
         # quantity_pattern = re.compile(
         #     (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
         # )

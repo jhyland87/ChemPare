@@ -1,12 +1,17 @@
 """Base class for wix websites"""
+from __future__ import annotations
 
 import json
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 import regex
-from typing import Any
-from chempare.utils import utils
-from datatypes import ProductType
-from chempare.suppliers import SupplierBase
 from chempare.exceptions import ProductListQueryError
+from chempare.suppliers import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import ProductType
+    from typing import Any
 
 
 class SupplierWixBase(SupplierBase):
@@ -15,11 +20,11 @@ class SupplierWixBase(SupplierBase):
         super().__init__(*args, **kwargs)
 
     def _setup(self):
-        if not hasattr(self, '_headers') or not isinstance(getattr(self, '_headers'), dict):
-            setattr(self, '_headers', {})
+        if not hasattr(self, '_headers') or not isinstance(self._headers, dict):
+            self._headers = {}
 
-        if not hasattr(self, '_cookies') or not isinstance(getattr(self, '_cookies'), dict):
-            setattr(self, '_cookies', {})
+        if not hasattr(self, '_cookies') or not isinstance(self._cookies, dict):
+            self._cookies = {}
 
         # 1 Get the session binding from the initial request headers
         headers = self.http_get_headers(
@@ -175,9 +180,9 @@ class SupplierWixBase(SupplierBase):
               This could maybe be included?
         """
 
-        qty = self._parse_quantity(product_obj["options"][0]["selections"][0]["value"])
+        qty = utils.parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
-        price = self._parse_price(product_obj["productItems"][0]["formattedPrice"])
+        price = utils.parse_price(product_obj["productItems"][0]["formattedPrice"])
 
         product: ProductType = {
             # "uuid": product_obj.get("id"),
@@ -186,7 +191,7 @@ class SupplierWixBase(SupplierBase):
             "url": f"${self._supplier["base_url"]}/product-page/{product_obj["urlPart"]}",
             "supplier": self._supplier["name"],
             "currency": "USD",
-            "cas": self._find_cas(str(product_obj.get("name"))),
+            "cas": utils.find_cas(str(product_obj.get("name"))),
             "quantity": qty.get("quantity", None),
             "uom": qty.get("uom", None),
             "price": price.get("price"),

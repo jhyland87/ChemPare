@@ -3,28 +3,31 @@ name = "chempare"
 version = "0.0"
 description = "Reagent search utility"
 requires-python = ">= 3.12"
-keywords = ["chemistry", "chemicals", "reagent", "reagents"]
+keywords = ["chemicals", "chemistry", "reagent", "reagents"]
 dependencies = [
-    "currex",
-    "requests>=2.4.2",
-    "price_parser",
-    "inquirer",
-    "bs4",
-    "fuzzywuzzy[speedup]",
-    "browser_cookie3",
-    "rich",
     "abcplus",
-    "typing",
-    "enum34",
-    "urllib3==1.26.6",
+    "browser_cookie3",
+    "bs4",
+    "currex",
     "dataclasses",
+    "enum34",
+    "fuzzywuzzy[speedup]",
+    "inquirer",
     "numpy",
     "pathlib",
+    "price_parser",
+    "requests>=2.4.2",
+    "rich",
+    "typing",
+    "urllib3==1.26.6",
     #"curl_cffi",
-    "translate",
-    "regex",
+    "babel",
+    "dynamic-cast",
     "inflection",
-    "requests-cache"
+    "regex",
+    "requests-cache",
+    "str2bool",
+    "translate",
 ]
 
 authors = [
@@ -32,7 +35,6 @@ authors = [
     { name = "Justin Hyland", email = "j@linux.com" },
     # Spuos
 ]
-
 
 maintainers = [
     # Maui3
@@ -42,26 +44,47 @@ maintainers = [
 
 [project.optional-dependencies]
 test = [
-    "pytest",
-    "pytest-cov",
-    "pytest-xdist",
-    "pylint-pytest",
-    "pytest-instafail",
-    "pytest-timeout",
-    "pytest-env",
-    "pytest-attributes",
-    "pytest-pycodestyle==1.0.6",
-    "pytest-assertcount",
-    "pycodestyle==2.4.0",
-    "pytest-describe-it",
-    "requests-mock",
-    "pytest_mock",
+    "flake8-pyi",
     "flake8-pyproject",
-    "isort"
+    "isort",
+    "mypy",
+    "pycodestyle==2.4.0",
+    "pylint-pytest",
+    "pytest",
+    "pytest-assertcount",
+    "pytest-attributes",
+    "pytest-cov",
+    "pytest-dependency",
+    "pytest-describe-it",
+    "pytest-env",
+    "pytest-instafail",
+    "pytest-pycodestyle==1.0.6",
+    "pytest-timeout",
+    "pytest-xdist",
+    "pytest_mock",
+    "requests-mock",
+    "typeshed_client",
     #"coverage",
 ]
-dev = ["pycodestyle==2.4.0", "sphinx"]
-api = ["uvicorn","fastapi"]
+dev = [
+    "mypy",
+    "mypy-typing-asserts",
+    "pre-commit",
+    "pycodestyle==2.4.0",
+    "pyupgrade",
+    "reorder-python-imports",
+    "sphinx",
+    "type-comparable",
+    "types-babel",
+    "types-beautifulsoup4",
+    "types-dataclasses",
+    "types-regex",
+    "types-requests",
+    "types-str2bool",
+    "typeshed_client",
+    "typing-json",
+]
+api = ["fastapi", "uvicorn"]
 
 [project.readme]
 file = "README.txt"
@@ -71,7 +94,6 @@ content-type = "text/markdown"
 Homepage = "https://github.com/YourHeatingMantle/ChemPare"
 Documentation = "https://github.com/YourHeatingMantle/ChemPare/tree/main/documentation"
 Repository = "https://github.com/YourHeatingMantle/ChemPare.git"
-
 
 [project.scripts]
 chemparecli = "chempare.cli.chempare_cli:main"
@@ -107,9 +129,9 @@ chempare_cli = [
 [tool.setuptools.packages.find]
 namespaces = true
 where = [
-    "typings",
     ".",
     "src",
+    "typings",
     # "tests/mock_data",
     "src/chempare",
     "src/chempare/datatypes",
@@ -119,15 +141,14 @@ where = [
 [tool.pytest.ini_options]
 pythonpath = [
     ".",
-    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/suppliers",
+    "typings",
 ]
 verbosity_assertions = 2
 enable_assertion_pass_hook = true
-
 
 env = [
     # DEBUG, WARNING, ERROR, INFO
@@ -141,6 +162,7 @@ env = [
     # This will force the saving of any requests made through the requsts mocker,
     # even if there is cached data for it already
     "PYTEST_FORCE_REFRESH=false",
+    "PYTHONPATH=typings",
     #"SAVE_RESPONSES=false"
 ]
 minversion = "7.0"
@@ -151,14 +173,11 @@ addopts = "-rf -n auto --color=yes --numprocesses=auto --cov=src/chempare --doct
 testpaths = ["tests/unit"]
 
 consider_namespace_packages = true
-python_files = ["test_*.py", "tests/*.py", "tests/*/*.py", "*_test.py"]
-markers = [
-    "supplier: Supplier module",
-    "webtest: mark a test as a webtest."
-]
+python_files = ["*_test.py", "test_*.py", "tests/*.py", "tests/*/*.py"]
+markers = ["supplier: Supplier module", "webtest: mark a test as a webtest."]
 [tool.isort]
 py_version = 313
-sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+sections = ["FIRSTPARTY", "FUTURE", "LOCALFOLDER", "STDLIB", "THIRDPARTY"]
 default_section = "THIRDPARTY"
 known_third_party = []
 known_first_party = []
@@ -172,7 +191,7 @@ line_length = 120
 split_on_trailing_comma = true
 lines_after_imports = 2
 force_single_line = true
-skip_glob = ["docs/*", "setup.py", "datatypes/__init__.py"]
+skip_glob = ["datatypes/__init__.py", "docs/*", "setup.py"]
 filter_files = true
 
 [tool.ruff]
@@ -182,8 +201,8 @@ indent-width = 4
 extend-exclude = ["docs", "test", "tests"]
 
 [tool.ruff.lint]
-select = ["F", "E"]
-extend-select = ["W", "C90", "I", "N", "B", "A", "C4", "PERF", "RUF"]
+select = ["E", "F"]
+extend-select = ["A", "B", "C4", "C90", "I", "N", "PERF", "RUF", "W"]
 ignore = ["I001"]
 fixable = ["ALL"]
 unfixable = []
@@ -218,6 +237,9 @@ convention = "numpy"
 allow-star-arg-any = true
 ignore-fully-untyped = true
 
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+
 [tool.ruff.lint.pylint]
 max-args = 5
 max-branches = 12
@@ -225,17 +247,20 @@ max-locals = 15
 max-statements = 50
 
 [tool.ruff.format]
-quote-style = "double"
+quote-style = "single"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 preview = false
 docstring-code-format = true
 
+# [tool.ruff.lint.flake8-type-checking]
+# exempt-modules = ["typing", "typing_extensions"]
+
 [tool.mypy]
 python_version = "3.12"
 ignore_missing_imports = false #
-follow_imports ="normal"
+follow_imports = "normal"
 no_implicit_optional = false
 strict_optional = false
 warn_unused_configs = true
@@ -264,8 +289,11 @@ show_error_context = false
 show_column_numbers = false
 show_error_codes = true
 exclude = ["docs", "test", "tests"]
+mypy_path = "./typings"
 
-
+[[tool.mypy.overrides]]
+module = "chempare.*"
+ignore_missing_imports = true
 
 [tool.flake8]
 # Check that this is aligned with your other tools like Black
@@ -275,7 +303,7 @@ exclude = [
     # No need to traverse our git directory
     ".git",
     # There's no value in checking cache directories
-    "__pycache__"
+    "__pycache__",
 ]
 # Use extend-ignore to add to already ignored checks which are anti-patterns like W503.
 extend-ignore = [
@@ -284,17 +312,15 @@ extend-ignore = [
     # This behaviour may raise E203 whitespace before ':' warnings in style guide enforcement tools like Flake8.
     # Since E203 is not PEP 8 compliant, we tell Flake8 to ignore this warning.
     # https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#slices
-    "E203"
+    "E203",
 ]
-
 [tool.coverage.paths]
 source = [
-    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/exceptions",
-    "src/chempare/suppliers"
+    "src/chempare/suppliers",
 ]
 
 [tool.coverage.run]
@@ -305,37 +331,34 @@ disable_warnings = ["no-data-collected"]
 #     "src/chempare/datatypes",
 #     "src/chempare/suppliers"
 # ]
+omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
 command_line = "pytest"
 branch = true
 #parallel = true
+source_dirs = ["src"]
 source = [
-    "typings",
     "src",
     "src/chempare",
     "src/chempare/datatypes",
     "src/chempare/exceptions",
-    "src/chempare/suppliers"
+    "src/chempare/suppliers",
 ]
-omit = ["*tests*","*/__init__.py", "**/__init__.py"]
+#omit = ["**/__init__.py", "*/__init__.py", "*tests*"]
 
 [tool.coverage.report]
 show_missing = true
-omit = ["*tests*","*/__init__.py", "**/__init__.py"]
+omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
+exclude_lines = ["if TYPE_CHECKING:"]
 #precision = 2
-
-
 [tool.lcov]
 output = "coverage.lcov"
-
 
 # [tool.pyright]
 # reportOptionalMemberAccess = false
 [tool.pylance]
 stubPath = "typings"
-exclude = ["build", ".git"]
+exclude = [".git", "build"]
 pythonversion = "3.12" # Target oldest supported Python version
-
-
 
 [tool.ruff.lint.flake8-import-conventions.aliases]
 # Prevent aliasing these, as it causes false-negatives for certain rules
@@ -357,3 +380,6 @@ extra-standard-library = [
 known-first-party = ["_utils", "ts_utils"]
 [tool.typeshed]
 oldest_supported_python = "3.9"
+
+[tool.setuptools]
+script-files = ["scripts/clear-python-cache", "scripts/pcat"]

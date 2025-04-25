@@ -1,21 +1,30 @@
-from datatypes import ProductType
-from datatypes import SupplierType
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, Any, ClassVar
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_labchemde.py
 class SupplierLabchemDe(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="Labchem (de)", base_url="https://www.labchem.de", api_url="https://www.labchem.de"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Labchem (de)",
+        "base_url": "https://www.labchem.de",
+        "api_url": "https://www.labchem.de",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {
+    __defaults: ClassVar[dict[str, Any]] = {
         "currency_symbol": "€",
         "currency": "EUR",
         # "is_restricted": False,
@@ -35,7 +44,7 @@ class SupplierLabchemDe(SupplierBase):
         #   -H 'Accept: application/json, text/plain, */*' \
         #   --data-raw '{"filters":[],"query":"acet","sort":"relevance"}'
 
-        self._query_results = self.http_post_json("api/v2/search", json=post_json, params=params)
+        self._query_results: dict[str, Any] = self.http_post_json("api/v2/search", json=post_json, params=params)
 
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
@@ -46,7 +55,7 @@ class SupplierLabchemDe(SupplierBase):
             product_result = self._query_and_parse_product(product_obj)
             self._products.append(product_result)
 
-    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _query_and_parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:
@@ -64,7 +73,7 @@ class SupplierLabchemDe(SupplierBase):
         if (price := product_obj.get("price")) is None:
             price = product_obj.get("lowestPrice")
 
-        product: ProductType = {
+        product = {
             # **self.__defaults,
             "supplier": self._supplier["name"],
             "url": product_obj.get("url"),
@@ -79,7 +88,7 @@ class SupplierLabchemDe(SupplierBase):
             "price": price,
         }
 
-        # price_data = self._parse_price(price.get("formatted"))
+        # price_data = utils.parse_price(price.get("formatted"))
 
         # product.update(price_data.__dict__)
 

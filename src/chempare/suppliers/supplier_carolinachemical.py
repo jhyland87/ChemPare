@@ -1,32 +1,44 @@
-import json
-from typing import Any
+from __future__ import annotations
 
+import json
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-from datatypes import DecimalLikeType
-from datatypes import ProductType
-from datatypes import SupplierType
-from datatypes import VariantType
+from bs4 import ResultSet
 from chempare.suppliers import SupplierBase
+
+
+if TYPE_CHECKING:
+    from datatypes import PriceType
+    from datatypes import ProductType
+    from datatypes import SupplierType
+    from datatypes import QuantityType
+    from datatypes import VariantType
+    from typing import Any
+    from typing import ClassVar
+    from typing import Final
 
 
 # File: /suppliers/supplier_carolinachemical.py
 class SupplierCarolinaChemical(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="Carolina Chemical",
+    _supplier: Final[SupplierType] = {
+        "name": "Carolina Chemical",
         # location=None,
-        base_url="https://carolinachemical.com",
-        api_url="https://carolinachemical.com",
-    )
+        "base_url": "https://carolinachemical.com",
+        "api_url": "https://carolinachemical.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {
-        "currency": "$",
-        "currency_code": "USD",
+    __defaults: ClassVar[PriceType] = {
+        "currency_symbol": "$",
+        "currency": "USD",
+        "price": 0.0,  # Default price value
         # "is_restricted": False,
     }
     """Default values applied to products from this supplier"""
@@ -108,7 +120,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
 
-        product_page_data = {"url": product_url, "variants": []}
+        product_page_data: dict[str, Any] = {"url": product_url, "variants": []}
 
         product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(  # type: ignore
             "data-product_variations"
@@ -121,55 +133,58 @@ class SupplierCarolinaChemical(SupplierBase):
         for index, variant in enumerate(product_variations):
             variant_desc = BeautifulSoup(variant.get("variation_description"), "html.parser")
 
-            variation = {
-                # _id=index,
-                "title": str(variant_desc.get_text(strip=True)),
-                "uuid": variant.get("variation_id"),
-                "sku": variant.get("sku"),
-                # description=variant_desc,
-                "price": float(variant.get("display_price")),
-                "currency": "$",
-            }
-            quantity = self._parse_quantity(variant.get("attributes").get("attribute_pa_size"))
+            quantity: QuantityType = utils.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
             # Basic
             if quantity is not None:
                 if quantity.get("quantity") is None and isinstance(quantity.get("uom"), str):
                     quantity["quantity"] = 1
 
-                variation.update(dict(quantity))
+                # variation.update(dict(quantity))
 
-            product_page_data["variants"].append(VariantType(**variation))
+            variation: VariantType = {
+                # _id=index,
+                "title": str(variant_desc.get_text(strip=True)),
+                "uuid": variant.get("variation_id"),
+                "sku": variant.get("sku"),
+                # description=variant_desc,
+                "price": float(variant.get("display_price")),
+                "quantity": quantity["quantity"],
+                "uom": quantity.get("uom", "Piece"),
+            }
+            product_page_data["variants"].append(variation)
 
             if index == 0:
-                product_page_data.update(dict(variation))
+                product_page_data.update(variation)
 
+        page_title = utils.text_from_element(product_page_soup.find("h1", class_="product_title"))
         # Get the title
-        title_elem = product_page_soup.find("h1", class_="product_title")
+        # title_elem: bs4.Tag | bs4.NavigableString | None = product_page_soup.find("h1", class_="product_title")
 
-        product_page_data["title"] = title_elem.get_text(strip=True)
-        product_page_data["name"] = product_page_data["title"]
+        product_page_data["title"] = page_title
+        product_page_data["name"] = page_title
 
         # Get the CAS/formula/etc
         # .woocommerce-product-details__short-description > table > tbody > tr
-        description_rows = (
+        description_rows: ResultSet[Any] | Any = (
             product_page_soup.find("div", class_="woocommerce-product-details__short-description")
             .find('table')
             .find('tbody')
             .find_all('tr')
         )
 
-        for desc_row in description_rows:
-            td = desc_row.find_all("td")
-            attr = td[0].get_text(strip=True)
-            val = td[1].get_text(strip=True)
+        if isinstance(description_rows, ResultSet):
+            for desc_row in description_rows:
+                td = desc_row.find_all("td")
+                attr = td[0].get_text(strip=True)
+                val = td[1].get_text(strip=True)
 
-            if self._is_cas(val):
-                product_page_data["cas"] = val
-                continue
+                if utils.is_cas(val):
+                    product_page_data["cas"] = val
+                    continue
 
-            if attr == "Molecular Formula" and val:
-                product_page_data["formula"] = val
-                continue
+                if attr == "Molecular Formula" and val:
+                    product_page_data["formula"] = val
+                    continue
 
         return product_page_data

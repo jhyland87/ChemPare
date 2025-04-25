@@ -1,10 +1,14 @@
-from functools import partial
+from __future__ import annotations
 
-from datatypes import ProductType
-from datatypes import SupplierType
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
-from chempare.utils import utils
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, Any, ClassVar
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -16,16 +20,17 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
-    _supplier: SupplierType = SupplierType(
-        name="Laboratorium Discounter", base_url="https://www.laboratoriumdiscounter.nl"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Laboratorium Discounter",
+        "base_url": "https://www.laboratoriumdiscounter.nl",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    _defaults = {}
+    _defaults: ClassVar[dict[str, Any]] = {}
 
     # def _setup(self) -> None:
     #     self._partial_product = partial(ProductType, supplier='Foo', currency="USD", currency='$')
@@ -79,9 +84,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             # Add each product to the self._products list in the form of a
             # ProductType object.
-            # quantity = self._parse_quantity(product["title"])
-            quantity = self._parse_quantity(product.get("variant"))
-            # price = self._parse_price(product["price"])
+            # quantity = utils.parse_quantity(product["title"])
+            quantity = utils.parse_quantity(product.get("variant"))
+            # price = utils.parse_price(product["price"])
             if not quantity:
                 continue
 
@@ -92,7 +97,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 "name": product.get("title", None),
                 "title": product.get("fulltitle", None),
                 # cas=self._get_cas_from_variant(product["variant"]),
-                "cas": self._find_cas(str(product.get("variant", ""))),
+                "cas": utils.find_cas(str(product.get("variant", ""))),
                 "description": str(product.get("description", "")).strip() or None,
                 "price": price,
                 # currency_code=self._defaults["curre"],
@@ -100,7 +105,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 "currency": self._defaults["currency"],
                 "url": product.get("url", None),
                 "supplier": self._supplier["name"],
-                "usd": self._to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
+                "usd": utils.to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
                 # **self._defaults,
                 # **quantity.__dict__,
                 # quantity=quantity["quantity"],
@@ -127,7 +132,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
         """
         print("variant:", variant)
 
-        variant_dict = self._nested_arr_to_dict(variant.split(","))
+        variant_dict = utils.nested_arr_to_dict(variant.split(","))
 
         if variant_dict is not None and "CAS" in variant_dict:
             return variant_dict["CAS"]

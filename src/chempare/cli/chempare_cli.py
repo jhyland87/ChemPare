@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import os
 import sys
 
+from chempare.search_factory import SearchFactory
 from rich.console import Console
 from rich.panel import Panel
-
-from chempare.search_factory import SearchFactory
 
 
 # def signal_handler(sig, frame):

@@ -1,4 +1,5 @@
 """Common Exceptions module"""
+from __future__ import annotations
 
 
 class NoProductsFoundError(Exception):

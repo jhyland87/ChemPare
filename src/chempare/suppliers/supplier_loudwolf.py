@@ -1,11 +1,16 @@
+from __future__ import annotations
+
 from threading import Thread
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-
-from datatypes import PriceType
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from datatypes import ProductType
+    from typing import Final, ClassVar
 
 
 # File: /suppliers/supplier_loudwolf.py
@@ -18,15 +23,17 @@ class SupplierLoudwolf(SupplierBase):
           &description=true only be added when searching via CAS?..
     """
 
-    _limit: int = 5
+    _limit: ClassVar[int] = 5
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(
-        name="Loudwolf Scientific", location="US", base_url="https://www.loudwolf.com/"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Loudwolf Scientific",
+        "location": "US",
+        "base_url": "https://www.loudwolf.com/",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = False
+    allow_cas_search: Final[bool] = False
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -52,7 +59,7 @@ class SupplierLoudwolf(SupplierBase):
 
             # If were doing a CAS search, then we must include description
             # matching
-            if self._is_cas(query) is True:
+            if utils.is_cas(query) is True:
                 get_params["description"] = True
 
             search_result = self.http_get_html("storefront/index.php", params=get_params)
@@ -90,7 +97,7 @@ class SupplierLoudwolf(SupplierBase):
                 if not product_href:
                     continue
 
-                product_href_params = self._get_param_from_url(product_href.strip())
+                product_href_params = utils.get_param_from_url(product_href.strip())
 
                 if not product_href_params or not product_href_params.get("product_id", None):
                     continue
@@ -132,7 +139,7 @@ class SupplierLoudwolf(SupplierBase):
             href (str): URL for product
         """
 
-        product_params = self._get_param_from_url(href)
+        product_params = utils.get_param_from_url(href)
         product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
 
         # if not product_page:
@@ -145,7 +152,7 @@ class SupplierLoudwolf(SupplierBase):
 
         # If this is a CAS search, but there is no CAS found, or it's a
         # mismatch, then skip this product.
-        if self._is_cas(self._query) is True:
+        if utils.is_cas(self._query) is True:
             if not product.cas or product.cas != self._query:
                 return
 
@@ -179,7 +186,7 @@ class SupplierLoudwolf(SupplierBase):
             ProductType: A new product object, if valid
         """
 
-        product_params = self._get_param_from_url(url)
+        product_params = utils.get_param_from_url(url)
         product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
         product_soup = BeautifulSoup(product_html, "html.parser")
         product_content = product_soup.find("div", id="content")
@@ -208,7 +215,7 @@ class SupplierLoudwolf(SupplierBase):
             return None
 
         # Attempt to parse the price out to get the currency and price
-        price_data = self._parse_price(price_txt)
+        price_data = utils.parse_price(price_txt)
 
         # if isinstance(price_data, PriceType):
         # if isinstance(price_data, PriceType) and price_data:
@@ -233,7 +240,7 @@ class SupplierLoudwolf(SupplierBase):
             if "TOTAL WEIGHT OF PRODUCT" in p_txt:
                 idx = idx + 1
                 quantity = paragraphs[idx].get_text(strip=True)
-                qty = self._parse_quantity(quantity)
+                qty = utils.parse_quantity(quantity)
                 if qty is not None:
                     product.update(qty)
                 continue

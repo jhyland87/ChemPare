@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import sys
 
+from chempare.search_factory import SearchFactory
 from rich.console import Console
 from rich.panel import Panel
-
-from chempare.search_factory import SearchFactory
 
 
 def main():

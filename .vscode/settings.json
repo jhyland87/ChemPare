@@ -1,27 +1,125 @@
 {
-    "editor.tabSize": 4,
-    "editor.rulers": [
-        120
-    ],
-    "editor.renderWhitespace": "trailing",
-    "editor.trimAutoWhitespace": true,
-    "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "explorer.compactFolders": false,
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmDelete": false,
-    "explorer.copyRelativePathSeparator": "/",
-    "files.autoSave": "onFocusChange",
+    // Don't format on save for formatters we don't explicitely control
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never"
+    },
+    // Set file associations to support comments syntax highlight
     "files.associations": {
+        ".vscode/settings.default.json": "jsonc",
+        ".vscode/settings.json": "jsonc",
+        "pyrightconfig*.json": "jsonc",
+        ".flake8": "properties",
+        "stubtest_allowlist*.txt": "properties",
+        "**/stubtest_allowlists/*.txt": "properties",
+        "pytype_exclude_list.txt": "properties",
         "*.pyx": "cython"
     },
+    "files.exclude": {
+        "**/.*_cache": true, // mypy and Ruff cache
+        "**/__pycache__": true,
+        "dev": false,
+        "venv": true,
+        "include": true,
+        "lib": true,
+        ".coverage": true,
+        "**/*.egg-info": true,
+        "coverage-html": true
+    },
+    "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook",
-        "*.md": "vscode.markdown.preview.editor",
-        "*.svg": "svgPreviewer.customEditor"
+    "editor.comments.insertSpace": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "[json][jsonc][python][toml]": {
+        "editor.tabSize": 4
     },
+    "editor.rulers": [
+        90,
+        130
+    ],
+    "[git-commit]": {
+        "editor.rulers": [
+            72
+        ]
+    },
+    // Format on save for formatters we explicitely control
+    "[json][jsonc][yaml][python][toml]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+    "[json][jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.wordWrapColumn": 120,
+        "editor.rulers": [
+            130
+        ],
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            // Let Ruff lint fixes handle imports
+            "source.organizeImports": "never",
+            "source.unusedImports": "never"
+        }
+    },
+    "python.createEnvironment.contentButton": "show",
+    "python.missingPackage.severity": "Error",
+    "python.languageServer": "Pylance",
+    "autoDocstring.generateDocstringOnEnter": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    // python.analysis is Pylance (pyright) configurations
+    "python.analysis.fixAll": [
+        // Explicitly omiting "source.convertImportFormat", some stubs use relative imports
+        // Explicitly omiting "source.unusedImports", Let Ruff lint fixes handle imports
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "autoDocstring.quoteStyle": "\"\"\"",
+    "editor.wordWrapColumn": 120,
+    "editor.wordWrap": "off",
+    "python.defaultInterpreterPath": "python",
+    "mypy-type-checker.args": [
+        "--custom-typeshed-dir=${workspaceFolder}",
+        "--python-version=3.12",
+        "--strict",
+        "--ignore-missing-imports"
+    ],
+    // Ensure typeshed's configs are used, and not user's VSCode settings
+    "flake8.args": [
+        "--config=.flake8"
+    ],
+    "flake8.importStrategy": "fromEnvironment",
+    // Using Ruff instead of isort
+    "isort.check": false,
+    "ruff.importStrategy": "fromEnvironment",
+    "mypy-type-checker.importStrategy": "fromEnvironment",
+    "black-formatter.importStrategy": "fromEnvironment",
+    "ruff.fixAll": true,
+    "ruff.organizeImports": true,
+    "evenBetterToml.formatter.alignComments": false,
+    "evenBetterToml.formatter.alignEntries": false,
+    "evenBetterToml.formatter.allowedBlankLines": 1,
+    "evenBetterToml.formatter.arrayAutoCollapse": true,
+    "evenBetterToml.formatter.arrayAutoExpand": true,
+    "evenBetterToml.formatter.arrayTrailingComma": true,
+    "evenBetterToml.formatter.columnWidth": 90,
+    "evenBetterToml.formatter.compactArrays": true,
+    "evenBetterToml.formatter.compactEntries": false,
+    "evenBetterToml.formatter.compactInlineTables": false,
+    "evenBetterToml.formatter.indentEntries": false,
+    "evenBetterToml.formatter.indentTables": false,
+    "evenBetterToml.formatter.inlineTableExpand": false,
+    "evenBetterToml.formatter.reorderArrays": true,
+    "evenBetterToml.formatter.trailingNewline": true,
+    // We like keeping TOML keys in a certain non-alphabetical order that feels more natural
+    "evenBetterToml.formatter.reorderKeys": false,
     "git.enableSmartCommit": true,
     "git.autofetch": true,
     "git.confirmSync": false,
@@ -34,162 +132,13 @@
         //"editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.formatOnSave": false
     },
-    "[yaml]": {
-        "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 120,
-        // "editor.defaultFormatter": "redhat.vscode-yaml",
-        "editor.formatOnSave": false
-    },
-    "[toml]": {
-        "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 120,
-        // "editor.defaultFormatter": "tamasfe.even-better-toml",
-        "editor.formatOnSave": true
-    },
-    "better-comments.tags": [
-        {
-            "tag": "XXX",
-            "color": "#F8C471"
-        },
-        {
-            "tag": "WARN",
-            "color": "#FF6961"
-        },
-        {
-            "tag": "NOTE",
-            "color": "#3498DB"
-        },
-        {
-            "tag": "TODO",
-            "color": "#77C3EC"
-        }
-    ],
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "codesnap.showWindowControls": false,
-    "codesnap.shutterAction": "copy",
-    "Workspace_Formatter.excludePattern": [
-        "**/build",
-        "**/.*",
-        "**/.vscode",
-        "**/html"
-    ],
-    "svg.preview.autoOpen": true,
-    "errorLens.delay": 1000,
-    "errorLens.enabledDiagnosticLevels": [
-        "error",
-        "warning"
-    ],
-    "errorLens.enabled": false,
-    "[python]": {
-        "editor.formatOnSave": true,
-        "editor.wordWrapColumn": 120,
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnType": false,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "always"
-        }
-    },
-    "python.languageServer": "Pylance",
-    "python.analysis.autoImportCompletions": false,
-    "python.analysis.completeFunctionParens": false,
-    "python.analysis.autoFormatStrings": true,
-    "python.analysis.logLevel": "Error",
-    "python.createEnvironment.contentButton": "show",
-    "python.missingPackage.severity": "Error",
-    "mypy-type-checker.importStrategy": "fromEnvironment",
-    "black-formatter.importStrategy": "fromEnvironment",
-    //"isort.check": true,
-    //"isort.importStrategy": "fromEnvironment",
-    "ruff.organizeImports": false,
-    "ruff.fixAll": false,
-    "autoDocstring.generateDocstringOnEnter": true,
-    "jupyter.interactiveWindow.creationMode": "perFile",
-    "jupyter.askForKernelRestart": false,
-    "jupyter.themeMatplotlibPlots": true,
-    "jupyter.logging.level": "error",
-    "notebook.formatOnSave.enabled": false,
-    "notebook.output.textLineLimit": 20,
-    "notebook.compactView": false,
-    "notebook.diff.ignoreMetadata": true,
-    "notebook.diff.ignoreOutputs": true,
-    "python.terminal.activateEnvInCurrentTerminal": true,
-    //"python.coveragepy.file":".coverage",
-    "python.autoComplete.extraPaths": [
-        ".",
-        "typings",
-        "./src",
-        "./src/chempare",
-        "./src/chempare/suppliers",
-        "./src/chempare/datatypes",
-    ],
-    "python.testing.pytestArgs": [
-        "-s",
-        "--config-file=pyproject.toml",
-        "--numprocesses=auto",
-        //"--cov=src/chempare",
-        "--cov=src",
-        //"--no-cov-on-fail",
-        "--cov-report=term-missing:skip-covered",
-        //"--rootdir=src/chempare",
-        //"--rootdir=/Users/justinhyland/Documents/projects/ChemPare",
-        "--doctest-modules",
-        "--ignore=src/chempare/api",
-        "--ignore=src/chempare/cli",
-        "--cov-append"
-
-    ],
-    //     //-ra -n auto --color=yes --code-highlight=yes --cov=src/chempare --cov-config=.coveragerc tests
-    //     // -ra --capture=sys --show-capture=all --numprocesses=auto --color=yes --code-highlight=yes --doctest-modules --cov=src/chempare --cov-config=.coveragerc tests/test_class_utils.py
-    //     //"-vvv",
-    //     "-c=pyproject.toml",
-    //     //"--capture=tee-sys"
-    //     "-ra",
-    //     "-n=auto",
-    //     "--capture=no",
-    //     "--color=yes",
-    //     "--numprocesses=auto",
-    //     "--code-highlight=yes",
-    //     "--cov=src/chempare",
-    //     "--doctest-modules",
-    //     "--cov-report=html:coverage-html",
-    //     "--cov-report=term",
-    //     //"--capture=tee-sys"
-    //     // "--capture=no",
-    //     // //"--show-capture=all",
-    //     // "-ra",
-    //     // "--numprocesses=auto",
-    //     // "--color=yes",
-    //     // "--code-highlight=yes",
-    //     // //"--capture=tee-sys",
-    //     // "--doctest-modules",
-    //     // "--cov=src/chempare",
-    //     // //"--cov-config=.coveragerc",
-    //     // "--cov-report=html:coverage",
-    //     // "--cov-report=term",
-    //     // //"--pycodestyle",
-    //     // "tests"
-    // ],
-    "python.testing.unittestEnabled": false,
-    "editor.formatOnSave": false,
-    "python.testing.pytestEnabled": true,
-    "autoDocstring.quoteStyle": "\"\"\"",
-    "editor.wordWrapColumn": 120,
-    "editor.wordWrap": "off",
-    "python.defaultInterpreterPath": "python",
-    "yaml.schemas": {
-        "file:///Users/justin.hyland/.vscode/extensions/atlassian.atlascode-3.4.23/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
-        "https://json.schemastore.org/travis.json": "file:///Users/justin.hyland/Documents/scripts/ChemPare/.travis.yml"
-    },
-    "python.analysis.extraPaths": [
-        "typings",
-        "./src",
-        "./src/chempare",
-        "./src/chempare/suppliers"
-    ],
     "testing.coverageBarThresholds": {
         "red": 0,
         "yellow": 60,
         "green": 90
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "python.testing.pytestPath": "pytest",
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
@@ -198,24 +147,11 @@
     "python.experiments.enabled": false,
     "openCoverage.coverageFilePath": "coverage-html/index.html",
     "editor.defaultFormatter": "ms-python.black-formatter",
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    "files.exclude": {
-        "**/__pycache__": true
-    },
     "autoDocstring.includeExtendedSummary": true,
     "autoDocstring.includeName": true,
     "autoDocstring.docstringFormat": "sphinx",
     "autoDocstring.startOnNewLine": true,
     "editor.defaultFoldingRangeProvider": "ms-python.black-formatter",
-    "cSpell.words": [
-        "bunmurralabs",
-        "chempare",
-        "finalmethod",
-        "rtype",
-        "wixbase"
-    ],
     "python.analysis.diagnosticSeverityOverrides": {
         // # Partial stubs are acceptable
         "reportUnknownArgumentType": false,
@@ -226,39 +162,18 @@
         "reportPrivateImportUsage": false,
         // # Incompatible overrides and property type mismatches are out of our stubs' control
         // # as they are inherited from the implementation.
-        "reportIncompatibleMethodOverride":false,
-        "reportIncompatibleVariableOverride":false,
-        "reportPropertyTypeMismatch":false,
+        "reportIncompatibleMethodOverride": false,
+        "reportIncompatibleVariableOverride": false,
+        "reportPropertyTypeMismatch": false,
         // # Overlapping overloads are often necessary in a stub, meaning pyright's check
         // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
         // # would cause many false positives and catch few bugs.
         "reportOverlappingOverload": false,
         // # The name of the self/cls parameter is out of third-party stubs' control.
-        "reportSelfClsParameterName":false,
+        "reportSelfClsParameterName": false,
         // # Not an error by default in standard mode
         "reportUnsupportedDunderAll": "error",
-        "reportUnusedImport": "information",
-        //"reportMissingImports": "none"
-
-        // typeCheckingMode = "standard"
-        // # Partial stubs are acceptable
-        // reportUnknownArgumentType = false
-        // # Stubs-only packages are fine for testing
-        // reportMissingModuleSource = false
-        // # Stubs are allowed to use private variables
-        // reportPrivateUsage = false
-        // reportPrivateImportUsage = false
-        // reportIncompatibleMethodOverride = false
-        // reportIncompatibleVariableOverride = false
-        // reportPropertyTypeMismatch = false
-        // # Overlapping overloads are often necessary in a stub, meaning pyright's check
-        // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
-        // # would cause many false positives and catch few bugs.
-        // reportOverlappingOverload = false
-        // # The name of the self/cls parameter is out of third-party stubs' control.
-        // reportSelfClsParameterName = false
-        // # Not an error by default in standard mode
-        // reportUnsupportedDunderAll = "error"
+        "reportUnusedImport": "information"
     },
     "python.analysis.inlayHints.pytestParameters": true,
     "python.terminal.shellIntegration.enabled": true,
@@ -274,11 +189,78 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
-        "typings",
+        "./src/**"
     ],
-    "python.analysis.autoSearchPaths":true,
+    "python.analysis.autoSearchPaths": true,
     "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
     "python.analysis.typeEvaluation.strictDictionaryInference": false,
     "python.analysis.supportAllPythonDocuments": true,
     "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.extraPaths": [
+        "typings",
+        "./src",
+        ".",
+        "./src/chempare",
+        "./src/chempare/suppliers"
+    ],
+    "python.autoComplete.extraPaths": [
+        ".",
+        "typings",
+        "./src",
+        "./src/chempare",
+        "./src/chempare/suppliers",
+        "./src/chempare/datatypes",
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120,
+        // "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.formatOnSave": false
+    },
+    "[toml]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120,
+        // "editor.defaultFormatter": "tamasfe.even-better-toml",
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+            90
+        ],
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "editor.renderWhitespace": "trailing",
+    "editor.trimAutoWhitespace": true,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "explorer.compactFolders": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "explorer.copyRelativePathSeparator": "/",
+    //"explorer.excludeGitIgnore": true,
+    "files.autoSave": "onFocusChange",
+    "python.terminal.launchArgs": [],
+    "ruff.format.preview": true,
+    "python.experiments.optInto": [],
+    "python.analysis.diagnosticsSource": "Pyright",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.generateWithTypeAnnotation": false,
+    "mypy-type-checker.cwd": "${workspaceFolder}",
+    "mypy-type-checker.daemonStatusFile": "${workspaceFolder}/.venv/bin/dmypy",
+    "mypy.configFile": "pyproject.toml",
+    "mypy.dmypyExecutable": "${workspaceFolder}/.venv/bin/dmypy",
+    "mypy.mypyExecutable": "${workspaceFolder}/.venv/bin/mypy",
+    "mypy.targets": [
+        "src/chempare"
+    ],
+    "mypy.env": {
+        "PYTHONPATH": "typings"
+    },
+    "python.analysis.exclude": [
+        "**/tests",
+        "**/typings"
+    ]
 }

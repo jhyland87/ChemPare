@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import os
 from http import HTTPMethod
 from http import HTTPStatus
 
+from chempare import utils
 from requests_cache import CachedSession
-
-from chempare.utils import utils
 
 
 _cache_sessions = {}
@@ -40,11 +41,12 @@ def set_supplier_cache_session(supplier: str = "default"):
             use_cache_dir=True,
             force_refresh=force_refresh,
             backend="filesystem",
-            serializer="json",
+            ignored_parameters=["CF-RAY", "Date", "cf-cache-status", "no_cache", "Cache-Control", "cache-control"],
+            serializer="pickle",
             always_revalidate=False,
             cache_control=False,
-            urls_expire_after=None,
-            expire_after=None,
+            # urls_expire_after=None,
+            # expire_after=None,
             allowable_methods=[
                 HTTPMethod.POST,
                 HTTPMethod.GET,
@@ -74,6 +76,7 @@ def set_supplier_cache_session(supplier: str = "default"):
                 HTTPStatus.GONE,
                 HTTPStatus.PRECONDITION_FAILED,
                 HTTPStatus.REQUEST_ENTITY_TOO_LARGE,
+                HTTPStatus.GATEWAY_TIMEOUT,
                 HTTPStatus.REQUEST_URI_TOO_LONG,
                 HTTPStatus.TOO_MANY_REQUESTS,
                 HTTPStatus.UNAVAILABLE_FOR_LEGAL_REASONS,
@@ -85,7 +88,7 @@ def set_supplier_cache_session(supplier: str = "default"):
                 HTTPStatus.NETWORK_AUTHENTICATION_REQUIRED,
             ],
             match_headers=False,
-            stale_if_error=False,
+            stale_if_error=True,
         )
     return _cache_sessions.get(supplier)
 
