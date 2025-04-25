@@ -262,5 +262,8 @@
     "python.analysis.exclude": [
         "**/tests",
         "**/typings"
+    ],
+    "pythonautovenv.venvDirectoryNames": [
+        "venv"
     ]
 }

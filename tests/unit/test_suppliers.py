@@ -25,9 +25,6 @@ monkeypatch = MonkeyPatch()
 # pylint: disable=missing-class-docstring
 
 import requests_cache
-from requests.structures import CaseInsensitiveDict
-from requests_cache._utils import decode, get_valid_kwargs, try_int
-from requests_cache.policy.directives import _split_kv_directive
 from requests_cache import CacheDirectives
 
 
@@ -133,6 +130,7 @@ class BaseTestClass:
         assert (
             self.results["negative_query"].errisinstance(NoProductsFoundError) is True
         ), "Expected a NoProductsFoundError error"
+        assert "ExceptionInfo NoProductsFoundError" in str(self.results["negative_query"])
 
 
 class TestSupplierBioFuranChem(BaseTestClass):

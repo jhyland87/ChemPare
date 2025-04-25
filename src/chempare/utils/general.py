@@ -213,10 +213,11 @@ def split_set_cookie(set_cookie: str) -> list:
     :return: list of set-cookie values, split by the comma delimiter
     :rtype: list
     """
-    return regex.split(r'(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?', set_cookie)
+
+    return regex.split(r"(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?", set_cookie)
 
 
-def parse_cookie(value: str) -> dict[str, Any] | None:
+def parse_cookie(value: str) -> dict[str, Any]:
     """
     Get cookie name/value out of the full set-cookie header segment.
 
@@ -238,15 +239,19 @@ def parse_cookie(value: str) -> dict[str, Any] | None:
         {'name': 'server-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax', 'httponly': True}
     """
 
-    cookie_matches = regex.match(
+    cookie_matches: regex.Match[str] | None = regex.match(
         r'^(?P<name>[a-zA-Z0-9_-]+)=(?P<value>[^;]+)(?:$|;\s)(?P<args>(.*)+)?$', value, regex.IGNORECASE
     )
 
-    # print(cookie_matches.capturesdict())
+    if not cookie_matches:
+        return {}
 
-    cookie_match_dict = cookie_matches.capturesdict()
+    cookie_match_dict: dict[str, list[str]] = cookie_matches.capturesdict()
 
-    result = {"name": cookie_match_dict.get('name', [None])[0], "value": cookie_match_dict.get('value', [None])[0]}
+    result: dict[str, str | None] = {
+        "name": cookie_match_dict.get('name', [None])[0],
+        "value": cookie_match_dict.get('value', [None])[0],
+    }
 
     args = cookie_match_dict.get('args', [])[0].rstrip(';').split(';')
 
@@ -292,24 +297,38 @@ def random_string(max_length: int = 10, include_special: bool = False) -> str:
     return str("".join(random.choice(char_list) for _ in range(max_length)))
 
 
-def set_multiple_defaults(dictionary, defaults):
+def set_multiple_defaults(dictionary: dict[str, Any], defaults: dict[str, Any]) -> None:
+    """
+    The function `set_multiple_defaults` sets default values in a dictionary if the keys do
+    not already exist.
+
+    :param dictionary: A dictionary that you want to set default values in
+    :type dictionary: dict[str, Any]
+    :param defaults: defaults is a dictionary containing default values that you want to set
+    in the dictionary parameter if the keys are not already present in it
+    :type defaults: dict[str, Any]
+    """
     for key, value in defaults.items():
         dictionary.setdefault(key, value)
 
 
 def split_array_into_groups(arr: list, size: int = 2) -> list:
     """
-    Splits an array into sub-arrays of 2 elements each.
+    The function `split_array_into_groups` takes a list and splits it into sublists of a
+    specified size.
 
-    Args:
-        arr: The input array.
-        size: Size to group array elements by
-
-    Returns:
-        A list of sub-arrays, where each sub-array contains {size} elements,
-        or an empty list if the input array is empty.
-
-    Example:
+    :param arr: The `arr` parameter is a list that you want to split into groups of a
+    specified size
+    :type arr: list
+    :param size: The `size` parameter in the `split_array_into_groups` function specifies the
+    number of elements that each group should contain when splitting the input array into
+    smaller groups. By default, the size is set to 2, meaning that if no size is provided when
+    calling the function, the array will be, defaults to 2
+    :type size: int (optional)
+    :return: The function `split_array_into_groups` takes a list `arr` and an optional
+    parameter `size` (default value is 2) and splits the input list into sublists of the
+    specified size. It returns a list of sublists created from the input list.
+    :Example:
         >>> utils.split_array_into_groups([
         ...    'Variant', '500 g', 'CAS', '1762-95-4'
         ... ])

@@ -37,7 +37,7 @@ class SupplierWixBase(SupplierBase):
         cookies = utils.split_set_cookie(headers.get("set-cookie", ""))
 
         for cookie in cookies:
-            cookie_data = utils.parse_cookie(cookie)
+            cookie_data: dict[str, Any] = utils.parse_cookie(cookie)
 
             if cookie_data.get("name") == "ssr-caching" or cookie_data.get("name") == "server-session-bind":
                 self._cookies[cookie_data.get("name")] = cookie_data.get("value")
