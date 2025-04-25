@@ -1,4 +1,5 @@
 """Biofuran Chem supplier test module"""
+
 from __future__ import annotations
 
 from collections.abc import Iterable
@@ -10,7 +11,8 @@ import requests
 from chempare.exceptions import NoProductsFoundError
 from chempare.search_factory import SearchFactory
 from pytest import MonkeyPatch
-
+import requests_cache
+from requests_cache import CacheDirectives
 from tests import mock_request_cache
 
 # from datatypes import ProductType
@@ -20,6 +22,29 @@ monkeypatch = MonkeyPatch()
 
 
 # pylint: disable=missing-class-docstring
+
+import requests_cache
+from requests.structures import CaseInsensitiveDict
+from requests_cache._utils import decode, get_valid_kwargs, try_int
+from requests_cache.policy.directives import _split_kv_directive
+from requests_cache import CacheDirectives
+
+
+# Hack to work around requests_cache not paying attention to the cache_control setting.
+def clear_no_cache(func):
+    def wrapper(cls, headers):
+        if "Cache-Control" in headers:
+            headers["Cache-Control"] = False
+        # print("Before calling the method")
+        result = func(headers)
+        # print("After calling the method")
+        return result
+
+    return wrapper
+
+
+original_method = requests_cache.CacheDirectives.from_headers
+decorated_method = clear_no_cache(original_method)
 
 
 # @dataclass
@@ -35,8 +60,10 @@ class BaseTestClass:
         monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
         monkeypatch.setenv("CALLED_FROM_TEST", "true")
 
-        mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
+        # Strip the cache-control from any headers
+        monkeypatch.setattr(CacheDirectives, "from_headers", classmethod(decorated_method))
 
+        mock_request_cache.requests = mock_request_cache.set_supplier_cache_session(str(cls.supplier))
         if cls.supplier == 'search_factory':
             setattr(chempare.suppliers, 'SearchFactory', SearchFactory)
 

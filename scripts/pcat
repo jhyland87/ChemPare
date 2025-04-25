@@ -93,6 +93,7 @@ def recursive_change_bytes(data: Any) -> Any:
 
 
 files = sys.argv[1:]
+# files = ["tests/mock_data/TestSupplierLabchem/2fb0bbc6108ef527.pkl"]
 
 if len(files) == 0:
     _stderr("No files provided", 1)
@@ -118,7 +119,12 @@ for i, arg in enumerate(files):
         continue
 
     pickle_data = recursive_change_bytes(pickle_content)
-    pickle_data['request']['body'] = json.loads(pickle_data['request']['body'])
+    requesst = pickle_data['request']
+    if requesst:
+        if isinstance(requesst['body'], bytes):
+            requesst['body'] = requesst['body'].decode()
+            if len(requesst['body']) > 0:
+                requesst['body'] = json.loads(requesst['body'])
 
     print(json.dumps(pickle_data, sort_keys=True, indent=2, separators=(',', ': ')))
 
