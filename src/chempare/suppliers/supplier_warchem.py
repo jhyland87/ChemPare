@@ -1,24 +1,32 @@
+from __future__ import annotations
+
 from threading import Thread
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Final
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_warchem.py
 class SupplierWarchem(SupplierBase):
 
-    _limit: int = 5
+    _limit: ClassVar[int] = 5
     """Maximum amount of allowed search results to be returned"""
 
-    _supplier: SupplierType = SupplierType(
-        name="WarChem", location=None, base_url="https://warchem.pl", api_url="https://warchem.pl"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "WarChem",
+        "location": None,
+        "base_url": "https://warchem.pl",
+        "api_url": "https://warchem.pl",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -39,7 +47,7 @@ class SupplierWarchem(SupplierBase):
 
         # This eGold cookie seems to be what they use to keep track of your
         # settings
-        self._cookies["eGold"] = self._random_string(26)
+        self._cookies["eGold"] = utils.random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
         self.http_post(f"szukaj.html/szukaj={self._query}", data=dict(ilosc_na_stronie=36))
@@ -128,13 +136,13 @@ class SupplierWarchem(SupplierBase):
         if price_elem:
             product["price"] = str(price_elem.attrs["content"])
             product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
-            product["currency_code"] = str(self._currency_code_from_symbol(product["currency"]))
+            product["currency_code"] = str(utils.get_currency_code_from_symbol(product["currency"]))
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
         quantity_options = quantity_elem_container.find_all("div", class_="PoleWyboruCechy")
 
         quantity = quantity_options[0].find("label").find("span")
         if quantity:
-            product.update(self._parse_quantity(quantity.get_text(strip=True)))
+            product.update(utils.parse_quantity(quantity.get_text(strip=True)))
 
         self._products.append(product)

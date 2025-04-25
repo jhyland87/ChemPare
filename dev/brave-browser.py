@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import webbrowser
-from webbrowser import MacOSXOSAScript, register
+from webbrowser import MacOSXOSAScript
+from webbrowser import register
 
 register("brave-browser", None, MacOSXOSAScript("Brave Browser"))
 

@@ -1,18 +1,26 @@
-import os
+from __future__ import annotations
 
-from datatypes import ProductType
+import os
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Any
 
 
 # File: /suppliers/supplier_shopifybase.py.py
 class SupplierShopifyBase(SupplierBase):
 
-    allow_cas_search: bool = True
+    allow_cas_search: ClassVar[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
+
+    _supplier: ClassVar[dict[str, Any]] = {}
 
     def _query_products(self) -> None:
         """Query products from supplier"""
@@ -39,7 +47,7 @@ class SupplierShopifyBase(SupplierBase):
         #   &output=json
         #   &_=1740051794061
         #
-        epoch_ts = self._epoch
+        epoch_ts: int = utils.epoch()
 
         if os.environ.get("PYTEST_VERSION") is not None:
             epoch_ts = 1234567890
@@ -85,7 +93,7 @@ class SupplierShopifyBase(SupplierBase):
             # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any | None]) -> dict[str, Any]:
         """Parse single product and return single ProductType object
 
         Args:
@@ -100,7 +108,7 @@ class SupplierShopifyBase(SupplierBase):
               This could maybe be included?
         """
 
-        quantity_matches = self._parse_quantity(product_obj.get("product_code"))
+        quantity_matches = utils.parse_quantity(product_obj.get("product_code", {}))
 
         uom = "item(s)"
         quantity = product_obj.get("quantity")
@@ -109,18 +117,20 @@ class SupplierShopifyBase(SupplierBase):
             uom = getattr(quantity_matches, "uom", uom)
             quantity = getattr(quantity_matches, "quantity", quantity)
 
-        product = ProductType(
-            **self.__defaults,
-            uuid=product_obj.get("product_id"),
-            name=product_obj.get("title"),
-            title=product_obj.get("title"),
-            description=str(product_obj.get("description", "")).strip() or None,
-            price=f"{float(product_obj.get("price")):.2f}",
-            url="{0}{1}".format(self._supplier["base_url"], product_obj.get("link")),
-            manufacturer=product_obj.get("vendor"),
-            supplier=self._supplier["name"],
-            quantity=quantity,
-            uom=uom,
-        )
+        price = float(product_obj.get("price"))
+        product = {
+            # **self.__defaults,
+            "uuid": product_obj.get("product_id"),
+            "name": product_obj.get("title"),
+            "title": product_obj.get("title"),
+            "description": str(product_obj.get("description", "")).strip() or None,
+            "price": f"{price:.2f}",
+            "url": "{}{}".format(self._supplier["base_url"], product_obj.get("link")),
+            "manufacturer": product_obj.get("vendor"),
+            "supplier": self._supplier["name"],
+            "quantity": quantity,
+            "uom": uom,
+        }
 
+        utils.set_multiple_defaults(product, self.__defaults)
         return product

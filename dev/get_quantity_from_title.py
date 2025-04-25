@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 
 def get_quantity_from_title(title):

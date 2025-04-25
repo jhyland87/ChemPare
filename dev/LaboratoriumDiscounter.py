@@ -1,5 +1,8 @@
-import os, sys
+from __future__ import annotations
+
+import os
 import re
+import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath('suppliers/supplier_laboratoriumdiscounter'))
 sys.path.append(os.path.dirname(SCRIPT_DIR))

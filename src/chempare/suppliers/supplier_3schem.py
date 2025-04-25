@@ -1,19 +1,24 @@
-import json
+from __future__ import annotations
 
-from datatypes import ProductType
-from datatypes import QuantityType
-from datatypes import SupplierType
+import json
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
+from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 
-from bs4 import BeautifulSoup
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import ClassVar, Final
+    from datatypes import ProductType
+    from datatypes import QuantityType
 
 
 # File: /suppliers/supplier_3schem.py
 class Supplier3SChem(SupplierBase):
-    _limit: int = 20
+    _limit: ClassVar[int] = 20
 
-    _supplier: SupplierType = {"name": "3S Chemicals LLC", "base_url": "https://3schemicalsllc.com"}
-
+    _supplier: Final[SupplierType] = {"name": "3S Chemicals LLC", "base_url": "https://3schemicalsllc.com"}
     """Supplier specific data"""
 
     def _query_products(self) -> None:
@@ -53,7 +58,7 @@ class Supplier3SChem(SupplierBase):
             if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
                 raise ValueError("Failed to retrieve the product page for product")
 
-            quantity: QuantityType = self._parse_quantity(product_json["variants"][0]["options"][0])
+            quantity: QuantityType = utils.parse_quantity(product_json["variants"][0]["options"][0])
 
             product_obj: ProductType = {
                 "uuid": product.get("id"),

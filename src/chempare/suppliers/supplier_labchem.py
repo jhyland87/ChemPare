@@ -1,10 +1,16 @@
+from __future__ import annotations
+
 import re
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, Any, ClassVar
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_labchem.py
@@ -19,54 +25,49 @@ class SupplierLabchem(SupplierBase):
           https://www.labchem.com/getPriceDetailPage.action?productIdList=LC261700-L03,LC261700-L27
     """
 
-    _supplier: SupplierType = SupplierType(
-        name="Labchem",
+    _supplier: Final[SupplierType] = {
+        "name": "Labchem",
         # location = 'Poland',
-        base_url="https://www.labchem.com/",
-    )
+        "base_url": "https://www.labchem.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {"currency": "$", "currency_code": "USD"}
+    __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD"}
     """Default values applied to products from this supplier"""
 
-    _cookies = cookies = {
+    _cookies: ClassVar[dict[str, Any]] = {
         'pagemode': 'gridView',
         'pc_debug': '',
         'pc_debug_x': 'null',
         'pc_debug_y': 'null',
         'pc_v_4jVxV9OCTyi5I8mvWtt7fA': 'HgF_3YRvT6qa2weat2bTaw',
-        'JSESSIONID': '7F97CE7A02EE9AE09DEE3ACF87D627A2',
-        'cf_clearance': 'UYcXitTuGdPIYvETd2tUraWNh7iHQSNRR024Bfx6y78-1745115445-1.2.1.1-iC6Ccmiyqy2ENURKL8YlP1acWez8tD0Nzzr3urdUnkMiwvm7XRuWgo525Ho4fvFWu.2N0CqbRupu7Jy.Vw3jXQEE1KElW2NROf0HF_eBJNOIW6ls2RAd5IRBVQN6ARZZND8xTndLNmNWN79NQ9pBIgYEBLkyumjhj9tJs8aiedJE7DktIxp9k8igIl2woA_OGbR8uNBO5F7h_O3jDdC_VpbYzeF4xYwc2.mVEuW0cDrc4di.hzPlkbMbAsM5bYk4zswH06c_vc0sA6FuVa9hfI__y129B85gYaG54PjJUaJy0j9Yz4ZyHplZUVgBuzYdr4uJnD.0.9nzZi3WuDoc8Rr81fVmRdsOLQ2yb5ThmECRZQZV6lD8xChbYdBLr7LU',
-        'pc_sessid_4jVxV9OCTyi5I8mvWtt7fA': '70Rwv0vTQDmG-AXla1eQaQ',
-        'afterLoginUrl': '',
+        '__cf_bm': 'Ol7_TUtqmumqj16.ayzc7Xeo_LJxfBEXKAY15iya5QE-1745547173-1.0.1.1-b8pYHisMpI5ei3lbKJquUTACSkPUbbDYwvHkRIXMi78llXD8yihYYmWi4dFY_B6pYyx.J6c34nFJPMSNEPYgXhjRuoPbSXJ4CygSVuaqxxM',
+        'cf_clearance': 'T3qB0XsANn0uVg0RWgcuOjm66mkdGBi0qofEVx.j5ZE-1745547177-1.2.1.1-ufab_88_cexgu4bSYhZz97Q3Fnij17fEtPZ2ZlHrssj0LiTOio0grxOSQqRYCUkuSqmUp8xBzSnMx9eRM0iCX08nvccBzr1XXt9EEH2X7TIJlbhrQx7mY6bLjopxQsSIiH2cJSJNcyB6TZjcBaTptcqpjMp3Z4ZfbbGlrj4bAQmPHPzGR.DhKWo.TL.Vw8U_PKhy339d1GYwKbjO_pOnfPrrk0EfMA9dx041XqBE7yPQLgj4KhSuVcyvbnmfsk8Wiegx0MMfPSrjvFswjKbuFWOrDAr2oL0wj2oP7nddC7FTWtIsXB7mvjGylVjT.RJH8hIeDbVS5_AZ57mjX5jtWK8PH80GZtD29inxmhVbyWZuEIQBqYv7GqJLeGKNiOsv',
+        'JSESSIONID': 'E8ACBECBE976C097FFCF7BF18DCE0356',
+        'pc_sessid_4jVxV9OCTyi5I8mvWtt7fA': '4NlMO1x3T3CdF4yFM9h17A',
     }
 
-    _headers = {
+    _headers: ClassVar[dict[str, Any]] = {
         'accept': '*/*',
         'accept-language': 'en-US,en;q=0.5',
         'cache-control': 'no-cache',
+        'content-type': 'text/plain;charset=UTF-8',
+        'origin': 'https://www.labchem.com',
         'pragma': 'no-cache',
         'priority': 'u=1, i',
-        'referer': 'https://www.labchem.com/',
         'sec-ch-ua': '"Not(A:Brand";v="99", "Brave";v="133", "Chromium";v="133"',
-        'sec-ch-ua-arch': '"arm"',
-        'sec-ch-ua-bitness': '"64"',
-        'sec-ch-ua-full-version-list': '"Not(A:Brand";v="99.0.0.0", "Brave";v="133.0.0.0", "Chromium";v="133.0.0.0"',
         'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-model': '""',
         'sec-ch-ua-platform': '"macOS"',
-        'sec-ch-ua-platform-version': '"14.6.1"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-        'cookie': 'pagemode=gridView; pc_debug=; pc_debug_x=null; pc_debug_y=null; pc_v_4jVxV9OCTyi5I8mvWtt7fA=HgF_3YRvT6qa2weat2bTaw; JSESSIONID=7F97CE7A02EE9AE09DEE3ACF87D627A2; cf_clearance=UYcXitTuGdPIYvETd2tUraWNh7iHQSNRR024Bfx6y78-1745115445-1.2.1.1-iC6Ccmiyqy2ENURKL8YlP1acWez8tD0Nzzr3urdUnkMiwvm7XRuWgo525Ho4fvFWu.2N0CqbRupu7Jy.Vw3jXQEE1KElW2NROf0HF_eBJNOIW6ls2RAd5IRBVQN6ARZZND8xTndLNmNWN79NQ9pBIgYEBLkyumjhj9tJs8aiedJE7DktIxp9k8igIl2woA_OGbR8uNBO5F7h_O3jDdC_VpbYzeF4xYwc2.mVEuW0cDrc4di.hzPlkbMbAsM5bYk4zswH06c_vc0sA6FuVa9hfI__y129B85gYaG54PjJUaJy0j9Yz4ZyHplZUVgBuzYdr4uJnD.0.9nzZi3WuDoc8Rr81fVmRdsOLQ2yb5ThmECRZQZV6lD8xChbYdBLr7LU; pc_sessid_4jVxV9OCTyi5I8mvWtt7fA=70Rwv0vTQDmG-AXla1eQaQ; afterLoginUrl=',
+        'cookie': 'pagemode=gridView; pc_debug=; pc_debug_x=null; pc_debug_y=null; pc_v_4jVxV9OCTyi5I8mvWtt7fA=HgF_3YRvT6qa2weat2bTaw; __cf_bm=Ol7_TUtqmumqj16.ayzc7Xeo_LJxfBEXKAY15iya5QE-1745547173-1.0.1.1-b8pYHisMpI5ei3lbKJquUTACSkPUbbDYwvHkRIXMi78llXD8yihYYmWi4dFY_B6pYyx.J6c34nFJPMSNEPYgXhjRuoPbSXJ4CygSVuaqxxM; cf_clearance=T3qB0XsANn0uVg0RWgcuOjm66mkdGBi0qofEVx.j5ZE-1745547177-1.2.1.1-ufab_88_cexgu4bSYhZz97Q3Fnij17fEtPZ2ZlHrssj0LiTOio0grxOSQqRYCUkuSqmUp8xBzSnMx9eRM0iCX08nvccBzr1XXt9EEH2X7TIJlbhrQx7mY6bLjopxQsSIiH2cJSJNcyB6TZjcBaTptcqpjMp3Z4ZfbbGlrj4bAQmPHPzGR.DhKWo.TL.Vw8U_PKhy339d1GYwKbjO_pOnfPrrk0EfMA9dx041XqBE7yPQLgj4KhSuVcyvbnmfsk8Wiegx0MMfPSrjvFswjKbuFWOrDAr2oL0wj2oP7nddC7FTWtIsXB7mvjGylVjT.RJH8hIeDbVS5_AZ57mjX5jtWK8PH80GZtD29inxmhVbyWZuEIQBqYv7GqJLeGKNiOsv; JSESSIONID=E8ACBECBE976C097FFCF7BF18DCE0356; pc_sessid_4jVxV9OCTyi5I8mvWtt7fA=4NlMO1x3T3CdF4yFM9h17A',
     }
 
     def _query_products(self) -> None:
@@ -83,7 +84,7 @@ class SupplierLabchem(SupplierBase):
         get_params["productIdList"] = (
             "LC101000-L02,LC101600-L03,LC103900-L03,LC179200-M02,LC271000-M02,LC102600-L03,LC258300-L04,LC102600-L04,LC153300-L04,LC153300-L03,LC258300-L02,LC153200-L04"
         )
-        if self._is_cas(self._query) is True:
+        if utils.is_cas(self._query) is True:
             get_params["srchTyp"] = 11
         else:
             get_params["srchTyp"] = -1
@@ -157,7 +158,7 @@ class SupplierLabchem(SupplierBase):
 
             self._products.append(product)
 
-    def __parse_product(self, product_elem: BeautifulSoup) -> dict:
+    def __parse_product(self, product_elem: BeautifulSoup) -> ProductType:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
         link = product_elem.find("div", class_="prodImage").find("a").attrs["href"]
 
@@ -185,26 +186,26 @@ class SupplierLabchem(SupplierBase):
         if part_number_elem:
             part_number = part_number_elem.attrs["value"] or None
 
-        mpn_value_elem = product_elem.find("input", attrs={"id": re.compile("^MPNValue_")})
+        mpn_value_elem = product_elem.find("input", attrs={"id": re.compile(r"^MPNValue_")})
 
         mpn_value = None
         if mpn_value_elem:
             mpn_value = mpn_value_elem.attrs["value"] or None
 
-        _product = dict(
+        product = {
             **self.__defaults,
-            name=title_elem,
-            title=title_elem,
-            supplier=self._supplier["name"],
-            mpn=variant_part_number or part_number or mpn_value,
-            uuid=compare_id,
-            url=self._supplier["base_url"] + link,
-        )
+            "name": title_elem,
+            "title": title_elem,
+            "supplier": self._supplier["name"],
+            "mpn": variant_part_number or part_number or mpn_value,
+            "uuid": compare_id,
+            "url": self._supplier["base_url"] + link,
+        }
 
         if cas:
-            _product["cas"] = cas.get_text(strip=True)
+            product["cas"] = cas.get_text(strip=True)
 
-        return _product
+        return product
 
     def __query_products_prices(self, part_numbers: tuple[str, list]) -> dict | None:
         """Query specific product prices by their part numeber(s)

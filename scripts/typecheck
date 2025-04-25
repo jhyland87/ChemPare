@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+export PYTHONPATH="types:src:src/chempare"
+#mypy --disable-error-code unused-ignore  --follow-untyped-imports --explicit-package-bases  src/chempare src
+
+
+mypy --disable-error-code unused-ignore  --follow-untyped-imports --package chempare
+
+
+  #                          than once, eg. --exclude a --exclude b
+  # -m, --module MODULE       Type-check module; can repeat for more modules
+  # -p, --package PACKAGE     Type-check package recursively; can be repeated
+  # -c, --command PROGRAM_TEXT
+  #                           Type-check program passed in as string
+  # files                     Type-check given files or directories

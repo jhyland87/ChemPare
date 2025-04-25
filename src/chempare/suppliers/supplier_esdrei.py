@@ -1,20 +1,26 @@
+from __future__ import annotations
+
 import re
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="EsDrei",
+    _supplier: Final[SupplierType] = {
+        "name": "EsDrei",
         # location = '',
-        base_url="https://shop.es-drei.de",
-    )
+        "base_url": "https://shop.es-drei.de",
+    }
     """Supplier specific data"""
 
     def _query_products(self) -> None:
@@ -82,7 +88,7 @@ class SupplierEsDrei(SupplierBase):
         # Parse the price for the useful information
         # Pattern tested at: https://regex101.com/r/R4PQ5K/1
         price_string = re.sub(r"\s+", r" ", price_string)
-        price_data = self._parse_price(price_string)
+        price_data = utils.parse_price(price_string)
 
         # Since the pattern were matching for will name the matched groups
         # 'price' and 'currency', we can use the `groupdict()` method to return
@@ -95,7 +101,7 @@ class SupplierEsDrei(SupplierBase):
         # product.update(price_matches.groupdict())
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
-        quantity_data = self._parse_quantity(quantity)
+        quantity_data = utils.parse_quantity(quantity)
         # if quantity_data:
         #     product_data.update(quantity_data)
 
@@ -113,7 +119,7 @@ class SupplierEsDrei(SupplierBase):
             "description": product_desc.get_text(strip=True),
             "url": str(title_elem.attrs["href"]),
             "supplier": self._supplier["name"],
-            "cas": self._find_cas(product_desc.string.strip()),
+            "cas": utils.find_cas(product_desc.string.strip()),
             "quantity": int(quantity_data.get("quantity", "")),
             "uom": quantity_data.get("uom"),
             "price": float(price_data.get("price", "")),

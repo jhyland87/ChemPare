@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+echo "PWD: "$(pwd)
+
+
+echo
+
+printf "%-40s" "Deleting all __pycache__ files..."
+
+find . -name __pycache__ -type d -delete &>/dev/null
+
+[[ $? = 0 ]] && echo "Done" || echo "Error"
+
+printf "%-40s" "Deleting .pytest_cache..."
+
+rm -rf ./.pytest_cache &>/dev/null
+
+[[ $? = 0 ]] && echo "Done" || echo "Error"
+
+printf "%-40s" "Deleting .coverage..."
+
+rm -rf ./.coverage &>/dev/null
+
+[[ $? = 0 ]] && echo "Done" || echo "Error"
+
+echo
+
+echo "Done"

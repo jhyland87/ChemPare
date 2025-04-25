@@ -1,5 +1,7 @@
-import webbrowser
+from __future__ import annotations
+
 import os
+import webbrowser
 
 # Define the browser's name and path
 browser_name = "brave_browser"

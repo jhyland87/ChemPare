@@ -1,22 +1,32 @@
-import re
+from __future__ import annotations
 
-from datatypes import ProductType
-from datatypes import SupplierType
+import re
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Final, Any
+    from datatypes import ProductType
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_synthetika.py
 class SupplierSynthetika(SupplierBase):
 
-    _limit: int = 20
+    _limit: ClassVar[int] = 20
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(
-        name="Synthetika", location="Eu", base_url="https://synthetikaeu.com", api_url="https://synthetikaeu.com"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Synthetika",
+        "location": "Eu",
+        "base_url": "https://synthetikaeu.com",
+        "api_url": "https://synthetikaeu.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: ClassVar[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -38,7 +48,7 @@ class SupplierSynthetika(SupplierBase):
             # Example request url for Synthetika
             # https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?text=borohydride&org=borohydride&page=1
             #
-            get_params = {
+            get_params: dict[str, str | int] = {
                 # Setting the limit here to 1000, since the limit parameter
                 # should apply to results returned from Supplier3SChem, not the
                 # rquests made by it.
@@ -47,7 +57,9 @@ class SupplierSynthetika(SupplierBase):
                 "page": page,
             }
 
-            search_result = self.http_get_json("webapi/front/en_US/search/short-list/products", params=get_params)
+            search_result: dict[str, Any] = self.http_get_json(
+                "webapi/front/en_US/search/short-list/products", params=get_params
+            )
 
             if not search_result:
                 return
@@ -68,7 +80,7 @@ class SupplierSynthetika(SupplierBase):
             # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:
@@ -83,23 +95,23 @@ class SupplierSynthetika(SupplierBase):
               stores data about the same product but in different quantities.
               This could maybe be included?
         """
-        product = dict(
-            uuid=product_obj["product_code"],
-            name=product_obj["name"],
-            title=product_obj["name"],
-            price=product_obj["price"],
-            url=f"{self._supplier["base_url"]}{product_obj["url"]}",
-            manufacturer=product_obj["attributes"].get("producer_name", None),
-            supplier=self._supplier["name"],
-        )
+        product = {
+            "uuid": product_obj["product_code"],
+            "name": product_obj["name"],
+            "title": product_obj["name"],
+            "price": product_obj["price"],
+            "url": f"{self._supplier["base_url"]}{product_obj["url"]}",
+            "manufacturer": product_obj["attributes"].get("producer_name", None),
+            "supplier": self._supplier["name"],
+        }
 
-        quantity_pattern = re.compile((r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"))
+        quantity_pattern = re.compile(r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])")
         quantity_matches = quantity_pattern.search(product_obj["name"])
 
         if quantity_matches:
             product.update(quantity_matches.groupdict())
 
-        price_obj = self._parse_price(product_obj["price"])
+        price_obj = utils.parse_price(product_obj["price"])
 
         if price_obj:
             product.update(price_obj)

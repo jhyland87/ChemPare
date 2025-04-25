@@ -1,4 +1,5 @@
 """Just testing out a basic temporary terminal thingy"""
+from __future__ import annotations
 
 import time
 

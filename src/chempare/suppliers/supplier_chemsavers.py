@@ -1,29 +1,37 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import chempare.utils as utils
 from bs4 import BeautifulSoup
-from typing import Any
-from datatypes import ProductType
-from datatypes import SupplierType
 from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import ClassVar
+    from datatypes import ProductType
+    from typing import Any, Final
 
 
 # File: /suppliers/supplier_chemsavers.py
 class SupplierChemsavers(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="Chemsavers",
-        base_url="https://chemsavers.com",
-        api_url="https://0ul35zwtpkx14ifhp-1.a1.typesense.net",
-        api_key="iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd",
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Chemsavers",
+        "base_url": "https://chemsavers.com",
+        "api_url": "https://0ul35zwtpkx14ifhp-1.a1.typesense.net",
+        "api_key": "iPltuzpMbSZEuxT0fjPI0Ct9R1UBETTd",
+    }
     """Supplier specific data"""
 
-    _limit: int = 10
+    _limit: ClassVar[int] = 10
     """Limiting chemsavers output to 10 products"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     # If any extra init logic needs to be called... uncmment the below and add
@@ -100,10 +108,10 @@ class SupplierChemsavers(SupplierBase):
             ProductType: Instance of ProductType
         """
 
-        quantity = self._parse_quantity(product_obj["description"])
+        quantity = utils.parse_quantity(product_obj["description"])
 
         if not quantity:
-            quantity = self._parse_quantity(product_obj["name"])
+            quantity = utils.parse_quantity(product_obj["name"])
 
         product: ProductType = {
             # **self.__defaults,
@@ -130,14 +138,14 @@ class SupplierChemsavers(SupplierBase):
 
         # The restrictions always seem to be shown in
         # <strong style="color: red;"></strong> tags
-        restriction = description_soup.find("strong", {"style": "color: red;"})
+
+        restriction: str | None = utils.text_from_element(description_soup.find("strong", {"style": "color: red;"}))
 
         if (
             restriction is not None
-            and hasattr(restriction, 'string') is True
-            and "Restricted to qualified labs and businesses only (no residences)" in str(restriction.string)
+            and "Restricted to qualified labs and businesses only (no residences)" in restriction
         ):
-            product["restriction"] = restriction.string
+            product["restriction"] = restriction
 
         # The whole desc is usually in <b></b> tags
         desc = description_soup.find_all(["b", "p", "strong", "font"])
