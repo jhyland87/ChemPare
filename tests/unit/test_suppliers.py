@@ -35,9 +35,7 @@ def clear_no_cache(func):
     def wrapper(cls, headers):
         if "Cache-Control" in headers:
             headers["Cache-Control"] = False
-        # print("Before calling the method")
         result = func(headers)
-        # print("After calling the method")
         return result
 
     return wrapper
