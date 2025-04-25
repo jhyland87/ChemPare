@@ -2,24 +2,11 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
-from typing import overload
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
 from bs4.element import PageElement
 from bs4.element import Tag
-
-
-@overload
-def text_from_element(element: None) -> None: ...
-
-
-@overload
-def text_from_element(element: PageElement) -> str: ...
-
-
-@overload
-def text_from_element(element: Tag | NavigableString) -> str: ...
 
 
 def text_from_element(element) -> str | None:
@@ -32,10 +19,12 @@ def text_from_element(element) -> str | None:
     if isinstance(element, NavigableString):
         return element.get_text(strip=True)
 
+    return None
+
 
 def bs4_css_selector(
     element: BeautifulSoup, selector: str
-) -> PageElement | None:  # -> None | BeautifulSoup | Tag | NavigableString | Any:
+) -> PageElement:  # -> None | BeautifulSoup | Tag | NavigableString | Any:
     selectors = parse_css_selector(selector)
     cursor: PageElement | None = element
     for sel in selectors:

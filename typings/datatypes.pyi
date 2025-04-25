@@ -243,3 +243,17 @@ class ProductType(TypedDict, total=False):
     container: str | None
     quality: str | None
     name: str | None
+
+
+# if TYPE_CHECKING:
+
+#     @overload
+#     def text_from_element(element: None) -> None: ...
+
+#     @overload
+#     def text_from_element(element: PageElement) -> str: ...
+
+#     @overload
+#     def text_from_element(element: Tag | NavigableString): ...
+
+#     def text_from_element(element): ...
