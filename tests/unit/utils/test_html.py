@@ -3,23 +3,21 @@ from __future__ import annotations
 import functools
 import math
 import time
+from collections import OrderedDict
 from ctypes import util
 from decimal import Decimal
 from typing import Literal
 from unittest.mock import patch
 
-from regex import P
-
 import chempare.utils as utils
 import pytest
+from bs4 import BeautifulSoup
 from datatypes import PriceType
 from datatypes import QuantityType
 from datatypes import Undefined
 from datatypes import undefined
 from datatypes import UndefinedType
 from price_parser.parser import Price
-from collections import OrderedDict
-from bs4 import BeautifulSoup
 
 
 def sort_and_compare(dict1: dict, dict2: dict) -> bool | Exception:

@@ -1,5 +1,4 @@
 """Biofuran Chem supplier test module"""
-
 from __future__ import annotations
 
 from collections.abc import Iterable
@@ -8,11 +7,12 @@ import chempare.search_factory
 import chempare.suppliers
 import pytest
 import requests
+import requests_cache
 from chempare.exceptions import NoProductsFoundError
 from chempare.search_factory import SearchFactory
 from pytest import MonkeyPatch
-import requests_cache
 from requests_cache import CacheDirectives
+
 from tests import mock_request_cache
 
 # from datatypes import ProductType

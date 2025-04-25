@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
     from typing import Final
+    from datatypes import SupplierType
     from datatypes import ProductType
 
 

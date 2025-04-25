@@ -21,8 +21,8 @@ from fuzzywuzzy import fuzz
 
 if TYPE_CHECKING:
     from datatypes import SupplierType
-    from typing import ClassVar
     from datatypes import ProductType
+    from typing import ClassVar
     from typing import Any
     from typing import Final
     from typing import Self

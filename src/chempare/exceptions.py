@@ -98,3 +98,22 @@ class ProductListQueryError(Exception):
 
     def __str__(self):
         return f"Initial request for products list from {self.supplier} returned falsy - {self.url}"
+
+
+class ErrorParsingProductHtml(Exception):
+    def __init__(
+        self,
+        message: str | None = None,
+        error: Exception | None = None,
+        supplier: str | None = None,
+        url: str | None = None,
+    ):
+        self.message = message
+        self.error = error
+        self.supplier = supplier
+        self.url = url
+
+    def __str__(self) -> str:
+        if self.message:
+            return f"Error parsing product page: {self.message}"
+        return "Error parsing product page"

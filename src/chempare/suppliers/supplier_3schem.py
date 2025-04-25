@@ -5,13 +5,15 @@ from typing import TYPE_CHECKING
 
 import chempare.utils as utils
 from bs4 import BeautifulSoup
+from chempare.exceptions import ErrorParsingProductHtml
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
+    from typing import ClassVar
+    from typing import Final
+    from typing import Any
     from datatypes import SupplierType
-    from typing import ClassVar, Final
     from datatypes import ProductType
-    from datatypes import QuantityType
 
 
 # File: /suppliers/supplier_3schem.py
@@ -58,7 +60,9 @@ class Supplier3SChem(SupplierBase):
             if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
                 raise ValueError("Failed to retrieve the product page for product")
 
-            quantity: QuantityType = utils.parse_quantity(product_json["variants"][0]["options"][0])
+            quantity: dict[str, Any] = utils.parse_quantity(
+                utils.get_nested(product_json, "variants[0].options[0]", default="")
+            )
 
             product_obj: ProductType = {
                 "uuid": product.get("id"),
@@ -87,7 +91,7 @@ class Supplier3SChem(SupplierBase):
 
             self._products.append(product_obj)
 
-    def _get_product_data(self, url: str, product_id: int) -> dict:
+    def _get_product_data(self, url: str, product_id: int) -> dict | None:
         """
         _get_product_data Get specific info about a product
 
@@ -106,9 +110,15 @@ class Supplier3SChem(SupplierBase):
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
 
-        product_data = product_page_soup.find("script", class_=f"ProductJson-{product_id}")
+        product_data_elem = product_page_soup.select_one(f"script.ProductJson-{product_id}")
 
-        return json.loads(product_data.get_text(strip=True))
+        if product_data_elem is None:
+            return None
+
+        try:
+            return json.loads(product_data_elem.text)
+        except json.JSONDecodeError as e:
+            raise ErrorParsingProductHtml(url=url, supplier=self._supplier["name"]) from e
 
 
 if __package__ == "suppliers":

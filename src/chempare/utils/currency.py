@@ -2,19 +2,19 @@ from __future__ import annotations
 
 from decimal import Decimal
 from decimal import ROUND_HALF_UP
-from typing import NewType
-from typing import TYPE_CHECKING
 
 import regex
 from chempare._constants import CURRENCY_CODES_MAP
 from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
-from datatypes import DecimalLikeType
-from datatypes import PriceType
 from price_parser.parser import Price
 
+from typing import NewType
+from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
-    from datatypes import PriceType  # , Undefined
+    from datatypes import PriceType
+    from datatypes import DecimalLikeType
 
     # # Undefined = Enum('Undefined', ['undefined'])
     # # undefined = Undefined.undefined

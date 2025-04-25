@@ -5,6 +5,7 @@ import math
 import time
 from ctypes import util
 from decimal import Decimal
+from typing import Any
 from typing import Literal
 from unittest.mock import patch
 
@@ -145,21 +146,32 @@ def test_cast_uncastables(value, expected_result):
 
 
 @pytest.mark.parametrize(
-    ("dataobject", "path", "default", "expected_result"),
+    ("data", "path", "default", "expected_result"),
     [
         #
-        ({"foo": {"bar": "baz"}}, "foo.bar", None, "baz"),
-        ({"foo": {"bar": "baz"}}, "foo.qux", None, None),
+        ({"a": {"b": "test"}}, "a.b", None, "test"),
+        ({"a": {"b": "test"}}, "a.c", None, None),
+        ({"a": {"b": "test"}}, "a.c", "default", "default"),
+        ({"a": {"b": ["c", "test"]}}, "a.b[1]", None, "test"),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[1].d.e", None, "test"),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[3].d.e", None, None),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[3].d.e", "default", "default"),
     ],
     ids=[
         #
-        "'foo.bar' should find 'baz' in {foo:{bar:baz}}",
-        "'foo.qux' shoudl default to None in {foo:{bar:baz}}",
+        "'a.b' should find 'test' in {a:{b:test}}",
+        "'a.c' shoudl default to None in {a:{b:test}}",
+        "'a.c' shoudl default to 'default' in {a:{b:test}}",
+        "'a.b[1]' should find 'test' in {a:{b:[c,test]}}",
+        "'a.b[1].d.e' should find 'test' in {a:{b:[c,{d:{e:test}}]}}",
+        "'a.b[3].d.e' should default to None in {a:{b:[c,{d:{e:test}}]}}",
+        "'a.b[3].d.e' should default to 'default' in {a:{b:[c,{d:{e:test}}]}}",
     ],
 )
-def test_get_nested(dataobject, path, default, expected_result):
-    paths = path.split(".")
-    assert utils.get_nested(dataobject, *paths, default=default) == expected_result
+def test_get_nested(
+    data: list[Any] | dict[str, Any], path: str, default: str | int | float | None, expected_result: Any
+) -> Any:
+    assert utils.get_nested(data, path=path, default=default) == expected_result
 
 
 @pytest.mark.parametrize(

@@ -28,49 +28,76 @@ if TYPE_CHECKING:
 # undefined = str | Undefined
 
 
-def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
+def get_nested(data: dict[str, Any] | list[Any], path: str, default: Any = None) -> Any:
     """
-    Get a nested value from a dictionary
+    The function `get_nested` retrieves a nested value from a dictionary or list based on a
+    specified path, with an optional default value if the path is not found.
 
-    Args:
-        dict_ (dict): Dictionary to iterate over
-        keys (list[str]): Keys to drill down with
-        default (Any, optional): Default value. Defaults to None.
+    _regex test: https://regex101.com/r/NPL7hq/5
 
-    Returns:
-        Any: Result, if somethig was found
-
-    Example:
-        >>> d = {"foo":{"bar":{"baz":"test"}}}
-        >>> get_nested(d, "foo","bar","baz")
-        test
-        >>> get_nested(d, "foo","bar","bazzzz")
+    :param data: The `data` parameter in the `get_nested` function is expected to be a
+    dictionary or a list containing the nested data structure from which you want to retrieve
+    a value based on the provided path
+    :type data: dict[str, Any] | list[Any]
+    :param path: The `path` parameter in the `get_nested` function is a string that represents
+    the path to a nested value within a dictionary or a list. It specifies the sequence of
+    keys or indices needed to access the desired value
+    :type path: str
+    :param default: The `default` parameter in the `get_nested` function is used to specify a
+    default value that should be returned if the nested value at the specified path is not
+    found. If the nested value is not found and no `default` value is provided, the function
+    will return `None` by default
+    :type default: Any
+    :return: The function `get_nested` returns the value found at the specified nested path
+    within the given data structure (dictionary or list). If the path is not found or an error
+    occurs during retrieval, it returns the default value provided.
+    :Example:
+        >>> d = {"a":{"b":{"c":"d"}},"e":[{"f":123,"g":456}]}
+        >>> utils.get_nested(d, "e[1].f")
+        123
+        >>> utils.get_nested(d, "e[1].f.g")
         None
-        >>> get_nested(d, "foo","bar","bazzzz", default="no bazzzz")
-        no bazzzz
-        >>> get_nested(d, "foo","bar")
-        {'baz': 'test'}
+        >>> utils.get_nested(d, "e[2].f.g", default="Hello")
+        'Hello'
+        >>> utils.get_nested(d, "a.b")
+        {'c': 'd'}
+
     """
+    keys: list[Any] = regex.findall(r"(?<=\[)(?:[a-zA-Z0-9_\-\.]+)(?=\])|(?:[a-zA-Z0-9_\-]+)", path)
 
     try:
-        result = reduce(dict.__getitem__, keys, dict_)
-    except (KeyError, TypeError):
+        # Getter that should work with both list and dictionaries
+        def _getter(d: list | dict, k: Any) -> Any:
+            if isinstance(d, dict) or isinstance(d, list):
+                if k.isdigit():
+                    k = int(k)
+                return d.__getitem__(k)
+
+        result = reduce(_getter, keys, data)
+    except (KeyError, TypeError, IndexError):
         return default
     else:
+        if result is None and default is not None:
+            return default
         return result
 
 
 def cast(value: str) -> int | float | str | bool | None:
     """
-    Cast a str value to its most likely primitive type.
+    The function `cast` takes a string input and attempts to convert it to various data types
+    such as int, float, bool, or None, handling different cases and returning the appropriate
+    type.
 
-    Args:
-        value (str): Value to cast
-
-    Returns:
-        PrimitiveType | None: Casted result
-
-    Example:
+    :param value: The `value` parameter in the `cast` function is expected to be a string that
+    needs to be converted to one of the following types: int, float, str, bool, or None. The
+    function attempts to convert the string value to one of these types based on certain
+    conditions and rules defined
+    :type value: str
+    :return: The function `cast` will return an `int`, `float`, `str`, `bool`, or `None` based
+    on the input `value`. If the input `value` is not a string, a `ValueError` will be raised.
+    If the input `value` is empty, "none", "null", or contains only whitespace, it will return
+    `None`. If the input
+    :Example:
         >>> from chempare import utils
         >>> utils.cast("123")
         123
@@ -90,8 +117,8 @@ def cast(value: str) -> int | float | str | bool | None:
         'Test'
         >>> utils.cast(True)
         ValueError: Unable to cast value type <class 'bool'> - Must be a string
-    """
 
+    """
     # If it's not a string, then its probably a valid type..
     if isinstance(value, str) is False:
         raise ValueError(f"Unable to cast value type '{type(value).__name__}' - Must be a string")
