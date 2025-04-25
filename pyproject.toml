@@ -289,6 +289,11 @@ show_error_context = false
 show_column_numbers = false
 show_error_codes = true
 exclude = ["docs", "test", "tests"]
+mypy_path = "./typings"
+
+[[tool.mypy.overrides]]
+module = "chempare.*"
+ignore_missing_imports = true
 
 [tool.flake8]
 # Check that this is aligned with your other tools like Black

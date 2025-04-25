@@ -1,13 +1,16 @@
 from __future__ import annotations
 
-from collections.abc import Mapping
 from unicodedata import normalize
 
 import chempare.utils as utils
 import regex
+from regex import Match
 
 
-def parse_quantity(value: str) -> Mapping | None:
+from typing import Optional
+
+
+def parse_quantity(value: str) -> Optional[dict[str, str | int]]:
     """
     Parse a string for the quantity and unit of measurement
 
@@ -54,12 +57,12 @@ def parse_quantity(value: str) -> Mapping | None:
         r"|kg|g|lbs?|pounds?|l|qt|m?[glm]|piece|drum)"
     )
 
-    matches = regex.search(pattern, value, regex.IGNORECASE)
+    matches: Match[str] | None = regex.search(pattern, value, regex.IGNORECASE)
 
-    if not matches:
+    if matches is None:
         return None
 
-    quantity_obj: Mapping = matches.groupdict()
+    quantity_obj = matches.groupdict()
 
     # Look for any proper substitution UOM's
     proper_uom = utils.find_values_with_element(uom_cases, str(quantity_obj["uom"]).lower())

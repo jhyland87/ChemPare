@@ -87,10 +87,8 @@
     "python.defaultInterpreterPath": "python",
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
-        // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
-        "--python-version=3.9",
+        "--python-version=3.12",
         "--strict",
-        // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
         "--ignore-missing-imports"
     ],
     // Ensure typeshed's configs are used, and not user's VSCode settings
@@ -191,11 +189,7 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
-        //"typings",
-        "./src",
-        //".",
-        "./src/chempare",
-        "./src/chempare/suppliers"
+        "./src/**"
     ],
     "python.analysis.autoSearchPaths": true,
     "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
@@ -253,5 +247,20 @@
     "python.analysis.diagnosticsSource": "Pyright",
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.generateWithTypeAnnotation": false
+    "python.analysis.generateWithTypeAnnotation": false,
+    "mypy-type-checker.cwd": "${workspaceFolder}",
+    "mypy-type-checker.daemonStatusFile": "${workspaceFolder}/.venv/bin/dmypy",
+    "mypy.configFile": "pyproject.toml",
+    "mypy.dmypyExecutable": "${workspaceFolder}/.venv/bin/dmypy",
+    "mypy.mypyExecutable": "${workspaceFolder}/.venv/bin/mypy",
+    "mypy.targets": [
+        "src/chempare"
+    ],
+    "mypy.env": {
+        "PYTHONPATH": "typings"
+    },
+    "python.analysis.exclude": [
+        "**/tests",
+        "**/typings"
+    ]
 }

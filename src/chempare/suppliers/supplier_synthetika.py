@@ -7,7 +7,7 @@ import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Final
+    from typing import ClassVar, Final, Any
     from datatypes import ProductType
     from datatypes import SupplierType
 
@@ -48,7 +48,7 @@ class SupplierSynthetika(SupplierBase):
             # Example request url for Synthetika
             # https://synthetikaeu.com/webapi/front/en_US/search/short-list/products?text=borohydride&org=borohydride&page=1
             #
-            get_params = {
+            get_params: dict[str, str | int] = {
                 # Setting the limit here to 1000, since the limit parameter
                 # should apply to results returned from Supplier3SChem, not the
                 # rquests made by it.
@@ -57,7 +57,9 @@ class SupplierSynthetika(SupplierBase):
                 "page": page,
             }
 
-            search_result = self.http_get_json("webapi/front/en_US/search/short-list/products", params=get_params)
+            search_result: dict[str, Any] = self.http_get_json(
+                "webapi/front/en_US/search/short-list/products", params=get_params
+            )
 
             if not search_result:
                 return
@@ -78,7 +80,7 @@ class SupplierSynthetika(SupplierBase):
             # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:

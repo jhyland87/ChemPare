@@ -55,7 +55,7 @@ class SupplierLabchemDe(SupplierBase):
             product_result = self._query_and_parse_product(product_obj)
             self._products.append(product_result)
 
-    def _query_and_parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _query_and_parse_product(self, product_obj: dict[str, Any]) -> ProductType:
         """Parse single product and return single ProductType object
 
         Args:
@@ -73,7 +73,7 @@ class SupplierLabchemDe(SupplierBase):
         if (price := product_obj.get("price")) is None:
             price = product_obj.get("lowestPrice")
 
-        product: ProductType = {
+        product = {
             # **self.__defaults,
             "supplier": self._supplier["name"],
             "url": product_obj.get("url"),

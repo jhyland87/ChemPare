@@ -74,8 +74,9 @@ def get_default_browser() -> str | None:
                 return None
 
             return data.get("LSHandlerRoleAll").split(".")[1]
-        except:
+        except Exception:
             pass
+        return None
 
     if platform.system() == "Darwin":
         return _for_darwin()

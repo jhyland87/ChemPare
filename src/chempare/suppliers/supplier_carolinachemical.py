@@ -120,7 +120,7 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
 
-        product_page_data = {"url": product_url, "variants": []}
+        product_page_data: dict[str, Any] = {"url": product_url, "variants": []}
 
         product_variations = product_page_soup.find("form", class_="variations_form").attrs.get(  # type: ignore
             "data-product_variations"

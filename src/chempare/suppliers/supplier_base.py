@@ -1,4 +1,5 @@
 """SupplierBase module to be inherited by any supplier modules"""
+
 from __future__ import annotations
 
 import json as json_

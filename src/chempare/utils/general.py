@@ -1,18 +1,11 @@
 from __future__ import annotations
 
-import math
-import os
-import platform
-import plistlib
 import random
 import re
 import string
-import sys
-import time
 from collections.abc import Callable
 from collections.abc import Iterable
 from functools import reduce
-from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
@@ -33,8 +26,6 @@ if TYPE_CHECKING:
 
 # Undefined = NewType('Undefined', str)
 # undefined = str | Undefined
-
-from datatypes import Undefined, undefined
 
 
 def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
@@ -455,7 +446,7 @@ def get_common_phrases(
     """
 
     stopwords = stopwords or []
-    phrases = {}
+    phrases: dict[tuple, int] = {}
     for text in texts:
         # Replace separators and punctuation with spaces
         text = re.sub(r"[.!?,:;/\-\s]", " ", text)
@@ -483,7 +474,7 @@ def get_common_phrases(
 
     phrases = {k: v for k, v in phrases.items() if v >= minimum_repeat}
 
-    longest_phrases = {}
+    longest_phrases: dict[tuple, Any] = {}
     keys = list(phrases.keys())
     keys.sort(key=len, reverse=True)
     for phrase in keys:

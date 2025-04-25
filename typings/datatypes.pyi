@@ -62,6 +62,7 @@ class SupplierType(TypedDict, total=False):
     """Location of supplier"""
 
 
+# SupportsKeysAndGetItem
 class VariantType(TypedDict, total=False):
     """
     VariantType dataclass for product variants.

@@ -8,7 +8,6 @@ from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
     from typing import ClassVar, Any
-    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_shopifybase.py.py
@@ -20,6 +19,8 @@ class SupplierShopifyBase(SupplierBase):
 
     __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
+
+    _supplier: ClassVar[dict[str, Any]] = {}
 
     def _query_products(self) -> None:
         """Query products from supplier"""
@@ -46,7 +47,7 @@ class SupplierShopifyBase(SupplierBase):
         #   &output=json
         #   &_=1740051794061
         #
-        epoch_ts = utils.epoch()
+        epoch_ts: int = utils.epoch()
 
         if os.environ.get("PYTEST_VERSION") is not None:
             epoch_ts = 1234567890
@@ -92,7 +93,7 @@ class SupplierShopifyBase(SupplierBase):
             # ProductType object.
             self._products.append(self._parse_product(product_obj))
 
-    def _parse_product(self, product_obj: tuple[list, dict]) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any | None]) -> dict[str, Any]:
         """Parse single product and return single ProductType object
 
         Args:
@@ -107,7 +108,7 @@ class SupplierShopifyBase(SupplierBase):
               This could maybe be included?
         """
 
-        quantity_matches = utils.parse_quantity(product_obj.get("product_code"))
+        quantity_matches = utils.parse_quantity(product_obj.get("product_code", {}))
 
         uom = "item(s)"
         quantity = product_obj.get("quantity")
