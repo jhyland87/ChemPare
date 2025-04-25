@@ -1,4 +1,5 @@
 """Base class for wix websites"""
+
 from __future__ import annotations
 
 import json
@@ -73,9 +74,7 @@ class SupplierWixBase(SupplierBase):
         # 3 Get the website instance ID ("access tokens")
         auth = self.http_get_json("_api/v1/access-tokens", cookies=self._cookies, headers=self._headers)
 
-        self._headers["Authorization"] = utils.get_nested(
-            auth, "apps", "1380b703-ce81-ff05-f115-39571d94dfcd", "instance"
-        )
+        self._headers["Authorization"] = utils.get_nested(auth, "apps[1380b703-ce81-ff05-f115-39571d94dfcd].instance")
 
     def _query_products(self):
         query_params = {
@@ -151,9 +150,7 @@ class SupplierWixBase(SupplierBase):
                 supplier=self._supplier.get('name'), url="_api/wix-ecommerce-storefront-web/api"
             )
 
-        self._query_results = utils.get_nested(
-            search_result, "data", "catalog", "category", "productsWithMetaData", "list"
-        )
+        self._query_results = utils.get_nested(search_result, "data.catalog.category.productsWithMetaData.list")
 
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
@@ -184,7 +181,7 @@ class SupplierWixBase(SupplierBase):
 
         price = utils.parse_price(product_obj["productItems"][0]["formattedPrice"])
 
-        product: ProductType = {
+        product = {
             # "uuid": product_obj.get("id"),
             "title": str(product_obj.get("name")),
             "description": str(product_obj.get("description")),
@@ -196,11 +193,5 @@ class SupplierWixBase(SupplierBase):
             "uom": qty.get("uom", None),
             "price": price.get("price"),
         }
-
-        # if qty is not None:
-        #     product.update(qty)
-
-        # if price is not None:
-        #     product.update(price)
 
         return product

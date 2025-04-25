@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from unicodedata import normalize
 
 import chempare.utils as utils
 import regex
 from regex import Match
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Optional

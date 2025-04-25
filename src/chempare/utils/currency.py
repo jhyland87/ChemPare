@@ -2,15 +2,14 @@ from __future__ import annotations
 
 from decimal import Decimal
 from decimal import ROUND_HALF_UP
+from typing import NewType
+from typing import TYPE_CHECKING
 
 import regex
 from chempare._constants import CURRENCY_CODES_MAP
 from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
 from price_parser.parser import Price
-
-from typing import NewType
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from datatypes import PriceType
@@ -75,6 +74,8 @@ def parse_price(value) -> PriceType | None:
 
 
 def to_usd(amount, from_currency):
+    if from_currency is None or amount is None:
+        return None
     from_currency_obj = Currency(from_currency, amount)  # type: ignore
 
     if (in_usd := from_currency_obj.to("USD")) is None:

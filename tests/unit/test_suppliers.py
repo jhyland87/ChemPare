@@ -1,9 +1,10 @@
 """Biofuran Chem supplier test module"""
+
 from __future__ import annotations
 
 from collections.abc import Iterable
 
-import chempare.search_factory
+import chempare.search_factory  # type: ignore
 import chempare.suppliers
 import pytest
 import requests

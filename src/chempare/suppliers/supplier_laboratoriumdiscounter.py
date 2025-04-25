@@ -58,14 +58,14 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         self._defaults = {}
 
-        shop_currency = utils.get_nested(search_result, "shop", "currency")
+        shop_currency = utils.get_nested(search_result, "shop.currency")
 
-        self._defaults["currency"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "symbol")
-        self._defaults["currency_code"] = utils.get_nested(search_result, "shop", "currencies", shop_currency, "code")
+        self._defaults["currency"] = utils.get_nested(search_result, "shop.currencies.shop_currency.symbol")
+        self._defaults["currency_code"] = utils.get_nested(search_result, "shop.currencies.shop_currency.code")
         # .shop.currencies[.shop.currency].symbol, .shop.currencies[.shop.currency].code
 
         # self._query_results = search_result["collection"]["products"][: self._limit]
-        self._query_results = utils.get_nested(search_result, "collection", "products")
+        self._query_results = utils.get_nested(search_result, "collection.products")
 
         if self._query_results is False:
             print(f"No products found for search query: {self._query}")
@@ -90,7 +90,7 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             if not quantity:
                 continue
 
-            price = utils.get_nested(product, "price", "price")
+            price = utils.get_nested(product, "price.price")
 
             product_obj = {
                 "uuid": str(product.get("id", "")).strip(),
