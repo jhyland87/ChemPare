@@ -16,15 +16,18 @@ UndefinedType = Enum('UndefinedType', ['undefined'])
 undefined = UndefinedType.undefined
 type Undefined = Literal[UndefinedType.undefined]
 
+
 class PriceType(TypedDict, total=False):
     price: Required[DecimalLikeType]
     currency: Required[str]
     currency_symbol: str | None
     usd: DecimalLikeType | None
 
+
 class QuantityType(TypedDict, total=False):
     quantity: Required[DecimalLikeType]
     uom: str
+
 
 class SupplierType(TypedDict, total=False):
     """
@@ -58,6 +61,7 @@ class SupplierType(TypedDict, total=False):
     location: str | None
     """Location of supplier"""
 
+
 class VariantType(TypedDict, total=False):
     """
     VariantType dataclass for product variants.
@@ -68,10 +72,6 @@ class VariantType(TypedDict, total=False):
     :type title: str
     :param price: The actual price of the variant
     :type price: DecimalLikeType
-    :param currency:  The currency symbol (eg: $)
-    :type currency: str
-    :param currency_code: The currency the price is in (USD, EUR, etc)
-    :type currency_code: str
     :param quantity: The quantity the variant has
     :type quantity: DecimalLikeType
     :param uom: Unit of measurement the quantity represents
@@ -153,6 +153,7 @@ class VariantType(TypedDict, total=False):
     individual: bool
     """Does the supplier sell to individual people? (as opposed to businesses
     only)"""
+
 
 class ProductType(TypedDict, total=False):
     """

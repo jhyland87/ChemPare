@@ -1,13 +1,13 @@
 from __future__ import annotations
 
+import math
 import os
 import platform
 import plistlib
 import random
+import re
 import string
 import sys
-import re
-import math
 import time
 from collections.abc import Callable
 from collections.abc import Iterable
@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 from urllib.parse import urlparse
+
 import regex
 from str2bool import str2bool
 

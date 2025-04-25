@@ -1,21 +1,24 @@
 from __future__ import annotations
 
 import os
-
-from chempare.suppliers.supplier_base import SupplierBase
+from typing import TYPE_CHECKING
 
 import chempare.utils as utils
-from datatypes import ProductType
+from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Any
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_shopifybase.py.py
 class SupplierShopifyBase(SupplierBase):
 
-    allow_cas_search: bool = True
+    allow_cas_search: ClassVar[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {"currency": "$", "currency_code": "USD", "is_restricted": False}
+    __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD", "is_restricted": False}
     """Default values applied to products from this supplier"""
 
     def _query_products(self) -> None:

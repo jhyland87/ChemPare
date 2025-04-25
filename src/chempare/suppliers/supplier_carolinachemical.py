@@ -1,33 +1,44 @@
 from __future__ import annotations
 
 import json
-from typing import Any
-from bs4 import BeautifulSoup, ResultSet
-from chempare.suppliers import SupplierBase
-from datatypes import ProductType
-from datatypes import SupplierType
-from datatypes import VariantType
+from typing import TYPE_CHECKING
+
 import chempare.utils as utils
+from bs4 import BeautifulSoup
+from bs4 import ResultSet
+from chempare.suppliers import SupplierBase
+
+
+if TYPE_CHECKING:
+    from datatypes import PriceType
+    from datatypes import ProductType
+    from datatypes import SupplierType
+    from datatypes import QuantityType
+    from datatypes import VariantType
+    from typing import Any
+    from typing import ClassVar
+    from typing import Final
 
 
 # File: /suppliers/supplier_carolinachemical.py
 class SupplierCarolinaChemical(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="Carolina Chemical",
+    _supplier: Final[SupplierType] = {
+        "name": "Carolina Chemical",
         # location=None,
-        base_url="https://carolinachemical.com",
-        api_url="https://carolinachemical.com",
-    )
+        "base_url": "https://carolinachemical.com",
+        "api_url": "https://carolinachemical.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {
-        "currency": "$",
-        "currency_code": "USD",
+    __defaults: ClassVar[PriceType] = {
+        "currency_symbol": "$",
+        "currency": "USD",
+        "price": 0.0,  # Default price value
         # "is_restricted": False,
     }
     """Default values applied to products from this supplier"""
@@ -122,28 +133,29 @@ class SupplierCarolinaChemical(SupplierBase):
         for index, variant in enumerate(product_variations):
             variant_desc = BeautifulSoup(variant.get("variation_description"), "html.parser")
 
-            variation = {
-                # _id=index,
-                "title": str(variant_desc.get_text(strip=True)),
-                "uuid": variant.get("variation_id"),
-                "sku": variant.get("sku"),
-                # description=variant_desc,
-                "price": float(variant.get("display_price")),
-                "currency": "$",
-            }
-            quantity = utils.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
+            quantity: QuantityType = utils.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
             # Basic
             if quantity is not None:
                 if quantity.get("quantity") is None and isinstance(quantity.get("uom"), str):
                     quantity["quantity"] = 1
 
-                variation.update(dict(quantity))
+                # variation.update(dict(quantity))
 
-            product_page_data["variants"].append(VariantType(**variation))
+            variation: VariantType = {
+                # _id=index,
+                "title": str(variant_desc.get_text(strip=True)),
+                "uuid": variant.get("variation_id"),
+                "sku": variant.get("sku"),
+                # description=variant_desc,
+                "price": float(variant.get("display_price")),
+                "quantity": quantity["quantity"],
+                "uom": quantity.get("uom", "Piece"),
+            }
+            product_page_data["variants"].append(variation)
 
             if index == 0:
-                product_page_data.update(dict(variation))
+                product_page_data.update(variation)
 
         page_title = utils.text_from_element(product_page_soup.find("h1", class_="product_title"))
         # Get the title

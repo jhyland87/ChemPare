@@ -56,7 +56,7 @@
             "program": "${file}",
             "justMyCode": false,
             "env": {
-                "PYTHONPATH": "typing"
+                "PYTHONPATH": "typings"
             }
         },
         {

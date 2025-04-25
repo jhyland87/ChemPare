@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
-import chempare.utils as utils
-from datatypes import SupplierType
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, Any, ClassVar
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -16,16 +20,17 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             https://www.laboratoriumdiscounter.nl/en/lithium-borohydride-ca-4mol-l-in-tetrahydrofuran-1.html?format=json
     """
 
-    _supplier: SupplierType = SupplierType(
-        name="Laboratorium Discounter", base_url="https://www.laboratoriumdiscounter.nl"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Laboratorium Discounter",
+        "base_url": "https://www.laboratoriumdiscounter.nl",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    _defaults = {}
+    _defaults: ClassVar[dict[str, Any]] = {}
 
     # def _setup(self) -> None:
     #     self._partial_product = partial(ProductType, supplier='Foo', currency="USD", currency='$')

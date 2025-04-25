@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import math
 import os
 import platform
 import plistlib
 import sys
-import math
 import time
 from pathlib import Path
 from typing import TYPE_CHECKING
+
 import chempare.utils as utils
 
 if TYPE_CHECKING:

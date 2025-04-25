@@ -23,7 +23,7 @@
         "include": true,
         "lib": true,
         ".coverage": true,
-        "*.egg-info": true,
+        "**/*.egg-info": true,
         "coverage-html": true
     },
     "files.eol": "\n",
@@ -250,5 +250,8 @@
     "python.terminal.launchArgs": [],
     "ruff.format.preview": true,
     "python.experiments.optInto": [],
-    "python.analysis.diagnosticsSource": "Pyright"
+    "python.analysis.diagnosticsSource": "Pyright",
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.generateWithTypeAnnotation": false
 }

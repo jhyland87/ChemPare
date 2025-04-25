@@ -1,15 +1,15 @@
 from __future__ import annotations
 
+import math
+import time
 from decimal import Decimal
 from types import NoneType
-from unittest.mock import patch
 from typing import Literal
-import pytest
-import chempare.utils as utils
-from datatypes import Undefined
-import math
+from unittest.mock import patch
 
-import time
+import chempare.utils as utils
+import pytest
+from datatypes import Undefined
 
 
 @pytest.mark.parametrize(

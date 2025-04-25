@@ -2,23 +2,27 @@ from __future__ import annotations
 
 import re
 from threading import Thread
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import SupplierType
-import chempare.utils as utils
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, ClassVar
 
 
 # File: /suppliers/supplier_onyxmet.py
 class SupplierOnyxmet(SupplierBase):
 
-    _limit: int = 10
+    _limit: ClassVar[int] = 10
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(name="Onyxmet", location="Poland", base_url="https://onyxmet.com")
+    _supplier: Final[SupplierType] = {"name": "Onyxmet", "location": "Poland", "base_url": "https://onyxmet.com"}
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -46,7 +50,7 @@ class SupplierOnyxmet(SupplierBase):
     # https://regex101.com/r/bLWC2b/5
     # NOTE: This misses some simple ones like "Uranyl zinc acetate  10g", and
     #       needs to be worked on
-    _title_regex_pattern = (
+    _title_regex_pattern: Final[str] = (
         r"^(?P<product>[a-zA-Z0-9\s\-(\)]+[a-zA-Z\(\)])"
         r"[-\s]+(?:(?P<purity>[0-9,]+%)?[-\s]*)"
         r"(?:(?P<quantity>[0-9,]+)(?P<uom>[cmkμ]?[mlg]))?"
@@ -150,13 +154,13 @@ class SupplierOnyxmet(SupplierBase):
         # Get the product name and price
         # (Set the product name here to default it, we ca re-set it to the
         # parsed value down below)
-        product_obj = dict(
-            title=title_elem.contents[0],
-            name=title_elem.contents[0],
+        product_obj = {
+            "title": title_elem.contents[0],
+            "name": title_elem.contents[0],
             # price=price_elem.contents[0],
-            supplier=self._supplier["name"],
-            url=href,
-        )
+            "supplier": self._supplier["name"],
+            "url": href,
+        }
 
         if utils.is_cas(self._query):
             product_obj["cas"] = self._query

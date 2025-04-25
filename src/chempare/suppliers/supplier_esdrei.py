@@ -1,22 +1,26 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
-from datatypes import SupplierType
-import chempare.utils as utils
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_esdrei.py
 class SupplierEsDrei(SupplierBase):
 
-    _supplier: SupplierType = SupplierType(
-        name="EsDrei",
+    _supplier: Final[SupplierType] = {
+        "name": "EsDrei",
         # location = '',
-        base_url="https://shop.es-drei.de",
-    )
+        "base_url": "https://shop.es-drei.de",
+    }
     """Supplier specific data"""
 
     def _query_products(self) -> None:

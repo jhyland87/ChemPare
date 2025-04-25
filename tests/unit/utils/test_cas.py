@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import pytest
-
 import chempare.utils as utils
+import pytest
 
 
 @pytest.mark.parametrize(

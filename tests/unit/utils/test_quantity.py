@@ -9,8 +9,8 @@ from types import NoneType
 from typing import Literal
 from unittest.mock import patch
 
-import pytest
 import chempare.utils as utils
+import pytest
 from datatypes import PriceType
 from datatypes import QuantityType
 from price_parser.parser import Price

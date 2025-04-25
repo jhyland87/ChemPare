@@ -1,25 +1,32 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 
-from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
-from datatypes import SupplierType
 import chempare.utils as utils
+from chempare.suppliers.supplier_base import SupplierBase
+
+if TYPE_CHECKING:
+    from typing import ClassVar, Final
+    from datatypes import ProductType
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_synthetika.py
 class SupplierSynthetika(SupplierBase):
 
-    _limit: int = 20
+    _limit: ClassVar[int] = 20
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(
-        name="Synthetika", location="Eu", base_url="https://synthetikaeu.com", api_url="https://synthetikaeu.com"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Synthetika",
+        "location": "Eu",
+        "base_url": "https://synthetikaeu.com",
+        "api_url": "https://synthetikaeu.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: ClassVar[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
@@ -86,15 +93,15 @@ class SupplierSynthetika(SupplierBase):
               stores data about the same product but in different quantities.
               This could maybe be included?
         """
-        product = dict(
-            uuid=product_obj["product_code"],
-            name=product_obj["name"],
-            title=product_obj["name"],
-            price=product_obj["price"],
-            url=f"{self._supplier["base_url"]}{product_obj["url"]}",
-            manufacturer=product_obj["attributes"].get("producer_name", None),
-            supplier=self._supplier["name"],
-        )
+        product = {
+            "uuid": product_obj["product_code"],
+            "name": product_obj["name"],
+            "title": product_obj["name"],
+            "price": product_obj["price"],
+            "url": f"{self._supplier["base_url"]}{product_obj["url"]}",
+            "manufacturer": product_obj["attributes"].get("producer_name", None),
+            "supplier": self._supplier["name"],
+        }
 
         quantity_pattern = re.compile(r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])")
         quantity_matches = quantity_pattern.search(product_obj["name"])

@@ -343,8 +343,8 @@ source = [
 [tool.coverage.report]
 show_missing = true
 omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
+exclude_lines = ["if TYPE_CHECKING:"]
 #precision = 2
-
 [tool.lcov]
 output = "coverage.lcov"
 

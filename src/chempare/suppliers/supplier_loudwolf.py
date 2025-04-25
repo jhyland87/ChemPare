@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from threading import Thread
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
-from datatypes import SupplierType
-import chempare.utils as utils
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from datatypes import ProductType
+    from typing import Final, ClassVar
 
 
 # File: /suppliers/supplier_loudwolf.py
@@ -19,15 +23,17 @@ class SupplierLoudwolf(SupplierBase):
           &description=true only be added when searching via CAS?..
     """
 
-    _limit: int = 5
+    _limit: ClassVar[int] = 5
     """Max results to store"""
 
-    _supplier: SupplierType = SupplierType(
-        name="Loudwolf Scientific", location="US", base_url="https://www.loudwolf.com/"
-    )
+    _supplier: Final[SupplierType] = {
+        "name": "Loudwolf Scientific",
+        "location": "US",
+        "base_url": "https://www.loudwolf.com/",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = False
+    allow_cas_search: Final[bool] = False
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 

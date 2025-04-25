@@ -1,6 +1,5 @@
 """
 Utility class meant to provide functionality to any inheriting classes"""
-
 from __future__ import annotations
 
 import re

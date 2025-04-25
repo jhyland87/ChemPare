@@ -1,7 +1,13 @@
 from __future__ import annotations
-from typing import Mapping, overload
-from bs4.element import NavigableString, Tag, PageElement
+
 import re
+from collections.abc import Mapping
+from typing import overload
+
+from bs4 import BeautifulSoup
+from bs4.element import NavigableString
+from bs4.element import PageElement
+from bs4.element import Tag
 
 
 @overload
@@ -25,6 +31,36 @@ def text_from_element(element) -> str | None:
 
     if isinstance(element, NavigableString):
         return element.get_text(strip=True)
+
+
+def bs4_css_selector(
+    element: BeautifulSoup, selector: str
+) -> PageElement | None:  # -> None | BeautifulSoup | Tag | NavigableString | Any:
+    selectors = parse_css_selector(selector)
+    cursor: PageElement | None = element
+    for sel in selectors:
+        print("Iterating over", sel)
+        find_args = {"attrs": {}, "name": sel["elem"]}
+
+        if (class_ := sel.get("class", None)) is not None:
+            find_args["class_"] = class_
+
+        if (elem_id := sel.get("id", None)) is not None:
+            find_args["id"] = elem_id
+
+        if (place := cursor.find(**find_args)) is not None:
+            cursor = place
+        else:
+            cursor = None
+            break
+
+    return cursor
+
+
+# product_page_soup.find("div", class_="woocommerce-product-details__short-description")
+#             .find('table')
+#             .find('tbody')
+#             .find_all('tr')
 
 
 def parse_css_selector(selector: str) -> list[Mapping]:

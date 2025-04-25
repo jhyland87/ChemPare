@@ -4,11 +4,13 @@ from decimal import Decimal
 from decimal import ROUND_HALF_UP
 from typing import NewType
 from typing import TYPE_CHECKING
+
 import regex
 from chempare._constants import CURRENCY_CODES_MAP
 from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
-from datatypes import PriceType, DecimalLikeType
+from datatypes import DecimalLikeType
+from datatypes import PriceType
 from price_parser.parser import Price
 
 if TYPE_CHECKING:

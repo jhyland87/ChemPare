@@ -8,14 +8,14 @@ from decimal import Decimal
 from typing import Literal
 from unittest.mock import patch
 
+import chempare.utils as utils
 import pytest
-import chempare.utils as utils
-from datatypes import PriceType, Undefined, undefined, UndefinedType
+from datatypes import PriceType
 from datatypes import QuantityType
+from datatypes import Undefined
+from datatypes import undefined
+from datatypes import UndefinedType
 from price_parser.parser import Price
-
-
-import chempare.utils as utils
 
 
 @pytest.mark.parametrize(

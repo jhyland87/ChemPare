@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 from bs4 import BeautifulSoup
 from chempare.suppliers.supplier_base import SupplierBase
-from datatypes import ProductType
-from datatypes import SupplierType
-import chempare.utils as utils
+
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import Final, Any, ClassVar
+    from datatypes import ProductType
 
 
 # File: /suppliers/supplier_labchem.py
@@ -21,21 +25,21 @@ class SupplierLabchem(SupplierBase):
           https://www.labchem.com/getPriceDetailPage.action?productIdList=LC261700-L03,LC261700-L27
     """
 
-    _supplier: SupplierType = SupplierType(
-        name="Labchem",
+    _supplier: Final[SupplierType] = {
+        "name": "Labchem",
         # location = 'Poland',
-        base_url="https://www.labchem.com",
-    )
+        "base_url": "https://www.labchem.com",
+    }
     """Supplier specific data"""
 
-    allow_cas_search: bool = True
+    allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    __defaults: dict = {"currency": "$", "currency_code": "USD"}
+    __defaults: ClassVar[dict[str, Any]] = {"currency": "$", "currency_code": "USD"}
     """Default values applied to products from this supplier"""
 
-    _cookies = cookies = {
+    _cookies: ClassVar[dict[str, Any]] = {
         'pagemode': 'gridView',
         'pc_debug': '',
         'pc_debug_x': 'null',
@@ -45,7 +49,7 @@ class SupplierLabchem(SupplierBase):
         'JSESSIONID': '3F1353424A5B96B3E4E989DCC4B073ED',
     }
 
-    _headers = {
+    _headers: ClassVar[dict[str, Any]] = {
         'accept': '*/*',
         'accept-language': 'en-US,en;q=0.5',
         'cache-control': 'no-cache',
@@ -156,7 +160,7 @@ class SupplierLabchem(SupplierBase):
 
             self._products.append(product)
 
-    def __parse_product(self, product_elem: BeautifulSoup) -> dict:
+    def __parse_product(self, product_elem: BeautifulSoup) -> ProductType:
         title_elem = product_elem.find("h4").find("a").get_text(strip=True)
         link = product_elem.find("div", class_="prodImage").find("a").attrs["href"]
 
@@ -190,20 +194,20 @@ class SupplierLabchem(SupplierBase):
         if mpn_value_elem:
             mpn_value = mpn_value_elem.attrs["value"] or None
 
-        _product = dict(
+        product = {
             **self.__defaults,
-            name=title_elem,
-            title=title_elem,
-            supplier=self._supplier["name"],
-            mpn=variant_part_number or part_number or mpn_value,
-            uuid=compare_id,
-            url=self._supplier["base_url"] + link,
-        )
+            "name": title_elem,
+            "title": title_elem,
+            "supplier": self._supplier["name"],
+            "mpn": variant_part_number or part_number or mpn_value,
+            "uuid": compare_id,
+            "url": self._supplier["base_url"] + link,
+        }
 
         if cas:
-            _product["cas"] = cas.get_text(strip=True)
+            product["cas"] = cas.get_text(strip=True)
 
-        return _product
+        return product
 
     def __query_products_prices(self, part_numbers: tuple[str, list]) -> dict | None:
         """Query specific product prices by their part numeber(s)

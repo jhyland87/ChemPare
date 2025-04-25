@@ -1,5 +1,4 @@
 """SupplierBase module to be inherited by any supplier modules"""
-
 from __future__ import annotations
 
 import json as json_
@@ -7,10 +6,9 @@ import logging
 from collections.abc import Iterable
 from http import HTTPMethod
 from http import HTTPStatus
-from typing import Any
-from typing import Final
-from typing import Self
+from typing import TYPE_CHECKING
 
+import chempare.utils as utils
 import requests
 from abcplus import ABCMeta
 from abcplus import abstractmethod
@@ -18,11 +16,15 @@ from abcplus import finalmethod
 from chempare.exceptions import CaptchaError
 from chempare.exceptions import NoMockDataError
 from chempare.exceptions import NoProductsFoundError
-import chempare.utils as utils
-from datatypes import ProductType
-from datatypes import SupplierType
 from fuzzywuzzy import fuzz
 
+if TYPE_CHECKING:
+    from datatypes import SupplierType
+    from typing import ClassVar
+    from datatypes import ProductType
+    from typing import Any
+    from typing import Final
+    from typing import Self
 # ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype PageElement NavigableString
 # from bs4 import ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype
 
@@ -31,16 +33,16 @@ from fuzzywuzzy import fuzz
 class SupplierBase(metaclass=ABCMeta):
     """SupplierBase module to be inherited by any supplier modules"""
 
-    _supplier: SupplierType
+    _supplier: ClassVar[SupplierType]
 
-    allow_cas_search: bool = False
+    allow_cas_search: ClassVar[bool] = False
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
 
-    language_for_search: Any = None
+    language_for_search: ClassVar[Any] = None
     """For what language it should use for the search query"""
 
-    _headers = {}
+    _headers: ClassVar[dict[str, Any]] = {}
 
     LOG_LEVEL: Final = str(utils.getenv("LOG_LEVEL", "WARNING"))
 

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from unicodedata import normalize
 
 import chempare.utils as utils
 import regex
-from typing import Mapping
 
 
 def parse_quantity(value: str) -> Mapping | None:

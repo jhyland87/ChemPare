@@ -7,9 +7,10 @@ from __future__ import annotations
 
 import os
 
-import pytest
 import chempare.utils as utils
-from datatypes import Undefined, undefined
+import pytest
+from datatypes import Undefined
+from datatypes import undefined
 
 
 # def get_environment_variable(name):
