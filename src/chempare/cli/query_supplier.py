@@ -12,7 +12,7 @@ import sys
 
 import inquirer
 from chempare.search_factory import SearchFactory  # noqa: F401
-from chempare.suppliers import *  # noqa: F401,F403
+from chempare.suppliers import *  # noqa: F403
 # from curl_cffi.requests.exceptions import ConnectionError
 
 
@@ -48,7 +48,7 @@ questions = [
         choices=[
             "SearchFactory",
             "SupplierLaballey",
-            "SupplierLabchem",
+            # "SupplierLabchem",
             "SupplierChemsavers",
             "SupplierOnyxmet",
             "SupplierEsDrei",

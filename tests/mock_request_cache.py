@@ -18,17 +18,14 @@ requests = None
 # requests_cache.install_cache('cache_name')
 
 
-def set_supplier_cache_session(supplier: str = "default"):
+def set_supplier_cache_session(supplier: str = "default") -> Optional[CachedSession]:
     testing_supplier = os.getenv("PYTEST_CURRENT_TEST")
 
-    if testing_supplier.split('::')[1]:
+    if testing_supplier and testing_supplier.split('::')[1]:
         supplier = testing_supplier.split('::')[1]
-    # called_from_test = utils.getenv("CALLED_FROM_TEST", False)
-    # test_monkeypatching = utils.getenv("TEST_MONKEYPATCHING", False)
-    # print(f"{test_monkeypatching=}, {called_from_test=}")
 
-    force_refresh = utils.getenv("PYTEST_FORCE_REFRESH", False)
-    only_mock = utils.getenv("PYTEST_ONLY_MOCK_DATA", True)
+    force_refresh: bool = utils.getenv("PYTEST_FORCE_REFRESH", False)
+    only_mock: bool = utils.getenv("PYTEST_ONLY_MOCK_DATA", True)
 
     print(f"{force_refresh=}, {force_refresh=}")
 

@@ -95,28 +95,28 @@ class SupplierLabchem(SupplierBase):
             "searchPage.action", params=get_params, headers=self._headers, cookies=self._cookies
         )
 
-    def __query_products_autocomplete(self) -> None:
-        """Query products from supplier"""
+    # def __query_products_autocomplete(self) -> None:
+    #     """Query products from supplier"""
 
-        # Example request url for Labchem Supplier
-        # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
-        #
-        get_params = {
-            "limit": self._limit,
-            "q": self._query,
-            "timestamp": 1739971044228,
-            "width": "395px",
-            "_": 1739962847766,
-        }
+    #     # Example request url for Labchem Supplier
+    #     # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
+    #     #
+    #     get_params = {
+    #         "limit": self._limit,
+    #         "q": self._query,
+    #         "timestamp": 1739971044228,
+    #         "width": "395px",
+    #         "_": 1739962847766,
+    #     }
 
-        search_result = self.http_get_json(
-            "AutoComplete.slt", params=get_params, headers=self._headers, cookies=self._cookies
-        )
+    #     search_result = self.http_get_json(
+    #         "AutoComplete.slt", params=get_params, headers=self._headers, cookies=self._cookies
+    #     )
 
-        if not search_result:
-            return
+    #     if not search_result:
+    #         return
 
-        self._query_results = search_result["response"]["docs"]["item"][: self._limit]
+    #     self._query_results = search_result["response"]["docs"]["item"][: self._limit]
 
     def _parse_products(self) -> None:
         """Parse product query results.

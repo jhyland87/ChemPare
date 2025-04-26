@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from decimal import Decimal
 from decimal import ROUND_HALF_UP
-from typing import NewType
 from typing import TYPE_CHECKING
 
 import regex
@@ -14,16 +13,6 @@ from price_parser.parser import Price
 if TYPE_CHECKING:
     from datatypes import PriceType
     from datatypes import DecimalLikeType
-
-    # # Undefined = Enum('Undefined', ['undefined'])
-    # # undefined = Undefined.undefined
-    # Undefined = NewType('Undefined', str)
-
-    # UndefinedStr = str | Undefined
-    # undef = Undefined('undefined')
-
-Undefined = NewType('Undefined', str)
-undefined = str | Undefined
 
 
 def is_currency_symbol(char: str) -> bool:
@@ -48,7 +37,7 @@ def is_currency_symbol(char: str) -> bool:
     return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
 
 
-def parse_price(value) -> PriceType | None:
+def parse_price(value: str) -> PriceType | None:
     price = Price.fromstring(value)
 
     if price is None or price.amount is None:
@@ -62,8 +51,9 @@ def parse_price(value) -> PriceType | None:
 
     result: PriceType = {
         "currency": str(currency_code or price.currency),
-        "currency_symbol": price.currency,
-        "price": price.amount_float,
+        "currency_symbol": str(price.currency),
+        "price": float(getattr(price, "amount_float", 0.0)),
+        "usd": None,
     }
 
     if currency_code is not None and currency_code != 'USD':

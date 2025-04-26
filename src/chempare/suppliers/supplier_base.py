@@ -1,4 +1,5 @@
 """SupplierBase module to be inherited by any supplier modules"""
+
 from __future__ import annotations
 
 import json as json_
@@ -36,8 +37,7 @@ class SupplierBase(metaclass=ABCMeta):
     _supplier: ClassVar[SupplierType]
 
     allow_cas_search: ClassVar[bool] = False
-    """Determines if the supplier allows CAS searches in addition to name
-    searches"""
+    """Determines if the supplier allows CAS searches in addition to name searches"""
 
     language_for_search: ClassVar[Any] = None
     """For what language it should use for the search query"""
@@ -74,6 +74,9 @@ class SupplierBase(metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
+
+        # strip out any products that don't have some of the required parameters
+        self._remove_invalid_items()
 
         # Make sure the results are relevant and a decent match.
         self._fuzz_filter()
@@ -212,37 +215,47 @@ class SupplierBase(metaclass=ABCMeta):
     @finalmethod
     def _fuzz_filter(self) -> None:
         """
-        Filter products for ones where the title has a partial fuzz ratio of
-        90% or more.
-        When testing different fuzz methods with string 'sodium borohydride',
-        partial_ratio would return 58 for 'sodium amide' and 67 for 'sodium
-        triacetoxyborohydride', where as both token_set_ratio and ratio would
-        return 67 and 78 respectively. For this reason, I decided that using
-        partial_ratio would give more reliable results.
+        Filter products for ones where the title has a partial fuzz ratio of 90% or more. When
+        testing different fuzz methods with string 'sodium borohydride', partial_ratio would
+        return 58 for 'sodium amide' and 67 for 'sodium triacetoxyborohydride', where as both
+        token_set_ratio and ratio would return 67 and 78 respectively. For this reason, I decided
+        that using partial_ratio would give more reliable results.
         Fuzz method comparison tests can be found in dev/fuzz-test.py
 
-        Todo: May be worth excluding anything in parenthesis, which would help
-              exclude false positives such as:
-                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
-                ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
+        Todo: May be worth excluding anything in parenthesis, which would help exclude false
+              positives such as:
+                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran, ca. 0.9mol/L)
+                (stabilized with Sodium Borohydride) 500mL
         """
-        if not self._products or isinstance(self._fuzz_ratio, int) is False or utils.is_cas(self._query):
+        if (
+            not self._products
+            or isinstance(self._fuzz_ratio, int) is False
+            or utils.is_cas(self._query)
+        ):
             return
 
-        x = [
+        self._products = [
             product
             for product in self._products
             if (
                 product["title"]
-                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower())
+                >= self._fuzz_ratio
             )
             or (
                 product["title"]
-                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower())
+                >= self._fuzz_ratio
             )
         ]
 
-        self._products = x
+    @finalmethod
+    def _remove_invalid_items(self) -> None:
+        req_props = ["uom", "quantity", "title", "price", "currency", "supplier", "url"]
+        self._products = [
+            product for product in self._products if all(k in product for k in req_props)
+        ]
+        print(self._products)
 
     def __next__(self) -> ProductType:
         """
@@ -360,8 +373,14 @@ class SupplierBase(metaclass=ABCMeta):
         ):
             raise NoMockDataError(url=url, supplier=self._supplier["name"])
 
-        if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
-            raise CaptchaError(supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare")
+        if (
+            res.status_code == 403
+            and "<title>Just a moment...</title>" in res.text
+            and "cloudflare" in res.text
+        ):
+            raise CaptchaError(
+                supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare"
+            )
         return res
 
     @finalmethod
@@ -444,7 +463,8 @@ class SupplierBase(metaclass=ABCMeta):
         #     # force_refresh
         # args["only_if_cached"] = self.SAVE_RESPONSES
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
+        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache'
+        #   and self.SAVE_RESPONSES is True:
         #     print("Saving responses to cache")
         #     args["only_if_cached"] = False
         #     args["force_refresh"] = True
@@ -484,7 +504,11 @@ class SupplierBase(metaclass=ABCMeta):
             url = f"{url}/{path}"
 
         req = self.http_post(
-            url, params=params, json=json, cookies=cookies or self._cookies, headers=headers or self._headers
+            url,
+            params=params,
+            json=json,
+            cookies=cookies or self._cookies,
+            headers=headers or self._headers,
         )
         if req is None:
             return None
@@ -550,9 +574,9 @@ class SupplierBase(metaclass=ABCMeta):
     def _parse_products(self) -> None:
         """Method to set the local properties for the queried product.
 
-        The self._query_results (populated by calling self._query_products())
-        is iterated over by this method, which in turn parses each property and
-        creates a new ProductType object that gets saved to this._products
+        The self._query_results (populated by calling self._query_products()) is iterated over by
+        this method, which in turn parses each property and creates a new ProductType object that
+        gets saved to this._products
         """
 
 

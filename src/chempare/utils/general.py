@@ -14,8 +14,9 @@ import regex
 from str2bool import str2bool
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Iterable, LiteralString
+    from typing import Any, Callable, Iterable, LiteralString, AnyStr
     from datatypes import PrimitiveType  # , Undefined
+    from mypy.server.astdiff import Primitive
 
     # # Undefined = Enum('Undefined', ['undefined'])
     # # undefined = Undefined.undefined
@@ -82,7 +83,7 @@ def get_nested(data: dict[str, Any] | list[Any], path: str, default: Any = None)
         return result
 
 
-def cast(value: str) -> int | float | str | bool | None:
+def cast(value: str) -> Primitive | AnyStr | None:
     """
     The function `cast` takes a string input and attempts to convert it to various data types
     such as int, float, bool, or None, handling different cases and returning the appropriate

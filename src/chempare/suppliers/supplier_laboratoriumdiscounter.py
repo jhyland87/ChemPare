@@ -74,8 +74,8 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
-        if not isinstance(self._query_results, dict):
-            raise ValueError(f"Expected a dictionary from search, received {type(self._query_results)}")
+        # if not isinstance(self._query_results, dict):
+        #     raise ValueError(f"Expected a dictionary from search, received {type(self._query_results)}")
 
         for product in self._query_results.values():
             # Skip unavailable
@@ -85,18 +85,16 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
             # Add each product to the self._products list in the form of a
             # ProductType object.
             # quantity = utils.parse_quantity(product["title"])
-            quantity = utils.parse_quantity(product.get("variant"))
-            # price = utils.parse_price(product["price"])
-            if not quantity:
+            if (
+                not (quantity := utils.parse_quantity(product.get("variant"))) or
+                not (price := utils.get_nested(product, "price.price"))
+            ):
                 continue
-
-            price = utils.get_nested(product, "price.price")
 
             product_obj = {
                 "uuid": str(product.get("id", "")).strip(),
                 "name": product.get("title", None),
                 "title": product.get("fulltitle", None),
-                # cas=self._get_cas_from_variant(product["variant"]),
                 "cas": utils.find_cas(str(product.get("variant", ""))),
                 "description": str(product.get("description", "")).strip() or None,
                 "price": price,
@@ -114,25 +112,6 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             # product_obj.update(self._defaults)
 
-            if quantity:
-                product_obj.update(quantity)
+            product_obj.update(quantity)
 
             self._products.append(product_obj)
-
-    """ LABORATORIUMDISCOUNTER SPECIFIC METHODS """
-
-    def _get_cas_from_variant(self, variant: str) -> None:
-        """Get the CAS number from the variant, if applicable
-
-        Args:
-            variant (str): Variant string
-
-        Returns:
-            str: CAS, if one was found
-        """
-        print("variant:", variant)
-
-        variant_dict = utils.nested_arr_to_dict(variant.split(","))
-
-        if variant_dict is not None and "CAS" in variant_dict:
-            return variant_dict["CAS"]

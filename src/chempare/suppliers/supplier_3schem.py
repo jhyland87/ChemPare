@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 import chempare.utils as utils
 from bs4 import BeautifulSoup
-from chempare.exceptions import ParsingProductHtmlError
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
@@ -115,10 +114,11 @@ class Supplier3SChem(SupplierBase):
         if product_data_elem is None:
             return None
 
-        try:
-            return json.loads(product_data_elem.text)
-        except json.JSONDecodeError as e:
-            raise ParsingProductHtmlError(url=url, supplier=self._supplier["name"]) from e
+        return json.loads(product_data_elem.text)
+        # try:
+        #     return json.loads(product_data_elem.text)
+        # except json.JSONDecodeError as e:
+        #     raise ParsingProductHtmlError(url=url, supplier=self._supplier["name"]) from e
 
 
 if __package__ == "suppliers":

@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
+from typing import TYPE_CHECKING
 
+
+if TYPE_CHECKING:
+    from typing import TypeVar
+    from bs4.element import PageElement
+    T = TypeVar("T", bound=PageElement)
+
+from bs4.element import Tag
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
-from bs4.element import PageElement
-from bs4.element import Tag
 
 
 def text_from_element(element) -> str | None:
@@ -24,9 +30,10 @@ def text_from_element(element) -> str | None:
 
 def bs4_css_selector(
     element: BeautifulSoup, selector: str
-) -> PageElement:  # -> None | BeautifulSoup | Tag | NavigableString | Any:
+) -> BeautifulSoup | Tag | NavigableString | None:
     selectors = parse_css_selector(selector)
-    cursor: PageElement | None = element
+    cursor: BeautifulSoup | Tag | NavigableString | None = element
+
     for sel in selectors:
         print("Iterating over", sel)
         find_args = {"attrs": {}, "name": sel["elem"]}
@@ -37,7 +44,7 @@ def bs4_css_selector(
         if (elem_id := sel.get("id", None)) is not None:
             find_args["id"] = elem_id
 
-        if (place := cursor.find(**find_args)) is not None:
+        if (place := cursor.find(**find_args)) is not None:  # type: ignore
             cursor = place
         else:
             cursor = None

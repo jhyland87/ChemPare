@@ -26,9 +26,6 @@ class NoProductsFoundError(Exception):
 
         super(NoProductsFoundError, self).__init__(self.message)
 
-    def __str__(self) -> str:
-        return self.message
-
 
 class CaptchaError(Exception):
     """
@@ -55,9 +52,6 @@ class CaptchaError(Exception):
         self.message = f"Encountered a captcha when querying supplier {self.supplier} at address {self.url}"
 
         super(CaptchaError, self).__init__(self.message)
-
-    def __str__(self) -> str:
-        return self.message
 
 
 class NoMockDataError(Exception):
@@ -89,9 +83,6 @@ class NoMockDataError(Exception):
 
         super(NoMockDataError, self).__init__(self.message)
 
-    def __str__(self) -> str:
-        return self.message
-
 
 class ProductListQueryError(Exception):
     def __init__(self, url: str, supplier: str):
@@ -108,24 +99,25 @@ class ProductListQueryError(Exception):
 
         super(ProductListQueryError, self).__init__(self.message)
 
-    def __str__(self):
-        return self.message
+
+# class ParsingProductHtmlError(Exception):
+#     def __init__(
+#         self,
+#         message: str | None = None,
+#         error: Exception | None = None,
+#         supplier: str | None = None,
+#         url: str | None = None,
+#     ) -> None:
+#         self.message = message or "Error parsing product page"
+#         self.error = error
+#         self.supplier = supplier
+#         self.url = url
+
+#         super(ParsingProductHtmlError, self).__init__(self.message)
 
 
-class ParsingProductHtmlError(Exception):
-    def __init__(
-        self,
-        message: str | None = None,
-        error: Exception | None = None,
-        supplier: str | None = None,
-        url: str | None = None,
-    ) -> None:
-        self.message = message or "Error parsing product page"
-        self.error = error
-        self.supplier = supplier
-        self.url = url
+class UnsupportedPlatformError(Exception):
+    def __init__(self, message: str) -> None:
+        self.message = message
 
-        super(ParsingProductHtmlError, self).__init__(self.message)
-
-    def __str__(self) -> str:
-        return self.message
+        super(UnsupportedPlatformError, self).__init__(self.message)

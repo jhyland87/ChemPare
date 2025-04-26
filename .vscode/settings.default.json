@@ -1,7 +1,6 @@
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": true,
-
     "editor.codeActionsOnSave": {
         "source.fixAll": "never"
     },
@@ -79,13 +78,10 @@
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "off",
     "python.defaultInterpreterPath": "python",
-    "python.analysis.extraPaths": [
-        "tests"
-    ],
     "mypy-type-checker.args": [
-        "--custom-typeshed-dir=${workspaceFolder}",
+        "--config-file=pyproject.toml",
         // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
-        "--python-version=3.9",
+        "--python-version=3.13",
         "--strict",
         // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
         "--ignore-missing-imports"
@@ -101,7 +97,7 @@
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "black-formatter.importStrategy": "fromEnvironment",
     "ruff.fixAll": true,
-    "ruff.organizeImports": true,
+    "ruff.organizeImports": false,
     "evenBetterToml.formatter.alignComments": false,
     "evenBetterToml.formatter.alignEntries": false,
     "evenBetterToml.formatter.allowedBlankLines": 1,
@@ -161,15 +157,15 @@
         "reportPrivateImportUsage": false,
         // # Incompatible overrides and property type mismatches are out of our stubs' control
         // # as they are inherited from the implementation.
-        "reportIncompatibleMethodOverride":false,
-        "reportIncompatibleVariableOverride":false,
-        "reportPropertyTypeMismatch":false,
+        "reportIncompatibleMethodOverride": false,
+        "reportIncompatibleVariableOverride": false,
+        "reportPropertyTypeMismatch": false,
         // # Overlapping overloads are often necessary in a stub, meaning pyright's check
         // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
         // # would cause many false positives and catch few bugs.
         "reportOverlappingOverload": false,
         // # The name of the self/cls parameter is out of third-party stubs' control.
-        "reportSelfClsParameterName":false,
+        "reportSelfClsParameterName": false,
         // # Not an error by default in standard mode
         "reportUnsupportedDunderAll": "error",
         "reportUnusedImport": "information"
@@ -188,26 +184,31 @@
     "python.analysis.typeCheckingMode": "standard",
     "python.analysis.enablePytestSupport": true,
     "python.analysis.include": [
-        "typings",
+        ".",
+        "src",
+        "src/chempare",
+        "typings"
     ],
-    "python.analysis.autoSearchPaths":true,
+    "python.analysis.autoSearchPaths": true,
     "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
     "python.analysis.typeEvaluation.strictDictionaryInference": false,
     "python.analysis.supportAllPythonDocuments": true,
     "python.analysis.useLibraryCodeForTypes": true,
     "python.analysis.extraPaths": [
-        "typings",
-        "./src",
-        "./src/chempare",
-        "./src/chempare/suppliers"
+        ".",
+        "src",
+        "src/chempare",
+        "typings"
+        // ".",
+        // "./src/chempare",
+        // "./src/chempare/suppliers"
     ],
     "python.autoComplete.extraPaths": [
         ".",
         "typings",
         "./src",
         "./src/chempare",
-        "./src/chempare/suppliers",
-        "./src/chempare/datatypes",
+        "./src/chempare/suppliers"
     ],
     "python.testing.pytestArgs": [
         "-s",

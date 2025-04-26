@@ -130,7 +130,7 @@ class BaseTestClass:
         assert (
             self.results["negative_query"].errisinstance(NoProductsFoundError) is True
         ), "Expected a NoProductsFoundError error"
-        assert "ExceptionInfo NoProductsFoundError" in str(self.results["negative_query"])
+        assert "ExceptionInfo NoProductsFoundError" in self.results["negative_query"].__str__()
 
 
 class TestSupplierBioFuranChem(BaseTestClass):
@@ -175,11 +175,11 @@ class TestSupplierLaballey(BaseTestClass):
     negative_query = "this_should_not_exist"
 
 
-class TestSupplierLabchem(BaseTestClass):
-    results = {}
-    supplier = "supplier_lachem"
-    positive_query = "acid"
-    negative_query = "this_should_not_exist"
+# class TestSupplierLabchem(BaseTestClass):
+#     results = {}
+#     supplier = "supplier_lachem"
+#     positive_query = "acid"
+#     negative_query = "this_should_not_exist"
 
 
 class TestSupplierLaboratoriumDiscounter(BaseTestClass):
