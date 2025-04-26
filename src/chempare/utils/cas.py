@@ -1,20 +1,28 @@
 """
 Utility class meant to provide functionality to any inheriting classes"""
+
 from __future__ import annotations
 
 import re
-from typing import Any
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 def find_cas(value: str) -> str | None:
     """
-    Parse a string for CAS values, return the first valid one
+    The function `find_cas` searches for a Chemical Abstracts Service (CAS) number within a
+    given string and returns it if found.
 
-    Args:
-        value (str): String content with possible CAS issues
-
-    Returns:
-        Optional[str]: First valid CAS number, or nothing
+    :param value: It seems like you have provided a code snippet for a function that aims to
+    find a Chemical Abstracts Service (CAS) number within a given string. However, the value
+    parameter that the function operates on is missing in your message. If you provide me with
+    the value parameter, I can help you test
+    :type value: str
+    :return: The function `find_cas` is returning a CAS number (Chemical Abstracts Service
+    number) if it is found in the input string `value`. If a valid CAS number is found, it is
+    returned. If no valid CAS number is found, the function returns `None`.
     """
 
     matches = re.findall(r"([0-9]{2,7}-[0-9]{2}-[0-9])", value)
@@ -39,7 +47,7 @@ def is_cas(value: Any) -> bool:
     established numbering system or other restrictions.
     The third segment is one integer, and that is the checksum of the first two segments.
 
-    https://regex101.com/r/xPF1Yp/2
+    `Regex test <https://regex101.com/r/xPF1Yp/2>`_
     (?P<seg_a>[0-9]{2,7})-(?P<seg_b>[0-9]{2})-(?P<checksum>[0-9])
 
     The checksum is calculated by taking the first two segments and iterating over each
@@ -54,17 +62,17 @@ def is_cas(value: Any) -> bool:
         sum([(idx+1)*int(n) for idx, n
             in enumerate(cas_chars[::-1])]) % 10
 
-    See:
-        https://www.cas.org/training/documentation/chemical-substances/checkdig
-        https://www.allcheminfo.com/chemistry/cas-number-lookup.html
+    `CAS Standardized format <https://www.cas.org/training/documentation/chemical-substances/checkdig>`_
+    `CAS lookup<https://www.allcheminfo.com/chemistry/cas-number-lookup.html>`_
 
-    Args:
-        value (str): The value to determine if its a CAS # or not
-
-    Returns:
-        bool: True if its a valid format and the checksum matches
-
-    Example:
+    :param value: The code you provided is a function that checks if a given value follows the
+    CAS (Chemical Abstracts Service) number format. The CAS number is a unique identifier
+    assigned to chemical substances
+    :type value: Any
+    :return: The function `is_cas` is checking if the input `value` is a valid CAS number
+    format. If the input is not a string or does not match the CAS number pattern, it returns
+    `False`.
+    :Example:
         >>> utils.is_cas("1234-56-6")
         True
         >>> utils.is_cas("50-00-0")
@@ -79,6 +87,7 @@ def is_cas(value: Any) -> bool:
         False
         >>> utils.is_cas("00-10-0")
         False
+
     """
 
     if isinstance(value, str) is False:
