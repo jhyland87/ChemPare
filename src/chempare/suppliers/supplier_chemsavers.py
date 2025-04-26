@@ -2,15 +2,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import ClassVar
-    from datatypes import ProductType
-    from typing import Any, Final
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -113,7 +113,7 @@ class SupplierChemsavers(SupplierBase):
         if not quantity:
             quantity = utils.parse_quantity(product_obj["name"])
 
-        product: ProductType = {
+        product = {
             # **self.__defaults,
             "uuid": product_obj["product_id"],
             "title": product_obj["name"],

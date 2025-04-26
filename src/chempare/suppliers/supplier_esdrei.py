@@ -3,14 +3,15 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
     from typing import Final
-    from datatypes import SupplierType
-    from datatypes import ProductType
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_esdrei.py
@@ -105,13 +106,6 @@ class SupplierEsDrei(SupplierBase):
         # if quantity_data:
         #     product_data.update(quantity_data)
 
-        # I notice the prices sometimes will have a 'from     32.24', so lets
-        # reduce any multi-spaced gaps down to a single space
-        # product.price = re.sub(r"\s+", r" ", product.price)
-        # if price_data:
-        #     product_data.update(price_data)
-        # elif price_string:
-        #     product_data["price"] = price_string
 
         product_data: ProductType = {
             "title": str(title_elem.attrs["title"]),

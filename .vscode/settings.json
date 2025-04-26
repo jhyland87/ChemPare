@@ -72,7 +72,7 @@
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.codeActionsOnSave": {
             // Let Ruff lint fixes handle imports
-            "source.organizeImports": "never",
+            "source.organizeImports": "always",
             "source.unusedImports": "never"
         }
     },
@@ -104,7 +104,8 @@
         "--config-file=pyproject.toml",
         "--python-version=3.13",
         "--strict",
-        "--ignore-missing-imports"
+        "--ignore-missing-imports",
+        "--exclude=tests"
     ],
     // Ensure typeshed's configs are used, and not user's VSCode settings
     "flake8.args": [
@@ -115,8 +116,8 @@
     "isort.check": false,
     "ruff.importStrategy": "fromEnvironment",
     "ruff.format.preview": true,
-    "ruff.fixAll": true,
-    "ruff.organizeImports": false,
+    "ruff.fixAll": false,
+    "ruff.organizeImports": true,
     "ruff.lineLength": 100,
     "ruff.lint.enable": true,
     "ruff.lint.pycodestyle.max-doc-length": 120,
@@ -240,7 +241,7 @@
     ],
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.defaultFormatter": "be5invis.toml",
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120,
         // "editor.defaultFormatter": "redhat.vscode-yaml",
@@ -276,12 +277,13 @@
     "mypy.configFile": "pyproject.toml",
     "mypy.mypyExecutable": "${workspaceFolder}/.venv/bin/mypy",
     "mypy.targets": [
-        "src/chempare",
-        "typings"
+        "src/chempare"
     ],
     "python.analysis.exclude": [
         "tests/**",
-        //"**/typings"
+        "tests",
+        "**/tests",
+        "./tests/*",
     ],
     "pythonautovenv.venvDirectoryNames": [
         ".venv"
@@ -289,5 +291,14 @@
     "mypy.dmypyExecutable": "${workspaceFolder}/.venv/bin/dmypy",
     "mypy.envFile": ".env",
     "mypy-type-checker.preferDaemon": false,
-    "mypy.runUsingActiveInterpreter": true
+    "mypy.runUsingActiveInterpreter": true,
+    "mypy.extraArguments": [
+        //    / "--exclude tests"
+    ],
+    "mypy-type-checker.ignorePatterns": [
+        //"tests/**"
+    ],
+    "flake8.ignorePatterns": [
+        "tests/**"
+    ]
 }

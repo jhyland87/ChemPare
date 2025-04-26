@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Final, Any
+    from typing import Any, ClassVar, Final
+
     from datatypes import SupplierType
 
 

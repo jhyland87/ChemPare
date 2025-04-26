@@ -2,14 +2,14 @@
 # from curl_cffi import requests
 from __future__ import annotations
 
-from typing import Any
-from typing import Self
+from typing import Any, Self
+
+from abcplus import finalmethod
+from datatypes import ProductType
 
 import chempare.utils as utils
-from abcplus import finalmethod
 from chempare import suppliers
 from chempare.exceptions import NoProductsFoundError
-from datatypes import ProductType
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import

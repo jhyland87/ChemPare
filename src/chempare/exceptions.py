@@ -1,5 +1,4 @@
 """Common Exceptions module"""
-
 from __future__ import annotations
 
 
@@ -22,7 +21,9 @@ class NoProductsFoundError(Exception):
         """
         self.supplier = supplier
         self.query = query
-        self.message = f"No products found at supplier {self.supplier} for '{self.query}'"
+        self.message = (
+            "No products found at supplier {supplier} for '{query}'"
+        ).format_map(self.__dict__)
 
         super(NoProductsFoundError, self).__init__(self.message)
 
@@ -49,7 +50,9 @@ class CaptchaError(Exception):
         self.supplier = supplier
         self.url = url
         self.captcha_type = captcha_type
-        self.message = f"Encountered a captcha when querying supplier {self.supplier} at address {self.url}"
+        self.message = (
+            "Captcha encountered for {supplier} at address {url}"
+        ).format_map(self.__dict__)
 
         super(CaptchaError, self).__init__(self.message)
 
@@ -76,10 +79,9 @@ class NoMockDataError(Exception):
         self.url = url
         self.details = details
         self.supplier = supplier
-        self.message = f"No mock data found when querying URL {self.url}"
-
-        if self.details:
-            self.message = f"{self.message} -  {self.details}"
+        self.message = (
+            "No mock data found when querying URL {url} - {details}"
+        ).format_map(self.__dict__)
 
         super(NoMockDataError, self).__init__(self.message)
 
@@ -95,7 +97,9 @@ class ProductListQueryError(Exception):
         """
         self.url = url
         self.supplier = supplier
-        self.message = f"Initial request for products list from {self.supplier} returned falsy - {self.url}"
+        self.message = (
+            "Initial request for products list from {supplier} returned falsy - {url}"
+        ).format_map(self.__dict__)
 
         super(ProductListQueryError, self).__init__(self.message)
 

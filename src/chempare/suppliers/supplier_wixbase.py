@@ -1,18 +1,19 @@
 """Base class for wix websites"""
-
 from __future__ import annotations
 
 import json
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 import regex
+
+import chempare.utils as utils
 from chempare.exceptions import ProductListQueryError
 from chempare.suppliers import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import ProductType
     from typing import Any
+
+    from datatypes import ProductType
 
 
 class SupplierWixBase(SupplierBase):

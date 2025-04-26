@@ -8,9 +8,8 @@ import time
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-
-from chempare.exceptions import UnsupportedPlatformError
 import chempare.utils as utils
+from chempare.exceptions import UnsupportedPlatformError
 
 if TYPE_CHECKING:
     from datatypes import PrimitiveType  # , Undefined
@@ -92,7 +91,7 @@ def get_default_browser() -> str | None:
 
 
 def getenv(
-    setting: str, default: PrimitiveType | None | Undefined = undefined, typecast: bool = True
+    setting: str, default: PrimitiveType | Undefined | None = undefined, typecast: bool = True
 ) -> PrimitiveType | None:
     """
     The getenv function retrieves an environment variable value, with an optional default value and

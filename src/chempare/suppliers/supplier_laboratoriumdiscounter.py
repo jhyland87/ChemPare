@@ -7,8 +7,9 @@ from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
+    from typing import Any, ClassVar, Final
+
     from datatypes import SupplierType
-    from typing import Final, Any, ClassVar
 
 
 # File: /suppliers/supplier_laboratoriumdiscounter.py
@@ -29,8 +30,6 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
-
-    _defaults: ClassVar[dict[str, Any]] = {}
 
     # def _setup(self) -> None:
     #     self._partial_product = partial(ProductType, supplier='Foo', currency="USD", currency='$')

@@ -1,5 +1,4 @@
 """SupplierBase module to be inherited by any supplier modules"""
-
 from __future__ import annotations
 
 import json as json_
@@ -20,12 +19,9 @@ from chempare.exceptions import NoProductsFoundError
 from fuzzywuzzy import fuzz
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from datatypes import ProductType
-    from typing import ClassVar
-    from typing import Any
-    from typing import Final
-    from typing import Self
+    from typing import Any, ClassVar, Final, Self
+
+    from datatypes import ProductType, SupplierType
 # ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype PageElement NavigableString
 # from bs4 import ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype
 
@@ -59,10 +55,11 @@ class SupplierBase(metaclass=ABCMeta):
         self._limit = limit or 20
 
         self._products: list[ProductType] = []
-        self._query_results: list = []
+        self._query_results: list[dict[str, Any]] = []
         self._index: int = 0
         self._query: str = query
-        self._cookies: dict = {}
+        self._cookies: dict[str, str] = {}
+        self._defaults: dict[str, Any] = {}
 
         # Run the setup if there is one. This is for requesting prerequisite data that's
         # needed for cookies, headers, API Keys, etc
@@ -313,7 +310,7 @@ class SupplierBase(metaclass=ABCMeta):
 
         if not path:
             path = api_url
-        elif api_url not in path:
+        elif api_url is not None and api_url not in str(path):
             path = f"{api_url}/{path}"
 
         # request-cache seems to have issues if the parameters contain dictionaries or lists.
@@ -333,15 +330,7 @@ class SupplierBase(metaclass=ABCMeta):
             "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
         }
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-        #     # if chempare.test_monkeypatching and chempare.called_from_test:
-        #     args["only_if_cached"] = self.SAVE_RESPONSES
-        # args["only_if_cached"] = True
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
 
         res = self.request(
             HTTPMethod.GET,
@@ -457,19 +446,6 @@ class SupplierBase(metaclass=ABCMeta):
         if path:
             url = f"{url}/{path}"
 
-        # args["only_if_cached"] = True
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-        #     args["only_if_cached"] = self.SAVE_RESPONSES
-        #     # force_refresh
-        # args["only_if_cached"] = self.SAVE_RESPONSES
-
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache'
-        #   and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
-
-        # resp = self.http_get(*args, **kwargs)
         resp = self.request(HTTPMethod.HEAD, url=url, **kwargs)
 
         return resp.headers

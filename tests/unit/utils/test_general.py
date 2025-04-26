@@ -19,6 +19,7 @@ from datatypes import UndefinedType
 from price_parser.parser import Price
 
 
+
 @pytest.mark.parametrize(
     ("value", "expected_result"),
     [({"foo": 123, "bar": 555}, {"bar": 555}), ({"foo": 999999, "bar": 123}, {"foo": 999999})],

@@ -7,13 +7,13 @@ from __future__ import annotations
 
 import os
 import sys
-from chempare.exceptions import UnsupportedPlatformError
+from pathlib import Path
 
 import chempare.utils as utils
 import pytest
+from chempare.exceptions import UnsupportedPlatformError
 from datatypes import Undefined
 from datatypes import undefined
-from pathlib import Path
 
 
 # def get_environment_variable(name):
