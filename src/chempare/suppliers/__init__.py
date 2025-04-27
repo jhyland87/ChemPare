@@ -15,11 +15,19 @@ for _, module_name, _ in iter_modules([package_dir]):
 
     # import the module and iterate through its attributes
     module = import_module(f"{__name__}.{module_name}")
+    # Skip the module if it is not a subclass of Supplier
+    if getattr(module, "__disabled__", False) is True:
+        continue
+
     for attribute_name in dir(module):
         attribute = getattr(module, attribute_name)
 
         # Skip anything that isn't a subclass of SupplierBase (including SupplierBase itself)
-        if not isclass(attribute) or not issubclass(attribute, SupplierBase) or attribute_name.endswith("Base"):
+        if (
+            not isclass(attribute)
+            or not issubclass(attribute, SupplierBase)
+            or attribute_name.endswith("Base")
+        ):
             continue
 
         globals()[attribute_name] = attribute

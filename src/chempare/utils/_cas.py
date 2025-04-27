@@ -72,19 +72,19 @@ def is_cas(value: Any) -> bool:
     format. If the input is not a string or does not match the CAS number pattern, it returns
     `False`.
     :Example:
-        >>> utils.is_cas("1234-56-6")
+        >>> _cas.is_cas("1234-56-6")
         True
-        >>> utils.is_cas("50-00-0")
+        >>> _cas.is_cas("50-00-0")
         True
-        >>> utils.is_cas("1234-56-999")
+        >>> _cas.is_cas("1234-56-999")
         False
-        >>> utils.is_cas("1234-56")
+        >>> _cas.is_cas("1234-56")
         False
-        >>> utils.is_cas("1234-56-0")
+        >>> _cas.is_cas("1234-56-0")
         False
-        >>> utils.is_cas("0000-00-0")
+        >>> _cas.is_cas("0000-00-0")
         False
-        >>> utils.is_cas("00-10-0")
+        >>> _cas.is_cas("00-10-0")
         False
 
     """

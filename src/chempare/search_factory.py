@@ -2,14 +2,18 @@
 # from curl_cffi import requests
 from __future__ import annotations
 
-from typing import Any, Self
+from typing import TYPE_CHECKING
 
 from abcplus import finalmethod
-from datatypes import ProductType
 
-import chempare.utils as utils
 from chempare import suppliers
 from chempare.exceptions import NoProductsFoundError
+from chempare.utils import _cas
+
+if TYPE_CHECKING:
+    from typing import Any, Self
+
+    from datatypes import ProductType
 
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
@@ -37,7 +41,7 @@ class SearchFactory:
         """
 
         self.suppliers: list[Any] = suppliers.__subclasses__[:1]
-        self._results: list[dict] = []
+        self._results: list[ProductType] = []
         self._index: int = 0
         self.__query(query, limit)
 
@@ -83,7 +87,7 @@ class SearchFactory:
                                    to None.
         """
 
-        query_is_cas = utils.is_cas(query)
+        query_is_cas = _cas.is_cas(query)
 
         if __debug__:
             print(f"Searching suppliers for '{query}'...\n")

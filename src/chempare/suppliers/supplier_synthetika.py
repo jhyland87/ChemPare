@@ -3,8 +3,8 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _currency
 
 if TYPE_CHECKING:
     from typing import Any, ClassVar, Final
@@ -102,7 +102,7 @@ class SupplierSynthetika(SupplierBase):
             r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"
         )
 
-        if (not (price_obj := utils.parse_price(product_obj["price"]))
+        if (not (price_obj := _currency.parse_price(product_obj["price"]))
             or "price" not in price_obj
             or "currency" not in price_obj
             or not (quantity_matches := quantity_pattern.search(product_obj["name"]))

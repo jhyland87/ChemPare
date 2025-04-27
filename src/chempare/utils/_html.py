@@ -4,15 +4,14 @@ import re
 from collections.abc import Mapping
 from typing import TYPE_CHECKING
 
-
 if TYPE_CHECKING:
     from typing import TypeVar
+
     from bs4.element import PageElement
     T = TypeVar("T", bound=PageElement)
 
-from bs4.element import Tag
 from bs4 import BeautifulSoup
-from bs4.element import NavigableString
+from bs4.element import NavigableString, Tag
 
 
 def text_from_element(element) -> str | None:
@@ -35,7 +34,6 @@ def bs4_css_selector(
     cursor: BeautifulSoup | Tag | NavigableString | None = element
 
     for sel in selectors:
-        print("Iterating over", sel)
         find_args = {"attrs": {}, "name": sel["elem"]}
 
         if (class_ := sel.get("class", None)) is not None:
@@ -72,15 +70,15 @@ def parse_css_selector(selector: str) -> list[Mapping]:
     :type selector: str
     :return: List of selector dictionaries
     :Example:
-        >>> import chempare.utils as utils
-        >>> utils.parse_css_selector('div#foo')
+        >>> from chempare.utils _html
+        >>> _html.parse_css_selector('div#foo')
             [{'elem': 'div', 'id': 'foo', 'class': None, 'attr_name': None, 'attr_val': None}]
-        >>> utils.parse_css_selector('div#foo > span.bar')
+        >>> _html.parse_css_selector('div#foo > span.bar')
         [
             {'elem': 'div', 'id': 'foo', 'class': None, 'attr_name': None, 'attr_val': None},
             {'elem': 'span', 'id': None, 'class': 'bar', 'attr_name': None, 'attr_val': None}
         ]
-        >>> utils.parse_css_selector('div#foo > span.bar > div.foo[idk=wtf]')
+        >>> _html.parse_css_selector('div#foo > span.bar > div.foo[idk=wtf]')
         [
             {'elem': 'div', 'id': 'foo', 'class': None, 'attr_name': None, 'attr_val': None},
             {'elem': 'span', 'id': None, 'class': 'bar', 'attr_name': None, 'attr_val': None},

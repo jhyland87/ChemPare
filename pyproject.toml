@@ -118,7 +118,7 @@ force-exclude = """
 """
 
 [tool.setuptools.package-data]
-chempare_cli = [".", "src", "src/chempare", "src/chempare/suppliers"]
+chempare_cli = [".", "src", "src/chempare", "src/chempare/suppliers", "typings"]
 
 [tool.setuptools.packages.find]
 namespaces = true

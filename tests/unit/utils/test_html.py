@@ -1,23 +1,10 @@
 from __future__ import annotations
 
-import functools
-import math
-import time
 from collections import OrderedDict
-from ctypes import util
-from decimal import Decimal
-from typing import Literal
-from unittest.mock import patch
 
-import chempare.utils as utils
+from chempare.utils import  _html
 import pytest
 from bs4 import BeautifulSoup
-from datatypes import PriceType
-from datatypes import QuantityType
-from datatypes import Undefined
-from datatypes import undefined
-from datatypes import UndefinedType
-from price_parser.parser import Price
 
 
 def sort_and_compare(dict1: dict, dict2: dict) -> bool | Exception:
@@ -44,7 +31,7 @@ def sort_and_compare(dict1: dict, dict2: dict) -> bool | Exception:
 )
 def test_bs4_css_selector(html, selector, expected_result):
     soup = BeautifulSoup(html, "html.parser")
-    result = utils.bs4_css_selector(soup, selector)
+    result = _html.bs4_css_selector(soup, selector)
 
     if expected_result is None:
         assert expected_result == None
@@ -81,7 +68,7 @@ def test_bs4_css_selector(html, selector, expected_result):
     ],
 )
 def test_parse_css_selector(selector, expected_result):
-    path = utils.parse_css_selector(selector)
+    path = _html.parse_css_selector(selector)
 
     assert type(path) is type(expected_result), "Result does not match expected type"
 

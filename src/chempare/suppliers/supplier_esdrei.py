@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 
 from bs4 import BeautifulSoup
 
-import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _cas, _currency, _quantity
 
 if TYPE_CHECKING:
     from typing import Final
@@ -89,7 +89,7 @@ class SupplierEsDrei(SupplierBase):
         # Parse the price for the useful information
         # Pattern tested at: https://regex101.com/r/R4PQ5K/1
         price_string = re.sub(r"\s+", r" ", price_string)
-        price_data = utils.parse_price(price_string)
+        price_data = _currency.parse_price(price_string)
 
         # Since the pattern were matching for will name the matched groups
         # 'price' and 'currency', we can use the `groupdict()` method to return
@@ -102,18 +102,18 @@ class SupplierEsDrei(SupplierBase):
         # product.update(price_matches.groupdict())
 
         quantity = price_unit.find_all("span")[-1].get_text(strip=True)
-        quantity_data = utils.parse_quantity(quantity)
+        quantity_data = _quantity.parse_quantity(quantity)
         # if quantity_data:
         #     product_data.update(quantity_data)
 
 
-        product_data: ProductType = {
+        product_data = {
             "title": str(title_elem.attrs["title"]),
             # "name": title_elem.attrs["title"],
             "description": product_desc.get_text(strip=True),
             "url": str(title_elem.attrs["href"]),
             "supplier": self._supplier["name"],
-            "cas": utils.find_cas(product_desc.string.strip()),
+            "cas": _cas.find_cas(product_desc.string.strip()),
             "quantity": int(quantity_data.get("quantity", "")),
             "uom": quantity_data.get("uom"),
             "price": float(price_data.get("price", "")),

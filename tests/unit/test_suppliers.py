@@ -3,7 +3,8 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-import chempare.search_factory  # type: ignore
+from requests import get
+
 import chempare.suppliers
 import pytest
 import requests
@@ -14,8 +15,6 @@ from pytest import MonkeyPatch
 from requests_cache import CacheDirectives
 
 from tests import mock_request_cache
-
-# from datatypes import ProductType
 
 
 monkeypatch = MonkeyPatch()
@@ -52,6 +51,13 @@ class BaseTestClass:
 
     @classmethod
     def setup_class(cls):
+        if cls.supplier != 'search_factory':
+            if not (mod := getattr(chempare.suppliers, str(cls.supplier), None)):
+                raise ImportError(f"Supplier module {cls.supplier} not found")
+
+            if getattr(mod, "__disabled__", False) is True:
+                pytest.skip(reason="Supplier module is disabled")
+
         monkeypatch.setenv("TEST_MONKEYPATCHING", "true")
         monkeypatch.setenv("CALLED_FROM_TEST", "true")
 
@@ -91,17 +97,7 @@ class BaseTestClass:
             isinstance(self.results["positive_query"], Iterable) is True
         ), "Expected an iterable result from supplier query"
 
-        # assert all(
-        #     isinstance(product, ProductType) for product in self.results["positive_query"]
-        # ), "Items in resulting array are not ProductTypes"
-
         assert len(self.results["positive_query"]) > 0, "No product results found"
-
-    # def setup_method(self, method):
-    #     print(f"Setting up method: {method.__name__}")
-
-    # def teardown_method(self, method):
-    #     print(f"Tearing down method: {method.__name__}")
 
     @pytest.mark.parametrize(
         ("attribute"),
@@ -155,7 +151,7 @@ class TestSupplierChemsavers(BaseTestClass):
 
 class TestSupplier3SChem(BaseTestClass):
     results = {}
-    supplier = "supplier_3SChem"
+    supplier = "supplier_3schem"
     positive_query = "clean"
     negative_query = "this_should_not_exist"
 
@@ -172,14 +168,6 @@ class TestSupplierLaballey(BaseTestClass):
     supplier = "supplier_laballey"
     positive_query = "acid"
     negative_query = "this_should_not_exist"
-
-
-# class TestSupplierLabchem(BaseTestClass):
-#     results = {}
-#     supplier = "supplier_lachem"
-#     positive_query = "acid"
-#     negative_query = "this_should_not_exist"
-
 
 class TestSupplierLaboratoriumDiscounter(BaseTestClass):
     results = {}

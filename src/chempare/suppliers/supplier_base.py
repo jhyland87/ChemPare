@@ -3,20 +3,28 @@ from __future__ import annotations
 
 import json as json_
 import logging
+import warnings
 from collections.abc import Iterable
-from http import HTTPMethod
-from http import HTTPStatus
+from http import HTTPMethod, HTTPStatus
+from ssl import SSLError
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 import requests
-from abcplus import ABCMeta
-from abcplus import abstractmethod
-from abcplus import finalmethod
-from chempare.exceptions import CaptchaError
-from chempare.exceptions import NoMockDataError
-from chempare.exceptions import NoProductsFoundError
+
+#import urllib3
+#import urllib3.connection
+from abcplus import ABCMeta, abstractmethod, finalmethod
 from fuzzywuzzy import fuzz
+from urllib3.connection import logging as urllib3_log
+
+#urllib3_log.setLevel('FATAL')
+# l = urllib3_log.getLogger()
+# l.setLevel('FATAL')
+from chempare.exceptions import CaptchaError, NoMockDataError, NoProductsFoundError
+from chempare.utils import _cas, _env, _general
+
+warnings.filterwarnings("ignore", category=Warning, module="urllib3.connection")
+# from chempare.utils import _general
 
 if TYPE_CHECKING:
     from typing import Any, ClassVar, Final, Self
@@ -40,13 +48,13 @@ class SupplierBase(metaclass=ABCMeta):
 
     _headers: ClassVar[dict[str, Any]] = {}
 
-    LOG_LEVEL: Final = str(utils.getenv("LOG_LEVEL", "WARNING"))
+    LOG_LEVEL: Final = str(_env.getenv("LOG_LEVEL", "WARNING"))
 
-    DEBUG_CURL: Final = utils.getenv("DEBUG", False)
+    DEBUG_CURL: Final = _env.getenv("DEBUG", False)
 
-    SAVE_RESPONSES: Final = utils.getenv("SAVE_RESPONSES", False)
+    SAVE_RESPONSES: Final = _env.getenv("SAVE_RESPONSES", False)
 
-    REQUEST_TIMEOUT: Final = utils.getenv("TIMEOUT", 2000)
+    REQUEST_TIMEOUT: Final = _env.getenv("TIMEOUT", 2000)
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -63,7 +71,17 @@ class SupplierBase(metaclass=ABCMeta):
 
         # Run the setup if there is one. This is for requesting prerequisite data that's
         # needed for cookies, headers, API Keys, etc
-        self._setup()
+        try:
+            self._setup()
+        except requests.exceptions.SSLError as e:
+            print("SSL error..")
+            print(e)
+            return
+        except BaseException as e:
+            print("Some other exception..")
+            print(e)
+            return
+
 
         # Execute the basic product search (logic should be in inheriting class)
         self._query_products()
@@ -227,7 +245,7 @@ class SupplierBase(metaclass=ABCMeta):
         if (
             not self._products
             or isinstance(self._fuzz_ratio, int) is False
-            or utils.is_cas(self._query)
+            or _cas.is_cas(self._query)
         ):
             return
 
@@ -240,8 +258,8 @@ class SupplierBase(metaclass=ABCMeta):
                 >= self._fuzz_ratio
             )
             or (
-                product["title"]
-                and fuzz.partial_ratio(self._query.lower(), product["title"].lower())
+                "name" in product
+                and fuzz.partial_ratio(self._query.lower(), product["name"].lower())
                 >= self._fuzz_ratio
             )
         ]
@@ -252,7 +270,6 @@ class SupplierBase(metaclass=ABCMeta):
         self._products = [
             product for product in self._products if all(k in product for k in req_props)
         ]
-        print(self._products)
 
     def __next__(self) -> ProductType:
         """
@@ -316,9 +333,9 @@ class SupplierBase(metaclass=ABCMeta):
         # request-cache seems to have issues if the parameters contain dictionaries or lists.
         # Look for any and convert them to json strings
         if isinstance(params, dict):
-            params = utils.replace_dict_values_by_value(params, True, 'true')
-            params = utils.replace_dict_values_by_value(params, False, 'false')
-            params = utils.replace_dict_values_by_value(params, None, 'null')
+            params = _general.replace_dict_values_by_value(params, True, 'true')
+            params = _general.replace_dict_values_by_value(params, False, 'false')
+            params = _general.replace_dict_values_by_value(params, None, 'null')
 
             for v in params:
                 if isinstance(v, list) or isinstance(v, dict):
@@ -331,16 +348,10 @@ class SupplierBase(metaclass=ABCMeta):
             # timeout=self.REQUEST_TIMEOUT,
         }
 
-
         res = self.request(
             HTTPMethod.GET,
             url=path,
-            **args,
-            # impersonate="chrome",
-            # cookies=cookies or self._cookies,
-            # headers=headers or self._headers,
-            # timeout=self.REQUEST_TIMEOUT,
-            # debug=self.DEBUG_CURL,
+            **args
         )
 
         return res
@@ -412,22 +423,10 @@ class SupplierBase(metaclass=ABCMeta):
             # timeout=self.REQUEST_TIMEOUT,
         }
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
-
         res = self.request(
             HTTPMethod.POST,
             url=path,
-            **args,
-            # impersonate="chrome",
-            # json=json,
-            # data=data,
-            # headers=headers or self._headers,
-            # cookies=cookies or self._cookies,
-            # timeout=self.REQUEST_TIMEOUT,
-            # debug=self.DEBUG_CURL,
+            **args
         )
 
         return res

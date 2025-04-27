@@ -3,14 +3,15 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import Final, Any, ClassVar
-    from datatypes import ProductType
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_labchem.py
@@ -235,3 +236,6 @@ class SupplierLabchem(SupplierBase):
             res[p["partNumber"]] = str(p["listPrice"]).strip() if p["listPrice"] else None
 
         return res
+
+
+__disabled__ = True

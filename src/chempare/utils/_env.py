@@ -8,12 +8,13 @@ import time
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from chempare.exceptions import UnsupportedPlatformError
+from chempare.utils import _general
 
 if TYPE_CHECKING:
-    from datatypes import PrimitiveType  # , Undefined
     from typing import Any
+
+    from datatypes import PrimitiveType  # , Undefined
     # # Undefined = Enum('Undefined', ['undefined'])
     # # undefined = Undefined.undefined
     # Undefined = NewType('Undefined', str)
@@ -23,8 +24,6 @@ if TYPE_CHECKING:
 
 # Undefined = NewType('Undefined', str)
 # undefined = str | Undefined
-
-from datatypes import Undefined, undefined
 
 
 def epoch() -> int:
@@ -69,7 +68,7 @@ def get_default_browser() -> str | None:
             with system_preferences.open("rb") as fp:
                 data = plistlib.load(fp)
 
-            data = utils.find_first(
+            data = _general.find_first(
                 data["LSHandlers"], lambda h: h.get("LSHandlerURLScheme") in ["http", "https"]
             )
 
@@ -78,7 +77,6 @@ def get_default_browser() -> str | None:
 
             return data.get("LSHandlerRoleAll", "").split(".")[1]
         except Exception as e:
-            print(e)
             pass
         return None
 
@@ -91,7 +89,7 @@ def get_default_browser() -> str | None:
 
 
 def getenv(
-    setting: str, default: PrimitiveType | Undefined | None = undefined, typecast: bool = True
+    setting: str, default: PrimitiveType | None = None, typecast: bool = True
 ) -> PrimitiveType | None:
     """
     The getenv function retrieves an environment variable value, with an optional default value and
@@ -105,7 +103,7 @@ def getenv(
     returned if the environment variable specified by the `setting` parameter is not found in the
     system environment variables. If no `default` value is provided, the function will raise a
     `ValueError` exception
-    :type default: PrimitiveType | None | type[Undefined]
+    :type default: PrimitiveType | None 
     :param typecast: The `typecast` parameter in the `getenv` function determines whether the
     retrieved environment variable should be typecasted to a string or not. If `typecast` is set to
     `True`, the function will attempt to cast the retrieved value to a string before returning it.
@@ -115,12 +113,12 @@ def getenv(
     is provided, it returns the `default` value. If the `setting` is not found and no `default`
     value is provided, it raises a `ValueError`.
     """
-    if setting not in os.environ and default is undefined:
-        raise ValueError(f"Environment variable '{setting}' not set.")
+    if setting not in os.environ:
+        return default
 
     value: Any | None = os.getenv(setting, default)
 
     if typecast is False:
         return value  # type: ignore
 
-    return utils.cast(str(value).strip())
+    return _general.cast(str(value).strip())

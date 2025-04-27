@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from chempare.exceptions import NoProductsFoundError
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _cas, _currency, _general, _quantity
 
 if TYPE_CHECKING:
-    from typing import Any, ClassVar, Final
+    from typing import Final
 
     from datatypes import SupplierType
 
@@ -57,14 +57,12 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
         self._defaults = {}
 
-        shop_currency = utils.get_nested(search_result, "shop.currency")
+        #shop_currency = _general.get_nested(search_result, "shop.currency")
 
-        self._defaults["currency"] = utils.get_nested(search_result, "shop.currencies.shop_currency.symbol")
-        self._defaults["currency_code"] = utils.get_nested(search_result, "shop.currencies.shop_currency.code")
-        # .shop.currencies[.shop.currency].symbol, .shop.currencies[.shop.currency].code
+        self._defaults["currency"] = _general.get_nested(search_result, "shop.currencies.shop_currency.symbol")
+        self._defaults["currency_code"] = _general.get_nested(search_result, "shop.currencies.shop_currency.code")
 
-        # self._query_results = search_result["collection"]["products"][: self._limit]
-        self._query_results = utils.get_nested(search_result, "collection.products")
+        self._query_results = _general.get_nested(search_result, "collection.products")
 
         if self._query_results is False:
             print(f"No products found for search query: {self._query}")
@@ -73,9 +71,6 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
     # Method iterates over the product query results stored at
     # self._query_results and returns a list of ProductType objects.
     def _parse_products(self) -> None:
-        # if not isinstance(self._query_results, dict):
-        #     raise ValueError(f"Expected a dictionary from search, received {type(self._query_results)}")
-
         for product in self._query_results.values():
             # Skip unavailable
             if product.get("available") is False:
@@ -83,10 +78,9 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
 
             # Add each product to the self._products list in the form of a
             # ProductType object.
-            # quantity = utils.parse_quantity(product["title"])
             if (
-                not (quantity := utils.parse_quantity(product.get("variant"))) or
-                not (price := utils.get_nested(product, "price.price"))
+                not (quantity := _quantity.parse_quantity(product.get("variant"))) or
+                not (price := _general.get_nested(product, "price.price"))
             ):
                 continue
 
@@ -94,22 +88,15 @@ class SupplierLaboratoriumDiscounter(SupplierBase):
                 "uuid": str(product.get("id", "")).strip(),
                 "name": product.get("title", None),
                 "title": product.get("fulltitle", None),
-                "cas": utils.find_cas(str(product.get("variant", ""))),
+                "cas": _cas.find_cas(str(product.get("variant", ""))),
                 "description": str(product.get("description", "")).strip() or None,
                 "price": price,
-                # currency_code=self._defaults["curre"],
-                # currency=shop_currency_symbol,
                 "currency": self._defaults["currency"],
                 "url": product.get("url", None),
                 "supplier": self._supplier["name"],
-                "usd": utils.to_usd(from_currency=self._defaults.get("currency_code"), amount=price),
-                # **self._defaults,
-                # **quantity.__dict__,
-                # quantity=quantity["quantity"],
-                # uom=quantity["uom"],
-            }
+                "usd": _currency.to_usd(from_currency=self._defaults.get("currency_code"), amount=price)
 
-            # product_obj.update(self._defaults)
+            }
 
             product_obj.update(quantity)
 

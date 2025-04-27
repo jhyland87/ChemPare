@@ -3,21 +3,15 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
-from bs4 import BeautifulSoup
-from bs4 import ResultSet
-from chempare.suppliers import SupplierBase
+from bs4 import BeautifulSoup, ResultSet
 
+from chempare.suppliers import SupplierBase
+from chempare.utils import _cas, _html, _quantity
 
 if TYPE_CHECKING:
-    from datatypes import PriceType
-    from datatypes import ProductType
-    from datatypes import SupplierType
-    from datatypes import QuantityType
-    from datatypes import VariantType
-    from typing import Any
-    from typing import ClassVar
-    from typing import Final
+    from typing import Any, ClassVar, Final
+
+    from datatypes import PriceType, ProductType, QuantityType, SupplierType, VariantType
 
 
 # File: /suppliers/supplier_carolinachemical.py
@@ -110,9 +104,6 @@ class SupplierCarolinaChemical(SupplierBase):
 
         product.update(product_data)
 
-        # product = ProductType(**product)
-
-        # return product.cast_properties()
         return product
 
     def __query_product_page(self, product_url: str) -> dict[str, Any]:
@@ -133,7 +124,7 @@ class SupplierCarolinaChemical(SupplierBase):
         for index, variant in enumerate(product_variations):
             variant_desc = BeautifulSoup(variant.get("variation_description"), "html.parser")
 
-            quantity: QuantityType = utils.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
+            quantity: QuantityType = _quantity.parse_quantity(variant.get("attributes").get("attribute_pa_size"))
 
             # Basic
             if quantity is not None:
@@ -157,7 +148,7 @@ class SupplierCarolinaChemical(SupplierBase):
             if index == 0:
                 product_page_data.update(variation)
 
-        page_title = utils.text_from_element(product_page_soup.find("h1", class_="product_title"))
+        page_title = _html.text_from_element(product_page_soup.find("h1", class_="product_title"))
         # Get the title
         # title_elem: bs4.Tag | bs4.NavigableString | None = product_page_soup.find("h1", class_="product_title")
 
@@ -179,7 +170,7 @@ class SupplierCarolinaChemical(SupplierBase):
                 attr = td[0].get_text(strip=True)
                 val = td[1].get_text(strip=True)
 
-                if utils.is_cas(val):
+                if _cas.is_cas(val):
                     product_page_data["cas"] = val
                     continue
 

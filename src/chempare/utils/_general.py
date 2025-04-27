@@ -3,18 +3,17 @@ from __future__ import annotations
 import random
 import re
 import string
-from collections.abc import Callable
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from functools import reduce
 from typing import TYPE_CHECKING
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 import regex
 from str2bool import str2bool
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Iterable, LiteralString, AnyStr
+    from typing import Any, AnyStr, Callable, Iterable, LiteralString
+
     from datatypes import PrimitiveType  # , Undefined
     from mypy.server.astdiff import Primitive
 
@@ -54,13 +53,13 @@ def get_nested(data: dict[str, Any] | list[Any], path: str, default: Any = None)
     occurs during retrieval, it returns the default value provided.
     :Example:
         >>> d = {"a":{"b":{"c":"d"}},"e":[{"f":123,"g":456}]}
-        >>> utils.get_nested(d, "e[1].f")
+        >>> _general.get_nested(d, "e[1].f")
         123
-        >>> utils.get_nested(d, "e[1].f.g")
+        >>> _general.get_nested(d, "e[1].f.g")
         None
-        >>> utils.get_nested(d, "e[2].f.g", default="Hello")
+        >>> _general.get_nested(d, "e[2].f.g", default="Hello")
         'Hello'
-        >>> utils.get_nested(d, "a.b")
+        >>> _general.get_nested(d, "a.b")
         {'c': 'd'}
 
     """
@@ -100,23 +99,23 @@ def cast(value: str) -> Primitive | AnyStr | None:
     `None`. If the input
     :Example:
         >>> from chempare import utils
-        >>> utils.cast("123")
+        >>> _general.cast("123")
         123
-        >>> utils.cast("123.34")
+        >>> _general.cast("123.34")
         123.34
-        >>> utils.cast("123.34000")
+        >>> _general.cast("123.34000")
         123.34
-        >>> utils.cast("true")
+        >>> _general.cast("true")
         True
-        >>> utils.cast("FALSE")
+        >>> _general.cast("FALSE")
         False
-        >>> utils.cast("None")
-        >>> utils.cast("null")
-        >>> utils.cast("0")
+        >>> _general.cast("None")
+        >>> _general.cast("null")
+        >>> _general.cast("0")
         0
-        >>> utils.cast("Test")
+        >>> _general.cast("Test")
         'Test'
-        >>> utils.cast(True)
+        >>> _general.cast(True)
         ValueError: Unable to cast value type <class 'bool'> - Must be a string
 
     """
@@ -232,11 +231,11 @@ def parse_cookie(value: str) -> dict[str, Any]:
         dict[str, str]: The cookie info (name, value, attrs, etc)
 
     Example:
-        >>> utils.parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
+        >>> _general.parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
         {'name': 'ssr-caching', 'value': 'cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g', 'max-age': '20'}
-        >>> utils.parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
+        >>> _general.parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
         {'name': 'client-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax'
-        >>> utils.parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
+        >>> _general.parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
         {'name': 'server-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax', 'httponly': True}
     """
 
@@ -330,7 +329,7 @@ def split_array_into_groups(arr: list, size: int = 2) -> list:
     parameter `size` (default value is 2) and splits the input list into sublists of the
     specified size. It returns a list of sublists created from the input list.
     :Example:
-        >>> utils.split_array_into_groups([
+        >>> _general.split_array_into_groups([
         ...    'Variant', '500 g', 'CAS', '1762-95-4'
         ... ])
         [['Variant', '500 g'],['CAS', '1762-95-4']]
@@ -346,7 +345,7 @@ def split_array_into_groups(arr: list, size: int = 2) -> list:
 def nested_arr_to_dict(arr: list[list]) -> dict | None:
     """
     Takes an array of arrays (ie: result from
-    utils.split_array_into_groups) and converts that into a dictionary.
+    _general.split_array_into_groups) and converts that into a dictionary.
 
     Args:
         arr (list[list]): The input array.
@@ -355,7 +354,7 @@ def nested_arr_to_dict(arr: list[list]) -> dict | None:
         Optional[dict]: A dictionary based off of the input alues
 
     Example:
-        >>> utils.nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
+        >>> _general.nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
         {'foo':'bar','baz":'quux"}
     """
 
@@ -381,11 +380,11 @@ def get_param_from_url(url: str, param: str | None = None) -> Any | None:
         Any: Whatver the value was of the key, or nothing
 
     Example:
-        >>> utils.get_param_from_url(
+        >>> _general.get_param_from_url(
         ...    'http://google.com?foo=bar&product_id=12345'
         ... )
         {'foo':'bar','product_id':'12345'}
-        >>> utils.get_param_from_url(
+        >>> _general.get_param_from_url(
         ...    'http://google.com?foo=bar&product_id=12345', 'product_id'
         ... )
         '12345'
@@ -421,9 +420,9 @@ def filter_highest_item_value(input_dict: dict) -> dict:
         dict: Item in dictionary with highest value
 
     Example:
-        >>> utils.filter_highest_item_value({"foo": 123, "bar": 555})
+        >>> _general.filter_highest_item_value({"foo": 123, "bar": 555})
         {'bar": 555}
-        >>> utils.filter_highest_item_value({"foo": 999999, "bar": 123})
+        >>> _general.filter_highest_item_value({"foo": 999999, "bar": 123})
         {'foo": 999999}
     """
 
