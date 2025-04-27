@@ -211,6 +211,14 @@ class TestSupplierWarchem(BaseTestClass):
     negative_query = "this_should_not_exist"
 
 
+
+class TestSupplierLabchem(BaseTestClass):
+    results = {}
+    supplier = "supplier_labchem"
+    positive_query = "acid"
+    negative_query = "this_should_not_exist"
+
+
 class TestSupplierLabchemDe(BaseTestClass):
     results = {}
     supplier = "supplier_labchemde"

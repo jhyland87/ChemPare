@@ -316,6 +316,7 @@ disable_warnings = ["no-data-collected"]
 #     "src/chempare/datatypes",
 #     "src/chempare/suppliers"
 # ]
+
 omit = [
     "**/__init__.py",
     "*/__init__.py",
@@ -336,6 +337,15 @@ source = ["src", "src/chempare", "src/chempare/exceptions", "src/chempare/suppli
 show_missing = true
 omit = ["**/__init__.py", "*/__init__.py", "*tests*", "*typings*", "/tests", "/typings"]
 exclude_lines = ["if TYPE_CHECKING:"]
+exclude_also = [
+    # 1. Exclude an except clause of a specific form:
+    'except ValueError:\n\s*assume\(False\)',
+    # 2. Comments to turn coverage on and off:
+    'no cover: start(?s:.)*?no cover: stop',
+    # 3. A pragma comment that excludes an entire file:
+    '\A(?s:.*# pragma: exclude file.*)\Z',
+]
+
 #precision = 2
 [tool.lcov]
 output = "coverage.lcov"
