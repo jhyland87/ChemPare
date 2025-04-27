@@ -3,10 +3,13 @@ from __future__ import annotations
 import os
 import sys
 
-from chempare.search_factory import SearchFactory
+import urllib3
 from rich.console import Console
 from rich.panel import Panel
 
+from chempare.search_factory import SearchFactory
+
+urllib3.disable_warnings()
 
 # def signal_handler(sig, frame):
 #     print('You pressed Ctrl+C!')
@@ -53,43 +56,43 @@ def main():
     # Loop over the products and create the panel for each.
     for product in product_search:
 
-        if product.supplier in supplier_list:
-            if supplier_list[product.supplier] == 3:
+        if product["supplier"] in supplier_list:
+            if supplier_list[product["supplier"]] == 3:
                 continue
             else:
-                supplier_list[product.supplier] += 1
+                supplier_list[product["supplier"]] += 1
         else:
-            supplier_list[product.supplier] = 1
+            supplier_list[product["supplier"]] = 1
 
-        name = product.name
-        price = product.price
-        currency = product.currency
-        # currency_code = product.currency_code or "XX"
+        title = product["title"]
+        price = product["price"]
+        currency = product["currency"]
+        # currency_code = product["currency"]_code or "XX"
         # if hasattr(product, 'USD')
-        cas = product.cas or "N/A"
+        cas = product.get("cas", "N/A")
         # trunk-ignore(git-diff-check/error)
-        if product.quantity is None or product.uom is None:
+        if product["quantity"] is None or product["uom"] is None:
             quantity = "N/A"
         else:
-            quantity = f"{product.quantity}{product.uom}"
+            quantity = f"{product["quantity"]}{product["uom"]}"
 
-        supplier = product.supplier
+        supplier = product["supplier"]
         # Create the panel to print
 
         us_equiv = ""
 
         # If the price has a USD conversion, then show that in parenthesis
-        if getattr(product, 'usd', None) is not None:
-            us_equiv = f" (${product.usd} USD)"
+        if (usd := product.get('usd', None)) is not None:
+            us_equiv = f" (${usd} USD)"
 
         result_row = Panel(
             (
-                f"[yellow][b]{name}[/b][/yellow]\n"
+                f"[yellow][b]{title}[/b][/yellow]\n"
                 f"CAS: {cas}\n"
                 f"Price: {currency}{price}{us_equiv}\n"
                 f"Quantity: {quantity if quantity else "N/A"}\n"
                 f"Supplier: {supplier}\n"
-                f"URL: {product.url or "N/A"}"
+                f"URL: {product["url"] or "N/A"}"
             ),
             expand=True,
             # width=term_width,

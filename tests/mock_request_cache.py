@@ -4,33 +4,23 @@ import os
 from http import HTTPMethod
 from http import HTTPStatus
 
-from chempare import utils
+from chempare.utils import _env
 from requests_cache import CachedSession
 
+import urllib3
 
+urllib3.disable_warnings()
 _cache_sessions = {}
 
 requests = None
-
-
-# print(f"{save_responses=}")
-
-# requests_cache.install_cache('cache_name')
-
-
-def set_supplier_cache_session(supplier: str = "default"):
+def set_supplier_cache_session(supplier: str = "default") -> CachedSession|None:
     testing_supplier = os.getenv("PYTEST_CURRENT_TEST")
 
-    if testing_supplier.split('::')[1]:
+    if testing_supplier and testing_supplier.split('::')[1]:
         supplier = testing_supplier.split('::')[1]
-    # called_from_test = utils.getenv("CALLED_FROM_TEST", False)
-    # test_monkeypatching = utils.getenv("TEST_MONKEYPATCHING", False)
-    # print(f"{test_monkeypatching=}, {called_from_test=}")
 
-    force_refresh = utils.getenv("PYTEST_FORCE_REFRESH", False)
-    only_mock = utils.getenv("PYTEST_ONLY_MOCK_DATA", True)
-
-    print(f"{force_refresh=}, {force_refresh=}")
+    force_refresh :bool = bool( _env.getenv("PYTEST_FORCE_REFRESH", default=False, typecast=True))
+    only_mock:bool = bool(_env.getenv("PYTEST_ONLY_MOCK_DATA", default=True, typecast=True))
 
     if supplier not in _cache_sessions:
         save_to = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_data", supplier)

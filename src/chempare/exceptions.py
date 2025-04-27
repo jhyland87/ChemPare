@@ -11,7 +11,7 @@ class NoProductsFoundError(Exception):
         query (str): String queried for.
     """
 
-    def __init__(self, supplier: str, query: str):
+    def __init__(self, supplier: str, query: str) -> None:
         """
         Initializes the NoProductsFoundError exception
 
@@ -19,12 +19,13 @@ class NoProductsFoundError(Exception):
             supplier (str): Name of supplier.
             query (str): String queried for.
         """
-
         self.supplier = supplier
         self.query = query
+        self.message = (
+            "No products found at supplier {supplier} for '{query}'"
+        ).format_map(self.__dict__)
 
-    def __str__(self):
-        return f"No products found at supplier {self.supplier} for '{self.query}'"
+        super(NoProductsFoundError, self).__init__(self.message)
 
 
 class CaptchaError(Exception):
@@ -37,7 +38,7 @@ class CaptchaError(Exception):
         captcha_type (str | None, optional): Cloudflare, Datadome, etc. (optional)
     """
 
-    def __init__(self, supplier: str, url: str, captcha_type: str | None = None):
+    def __init__(self, supplier: str, url: str, captcha_type: str | None = None) -> None:
         """
         Initializes the CaptchaError exception
 
@@ -49,9 +50,11 @@ class CaptchaError(Exception):
         self.supplier = supplier
         self.url = url
         self.captcha_type = captcha_type
+        self.message = (
+            "Captcha encountered for {supplier} at address {url}"
+        ).format_map(self.__dict__)
 
-    def __str__(self):
-        return f"Encountered a captcha when querying supplier {self.supplier} at address {self.url}"
+        super(CaptchaError, self).__init__(self.message)
 
 
 class NoMockDataError(Exception):
@@ -64,7 +67,7 @@ class NoMockDataError(Exception):
         details (str | None, optional): Optional string with any extra details. Defaults to None.
     """
 
-    def __init__(self, url: str, supplier: str | None = None, details: str | None = None):
+    def __init__(self, url: str, supplier: str | None = None, details: str | None = None) -> None:
         """
         Initializes the NoMockDataError exception
 
@@ -76,12 +79,11 @@ class NoMockDataError(Exception):
         self.url = url
         self.details = details
         self.supplier = supplier
+        self.message = (
+            "No mock data found when querying URL {url} - {details}"
+        ).format_map(self.__dict__)
 
-    def __str__(self):
-        ret = f"No mock data found when querying URL {self.url}"
-        if self.details:
-            ret += " - {self.details}"
-        return ret
+        super(NoMockDataError, self).__init__(self.message)
 
 
 class ProductListQueryError(Exception):
@@ -95,6 +97,31 @@ class ProductListQueryError(Exception):
         """
         self.url = url
         self.supplier = supplier
+        self.message = (
+            "Initial request for products list from {supplier} returned falsy - {url}"
+        ).format_map(self.__dict__)
 
-    def __str__(self):
-        return f"Initial request for products list from {self.supplier} returned falsy - {self.url}"
+        super(ProductListQueryError, self).__init__(self.message)
+
+
+# class ParsingProductHtmlError(Exception):
+#     def __init__(
+#         self,
+#         message: str | None = None,
+#         error: Exception | None = None,
+#         supplier: str | None = None,
+#         url: str | None = None,
+#     ) -> None:
+#         self.message = message or "Error parsing product page"
+#         self.error = error
+#         self.supplier = supplier
+#         self.url = url
+
+#         super(ParsingProductHtmlError, self).__init__(self.message)
+
+
+class UnsupportedPlatformError(Exception):
+    def __init__(self, message: str) -> None:
+        self.message = message
+
+        super(UnsupportedPlatformError, self).__init__(self.message)

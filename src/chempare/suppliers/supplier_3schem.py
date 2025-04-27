@@ -3,15 +3,15 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _general, _quantity
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
     from typing import ClassVar, Final
-    from datatypes import ProductType
-    from datatypes import QuantityType
+
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_3schem.py
@@ -41,12 +41,15 @@ class Supplier3SChem(SupplierBase):
             "resources[options][unavailable_products]": "last",
         }
 
-        search_result = self.http_get_json("search/suggest.json", params=get_params)
-
-        if not search_result:
+        if not (search_result := self.http_get_json("search/suggest.json", params=get_params)):
             return
 
-        self._query_results = search_result.get('resources', {}).get('results', {}).get('products', [])[: self._limit]
+        self._query_results = (
+            search_result
+            .get('resources', {})
+            .get('results', {})
+            .get('products', [])[: self._limit]
+        )
 
     def _parse_products(self) -> None:
         """Parse products stored at self._query_results"""
@@ -55,12 +58,17 @@ class Supplier3SChem(SupplierBase):
             if product.get("available") is False:
                 continue
 
-            if not (product_json := self._get_product_data(product.get("url"), product.get("id"))):
+            if not (product_json := self._get_product_data(
+                url=product.get("url"),
+                product_id=product.get("id"))
+            ):
                 raise ValueError("Failed to retrieve the product page for product")
 
-            quantity: QuantityType = utils.parse_quantity(product_json["variants"][0]["options"][0])
+            quantity= _quantity.parse_quantity(
+                _general.get_nested(product_json, "variants[0].options[0]", default="")
+            )
 
-            product_obj: ProductType = {
+            product_obj = {
                 "uuid": product.get("id"),
                 "title": product.get("title"),
                 "price": product_json["variants"][0]["price"],
@@ -73,21 +81,9 @@ class Supplier3SChem(SupplierBase):
                 # **quantity.__dict__,
             }
 
-            # ProductType(
-            #     uuid=product.get("id"),
-            #     name=product.get("title"),
-            #     title=product.get("title"),
-            #     price=product_json["variants"][0]["price"],
-            #     currency="$",
-            #     currency_code="USD",
-            #     url=self._supplier["base_url"] + product.get("url"),
-            #     supplier=self._supplier["name"],
-            #     **quantity.__dict__,
-            # )
-
             self._products.append(product_obj)
 
-    def _get_product_data(self, url: str, product_id: int) -> dict:
+    def _get_product_data(self, url: str, product_id: int) -> dict | None:
         """
         _get_product_data Get specific info about a product
 
@@ -106,10 +102,13 @@ class Supplier3SChem(SupplierBase):
 
         product_page_soup = BeautifulSoup(product_page, "html.parser")
 
-        product_data = product_page_soup.find("script", class_=f"ProductJson-{product_id}")
+        product_data_elem = product_page_soup.select_one(
+            f"script.ProductJson-{product_id}"
+        )
+        if not product_data_elem:
+            return None
 
-        return json.loads(product_data.get_text(strip=True))
+        return json.loads(product_data_elem.text)
 
 
-if __package__ == "suppliers":
-    __disabled__ = False
+__disabled__ = False

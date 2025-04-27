@@ -2,15 +2,15 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _html, _quantity
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import ClassVar
-    from datatypes import ProductType
-    from typing import Any, Final
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_chemsavers.py
@@ -92,10 +92,6 @@ class SupplierChemsavers(SupplierBase):
             if float(product.get("price")) == 0 or product.get("price") is None:
                 continue
 
-            # # Ignore items that don't send to residences
-            # if product.is_restricted is True:
-            #     continue
-
             self._products.append(product)
 
     def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
@@ -108,12 +104,12 @@ class SupplierChemsavers(SupplierBase):
             ProductType: Instance of ProductType
         """
 
-        quantity = utils.parse_quantity(product_obj["description"])
+        quantity = _quantity.parse_quantity(product_obj["description"])
 
         if not quantity:
-            quantity = utils.parse_quantity(product_obj["name"])
+            quantity = _quantity.parse_quantity(product_obj["name"])
 
-        product: ProductType = {
+        product = {
             # **self.__defaults,
             "uuid": product_obj["product_id"],
             "title": product_obj["name"],
@@ -139,7 +135,7 @@ class SupplierChemsavers(SupplierBase):
         # The restrictions always seem to be shown in
         # <strong style="color: red;"></strong> tags
 
-        restriction: str | None = utils.text_from_element(description_soup.find("strong", {"style": "color: red;"}))
+        restriction: str | None = _html.text_from_element(description_soup.find("strong", {"style": "color: red;"}))
 
         if (
             restriction is not None

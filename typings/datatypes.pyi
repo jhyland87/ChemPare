@@ -3,25 +3,35 @@
 from decimal import Decimal
 from typing import TypedDict
 from typing import Required
-from typing import Literal
+from typing import Literal, TypeVar
 
 from enum import Enum
 
 # export PYTHONPATH=typings
-DecimalLikeType = int | float | Decimal
-PrimitiveType = int | float | str | bool
-TimeoutType = float | tuple[float, float] | tuple[float, None]
 
 UndefinedType = Enum('UndefinedType', ['undefined'])
 undefined = UndefinedType.undefined
-type Undefined = Literal[UndefinedType.undefined]
+type Undefined = Literal[UndefinedType.undefined] | None
+
+_T = TypeVar('T')
+
+DecimalLikeType = int | float | Decimal
+PrimitiveType = int | float | str | bool
+# PrimitiveOrUndefType = int | float | str | bool | UndefinedType | None
+TimeoutType = float | tuple[float, float] | tuple[float, None]
 
 
 class PriceType(TypedDict, total=False):
-    price: Required[DecimalLikeType]
-    currency: Required[str]
-    currency_symbol: str | None
-    usd: DecimalLikeType | None
+    currency: str
+    currency_symbol: str
+    price: float
+    usd: Decimal | None
+
+# class PriceType(TypedDict, total=False):
+#     price: Required[DecimalLikeType]
+#     currency: Required[str]
+#     currency_symbol: str | None
+#     usd: DecimalLikeType | None
 
 
 class QuantityType(TypedDict, total=False):
@@ -243,3 +253,20 @@ class ProductType(TypedDict, total=False):
     container: str | None
     quality: str | None
     name: str | None
+
+
+def parse_price(value: str) -> PriceType | None: ...
+
+
+# if TYPE_CHECKING:
+
+#     @overload
+#     def text_from_element(element: None) -> None: ...
+
+#     @overload
+#     def text_from_element(element: PageElement) -> str: ...
+
+#     @overload
+#     def text_from_element(element: Tag | NavigableString): ...
+
+#     def text_from_element(element): ...

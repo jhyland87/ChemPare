@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import Final, Any, ClassVar
-    from datatypes import ProductType
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_labchemde.py
@@ -73,7 +73,7 @@ class SupplierLabchemDe(SupplierBase):
         if (price := product_obj.get("price")) is None:
             price = product_obj.get("lowestPrice")
 
-        product = {
+        return {
             # **self.__defaults,
             "supplier": self._supplier["name"],
             "url": product_obj.get("url"),
@@ -87,12 +87,3 @@ class SupplierLabchemDe(SupplierBase):
             "currency": self.__defaults["currency"],
             "price": price,
         }
-
-        # price_data = utils.parse_price(price.get("formatted"))
-
-        # product.update(price_data.__dict__)
-
-        # product = ProductType(**product)
-
-        # return product.cast_properties()
-        return product

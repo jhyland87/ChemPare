@@ -9,7 +9,7 @@ from types import NoneType
 from typing import Literal
 from unittest.mock import patch
 
-import chempare.utils as utils
+from chempare.utils import _cas, _html, _quantity, _general, _currency
 import pytest
 from datatypes import PriceType
 from datatypes import QuantityType
@@ -34,23 +34,23 @@ from price_parser.parser import Price
         ("foobar", NoneType, None, None),
     ],
     ids=[
-        "utils.parse_quantity: '1 ounce' -> 1 ounce",
-        "utils.parse_quantity: '43 ounces' -> 43 ounces",
-        "utils.parse_quantity: '1 lb' -> 1 lb",
-        "utils.parse_quantity: '4 lbs' -> 4 lbs",
-        "utils.parse_quantity: '5 g' -> 5 g",
-        "utils.parse_quantity: '10 gal' -> 10 gal",
-        "utils.parse_quantity: '43.56 qt' -> 43.56 qt",
-        "utils.parse_quantity: '10L' -> 10 L",
-        "utils.parse_quantity: '5 l' -> 5 L",
-        "utils.parse_quantity: '123.45mm' -> 123.45 mm",
-        "utils.parse_quantity: '100 millimeters' -> 100 millimeters",
-        "utils.parse_quantity: '1234ml' -> 1234 mL",
-        "utils.parse_quantity: 'foobar' -> None",
+        "_quantity.parse_quantity: '1 ounce' -> 1 ounce",
+        "_quantity.parse_quantity: '43 ounces' -> 43 ounces",
+        "_quantity.parse_quantity: '1 lb' -> 1 lb",
+        "_quantity.parse_quantity: '4 lbs' -> 4 lbs",
+        "_quantity.parse_quantity: '5 g' -> 5 g",
+        "_quantity.parse_quantity: '10 gal' -> 10 gal",
+        "_quantity.parse_quantity: '43.56 qt' -> 43.56 qt",
+        "_quantity.parse_quantity: '10L' -> 10 L",
+        "_quantity.parse_quantity: '5 l' -> 5 L",
+        "_quantity.parse_quantity: '123.45mm' -> 123.45 mm",
+        "_quantity.parse_quantity: '100 millimeters' -> 100 millimeters",
+        "_quantity.parse_quantity: '1234ml' -> 1234 mL",
+        "_quantity.parse_quantity: 'foobar' -> None",
     ],
 )
 def test_parse_quantity(value, expected_type, quantity, uom):
-    result = utils.parse_quantity(value)
+    result = _quantity.parse_quantity(value)
 
     assert (
         type(result) is expected_type

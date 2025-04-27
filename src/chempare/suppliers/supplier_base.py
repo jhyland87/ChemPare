@@ -1,31 +1,35 @@
 """SupplierBase module to be inherited by any supplier modules"""
-
 from __future__ import annotations
 
 import json as json_
 import logging
+import warnings
 from collections.abc import Iterable
-from http import HTTPMethod
-from http import HTTPStatus
+from http import HTTPMethod, HTTPStatus
+from ssl import SSLError
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 import requests
-from abcplus import ABCMeta
-from abcplus import abstractmethod
-from abcplus import finalmethod
-from chempare.exceptions import CaptchaError
-from chempare.exceptions import NoMockDataError
-from chempare.exceptions import NoProductsFoundError
+
+#import urllib3
+#import urllib3.connection
+from abcplus import ABCMeta, abstractmethod, finalmethod
 from fuzzywuzzy import fuzz
+from urllib3.connection import logging as urllib3_log
+
+#urllib3_log.setLevel('FATAL')
+# l = urllib3_log.getLogger()
+# l.setLevel('FATAL')
+from chempare.exceptions import CaptchaError, NoMockDataError, NoProductsFoundError
+from chempare.utils import _cas, _env, _general
+
+warnings.filterwarnings("ignore", category=Warning, module="urllib3.connection")
+# from chempare.utils import _general
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import ClassVar
-    from datatypes import ProductType
-    from typing import Any
-    from typing import Final
-    from typing import Self
+    from typing import Any, ClassVar, Final, Self
+
+    from datatypes import ProductType, SupplierType
 # ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype PageElement NavigableString
 # from bs4 import ResultSet BeautifulSoup Tag TemplateString ElementFilter CData Doctype
 
@@ -37,21 +41,20 @@ class SupplierBase(metaclass=ABCMeta):
     _supplier: ClassVar[SupplierType]
 
     allow_cas_search: ClassVar[bool] = False
-    """Determines if the supplier allows CAS searches in addition to name
-    searches"""
+    """Determines if the supplier allows CAS searches in addition to name searches"""
 
     language_for_search: ClassVar[Any] = None
     """For what language it should use for the search query"""
 
     _headers: ClassVar[dict[str, Any]] = {}
 
-    LOG_LEVEL: Final = str(utils.getenv("LOG_LEVEL", "WARNING"))
+    LOG_LEVEL: Final = str(_env.getenv("LOG_LEVEL", "WARNING"))
 
-    DEBUG_CURL: Final = utils.getenv("DEBUG", False)
+    DEBUG_CURL: Final = _env.getenv("DEBUG", False)
 
-    SAVE_RESPONSES: Final = utils.getenv("SAVE_RESPONSES", False)
+    SAVE_RESPONSES: Final = _env.getenv("SAVE_RESPONSES", False)
 
-    REQUEST_TIMEOUT: Final = utils.getenv("TIMEOUT", 2000)
+    REQUEST_TIMEOUT: Final = _env.getenv("TIMEOUT", 2000)
 
     def __init__(self, query: str, limit: int | None = None, fuzz_ratio: int = 100) -> None:
         self.__init_logging()
@@ -60,14 +63,25 @@ class SupplierBase(metaclass=ABCMeta):
         self._limit = limit or 20
 
         self._products: list[ProductType] = []
-        self._query_results: list = []
+        self._query_results: list[dict[str, Any]] = []
         self._index: int = 0
         self._query: str = query
-        self._cookies: dict = {}
+        self._cookies: dict[str, str] = {}
+        self._defaults: dict[str, Any] = {}
 
         # Run the setup if there is one. This is for requesting prerequisite data that's
         # needed for cookies, headers, API Keys, etc
-        self._setup()
+        try:
+            self._setup()
+        except requests.exceptions.SSLError as e:
+            print("SSL error..")
+            print(e)
+            return
+        except BaseException as e:
+            print("Some other exception..")
+            print(e)
+            return
+
 
         # Execute the basic product search (logic should be in inheriting class)
         self._query_products()
@@ -75,6 +89,9 @@ class SupplierBase(metaclass=ABCMeta):
         # Execute the method that parses self._query_results to define the
         # product properties
         self._parse_products()
+
+        # strip out any products that don't have some of the required parameters
+        self._remove_invalid_items()
 
         # Make sure the results are relevant and a decent match.
         self._fuzz_filter()
@@ -213,37 +230,46 @@ class SupplierBase(metaclass=ABCMeta):
     @finalmethod
     def _fuzz_filter(self) -> None:
         """
-        Filter products for ones where the title has a partial fuzz ratio of
-        90% or more.
-        When testing different fuzz methods with string 'sodium borohydride',
-        partial_ratio would return 58 for 'sodium amide' and 67 for 'sodium
-        triacetoxyborohydride', where as both token_set_ratio and ratio would
-        return 67 and 78 respectively. For this reason, I decided that using
-        partial_ratio would give more reliable results.
+        Filter products for ones where the title has a partial fuzz ratio of 90% or more. When
+        testing different fuzz methods with string 'sodium borohydride', partial_ratio would
+        return 58 for 'sodium amide' and 67 for 'sodium triacetoxyborohydride', where as both
+        token_set_ratio and ratio would return 67 and 78 respectively. For this reason, I decided
+        that using partial_ratio would give more reliable results.
         Fuzz method comparison tests can be found in dev/fuzz-test.py
 
-        Todo: May be worth excluding anything in parenthesis, which would help
-              exclude false positives such as:
-                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran,
-                ca. 0.9mol/L) (stabilized with Sodium Borohydride) 500mL
+        Todo: May be worth excluding anything in parenthesis, which would help exclude false
+              positives such as:
+                Borane - Tetrahydrofuran Complex (8.5% in Tetrahydrofuran, ca. 0.9mol/L)
+                (stabilized with Sodium Borohydride) 500mL
         """
-        if not self._products or isinstance(self._fuzz_ratio, int) is False or utils.is_cas(self._query):
+        if (
+            not self._products
+            or isinstance(self._fuzz_ratio, int) is False
+            or _cas.is_cas(self._query)
+        ):
             return
 
-        x = [
+        self._products = [
             product
             for product in self._products
             if (
                 product["title"]
-                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+                and fuzz.partial_ratio(self._query.lower(), product["title"].lower())
+                >= self._fuzz_ratio
             )
             or (
-                product["title"]
-                and fuzz.partial_ratio(self._query.lower(), product["title"].lower()) >= self._fuzz_ratio
+                "name" in product
+                and fuzz.partial_ratio(self._query.lower(), product["name"].lower())
+                >= self._fuzz_ratio
             )
         ]
 
-        self._products = x
+    @finalmethod
+    def _remove_invalid_items(self) -> None:
+        req_props = ["uom", "quantity", "title", "price", "currency", "supplier", "url"]
+        self._products = [
+            product for product in self._products if all(k in product for k in req_props)
+        ]
 
     def __next__(self) -> ProductType:
         """
@@ -301,15 +327,15 @@ class SupplierBase(metaclass=ABCMeta):
 
         if not path:
             path = api_url
-        elif api_url not in path:
+        elif api_url is not None and api_url not in str(path):
             path = f"{api_url}/{path}"
 
         # request-cache seems to have issues if the parameters contain dictionaries or lists.
         # Look for any and convert them to json strings
         if isinstance(params, dict):
-            params = utils.replace_dict_values_by_value(params, True, 'true')
-            params = utils.replace_dict_values_by_value(params, False, 'false')
-            params = utils.replace_dict_values_by_value(params, None, 'null')
+            params = _general.replace_dict_values_by_value(params, True, 'true')
+            params = _general.replace_dict_values_by_value(params, False, 'false')
+            params = _general.replace_dict_values_by_value(params, None, 'null')
 
             for v in params:
                 if isinstance(v, list) or isinstance(v, dict):
@@ -321,25 +347,11 @@ class SupplierBase(metaclass=ABCMeta):
             "cookies": cookies or self._cookies,
             # timeout=self.REQUEST_TIMEOUT,
         }
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-        #     # if chempare.test_monkeypatching and chempare.called_from_test:
-        #     args["only_if_cached"] = self.SAVE_RESPONSES
-        # args["only_if_cached"] = True
-
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
 
         res = self.request(
             HTTPMethod.GET,
             url=path,
-            **args,
-            # impersonate="chrome",
-            # cookies=cookies or self._cookies,
-            # headers=headers or self._headers,
-            # timeout=self.REQUEST_TIMEOUT,
-            # debug=self.DEBUG_CURL,
+            **args
         )
 
         return res
@@ -361,8 +373,14 @@ class SupplierBase(metaclass=ABCMeta):
         ):
             raise NoMockDataError(url=url, supplier=self._supplier["name"])
 
-        if res.status_code == 403 and "<title>Just a moment...</title>" in res.text and "cloudflare" in res.text:
-            raise CaptchaError(supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare")
+        if (
+            res.status_code == 403
+            and "<title>Just a moment...</title>" in res.text
+            and "cloudflare" in res.text
+        ):
+            raise CaptchaError(
+                supplier=self._supplier["name"], url=res.url, captcha_type="cloudflare"
+            )
         return res
 
     @finalmethod
@@ -405,22 +423,10 @@ class SupplierBase(metaclass=ABCMeta):
             # timeout=self.REQUEST_TIMEOUT,
         }
 
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
-
         res = self.request(
             HTTPMethod.POST,
             url=path,
-            **args,
-            # impersonate="chrome",
-            # json=json,
-            # data=data,
-            # headers=headers or self._headers,
-            # cookies=cookies or self._cookies,
-            # timeout=self.REQUEST_TIMEOUT,
-            # debug=self.DEBUG_CURL,
+            **args
         )
 
         return res
@@ -439,18 +445,6 @@ class SupplierBase(metaclass=ABCMeta):
         if path:
             url = f"{url}/{path}"
 
-        # args["only_if_cached"] = True
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache':
-        #     args["only_if_cached"] = self.SAVE_RESPONSES
-        #     # force_refresh
-        # args["only_if_cached"] = self.SAVE_RESPONSES
-
-        # if requests.get.__module__.split(".", maxsplit=1)[0] == 'requests_cache' and self.SAVE_RESPONSES is True:
-        #     print("Saving responses to cache")
-        #     args["only_if_cached"] = False
-        #     args["force_refresh"] = True
-
-        # resp = self.http_get(*args, **kwargs)
         resp = self.request(HTTPMethod.HEAD, url=url, **kwargs)
 
         return resp.headers
@@ -485,7 +479,11 @@ class SupplierBase(metaclass=ABCMeta):
             url = f"{url}/{path}"
 
         req = self.http_post(
-            url, params=params, json=json, cookies=cookies or self._cookies, headers=headers or self._headers
+            url,
+            params=params,
+            json=json,
+            cookies=cookies or self._cookies,
+            headers=headers or self._headers,
         )
         if req is None:
             return None
@@ -551,9 +549,9 @@ class SupplierBase(metaclass=ABCMeta):
     def _parse_products(self) -> None:
         """Method to set the local properties for the queried product.
 
-        The self._query_results (populated by calling self._query_products())
-        is iterated over by this method, which in turn parses each property and
-        creates a new ProductType object that gets saved to this._products
+        The self._query_results (populated by calling self._query_products()) is iterated over by
+        this method, which in turn parses each property and creates a new ProductType object that
+        gets saved to this._products
         """
 
 

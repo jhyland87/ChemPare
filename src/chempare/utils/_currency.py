@@ -1,30 +1,16 @@
 from __future__ import annotations
 
-from decimal import Decimal
-from decimal import ROUND_HALF_UP
-from typing import NewType
+from decimal import ROUND_HALF_UP, Decimal
 from typing import TYPE_CHECKING
 
 import regex
-from chempare._constants import CURRENCY_CODES_MAP
-from chempare._constants import CURRENCY_SYMBOLS_MAP
 from currex import Currency
-from datatypes import DecimalLikeType
-from datatypes import PriceType
 from price_parser.parser import Price
 
+from chempare._constants import CURRENCY_CODES_MAP, CURRENCY_SYMBOLS_MAP
+
 if TYPE_CHECKING:
-    from datatypes import PriceType  # , Undefined
-
-    # # Undefined = Enum('Undefined', ['undefined'])
-    # # undefined = Undefined.undefined
-    # Undefined = NewType('Undefined', str)
-
-    # UndefinedStr = str | Undefined
-    # undef = Undefined('undefined')
-
-Undefined = NewType('Undefined', str)
-undefined = str | Undefined
+    from datatypes import DecimalLikeType, PriceType
 
 
 def is_currency_symbol(char: str) -> bool:
@@ -38,9 +24,9 @@ def is_currency_symbol(char: str) -> bool:
         bool: True if it's a currency symbol
 
     Example:
-        >>> utils.is_currency_symbol("$")
+        >>> _currency.is_currency_symbol("$")
         True
-        >>> utils.is_currency_symbol("foo")
+        >>> _currency.is_currency_symbol("foo")
         False
     """
 
@@ -49,7 +35,7 @@ def is_currency_symbol(char: str) -> bool:
     return bool(regex.match(r"\p{Sc}", char, regex.IGNORECASE))
 
 
-def parse_price(value) -> PriceType | None:
+def parse_price(value: str) -> PriceType | None:
     price = Price.fromstring(value)
 
     if price is None or price.amount is None:
@@ -63,8 +49,9 @@ def parse_price(value) -> PriceType | None:
 
     result: PriceType = {
         "currency": str(currency_code or price.currency),
-        "currency_symbol": price.currency,
-        "price": price.amount_float,
+        "currency_symbol": str(price.currency),
+        "price": float(getattr(price, "amount_float", 0.0)),
+        "usd": None,
     }
 
     if currency_code is not None and currency_code != 'USD':
@@ -75,6 +62,8 @@ def parse_price(value) -> PriceType | None:
 
 
 def to_usd(amount, from_currency):
+    if from_currency is None or amount is None:
+        return None
     from_currency_obj = Currency(from_currency, amount)  # type: ignore
 
     if (in_usd := from_currency_obj.to("USD")) is None:
@@ -108,15 +97,15 @@ def to_hundreths(value: DecimalLikeType | str) -> Decimal:
         Decimal: Equivelant value with hundreths.
 
     Example:
-        >>> utils.to_hundreths("123")
+        >>> _currency.to_hundreths("123")
         '123.00'
-        >>> utils.to_hundreths("123.456")
+        >>> _currency.to_hundreths("123.456")
         '123.45'
-        >>> utils.to_hundreths(123.456)
+        >>> _currency.to_hundreths(123.456)
         '123.45'
-        >>> utils.to_hundreths(123)
+        >>> _currency.to_hundreths(123)
         '123.00'
-        >>> utils.to_hundreths(Decimal("123.1"))
+        >>> _currency.to_hundreths(Decimal("123.1"))
         '123.10'
     """
     if not isinstance(value, Decimal):

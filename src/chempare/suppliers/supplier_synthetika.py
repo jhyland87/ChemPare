@@ -3,13 +3,13 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _currency
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Final, Any
-    from datatypes import ProductType
-    from datatypes import SupplierType
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_synthetika.py
@@ -78,9 +78,10 @@ class SupplierSynthetika(SupplierBase):
 
             # Add each product to the self._products list in the form of a
             # ProductType object.
-            self._products.append(self._parse_product(product_obj))
+            if product := self._parse_product(product_obj):
+                self._products.append(product)
 
-    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType:
+    def _parse_product(self, product_obj: dict[str, Any]) -> ProductType | None:
         """Parse single product and return single ProductType object
 
         Args:
@@ -95,25 +96,32 @@ class SupplierSynthetika(SupplierBase):
               stores data about the same product but in different quantities.
               This could maybe be included?
         """
-        product = {
+
+        quantity_pattern = re.compile(
+            r"(?P<quantity>[0-9,\.x]+)\s?"
+            r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])"
+        )
+
+        if (not (price_obj := _currency.parse_price(product_obj["price"]))
+            or "price" not in price_obj
+            or "currency" not in price_obj
+            or not (quantity_matches := quantity_pattern.search(product_obj["name"]))
+            or not (quantity_matches := quantity_matches.groupdict())
+            or not (uom := quantity_matches.get("uom", None))
+            or not (quantity := quantity_matches.get("quantity", None))):
+            return None
+
+        product: ProductType = {
             "uuid": product_obj["product_code"],
             "name": product_obj["name"],
             "title": product_obj["name"],
-            "price": product_obj["price"],
             "url": f"{self._supplier["base_url"]}{product_obj["url"]}",
             "manufacturer": product_obj["attributes"].get("producer_name", None),
             "supplier": self._supplier["name"],
+            "quantity": float(quantity),
+            "uom": uom,
+            "price": price_obj["price"],
+            "currency": price_obj["currency"]
         }
-
-        quantity_pattern = re.compile(r"(?P<quantity>[0-9,\.x]+)\s?" r"(?P<uom>[gG]allon|gal|k?g|[cmμ]m|m?[lL])")
-        quantity_matches = quantity_pattern.search(product_obj["name"])
-
-        if quantity_matches:
-            product.update(quantity_matches.groupdict())
-
-        price_obj = utils.parse_price(product_obj["price"])
-
-        if price_obj:
-            product.update(price_obj)
 
         return product

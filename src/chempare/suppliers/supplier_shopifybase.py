@@ -3,11 +3,11 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _env, _general, _quantity
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Any
+    from typing import Any, ClassVar
 
 
 # File: /suppliers/supplier_shopifybase.py.py
@@ -47,7 +47,7 @@ class SupplierShopifyBase(SupplierBase):
         #   &output=json
         #   &_=1740051794061
         #
-        epoch_ts: int = utils.epoch()
+        epoch_ts: int = _env.epoch()
 
         if os.environ.get("PYTEST_VERSION") is not None:
             epoch_ts = 1234567890
@@ -78,9 +78,7 @@ class SupplierShopifyBase(SupplierBase):
             "_": epoch_ts,
         }
 
-        search_result = self.http_get_json("getresults", params=get_params)
-
-        if not search_result:
+        if not (search_result := self.http_get_json("getresults", params=get_params)):
             return
 
         self._query_results = search_result["items"][: self._limit]
@@ -108,7 +106,7 @@ class SupplierShopifyBase(SupplierBase):
               This could maybe be included?
         """
 
-        quantity_matches = utils.parse_quantity(product_obj.get("product_code", {}))
+        quantity_matches = _quantity.parse_quantity(product_obj.get("product_code", {}))
 
         uom = "item(s)"
         quantity = product_obj.get("quantity")
@@ -132,5 +130,5 @@ class SupplierShopifyBase(SupplierBase):
             "uom": uom,
         }
 
-        utils.set_multiple_defaults(product, self.__defaults)
+        _general.set_multiple_defaults(product, self.__defaults)
         return product

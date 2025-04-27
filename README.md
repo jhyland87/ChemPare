@@ -48,15 +48,17 @@ git clone https://github.com/YourHeatingMantle/ChemPare.git
 Optional. ([documentation here](https://packaging.python.org/en/latest/tutorials/installing-packages/#optionally-create-a-virtual-environment)).
 ```bash
 cd ./ChemPare
-python3 -m venv venv
 ```
 
-4. Go to the folder and activate the python env
+4. Go to the folder and create/activate a python3 env
 
 <small>_On Linux/OSX:_</small>
 
 ```bash
-source ./venv/bin/activate
+python3 -m venv .venv
+source ./.venv/bin/activate
+python3 --version
+# Python 3.13.2 
 ```
 
 <small>_On Windows:_</small>
@@ -67,7 +69,7 @@ source ./venv/bin/activate
 
 5. Install project packages
 ```bash
-./venv/bin/pip install -e .
+pip install -e .
 ```
 
 6. Run chempare command, and provide a chemical name or CAS.
@@ -81,8 +83,7 @@ chemparecli
 ```
 
 Example output:
-![image](assets/images/demo-screenshot-01.png)
-
+![chemparecli example](./assets/images/chempare-demo.gif)
 
 ## Unit Tests
 
@@ -98,9 +99,10 @@ If you're on OSX, just run `make install-dev` then `make test`.
 2. Run the following:
 
 ```bash
-./venv/bin/pip3 install --upgrade pip
-./venv/bin/pip3 install -e .[test]
-. ./venv/bin/activate
+# Don't forget to create/activate a local venv environment if you have it
+# source ./.venv/bin/activate
+pip install --upgrade pip
+pip install -e .[test]
 
 ```
 3. Run the below to execute all unit tests in `./tests` directory:

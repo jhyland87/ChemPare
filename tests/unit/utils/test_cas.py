@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import chempare.utils as utils
+from chempare.utils import _cas, _html, _quantity, _general, _currency
 import pytest
 
 
@@ -16,17 +16,17 @@ import pytest
         ("000-00-0", False),
     ],
     ids=[
-        "utils.is_cas('7732-18-5') is True",
-        "utils.is_cas('7664-93-9') is True",
-        "utils.is_cas('123-34-34') is False",
-        "utils.is_cas('321-2-1') is False",
-        "utils.is_cas('a-1-333') is False",
-        "utils.is_cas(123) is False",
-        "utils.is_cas('000-00-0') is False",
+        "_cas.is_cas('7732-18-5') is True",
+        "_cas.is_cas('7664-93-9') is True",
+        "_cas.is_cas('123-34-34') is False",
+        "_cas.is_cas('321-2-1') is False",
+        "_cas.is_cas('a-1-333') is False",
+        "_cas.is_cas(123) is False",
+        "_cas.is_cas('000-00-0') is False",
     ],
 )
 def test_is_cas(value, valid_cas):
-    result = utils.is_cas(value)
+    result = _cas.is_cas(value)
     assert isinstance(result, bool) is True
     assert result is valid_cas
 
@@ -40,13 +40,13 @@ def test_is_cas(value, valid_cas):
         ("Invalid cas: 7732-18-4", None),
     ],
     ids=[
-        "utils.find_cas: Extract 7732-18-5 from string",
-        "utils.find_cas: Extract 7664-93-9 from string",
-        "utils.find_cas: No cas in string",
-        "utils.find_cas: Invalid cas in string",
+        "_cas.find_cas: Extract 7732-18-5 from string",
+        "_cas.find_cas: Extract 7664-93-9 from string",
+        "_cas.find_cas: No cas in string",
+        "_cas.find_cas: Invalid cas in string",
     ],
 )
 def test_find_cas(string, expected_result):
-    result = utils.find_cas(string)
+    result = _cas.find_cas(string)
     assert type(result) is type(expected_result)
     assert result == expected_result

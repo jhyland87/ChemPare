@@ -3,19 +3,19 @@ from __future__ import annotations
 import random
 import re
 import string
-from collections.abc import Callable
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from functools import reduce
 from typing import TYPE_CHECKING
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 import regex
 from str2bool import str2bool
 
 if TYPE_CHECKING:
-    from typing import Any, Callable, Iterable, LiteralString
+    from typing import Any, AnyStr, Callable, Iterable, LiteralString
+
     from datatypes import PrimitiveType  # , Undefined
+    from mypy.server.astdiff import Primitive
 
     # # Undefined = Enum('Undefined', ['undefined'])
     # # undefined = Undefined.undefined
@@ -28,70 +28,97 @@ if TYPE_CHECKING:
 # undefined = str | Undefined
 
 
-def get_nested(dict_: dict, *keys, default: Any = None) -> Any:
+def get_nested(data: dict[str, Any] | list[Any], path: str, default: Any = None) -> Any:
     """
-    Get a nested value from a dictionary
+    The function `get_nested` retrieves a nested value from a dictionary or list based on a
+    specified path, with an optional default value if the path is not found.
 
-    Args:
-        dict_ (dict): Dictionary to iterate over
-        keys (list[str]): Keys to drill down with
-        default (Any, optional): Default value. Defaults to None.
+    _regex test: https://regex101.com/r/NPL7hq/5
 
-    Returns:
-        Any: Result, if somethig was found
-
-    Example:
-        >>> d = {"foo":{"bar":{"baz":"test"}}}
-        >>> get_nested(d, "foo","bar","baz")
-        test
-        >>> get_nested(d, "foo","bar","bazzzz")
+    :param data: The `data` parameter in the `get_nested` function is expected to be a
+    dictionary or a list containing the nested data structure from which you want to retrieve
+    a value based on the provided path
+    :type data: dict[str, Any] | list[Any]
+    :param path: The `path` parameter in the `get_nested` function is a string that represents
+    the path to a nested value within a dictionary or a list. It specifies the sequence of
+    keys or indices needed to access the desired value
+    :type path: str
+    :param default: The `default` parameter in the `get_nested` function is used to specify a
+    default value that should be returned if the nested value at the specified path is not
+    found. If the nested value is not found and no `default` value is provided, the function
+    will return `None` by default
+    :type default: Any
+    :return: The function `get_nested` returns the value found at the specified nested path
+    within the given data structure (dictionary or list). If the path is not found or an error
+    occurs during retrieval, it returns the default value provided.
+    :Example:
+        >>> d = {"a":{"b":{"c":"d"}},"e":[{"f":123,"g":456}]}
+        >>> _general.get_nested(d, "e[1].f")
+        123
+        >>> _general.get_nested(d, "e[1].f.g")
         None
-        >>> get_nested(d, "foo","bar","bazzzz", default="no bazzzz")
-        no bazzzz
-        >>> get_nested(d, "foo","bar")
-        {'baz': 'test'}
+        >>> _general.get_nested(d, "e[2].f.g", default="Hello")
+        'Hello'
+        >>> _general.get_nested(d, "a.b")
+        {'c': 'd'}
+
     """
+    keys: list[Any] = regex.findall(r"(?<=\[)(?:[a-zA-Z0-9_\-\.]+)(?=\])|(?:[a-zA-Z0-9_\-]+)", path)
 
     try:
-        result = reduce(dict.__getitem__, keys, dict_)
-    except (KeyError, TypeError):
+        # Getter that should work with both list and dictionaries
+        def _getter(d: list | dict, k: Any) -> Any:
+            if isinstance(d, dict) or isinstance(d, list):
+                if k.isdigit():
+                    k = int(k)
+                return d.__getitem__(k)
+
+        result = reduce(_getter, keys, data)
+    except (KeyError, TypeError, IndexError):
         return default
     else:
+        if result is None and default is not None:
+            return default
         return result
 
 
-def cast(value: str) -> int | float | str | bool | None:
+def cast(value: str) -> Primitive | AnyStr | None:
     """
-    Cast a str value to its most likely primitive type.
+    The function `cast` takes a string input and attempts to convert it to various data types
+    such as int, float, bool, or None, handling different cases and returning the appropriate
+    type.
 
-    Args:
-        value (str): Value to cast
-
-    Returns:
-        PrimitiveType | None: Casted result
-
-    Example:
+    :param value: The `value` parameter in the `cast` function is expected to be a string that
+    needs to be converted to one of the following types: int, float, str, bool, or None. The
+    function attempts to convert the string value to one of these types based on certain
+    conditions and rules defined
+    :type value: str
+    :return: The function `cast` will return an `int`, `float`, `str`, `bool`, or `None` based
+    on the input `value`. If the input `value` is not a string, a `ValueError` will be raised.
+    If the input `value` is empty, "none", "null", or contains only whitespace, it will return
+    `None`. If the input
+    :Example:
         >>> from chempare import utils
-        >>> utils.cast("123")
+        >>> _general.cast("123")
         123
-        >>> utils.cast("123.34")
+        >>> _general.cast("123.34")
         123.34
-        >>> utils.cast("123.34000")
+        >>> _general.cast("123.34000")
         123.34
-        >>> utils.cast("true")
+        >>> _general.cast("true")
         True
-        >>> utils.cast("FALSE")
+        >>> _general.cast("FALSE")
         False
-        >>> utils.cast("None")
-        >>> utils.cast("null")
-        >>> utils.cast("0")
+        >>> _general.cast("None")
+        >>> _general.cast("null")
+        >>> _general.cast("0")
         0
-        >>> utils.cast("Test")
+        >>> _general.cast("Test")
         'Test'
-        >>> utils.cast(True)
+        >>> _general.cast(True)
         ValueError: Unable to cast value type <class 'bool'> - Must be a string
-    """
 
+    """
     # If it's not a string, then its probably a valid type..
     if isinstance(value, str) is False:
         raise ValueError(f"Unable to cast value type '{type(value).__name__}' - Must be a string")
@@ -186,10 +213,11 @@ def split_set_cookie(set_cookie: str) -> list:
     :return: list of set-cookie values, split by the comma delimiter
     :rtype: list
     """
-    return regex.split(r'(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?', set_cookie)
+
+    return regex.split(r"(?<!Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s?", set_cookie)
 
 
-def parse_cookie(value: str) -> dict[str, Any] | None:
+def parse_cookie(value: str) -> dict[str, Any]:
     """
     Get cookie name/value out of the full set-cookie header segment.
 
@@ -203,23 +231,27 @@ def parse_cookie(value: str) -> dict[str, Any] | None:
         dict[str, str]: The cookie info (name, value, attrs, etc)
 
     Example:
-        >>> utils.parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
+        >>> _general.parse_cookie("ssr-caching=cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g; max-age=20")
         {'name': 'ssr-caching', 'value': 'cache#desc=hit#varnish=hit_hit#dc#desc=fastly_g', 'max-age': '20'}
-        >>> utils.parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
+        >>> _general.parse_cookie("client-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax;")
         {'name': 'client-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax'
-        >>> utils.parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
+        >>> _general.parse_cookie("server-session-bind=7435e070-c09e-4b97-9b70-b679273af80a; Path=/; Secure; SameSite=Lax; HttpOnly;")
         {'name': 'server-session-bind', 'value': '7435e070-c09e-4b97-9b70-b679273af80a', 'path': '/', 'secure': True, 'samesite': 'Lax', 'httponly': True}
     """
 
-    cookie_matches = regex.match(
+    cookie_matches: regex.Match[str] | None = regex.match(
         r'^(?P<name>[a-zA-Z0-9_-]+)=(?P<value>[^;]+)(?:$|;\s)(?P<args>(.*)+)?$', value, regex.IGNORECASE
     )
 
-    # print(cookie_matches.capturesdict())
+    if not cookie_matches:
+        return {}
 
-    cookie_match_dict = cookie_matches.capturesdict()
+    cookie_match_dict: dict[str, list[str]] = cookie_matches.capturesdict()
 
-    result = {"name": cookie_match_dict.get('name', [None])[0], "value": cookie_match_dict.get('value', [None])[0]}
+    result: dict[str, str | None] = {
+        "name": cookie_match_dict.get('name', [None])[0],
+        "value": cookie_match_dict.get('value', [None])[0],
+    }
 
     args = cookie_match_dict.get('args', [])[0].rstrip(';').split(';')
 
@@ -265,25 +297,39 @@ def random_string(max_length: int = 10, include_special: bool = False) -> str:
     return str("".join(random.choice(char_list) for _ in range(max_length)))
 
 
-def set_multiple_defaults(dictionary, defaults):
+def set_multiple_defaults(dictionary: dict[str, Any], defaults: dict[str, Any]) -> None:
+    """
+    The function `set_multiple_defaults` sets default values in a dictionary if the keys do
+    not already exist.
+
+    :param dictionary: A dictionary that you want to set default values in
+    :type dictionary: dict[str, Any]
+    :param defaults: defaults is a dictionary containing default values that you want to set
+    in the dictionary parameter if the keys are not already present in it
+    :type defaults: dict[str, Any]
+    """
     for key, value in defaults.items():
         dictionary.setdefault(key, value)
 
 
 def split_array_into_groups(arr: list, size: int = 2) -> list:
     """
-    Splits an array into sub-arrays of 2 elements each.
+    The function `split_array_into_groups` takes a list and splits it into sublists of a
+    specified size.
 
-    Args:
-        arr: The input array.
-        size: Size to group array elements by
-
-    Returns:
-        A list of sub-arrays, where each sub-array contains {size} elements,
-        or an empty list if the input array is empty.
-
-    Example:
-        >>> utils.split_array_into_groups([
+    :param arr: The `arr` parameter is a list that you want to split into groups of a
+    specified size
+    :type arr: list
+    :param size: The `size` parameter in the `split_array_into_groups` function specifies the
+    number of elements that each group should contain when splitting the input array into
+    smaller groups. By default, the size is set to 2, meaning that if no size is provided when
+    calling the function, the array will be, defaults to 2
+    :type size: int (optional)
+    :return: The function `split_array_into_groups` takes a list `arr` and an optional
+    parameter `size` (default value is 2) and splits the input list into sublists of the
+    specified size. It returns a list of sublists created from the input list.
+    :Example:
+        >>> _general.split_array_into_groups([
         ...    'Variant', '500 g', 'CAS', '1762-95-4'
         ... ])
         [['Variant', '500 g'],['CAS', '1762-95-4']]
@@ -299,7 +345,7 @@ def split_array_into_groups(arr: list, size: int = 2) -> list:
 def nested_arr_to_dict(arr: list[list]) -> dict | None:
     """
     Takes an array of arrays (ie: result from
-    utils.split_array_into_groups) and converts that into a dictionary.
+    _general.split_array_into_groups) and converts that into a dictionary.
 
     Args:
         arr (list[list]): The input array.
@@ -308,7 +354,7 @@ def nested_arr_to_dict(arr: list[list]) -> dict | None:
         Optional[dict]: A dictionary based off of the input alues
 
     Example:
-        >>> utils.nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
+        >>> _general.nested_arr_to_dict([["foo","bar"], ["baz","quux"]])
         {'foo':'bar','baz":'quux"}
     """
 
@@ -334,11 +380,11 @@ def get_param_from_url(url: str, param: str | None = None) -> Any | None:
         Any: Whatver the value was of the key, or nothing
 
     Example:
-        >>> utils.get_param_from_url(
+        >>> _general.get_param_from_url(
         ...    'http://google.com?foo=bar&product_id=12345'
         ... )
         {'foo':'bar','product_id':'12345'}
-        >>> utils.get_param_from_url(
+        >>> _general.get_param_from_url(
         ...    'http://google.com?foo=bar&product_id=12345', 'product_id'
         ... )
         '12345'
@@ -374,9 +420,9 @@ def filter_highest_item_value(input_dict: dict) -> dict:
         dict: Item in dictionary with highest value
 
     Example:
-        >>> utils.filter_highest_item_value({"foo": 123, "bar": 555})
+        >>> _general.filter_highest_item_value({"foo": 123, "bar": 555})
         {'bar": 555}
-        >>> utils.filter_highest_item_value({"foo": 999999, "bar": 123})
+        >>> _general.filter_highest_item_value({"foo": 999999, "bar": 123})
         {'foo": 999999}
     """
 

@@ -5,8 +5,9 @@ from typing import TYPE_CHECKING
 from chempare.suppliers.supplier_wixbase import SupplierWixBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
     from typing import Final
+
+    from datatypes import SupplierType
 
 
 # File: /suppliers/supplier_bunmurralabs.py
@@ -25,3 +26,7 @@ class SupplierBunmurraLabs(SupplierWixBase):
     allow_cas_search: Final[bool] = True
     """Determines if the supplier allows CAS searches in addition to name
     searches"""
+
+
+# The site is currently down, so we disable the supplier
+__disabled__ = True

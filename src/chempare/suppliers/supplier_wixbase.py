@@ -4,14 +4,16 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 import regex
+
 from chempare.exceptions import ProductListQueryError
 from chempare.suppliers import SupplierBase
+from chempare.utils import _cas, _currency, _general, _quantity
 
 if TYPE_CHECKING:
-    from datatypes import ProductType
     from typing import Any
+
+    from datatypes import ProductType
 
 
 class SupplierWixBase(SupplierBase):
@@ -33,10 +35,10 @@ class SupplierWixBase(SupplierBase):
         if "set-cookie" not in headers:
             raise LookupError("Expected to find set-cookie in response headers")
 
-        cookies = utils.split_set_cookie(headers.get("set-cookie", ""))
+        cookies = _general.split_set_cookie(headers.get("set-cookie", ""))
 
         for cookie in cookies:
-            cookie_data = utils.parse_cookie(cookie)
+            cookie_data: dict[str, Any] = _general.parse_cookie(cookie)
 
             if cookie_data.get("name") == "ssr-caching" or cookie_data.get("name") == "server-session-bind":
                 self._cookies[cookie_data.get("name")] = cookie_data.get("value")
@@ -55,13 +57,13 @@ class SupplierWixBase(SupplierBase):
         )
 
         # xsrf_header_cookies = list(v for k, v in xsrf_token_headers.multi_items() if k == "set-cookie") or None
-        xsrf_header_cookies = utils.split_set_cookie(xsrf_token_headers.get("set-cookie", ""))
+        xsrf_header_cookies = _general.split_set_cookie(xsrf_token_headers.get("set-cookie", ""))
 
         for xsrf_cookie in xsrf_header_cookies:
             if "XSRF-TOKEN" not in xsrf_cookie:
                 continue
 
-            cookie_data = utils.parse_cookie(xsrf_cookie)
+            cookie_data = _general.parse_cookie(xsrf_cookie)
 
             if cookie_data.get("name") != "XSRF-TOKEN":
                 continue
@@ -73,9 +75,7 @@ class SupplierWixBase(SupplierBase):
         # 3 Get the website instance ID ("access tokens")
         auth = self.http_get_json("_api/v1/access-tokens", cookies=self._cookies, headers=self._headers)
 
-        self._headers["Authorization"] = utils.get_nested(
-            auth, "apps", "1380b703-ce81-ff05-f115-39571d94dfcd", "instance"
-        )
+        self._headers["Authorization"] = _general.get_nested(auth, "apps[1380b703-ce81-ff05-f115-39571d94dfcd].instance")
 
     def _query_products(self):
         query_params = {
@@ -151,9 +151,7 @@ class SupplierWixBase(SupplierBase):
                 supplier=self._supplier.get('name'), url="_api/wix-ecommerce-storefront-web/api"
             )
 
-        self._query_results = utils.get_nested(
-            search_result, "data", "catalog", "category", "productsWithMetaData", "list"
-        )
+        self._query_results = _general.get_nested(search_result, "data.catalog.category.productsWithMetaData.list")
 
     def _parse_products(self) -> None:
         for product_obj in self._query_results:
@@ -180,27 +178,21 @@ class SupplierWixBase(SupplierBase):
               This could maybe be included?
         """
 
-        qty = utils.parse_quantity(product_obj["options"][0]["selections"][0]["value"])
+        qty = _quantity.parse_quantity(product_obj["options"][0]["selections"][0]["value"])
 
-        price = utils.parse_price(product_obj["productItems"][0]["formattedPrice"])
+        price = _currency.parse_price(product_obj["productItems"][0]["formattedPrice"])
 
-        product: ProductType = {
+        product = {
             # "uuid": product_obj.get("id"),
             "title": str(product_obj.get("name")),
             "description": str(product_obj.get("description")),
             "url": f"${self._supplier["base_url"]}/product-page/{product_obj["urlPart"]}",
             "supplier": self._supplier["name"],
             "currency": "USD",
-            "cas": utils.find_cas(str(product_obj.get("name"))),
+            "cas": _cas.find_cas(str(product_obj.get("name"))),
             "quantity": qty.get("quantity", None),
             "uom": qty.get("uom", None),
             "price": price.get("price"),
         }
-
-        # if qty is not None:
-        #     product.update(qty)
-
-        # if price is not None:
-        #     product.update(price)
 
         return product
