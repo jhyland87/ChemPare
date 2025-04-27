@@ -1,10 +1,8 @@
 {
-    // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": "never"
     },
-    // Set file associations to support comments syntax highlight
     "files.associations": {
         ".vscode/settings.default.json": "jsonc",
         ".vscode/settings.json": "jsonc",
@@ -52,7 +50,6 @@
             72
         ]
     },
-    // Format on save for formatters we explicitely control
     "[json][jsonc][yaml][python][toml]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
@@ -71,7 +68,6 @@
         ],
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.codeActionsOnSave": {
-            // Let Ruff lint fixes handle imports
             "source.organizeImports": "always",
             "source.unusedImports": "never"
         }
@@ -81,11 +77,7 @@
     "python.languageServer": "Default",
     "autoDocstring.generateDocstringOnEnter": true,
     "python.terminal.activateEnvInCurrentTerminal": true,
-    // python.analysis is Pylance (pyright) configurations
-    "python.analysis.fixAll": [
-        // Explicitly omiting "source.convertImportFormat", some stubs use relative imports
-        // Explicitly omiting "source.unusedImports", Let Ruff lint fixes handle imports
-    ],
+    "python.analysis.fixAll": [],
     "black-formatter.args": [
         "--line-length",
         "100",
@@ -107,12 +99,10 @@
         "--ignore-missing-imports",
         "--exclude=tests"
     ],
-    // Ensure typeshed's configs are used, and not user's VSCode settings
     "flake8.args": [
         "--config=.flake8",
     ],
     "flake8.importStrategy": "fromEnvironment",
-    // Using Ruff instead of isort
     "isort.check": false,
     "ruff.importStrategy": "fromEnvironment",
     "ruff.format.preview": true,
@@ -140,7 +130,6 @@
     "evenBetterToml.formatter.inlineTableExpand": false,
     "evenBetterToml.formatter.reorderArrays": true,
     "evenBetterToml.formatter.trailingNewline": true,
-    // We like keeping TOML keys in a certain non-alphabetical order that feels more natural
     "evenBetterToml.formatter.reorderKeys": false,
     "git.enableSmartCommit": true,
     "git.autofetch": true,
@@ -151,7 +140,6 @@
         "files.trimTrailingWhitespace": false,
         "editor.wordWrapColumn": 120,
         "editor.wordWrap": "wordWrapColumn",
-        //"editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.formatOnSave": false
     },
     "testing.coverageBarThresholds": {
@@ -175,25 +163,15 @@
     "autoDocstring.startOnNewLine": true,
     "editor.defaultFoldingRangeProvider": "ms-python.black-formatter",
     "python.analysis.diagnosticSeverityOverrides": {
-        // # Partial stubs are acceptable
         "reportUnknownArgumentType": false,
-        // # Stubs-only packages are fine for testing
         "reportMissingModuleSource": false,
-        // # Stubs are allowed to use private variables
         "reportPrivateUsage": false,
         "reportPrivateImportUsage": false,
-        // # Incompatible overrides and property type mismatches are out of our stubs' control
-        // # as they are inherited from the implementation.
         "reportIncompatibleMethodOverride": false,
         "reportIncompatibleVariableOverride": false,
         "reportPropertyTypeMismatch": false,
-        // # Overlapping overloads are often necessary in a stub, meaning pyright's check
-        // # (which is stricter than mypy's; see mypy issue #10143 and #10157)
-        // # would cause many false positives and catch few bugs.
         "reportOverlappingOverload": false,
-        // # The name of the self/cls parameter is out of third-party stubs' control.
         "reportSelfClsParameterName": false,
-        // # Not an error by default in standard mode
         "reportUnsupportedDunderAll": "error",
         "reportUnusedImport": "information"
     },
@@ -204,7 +182,6 @@
     "python.analysis.includeAliasesFromUserFiles": true,
     "python.analysis.inlayHints.callArgumentNames": "all",
     "python.analysis.inlayHints.functionReturnTypes": true,
-    //"python.analysis.showOnlyDirectDependenciesInAutoImport": true,
     "python.analysis.regenerateStdLibIndices": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "python.analysis.stubPath": "typings",
@@ -244,13 +221,11 @@
         "editor.defaultFormatter": "be5invis.toml",
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120,
-        // "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.formatOnSave": false
     },
     "[toml]": {
         "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120,
-        // "editor.defaultFormatter": "tamasfe.even-better-toml",
         "editor.formatOnSave": true,
         "editor.rulers": [
             90
@@ -292,11 +267,9 @@
     "mypy.envFile": ".env",
     "mypy-type-checker.preferDaemon": false,
     "mypy.runUsingActiveInterpreter": true,
-    "mypy.extraArguments": [
-        //    / "--exclude tests"
-    ],
+    "mypy.extraArguments": [],
     "mypy-type-checker.ignorePatterns": [
-        //"tests/**"
+        "tests/**"
     ],
     "flake8.ignorePatterns": [
         "tests/**"

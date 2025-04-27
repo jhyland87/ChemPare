@@ -83,8 +83,7 @@ chemparecli
 ```
 
 Example output:
-![image](assets/images/demo-screenshot-01.png)
-
+![chemparecli example](./assets/images/chempare-demo.gif)
 
 ## Unit Tests
 
