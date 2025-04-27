@@ -3,12 +3,14 @@ from __future__ import annotations
 from threading import Thread
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _currency, _general, _quantity
 
 if TYPE_CHECKING:
     from typing import ClassVar, Final
+
     from datatypes import SupplierType
 
 
@@ -47,10 +49,10 @@ class SupplierWarchem(SupplierBase):
 
         # This eGold cookie seems to be what they use to keep track of your
         # settings
-        self._cookies["eGold"] = utils.random_string(26)
+        self._cookies["eGold"] = _general.random_string(26)
 
         # Make the request to keep the product listing limit at 36 (max)
-        self.http_post(f"szukaj.html/szukaj={self._query}", data=dict(ilosc_na_stronie=36))
+        self.http_post(f"szukaj.html/szukaj={self._query}", data={"ilosc_na_stronie":36})
 
     def _query_products(self) -> None:
         """Query products from supplier"""
@@ -136,13 +138,13 @@ class SupplierWarchem(SupplierBase):
         if price_elem:
             product["price"] = str(price_elem.attrs["content"])
             product["currency"] = price_elem.get_text(strip=True).split(" ")[-1]
-            product["currency_code"] = str(utils.get_currency_code_from_symbol(product["currency"]))
+            product["currency_code"] = str(_currency.get_currency_code_from_symbol(product["currency"]))
 
         quantity_elem_container = product_soup.find("div", id="nr_cechy_1")
         quantity_options = quantity_elem_container.find_all("div", class_="PoleWyboruCechy")
 
         quantity = quantity_options[0].find("label").find("span")
         if quantity:
-            product.update(utils.parse_quantity(quantity.get_text(strip=True)))
+            product.update(_quantity.parse_quantity(quantity.get_text(strip=True)))
 
         self._products.append(product)

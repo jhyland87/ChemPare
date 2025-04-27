@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _currency, _quantity
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Final, Any
+    from typing import Any, ClassVar, Final
+
     from datatypes import SupplierType
 
 
@@ -71,18 +73,15 @@ class SupplierTciChemicals(SupplierBase):
                 "page": page_idx,
             }
 
-            search_result = self.http_get_html("US/en/search", params=get_params, headers=self._headers)
-
-            if not search_result:
+            if not (search_result := self.http_get_html("US/en/search", params=get_params, headers=self._headers)):
                 return
 
             product_soup = BeautifulSoup(search_result, "html.parser")
 
             # Since we know the element is a <h3 class=product-price />
             # element, search for H3's
-            product_basic = product_soup.find("div", id="product-basic-wrap")
 
-            if product_basic is None:
+            if (product_basic := product_soup.find("div", id="product-basic-wrap")) is None:
                 # No product wrapper found
                 return
 
@@ -130,12 +129,10 @@ class SupplierTciChemicals(SupplierBase):
             return
 
         quantity = product_obj.find(attrs={"data-attr": "Size:"})
-        price = product_obj.find("div", class_="listPriceNoStrike")
 
-        if not price:
+        if not (price := product_obj.find("div", class_="listPriceNoStrike")):
             return
 
-        price_obj = utils.parse_price(price.get_text(strip=True))
 
         product_dict = {
             "title": title.get_text(strip=True),
@@ -144,7 +141,7 @@ class SupplierTciChemicals(SupplierBase):
             "url": self._supplier["base_url"] + str(title.attrs["href"]),
         }
 
-        if price_obj:
+        if (price_obj := _currency.parse_price(price.get_text(strip=True))):
             product_dict.update(price_obj)
 
         description_container = product_obj.find("div", class_="product-description")
@@ -159,19 +156,8 @@ class SupplierTciChemicals(SupplierBase):
                 product_dict["cas"] = data[idx + 1].get_text(strip=True)
                 continue
 
-        quantity = utils.parse_quantity(product_dict["quantity"])
-        # quantity_pattern = re.compile(
-        #     (r"(?P<quantity>[0-9,\.x]+)\s?(?P<uom>[gG]allon|gal|k?g|" r"[cmμ][mM]|[mM]?[lL]|[Mm][gG])$")
-        # )
-        # quantity_matches = quantity_pattern.search(product_dict["quantity"])
-
-        if quantity is not None:
+        if (quantity := _quantity.parse_quantity(product_dict["quantity"])):
             product_dict.update(quantity)
 
-        # price_pattern = re.compile(r"^(?P<currency>.)(?P<price>\d+\.\d+)$")
-        # price_matches = price_pattern.search(product.price)
-
-        # if price_matches:
-        #     product.update(price_matches.groupdict())
 
         self._products.append(product_dict)

@@ -1,16 +1,18 @@
+# pragma: exclude file
 from __future__ import annotations
 
 import re
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
+import chempare.utils as utils
 from chempare.suppliers.supplier_base import SupplierBase
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from typing import Final, Any, ClassVar
-    from datatypes import ProductType
+    from typing import Any, ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_labchem.py
@@ -95,28 +97,28 @@ class SupplierLabchem(SupplierBase):
             "searchPage.action", params=get_params, headers=self._headers, cookies=self._cookies
         )
 
-    def __query_products_autocomplete(self) -> None:
-        """Query products from supplier"""
+    # def __query_products_autocomplete(self) -> None:
+    #     """Query products from supplier"""
 
-        # Example request url for Labchem Supplier
-        # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
-        #
-        get_params = {
-            "limit": self._limit,
-            "q": self._query,
-            "timestamp": 1739971044228,
-            "width": "395px",
-            "_": 1739962847766,
-        }
+    #     # Example request url for Labchem Supplier
+    #     # https://www.labchem.com/AutoComplete.slt?q=mercury&limit=20
+    #     #
+    #     get_params = {
+    #         "limit": self._limit,
+    #         "q": self._query,
+    #         "timestamp": 1739971044228,
+    #         "width": "395px",
+    #         "_": 1739962847766,
+    #     }
 
-        search_result = self.http_get_json(
-            "AutoComplete.slt", params=get_params, headers=self._headers, cookies=self._cookies
-        )
+    #     search_result = self.http_get_json(
+    #         "AutoComplete.slt", params=get_params, headers=self._headers, cookies=self._cookies
+    #     )
 
-        if not search_result:
-            return
+    #     if not search_result:
+    #         return
 
-        self._query_results = search_result["response"]["docs"]["item"][: self._limit]
+    #     self._query_results = search_result["response"]["docs"]["item"][: self._limit]
 
     def _parse_products(self) -> None:
         """Parse product query results.
@@ -235,3 +237,6 @@ class SupplierLabchem(SupplierBase):
             res[p["partNumber"]] = str(p["listPrice"]).strip() if p["listPrice"] else None
 
         return res
+
+
+__disabled__ = True

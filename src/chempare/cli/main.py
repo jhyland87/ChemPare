@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import sys
 
-from chempare.search_factory import SearchFactory
+import urllib3
 from rich.console import Console
 from rich.panel import Panel
 
+from chempare.search_factory import SearchFactory
+
+urllib3.disable_warnings()
 
 def main():
     if len(sys.argv) >= 2:
@@ -29,24 +32,24 @@ def main():
     # Loop over the products and create the panel for each.
     for product in product_search:
 
-        if product.supplier in supplier_list:
-            if supplier_list[product.supplier] == 3:
+        if product["supplier"] in supplier_list:
+            if supplier_list[product["supplier"]] == 3:
                 continue
             else:
-                supplier_list[product.supplier] += 1
+                supplier_list[product["supplier"]] += 1
         else:
-            supplier_list[product.supplier] = 1
+            supplier_list[product["supplier"]] = 1
 
-        name = product.name
-        price = product.price
+        name = product["name"]
+        price = product["price"]
         # trunk-ignore(git-diff-check/error)
-        if product.quantity is None or product.uom is None:
+        if product["quantity"] is None or product["uom"] is None:
             quantity = 'N/A'
         else:
-            quantity = f'{product.quantity}{product.uom}'
+            quantity = f'{product["quantity"]}{product["uom"]}'
         # quantity = product['quantity']
-        url = product.url
-        supplier = product.supplier
+        url = product["url"]
+        supplier = product["supplier"]
 
         # Create the panel to print
         panel = Panel(

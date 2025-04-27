@@ -14,6 +14,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/chempare/cli/chempare_cli.py",
             "console": "integratedTerminal",
+            "justMyCode": false,
             "args": [
                 "${input:query}"
             ]
@@ -90,7 +91,7 @@
                 "SupplierCarolinaChemical",
                 "SupplierBioFuranChem",
                 "SupplierLaballey",
-                "SupplierLabchem",
+                //"SupplierLabchem",
                 "SupplierLabchemDe",
                 "SupplierLabchemDe",
                 "SupplierBunmurraLabs",

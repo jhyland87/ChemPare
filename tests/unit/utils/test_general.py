@@ -5,10 +5,11 @@ import math
 import time
 from ctypes import util
 from decimal import Decimal
+from typing import Any
 from typing import Literal
 from unittest.mock import patch
 
-import chempare.utils as utils
+from chempare.utils import  _general, _env
 import pytest
 from datatypes import PriceType
 from datatypes import QuantityType
@@ -18,13 +19,14 @@ from datatypes import UndefinedType
 from price_parser.parser import Price
 
 
+
 @pytest.mark.parametrize(
     ("value", "expected_result"),
     [({"foo": 123, "bar": 555}, {"bar": 555}), ({"foo": 999999, "bar": 123}, {"foo": 999999})],
     ids=["Pulling bar from object", "Pulling foo from object"],
 )
 def test_filter_highest_item_value(value, expected_result):
-    result = utils.filter_highest_item_value(value)
+    result = _general.filter_highest_item_value(value)
     assert result == expected_result
 
 
@@ -55,7 +57,7 @@ def test_filter_highest_item_value(value, expected_result):
     ids=["Parse array of phrases"],
 )
 def test_get_common_phrases(phrases, expected_result):
-    result = utils.get_common_phrases(phrases)
+    result = _general.get_common_phrases(phrases)
     assert isinstance(result, dict) is True
     assert result == expected_result
 
@@ -76,7 +78,7 @@ def test_get_common_phrases(phrases, expected_result):
     ],
 )
 def test_find_values_with_element(values, element, expected_result):
-    res = utils.find_values_with_element(values, element)
+    res = _general.find_values_with_element(values, element)
     assert res is not None
     assert type(res) is type(expected_result)
     assert res == expected_result
@@ -110,7 +112,7 @@ def test_find_values_with_element(values, element, expected_result):
     ],
 )
 def test_cast_strings(value, expected_result):
-    result = utils.cast(value)
+    result = _general.cast(value)
     assert (
         type(result) is type(expected_result)
     ) is True, f"Returned type '{type(value).__name__}' instead of '{type(expected_result).__name__}'"
@@ -138,43 +140,54 @@ def test_cast_strings(value, expected_result):
 )
 def test_cast_uncastables(value, expected_result):
     with pytest.raises(ValueError) as value_error:
-        utils.cast(value)
+        _general.cast(value)
     assert value_error.errisinstance(expected_result) is True, f"Expected a '{type(expected_result).__name__}' error"
 
     assert str(value_error.value) == f"Unable to cast value type '{type(value).__name__}' - Must be a string"
 
 
 @pytest.mark.parametrize(
-    ("dataobject", "path", "default", "expected_result"),
+    ("data", "path", "default", "expected_result"),
     [
         #
-        ({"foo": {"bar": "baz"}}, "foo.bar", None, "baz"),
-        ({"foo": {"bar": "baz"}}, "foo.qux", None, None),
+        ({"a": {"b": "test"}}, "a.b", None, "test"),
+        ({"a": {"b": "test"}}, "a.c", None, None),
+        ({"a": {"b": "test"}}, "a.c", "default", "default"),
+        ({"a": {"b": ["c", "test"]}}, "a.b[1]", None, "test"),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[1].d.e", None, "test"),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[3].d.e", None, None),
+        ({"a": {"b": ["c", {"d": {"e": "test"}}]}}, "a.b[3].d.e", "default", "default"),
     ],
     ids=[
         #
-        "'foo.bar' should find 'baz' in {foo:{bar:baz}}",
-        "'foo.qux' shoudl default to None in {foo:{bar:baz}}",
+        "'a.b' should find 'test' in {a:{b:test}}",
+        "'a.c' shoudl default to None in {a:{b:test}}",
+        "'a.c' shoudl default to 'default' in {a:{b:test}}",
+        "'a.b[1]' should find 'test' in {a:{b:[c,test]}}",
+        "'a.b[1].d.e' should find 'test' in {a:{b:[c,{d:{e:test}}]}}",
+        "'a.b[3].d.e' should default to None in {a:{b:[c,{d:{e:test}}]}}",
+        "'a.b[3].d.e' should default to 'default' in {a:{b:[c,{d:{e:test}}]}}",
     ],
 )
-def test_get_nested(dataobject, path, default, expected_result):
-    paths = path.split(".")
-    assert utils.get_nested(dataobject, *paths, default=default) == expected_result
+def test_get_nested(
+    data: list[Any] | dict[str, Any], path: str, default: str | int | float | None, expected_result: Any
+) -> Any:
+    assert _general.get_nested(data, path=path, default=default) == expected_result
 
 
 @pytest.mark.parametrize(
     ("length", "include_special"),
     [(None, None), (5, None), (100, None), (10, True)],
     ids=[
-        "utils.random_string: None -> return unique 10 character alphanumeric string",
-        "utils.random_string: 5 -> return unique 5 character alphanumeric string",
-        "utils.random_string: 100 -> return unique 100 character alphanumeric string",
-        "utils.random_string: 10 (include_special) -> return unique 10 character alphanumeric+special string",
+        "_general.random_string: None -> return unique 10 character alphanumeric string",
+        "_general.random_string: 5 -> return unique 5 character alphanumeric string",
+        "_general.random_string: 100 -> return unique 100 character alphanumeric string",
+        "_general.random_string: 10 (include_special) -> return unique 10 character alphanumeric+special string",
     ],
 )
 def test_random_string(length, include_special):
-    result_a = utils.random_string(length, include_special)
-    result_b = utils.random_string(length, include_special)
+    result_a = _general.random_string(length, include_special)
+    result_b = _general.random_string(length, include_special)
 
     assert isinstance(result_a, str) is True
     assert isinstance(result_b, str) is True
@@ -206,7 +219,7 @@ def test_random_string(length, include_special):
     ],
 )
 def test_split_array_into_groups(array, expected_result):
-    result = utils.split_array_into_groups(array)
+    result = _general.split_array_into_groups(array)
 
     if type(result) is not type(expected_result):
         pytest.fail(f"Expected type '{type(expected_result)}' for result, but got '{type(result)}'")
@@ -228,7 +241,7 @@ def test_split_array_into_groups(array, expected_result):
     ],
 )
 def test_nested_arr_to_dict(array, expected_result):
-    result = utils.nested_arr_to_dict(array)
+    result = _general.nested_arr_to_dict(array)
 
     if expected_result is None:
         assert result is None
@@ -250,7 +263,7 @@ def test_get_param_from_url(
     param_name: None | Literal["product_id"],
     expected_result: dict[str, str] | Literal["12345"],
 ):
-    result = utils.get_param_from_url(value, param_name)
+    result = _general.get_param_from_url(value, param_name)
 
     if type(result) is not type(expected_result):
         pytest.fail(f"type of result ({type(result)}) does not match expected result type ({type(expected_result)})")
@@ -260,6 +273,6 @@ def test_get_param_from_url(
 
 def test_epoch():
     now = math.floor(time.time() * 1000) - 1
-    result = utils.epoch()
+    result = _env.epoch()
     assert isinstance(result, int) is True
     assert result > now

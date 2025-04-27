@@ -11,10 +11,14 @@ import signal
 import sys
 
 import inquirer
-from chempare.search_factory import SearchFactory  # noqa: F401
-from chempare.suppliers import *  # noqa: F401,F403
-# from curl_cffi.requests.exceptions import ConnectionError
+import urllib3
 
+from chempare.search_factory import SearchFactory  # noqa: F401
+from chempare.suppliers import *  # noqa: F403
+
+urllib3.disable_warnings()
+
+# from curl_cffi.requests.exceptions import ConnectionError
 
 def signal_handler(sig, frame):
     print(f"Trapped signal {sig}")
@@ -22,9 +26,7 @@ def signal_handler(sig, frame):
     os.system(f"kill -3 {os.getpid()}")
     raise SystemExit
 
-
 signal.signal(signal.SIGINT, signal_handler)
-
 
 def main(supplier="SearchFactory", query="water"):
     print(f"Searching supplier {supplier} for {query}...")
@@ -48,7 +50,7 @@ questions = [
         choices=[
             "SearchFactory",
             "SupplierLaballey",
-            "SupplierLabchem",
+            # "SupplierLabchem",
             "SupplierChemsavers",
             "SupplierOnyxmet",
             "SupplierEsDrei",

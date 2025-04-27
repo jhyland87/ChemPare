@@ -3,14 +3,15 @@ from __future__ import annotations
 from threading import Thread
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _cas, _currency, _general, _html, _quantity
 
 if TYPE_CHECKING:
-    from datatypes import SupplierType
-    from datatypes import ProductType
-    from typing import Final, ClassVar
+    from typing import ClassVar, Final
+
+    from datatypes import ProductType, SupplierType
 
 
 # File: /suppliers/supplier_loudwolf.py
@@ -59,21 +60,17 @@ class SupplierLoudwolf(SupplierBase):
 
             # If were doing a CAS search, then we must include description
             # matching
-            if utils.is_cas(query) is True:
+            if _cas.is_cas(query) is True:
                 get_params["description"] = True
 
-            search_result = self.http_get_html("storefront/index.php", params=get_params)
-
-            if not search_result:
+            if not (search_result := self.http_get_html("storefront/index.php", params=get_params)):
                 return
 
             product_soup = BeautifulSoup(search_result, "html.parser")
 
             # Since we know the element is a <h3 class=product-price /> element,
             # search for H3's
-            product_elements = product_soup.find_all("div", class_="product-layout")
-
-            if product_elements is None:
+            if not (product_elements := product_soup.find_all("div", class_="product-layout")):
                 # No product wrapper found
                 return
 
@@ -83,28 +80,14 @@ class SupplierLoudwolf(SupplierBase):
                 if len(self.__product_pages) >= self._limit:
                     break
 
-                product_image_div = pe.find("div", class_="image")
-                if not product_image_div:
-                    continue
-
-                product_link = product_image_div.find("a")
-
-                if not product_link:
-                    continue
-
-                product_href = product_link.attrs["href"]
-
-                if not product_href:
-                    continue
-
-                product_href_params = utils.get_param_from_url(product_href.strip())
-
-                if not product_href_params or not product_href_params.get("product_id", None):
-                    continue
-
-                product_id = product_href_params.get("product_id", None)
-
-                if product_id in self.__product_pages:
+                if (
+                    not (product_link := _html.bs4_css_selector(pe, "div.image>a")) or
+                    not (product_attrs := product_link.attrs) or
+                    not (product_href := product_attrs.get("href", None)) or
+                    not (product_href_params := _general.get_param_from_url(product_href.strip())) or
+                    not (product_id := product_href_params.get("product_id", None)) or
+                    product_id in self.__product_pages
+                ):
                     continue
 
                 self.__product_pages[product_id] = product_href.strip()
@@ -139,8 +122,8 @@ class SupplierLoudwolf(SupplierBase):
             href (str): URL for product
         """
 
-        product_params = utils.get_param_from_url(href)
-        product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
+        # product_params = _general.get_param_from_url(href)
+        # #product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
 
         # if not product_page:
         #     return
@@ -152,7 +135,7 @@ class SupplierLoudwolf(SupplierBase):
 
         # If this is a CAS search, but there is no CAS found, or it's a
         # mismatch, then skip this product.
-        if utils.is_cas(self._query) is True:
+        if _cas.is_cas(self._query) is True:
             if not product.cas or product.cas != self._query:
                 return
 
@@ -186,7 +169,7 @@ class SupplierLoudwolf(SupplierBase):
             ProductType: A new product object, if valid
         """
 
-        product_params = utils.get_param_from_url(url)
+        product_params = _general.get_param_from_url(url)
         product_html: bytes = self.http_get_html("storefront/index.php", params=product_params)
         product_soup = BeautifulSoup(product_html, "html.parser")
         product_content = product_soup.find("div", id="content")
@@ -215,7 +198,7 @@ class SupplierLoudwolf(SupplierBase):
             return None
 
         # Attempt to parse the price out to get the currency and price
-        price_data = utils.parse_price(price_txt)
+        price_data = _currency.parse_price(price_txt)
 
         # if isinstance(price_data, PriceType):
         # if isinstance(price_data, PriceType) and price_data:
@@ -240,7 +223,7 @@ class SupplierLoudwolf(SupplierBase):
             if "TOTAL WEIGHT OF PRODUCT" in p_txt:
                 idx = idx + 1
                 quantity = paragraphs[idx].get_text(strip=True)
-                qty = utils.parse_quantity(quantity)
+                qty = _quantity.parse_quantity(quantity)
                 if qty is not None:
                     product.update(qty)
                 continue

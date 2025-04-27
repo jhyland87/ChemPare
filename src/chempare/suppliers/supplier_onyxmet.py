@@ -4,13 +4,15 @@ import re
 from threading import Thread
 from typing import TYPE_CHECKING
 
-import chempare.utils as utils
 from bs4 import BeautifulSoup
+
 from chempare.suppliers.supplier_base import SupplierBase
+from chempare.utils import _cas, _currency
 
 if TYPE_CHECKING:
+    from typing import Any, ClassVar, Final
+
     from datatypes import SupplierType
-    from typing import Final, ClassVar, Any
 
 
 # File: /suppliers/supplier_onyxmet.py
@@ -81,7 +83,9 @@ class SupplierOnyxmet(SupplierBase):
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
         }
 
-        search_result: dict[str, Any] = self.http_get_json("index.php", params=get_params, headers=self._headers)
+        search_result: dict[str, Any] = self.http_get_json(
+            "index.php", params=get_params, headers=self._headers
+        )
 
         if not search_result:
             return
@@ -162,12 +166,10 @@ class SupplierOnyxmet(SupplierBase):
             "url": href,
         }
 
-        if utils.is_cas(self._query):
+        if _cas.is_cas(self._query):
             product_obj["cas"] = self._query
 
-        price = utils.parse_price(price_elem.contents[0])
-
-        if not price:
+        if not (price := _currency.parse_price(price_elem.contents[0])):
             return
 
         product_obj.update(price)
@@ -184,6 +186,4 @@ class SupplierOnyxmet(SupplierBase):
             del title_match_groups["product"]
             product_obj.update(title_match_groups)
 
-        # product_obj = ProductType(**product_obj)
         self._products.append(product_obj)
-        # self.__test_lock.release()

@@ -13,4 +13,4 @@ per-file-ignores =
   stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
 
 exclude = .venv*,.git
-max-line-length = 120
+max-line-length = 100

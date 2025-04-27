@@ -7,7 +7,7 @@ from types import NoneType
 from typing import Literal
 from unittest.mock import patch
 
-import chempare.utils as utils
+from chempare.utils import _cas, _html, _quantity, _general, _currency
 import pytest
 from datatypes import Undefined
 
@@ -40,9 +40,9 @@ from datatypes import Undefined
     ],
 )
 def test_to_hundreths(value, expected_result, expected_instance):
-    output = utils.to_hundreths(value)
+    output = _currency.to_hundreths(value)
 
-    assert isinstance(output, expected_instance) is True, "Unexpected instance type returned from utils.to_hundreths"
+    assert isinstance(output, expected_instance) is True, "Unexpected instance type returned from _currency.to_hundreths"
 
     assert str(output) == str(expected_result), "Output does not match expected result"
 
@@ -51,15 +51,15 @@ def test_to_hundreths(value, expected_result, expected_instance):
     ("symbol", "expected_result"),
     [("$", "USD"), ("CA$", "CAD"), ("€", "EUR"), ("£", "GBP"), ("¥", "JPY")],
     ids=[
-        "utils.get_currency_code_from_symbol('$') -> 'USD'",
-        "utils.get_currency_code_from_symbol('CA$') -> 'CAD'",
-        "utils.get_currency_code_from_symbol('€') -> 'EUR'",
-        "utils.get_currency_code_from_symbol('£') -> 'GBP'",
-        "utils.get_currency_code_from_symbol('¥') -> 'JYP'",
+        "_currency.get_currency_code_from_symbol('$') -> 'USD'",
+        "_currency.get_currency_code_from_symbol('CA$') -> 'CAD'",
+        "_currency.get_currency_code_from_symbol('€') -> 'EUR'",
+        "_currency.get_currency_code_from_symbol('£') -> 'GBP'",
+        "_currency.get_currency_code_from_symbol('¥') -> 'JYP'",
     ],
 )
 def test_get_currency_code_from_symbol(symbol, expected_result):
-    result = utils.get_currency_code_from_symbol(symbol)
+    result = _currency.get_currency_code_from_symbol(symbol)
     assert result == expected_result, f"Expected '{symbol}' to return '{expected_result}'; found '{result}' instead"
 
 
@@ -67,15 +67,15 @@ def test_get_currency_code_from_symbol(symbol, expected_result):
     ("currency", "expected_result"),
     [("USD", "$"), ("CAD", "CA$"), ("EUR", "€"), ("GBP", "£"), ("JPY", "¥")],
     ids=[
-        "utils.get_currency_symbol_from_code('USD') -> '$'",
-        "utils.get_currency_symbol_from_code('CAD') -> 'CA$'",
-        "utils.get_currency_symbol_from_code('EUR') -> '€'",
-        "utils.get_currency_symbol_from_code('GBP') -> '£'",
-        "utils.get_currency_symbol_from_code('JYP') -> '¥'",
+        "_currency.get_currency_symbol_from_code('USD') -> '$'",
+        "_currency.get_currency_symbol_from_code('CAD') -> 'CA$'",
+        "_currency.get_currency_symbol_from_code('EUR') -> '€'",
+        "_currency.get_currency_symbol_from_code('GBP') -> '£'",
+        "_currency.get_currency_symbol_from_code('JYP') -> '¥'",
     ],
 )
 def test_get_currency_symbol_from_code(currency, expected_result):
-    result = utils.get_currency_symbol_from_code(currency)
+    result = _currency.get_currency_symbol_from_code(currency)
     assert result == expected_result, f"Expected '{currency}' to return '{expected_result}'; found '{result}' instead"
 
 
@@ -95,21 +95,21 @@ def test_get_currency_symbol_from_code(currency, expected_result):
         ("FOO", NoneType, None, None, None),
     ],
     ids=[
-        "utils.parse_price: '$123.45' -> $123.45 USD",
-        "utils.parse_price: '$12,345.45' -> $12,345.45 USD",
-        # "utils.parse_price: '$123.45 USD' -> $123.45 USD",
-        "utils.parse_price: 'CA$123.45' -> $123.45 CAD",
-        "utils.parse_price: '€1,1234.5' -> €1,1234.50 EUR",
-        "utils.parse_price: '£123' -> £123 GBP",
-        "utils.parse_price: '674 ¥' -> 674 ¥ JPY",
-        "utils.parse_price: 'ZAR123' -> 123 ZAR",
-        "utils.parse_price: 'ZAR 456' -> 456 ZAR",
-        "utils.parse_price: No value (ZAR)",
-        "utils.parse_price: Invalid currency (FOO)",
+        "_currency.parse_price: '$123.45' -> $123.45 USD",
+        "_currency.parse_price: '$12,345.45' -> $12,345.45 USD",
+        # "_currency.parse_price: '$123.45 USD' -> $123.45 USD",
+        "_currency.parse_price: 'CA$123.45' -> $123.45 CAD",
+        "_currency.parse_price: '€1,1234.5' -> €1,1234.50 EUR",
+        "_currency.parse_price: '£123' -> £123 GBP",
+        "_currency.parse_price: '674 ¥' -> 674 ¥ JPY",
+        "_currency.parse_price: 'ZAR123' -> 123 ZAR",
+        "_currency.parse_price: 'ZAR 456' -> 456 ZAR",
+        "_currency.parse_price: No value (ZAR)",
+        "_currency.parse_price: Invalid currency (FOO)",
     ],
 )
 def test_parse_price(value, return_type, price, currency_symbol, currency):
-    result = utils.parse_price(value)
+    result = _currency.parse_price(value)
     assert type(result) is return_type, f"result type '{type(result)} and return_type '{return_type}' are not the same"
 
 
@@ -157,7 +157,7 @@ def test_to_usd(
     from_currency: str,
     expected_output: Decimal | None,
 ):
-    result = utils.to_usd(amount=value, from_currency=from_currency)
+    result = _currency.to_usd(amount=value, from_currency=from_currency)
     assert result is not None, f"{value} {from_currency} returned None"
     assert isinstance(result, Decimal), "result not of type Decimal"
     assert float(result) == float(expected_output), f"result does not match expected output"
@@ -167,16 +167,16 @@ def test_to_usd(
     ("char", "is_currency"),
     [("$", True), ("¥", True), ("£", True), ("€", True), ("₽", True), ("A", False), ("Test", False)],
     ids=[
-        "utils.is_currency_symbol('$') is True",
-        "utils.is_currency_symbol('¥') is True",
-        "utils.is_currency_symbol('£') is True",
-        "utils.is_currency_symbol('€') is True",
-        "utils.is_currency_symbol('₽') is True",
-        "utils.is_currency_symbol('A') is False",
-        "utils.is_currency_symbol('Test') is False",
+        "_currency.is_currency_symbol('$') is True",
+        "_currency.is_currency_symbol('¥') is True",
+        "_currency.is_currency_symbol('£') is True",
+        "_currency.is_currency_symbol('€') is True",
+        "_currency.is_currency_symbol('₽') is True",
+        "_currency.is_currency_symbol('A') is False",
+        "_currency.is_currency_symbol('Test') is False",
     ],
 )
 def test_is_currency_symbol(char, is_currency):
-    result = utils.is_currency_symbol(char)
+    result = _currency.is_currency_symbol(char)
     assert isinstance(result, bool) is True
     assert result is is_currency
