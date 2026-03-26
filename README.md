@@ -3,7 +3,7 @@
 ### Intro
 Compares prices from chemical vendors that sell to individuals and residential addresses.
 
-> _*Note:* This project is a work in progress, not yet in Beta mode_
+> _*Note:* This project has been moved to a TS/TSX based browser extension under the repo [ChemPal](https://github.com/jhyland87/chem-pal), this repo is no longer updated._
 
 
 ### Example Usage
